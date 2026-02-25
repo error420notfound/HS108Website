@@ -1,46 +1,785 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Coming Soon</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Tailwind CDN -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feld Studio — Product Design</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
 
-  <!-- Optional: custom config -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'ui-sans-serif', 'system-ui']
-          }
-        }
-      }
+            display: ['Cormorant Garamond', 'serif'],
+            mono: ['DM Mono', 'monospace'],
+          },
+          colors: {
+            cream: '#F5F0E8',
+            ink: '#1A1714',
+            clay: '#C4A882',
+            dust: '#8A8278',
+            rust: '#B85C38',
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            'line-grow': 'lineGrow 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            lineGrow: {
+              '0%': { scaleX: '0', transformOrigin: 'left' },
+              '100%': { scaleX: '1', transformOrigin: 'left' },
+            },
+          },
+        },
+      },
     }
   </script>
 
-  <!-- Google Font (optional but cleaner than system default) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F5F0E8;
+      --ink: #1A1714;
+      --clay: #C4A882;
+      --dust: #8A8278;
+      --rust: #B85C38;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: var(--ink);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.3s cubic-bezier(0.16,1,0.3,1), height 0.3s cubic-bezier(0.16,1,0.3,1), background 0.3s;
+      mix-blend-mode: multiply;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: all 0.18s cubic-bezier(0.16,1,0.3,1);
+      opacity: 0.5;
+    }
+
+    .cursor.expanded { width: 60px; height: 60px; opacity: 0.15; }
+    .cursor-ring.expanded { width: 60px; height: 60px; opacity: 0; }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0.4;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Link hover underline */
+    .hover-line {
+      position: relative;
+      display: inline-block;
+    }
+
+    .hover-line::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 1px;
+      background: var(--ink);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .hover-line:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* Nav */
+    nav {
+      mix-blend-mode: multiply;
+    }
+
+    /* Hero title */
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+    }
+
+    /* Work items */
+    .work-item {
+      border-top: 1px solid rgba(26,23,20,0.15);
+      transition: border-color 0.3s;
+    }
+
+    .work-item:hover { border-color: var(--clay); }
+
+    .work-item .number {
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .work-item:hover .number {
+      color: var(--rust);
+      transform: translateX(4px);
+    }
+
+    .work-item .arrow {
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.3s;
+      opacity: 0;
+    }
+
+    .work-item:hover .arrow { opacity: 1; transform: translateX(6px); }
+
+    /* Marquee */
+    .marquee-track {
+      display: flex;
+      gap: 4rem;
+      animation: marquee 22s linear infinite;
+      will-change: transform;
+    }
+
+    .marquee-track:hover { animation-play-state: paused; }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* CTA button */
+    .cta-btn {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--ink);
+      transition: color 0.4s;
+    }
+
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--ink);
+      transform: translateY(100%);
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .cta-btn:hover::before { transform: translateY(0); }
+    .cta-btn:hover { color: var(--cream); }
+    .cta-btn span { position: relative; z-index: 1; }
+
+    /* Service tag pill */
+    .tag {
+      border: 1px solid rgba(26,23,20,0.2);
+      transition: border-color 0.3s, background 0.3s, color 0.3s;
+    }
+
+    .tag:hover {
+      background: var(--ink);
+      color: var(--cream);
+      border-color: var(--ink);
+    }
+
+    /* Magnetic effect (JS) */
+    .magnetic { display: inline-block; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--clay); border-radius: 2px; }
+
+    /* Mobile nav toggle */
+    @media (max-width: 768px) {
+      body { cursor: auto; }
+      .cursor, .cursor-ring { display: none; }
+    }
+
+    /* Count-up */
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+    }
+  </style>
+
 </head>
+<body>
 
-<body class="bg-neutral-950 text-neutral-100 font-sans min-h-screen flex items-center justify-center">
+  <!-- Cursor -->
 
-  <main class="max-w-2xl px-6 text-center">
-    
-    <h1 class="text-4xl md:text-6xl font-semibold tracking-tight">
-      Studio Launching Soon
-    </h1>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-    <p class="mt-6 text-base md:text-lg text-neutral-400 leading-relaxed">
-      We are building something intentional and well-crafted. 
-      This space will soon host our work, thinking, and product explorations.
+  <!-- NAV -->
+
+  <nav class="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 flex items-center justify-between">
+    <a href="#" class="font-display text-xl tracking-tight text-ink font-light">Feld<em>.</em></a>
+    <div class="hidden md:flex items-center gap-10 text-xs tracking-widest uppercase text-dust">
+      <a href="#work" class="hover-line hover:text-ink transition-colors duration-300">Work</a>
+      <a href="#services" class="hover-line hover:text-ink transition-colors duration-300">Services</a>
+      <a href="#about" class="hover-line hover:text-ink transition-colors duration-300">About</a>
+      <a href="#contact" class="cta-btn px-5 py-2.5 text-ink font-mono text-xs tracking-widest uppercase">
+        <span>Start a project</span>
+      </a>
+    </div>
+    <!-- Mobile menu -->
+    <button id="mobileMenuBtn" class="md:hidden text-xs tracking-widest uppercase text-dust flex items-center gap-2" aria-label="Menu">
+      <span id="menuLabel">Menu</span>
+      <div class="flex flex-col gap-1 w-5">
+        <div class="h-px bg-ink transition-all duration-300" id="bar1"></div>
+        <div class="h-px bg-ink transition-all duration-300" id="bar2"></div>
+      </div>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+
+  <div id="mobileMenu" class="fixed inset-0 bg-cream z-40 flex flex-col justify-center px-10 opacity-0 pointer-events-none transition-opacity duration-500">
+    <div class="flex flex-col gap-8">
+      <a href="#work" class="mobile-link font-display text-5xl font-light text-ink" style="opacity:0;transform:translateY(20px)">Work</a>
+      <a href="#services" class="mobile-link font-display text-5xl font-light text-ink" style="opacity:0;transform:translateY(20px)">Services</a>
+      <a href="#about" class="mobile-link font-display text-5xl font-light text-ink" style="opacity:0;transform:translateY(20px)">About</a>
+      <a href="#contact" class="mobile-link font-display text-5xl font-light text-ink" style="opacity:0;transform:translateY(20px)">Contact</a>
+    </div>
+    <p class="font-mono text-xs text-dust mt-16 tracking-widest">hello@feldstudio.co</p>
+  </div>
+
+  <!-- HERO -->
+
+  <section class="min-h-screen flex flex-col justify-end px-6 md:px-12 pb-16 pt-32">
+    <div class="max-w-7xl">
+      <p class="font-mono text-xs tracking-widest text-dust uppercase mb-10 reveal" style="transition-delay:0.1s">
+        Product Design Studio — Est. 2019
+      </p>
+      <h1 class="hero-title text-[13vw] md:text-[11vw] text-ink leading-none reveal" style="transition-delay:0.2s">
+        We design<br/><em class="text-clay">things</em><br/>that last.
+      </h1>
+      <div class="mt-14 flex flex-col md:flex-row gap-6 md:gap-16 md:items-end reveal" style="transition-delay:0.4s">
+        <p class="text-xs font-mono text-dust leading-relaxed max-w-xs tracking-wide">
+          A small, precise studio crafting digital products with intention — from first idea to final pixel.
+        </p>
+        <a href="#work" class="cta-btn px-8 py-4 text-xs tracking-widest uppercase font-mono self-start">
+          <span>See our work ↓</span>
+        </a>
+      </div>
+    </div>
+
+```
+<!-- Scroll indicator -->
+<div class="absolute bottom-10 right-10 hidden md:flex flex-col items-center gap-3 reveal" style="transition-delay:0.7s">
+  <div style="width:1px;height:60px;background:linear-gradient(to bottom, var(--clay), transparent);animation: pulse 2s ease-in-out infinite;"></div>
+  <p class="font-mono text-xs text-dust tracking-widest" style="writing-mode:vertical-rl">Scroll</p>
+</div>
+```
+
+  </section>
+
+  <!-- MARQUEE -->
+
+  <div class="overflow-hidden border-y border-clay/30 py-4 my-8">
+    <div class="flex" style="width:max-content">
+      <div class="marquee-track text-xs font-mono text-dust tracking-widest uppercase">
+        <span>Product Strategy</span><span class="text-clay">·</span>
+        <span>UX Research</span><span class="text-clay">·</span>
+        <span>Interface Design</span><span class="text-clay">·</span>
+        <span>Design Systems</span><span class="text-clay">·</span>
+        <span>Prototyping</span><span class="text-clay">·</span>
+        <span>Brand Identity</span><span class="text-clay">·</span>
+        <span>Motion Design</span><span class="text-clay">·</span>
+        <span>Product Strategy</span><span class="text-clay">·</span>
+        <span>UX Research</span><span class="text-clay">·</span>
+        <span>Interface Design</span><span class="text-clay">·</span>
+        <span>Design Systems</span><span class="text-clay">·</span>
+        <span>Prototyping</span><span class="text-clay">·</span>
+        <span>Brand Identity</span><span class="text-clay">·</span>
+        <span>Motion Design</span><span class="text-clay">·</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORK -->
+
+  <section id="work" class="px-6 md:px-12 py-24">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex justify-between items-end mb-14 reveal">
+        <h2 class="font-display text-5xl md:text-6xl font-light text-ink">Selected<br/><em>Work</em></h2>
+        <p class="font-mono text-xs text-dust tracking-widest hidden md:block">2022 – 2025</p>
+      </div>
+
+```
+  <!-- Project list -->
+  <div class="space-y-0">
+    <!-- Item 1 -->
+    <div class="work-item py-8 group cursor-pointer reveal">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-6 md:gap-10">
+          <span class="number font-mono text-xs text-dust tracking-widest">01</span>
+          <div>
+            <h3 class="font-display text-3xl md:text-4xl font-light text-ink group-hover:italic transition-all duration-300">Meridian Health</h3>
+            <p class="font-mono text-xs text-dust mt-1 tracking-wide">Patient portal redesign — 2025</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="hidden md:flex gap-2 flex-wrap justify-end">
+            <span class="tag px-3 py-1 rounded-full text-xs font-mono text-dust tracking-wide">UX Research</span>
+            <span class="tag px-3 py-1 rounded-full text-xs font-mono text-dust tracking-wide">Product</span>
+          </div>
+          <span class="arrow font-mono text-clay text-xl">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="work-item py-8 group cursor-pointer reveal">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-6 md:gap-10">
+          <span class="number font-mono text-xs text-dust tracking-widest">02</span>
+          <div>
+            <h3 class="font-display text-3xl md:text-4xl font-light text-ink group-hover:italic transition-all duration-300">Varka Commerce</h3>
+            <p class="font-mono text-xs text-dust mt-1 tracking-wide">E-commerce platform — 2024</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="hidden md:flex gap-2 flex-wrap justify-end">
+            <span class="tag px-3 py-1 rounded-full text-xs font-mono text-dust tracking-wide">Design System</span>
+            <span class="tag px-3 py-1 rounded-full text-xs font-mono text-dust tracking-wide">Brand</span>
+          </div>
+          <span class="arrow font-mono text-clay text-xl">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="work-item py-8 group cursor-pointer reveal">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-6 md:gap-10">
+          <span class="number font-mono text-xs text-dust tracking-widest">03</span>
+          <div>
+            <h3 class="font-display text-3xl md:text-4xl font-light text-ink group-hover:italic transition-all duration-300">Lune Finance</h3>
+            <p class="font-mono text-xs text-dust mt-1 tracking-wide">Fintech dashboard — 2024</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="hidden md:flex gap-2 flex-wrap justify-end">
+            <span class="tag px-3 py-1 rounded-full text-xs font-mono text-dust tracking-wide">Interface</span>
+            <span class="tag px-3 py-1 rounded-full text-xs font-mono text-dust tracking-wide">Motion</span>
+          </div>
+          <span class="arrow font-mono text-clay text-xl">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="work-item py-8 group cursor-pointer reveal">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-6 md:gap-10">
+          <span class="number font-mono text-xs text-dust tracking-widest">04</span>
+          <div>
+            <h3 class="font-display text-3xl md:text-4xl font-light text-ink group-hover:italic transition-all duration-300">Arbor Homes</h3>
+            <p class="font-mono text-xs text-dust mt-1 tracking-wide">PropTech mobile app — 2023</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="hidden md:flex gap-2 flex-wrap justify-end">
+            <span class="tag px-3 py-1 rounded-full text-xs font-mono text-dust tracking-wide">Mobile</span>
+            <span class="tag px-3 py-1 rounded-full text-xs font-mono text-dust tracking-wide">Strategy</span>
+          </div>
+          <span class="arrow font-mono text-clay text-xl">→</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-item border-b border-clay/20"></div>
+  </div>
+
+  <div class="mt-10 reveal">
+    <a href="#" class="hover-line font-mono text-xs tracking-widest uppercase text-dust hover:text-ink transition-colors duration-300">
+      View all projects →
+    </a>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- STATS -->
+
+  <section class="px-6 md:px-12 py-20 bg-ink">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10">
+      <div class="reveal">
+        <p class="stat-num text-5xl md:text-6xl text-cream font-light" data-target="42">0</p>
+        <p class="font-mono text-xs text-clay mt-2 tracking-widest">Projects shipped</p>
+      </div>
+      <div class="reveal" style="transition-delay:0.1s">
+        <p class="stat-num text-5xl md:text-6xl text-cream font-light" data-target="28">0</p>
+        <p class="font-mono text-xs text-clay mt-2 tracking-widest">Happy clients</p>
+      </div>
+      <div class="reveal" style="transition-delay:0.2s">
+        <p class="stat-num text-5xl md:text-6xl text-cream font-light" data-target="6">0</p>
+        <p class="font-mono text-xs text-clay mt-2 tracking-widest">Years in the field</p>
+      </div>
+      <div class="reveal" style="transition-delay:0.3s">
+        <p class="stat-num text-5xl md:text-6xl text-cream font-light">4</p>
+        <p class="font-mono text-xs text-clay mt-2 tracking-widest">Humans on the team</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+
+  <section id="services" class="px-6 md:px-12 py-24">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
+        <div class="reveal">
+          <h2 class="font-display text-5xl md:text-6xl font-light text-ink">What we<br/><em>do well</em></h2>
+          <p class="font-mono text-xs text-dust mt-8 leading-relaxed max-w-xs tracking-wide">
+            We work best when problems are real, stakes are high, and the work matters. Boutique by design — never too big to care.
+          </p>
+        </div>
+        <div class="space-y-0">
+          <!-- Service -->
+          <div class="service-item border-t border-clay/20 py-7 group cursor-pointer reveal" onclick="toggleService(this)">
+            <div class="flex justify-between items-center">
+              <h3 class="font-display text-2xl font-light text-ink group-hover:text-clay transition-colors duration-300">Product Design</h3>
+              <span class="toggle-icon font-mono text-clay text-sm transition-transform duration-300">+</span>
+            </div>
+            <div class="service-detail hidden mt-4 font-mono text-xs text-dust leading-relaxed tracking-wide">
+              End-to-end product design from research and wireframes to polished UI. We live in the gap between what users need and what businesses want.
+            </div>
+          </div>
+          <div class="service-item border-t border-clay/20 py-7 group cursor-pointer reveal" onclick="toggleService(this)" style="transition-delay:0.05s">
+            <div class="flex justify-between items-center">
+              <h3 class="font-display text-2xl font-light text-ink group-hover:text-clay transition-colors duration-300">UX Research</h3>
+              <span class="toggle-icon font-mono text-clay text-sm transition-transform duration-300">+</span>
+            </div>
+            <div class="service-detail hidden mt-4 font-mono text-xs text-dust leading-relaxed tracking-wide">
+              Qualitative and quantitative research that cuts through assumptions. User interviews, usability tests, and insight synthesis that actually informs decisions.
+            </div>
+          </div>
+          <div class="service-item border-t border-clay/20 py-7 group cursor-pointer reveal" onclick="toggleService(this)" style="transition-delay:0.1s">
+            <div class="flex justify-between items-center">
+              <h3 class="font-display text-2xl font-light text-ink group-hover:text-clay transition-colors duration-300">Design Systems</h3>
+              <span class="toggle-icon font-mono text-clay text-sm transition-transform duration-300">+</span>
+            </div>
+            <div class="service-detail hidden mt-4 font-mono text-xs text-dust leading-relaxed tracking-wide">
+              Scalable, documented component libraries that your team will actually use. Figma-native with developer handoff baked in from day one.
+            </div>
+          </div>
+          <div class="service-item border-t border-clay/20 py-7 group cursor-pointer reveal" onclick="toggleService(this)" style="transition-delay:0.15s">
+            <div class="flex justify-between items-center">
+              <h3 class="font-display text-2xl font-light text-ink group-hover:text-clay transition-colors duration-300">Brand & Identity</h3>
+              <span class="toggle-icon font-mono text-clay text-sm transition-transform duration-300">+</span>
+            </div>
+            <div class="service-detail hidden mt-4 font-mono text-xs text-dust leading-relaxed tracking-wide">
+              Visual identity, logo, typography, and brand systems that give products a point of view — not just a look.
+            </div>
+          </div>
+          <div class="border-t border-clay/20"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+
+  <section id="about" class="px-6 md:px-12 py-24 bg-clay/10">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <!-- Big pull quote -->
+      <div class="reveal">
+        <p class="font-display text-4xl md:text-5xl font-light italic text-ink leading-snug">
+          "We don't do decoration. We design decisions."
+        </p>
+        <div class="flex items-center gap-4 mt-8">
+          <div class="w-10 h-10 rounded-full bg-clay/50 flex items-center justify-center font-display text-sm font-light text-ink">S</div>
+          <div>
+            <p class="font-mono text-xs text-ink tracking-wide">Sofia Feld</p>
+            <p class="font-mono text-xs text-dust tracking-widest">Co-founder & Design Director</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:0.2s">
+        <p class="font-mono text-xs text-dust leading-relaxed tracking-wide mb-6">
+          Feld Studio was built around a single belief: that design and strategy are the same discipline — and the best work happens when they're treated that way.
+        </p>
+        <p class="font-mono text-xs text-dust leading-relaxed tracking-wide mb-10">
+          We're a four-person studio based in Lisbon and Berlin. Slow work, honest process, zero bloat. We partner with ambitious founders and teams who want design that performs.
+        </p>
+        <div class="flex items-center gap-3 flex-wrap">
+          <span class="tag px-4 py-2 rounded-full text-xs font-mono text-dust tracking-wide">Lisbon</span>
+          <span class="tag px-4 py-2 rounded-full text-xs font-mono text-dust tracking-wide">Berlin</span>
+          <span class="tag px-4 py-2 rounded-full text-xs font-mono text-dust tracking-wide">Remote-friendly</span>
+          <span class="tag px-4 py-2 rounded-full text-xs font-mono text-dust tracking-wide">EST. 2019</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+
+  <section class="px-6 md:px-12 py-24 overflow-hidden">
+    <div class="max-w-4xl mx-auto text-center reveal">
+      <p class="font-display text-4xl md:text-5xl font-light italic text-ink leading-snug mb-8">
+        "Working with Feld felt like having a senior design partner inside our team — they got our product before we even briefed them."
+      </p>
+      <p class="font-mono text-xs text-dust tracking-widest uppercase">
+        — Jamie Ortega, CPO at Lune Finance
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT / CTA -->
+
+  <section id="contact" class="px-6 md:px-12 py-24 bg-ink">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-end">
+      <div class="reveal">
+        <p class="font-mono text-xs text-clay tracking-widest uppercase mb-6">Ready when you are</p>
+        <h2 class="font-display text-5xl md:text-6xl font-light text-cream leading-none">
+          Let's make<br/><em class="text-clay">something</em><br/>worth using.
+        </h2>
+        <div class="mt-10 flex flex-col sm:flex-row gap-4">
+          <a href="mailto:hello@feldstudio.co" class="cta-btn px-8 py-4 text-xs tracking-widest uppercase font-mono text-cream border-cream" style="--tw-border-opacity:1">
+            <span>hello@feldstudio.co</span>
+          </a>
+          <a href="#" class="px-8 py-4 text-xs tracking-widest uppercase font-mono text-clay border border-clay/30 hover:border-clay transition-colors duration-300">
+            Book a call →
+          </a>
+        </div>
+      </div>
+
+```
+  <div class="reveal" style="transition-delay:0.2s">
+    <p class="font-mono text-xs text-dust tracking-widest uppercase mb-6">Availability</p>
+    <div class="flex items-center gap-3 mb-8">
+      <span class="w-2 h-2 rounded-full bg-green-400 inline-block" style="animation: pulse 2s ease-in-out infinite; box-shadow: 0 0 0 4px rgba(74,222,128,0.2);"></span>
+      <span class="font-mono text-xs text-clay tracking-wide">Taking projects from Q3 2025</span>
+    </div>
+    <p class="font-mono text-xs text-dust leading-relaxed tracking-wide">
+      We keep our client list deliberately short. Not because we're precious — because quality takes time, and your project deserves it.
     </p>
 
-  </main>
+    <div class="mt-12 pt-8 border-t border-clay/20 flex flex-col md:flex-row gap-4 md:gap-8 font-mono text-xs text-dust tracking-widest">
+      <a href="#" class="hover-line hover:text-clay transition-colors duration-300">Twitter</a>
+      <a href="#" class="hover-line hover:text-clay transition-colors duration-300">LinkedIn</a>
+      <a href="#" class="hover-line hover:text-clay transition-colors duration-300">Dribbble</a>
+      <a href="#" class="hover-line hover:text-clay transition-colors duration-300">Are.na</a>
+    </div>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer class="px-6 md:px-12 py-8 bg-ink border-t border-clay/10 flex flex-col md:flex-row justify-between items-center gap-4">
+    <p class="font-mono text-xs text-dust tracking-widest">© 2025 Feld Studio — All rights reserved</p>
+    <p class="font-mono text-xs text-dust tracking-widest">Made with intention. Lisbon × Berlin.</p>
+  </footer>
+
+  <script>
+    // ── Custom cursor ──────────────────────────────────────────────
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top = mouseY + 'px';
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .work-item, .service-item').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('expanded');
+        ring.classList.add('expanded');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('expanded');
+        ring.classList.remove('expanded');
+      });
+    });
+
+    // ── Scroll reveal ──────────────────────────────────────────────
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.classList.contains('reveal')) {
+            // Count-up for stat numbers
+            const statEl = entry.target.querySelector('.stat-num[data-target]');
+            if (statEl) countUp(statEl);
+          }
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Trigger hero reveals on load
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight) el.classList.add('visible');
+        });
+      }, 100);
+    });
+
+    // ── Count-up animation ─────────────────────────────────────────
+    function countUp(el) {
+      const target = parseInt(el.dataset.target);
+      let current = 0;
+      const duration = 1200;
+      const step = target / (duration / 16);
+      const interval = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(interval);
+        }
+        el.textContent = Math.floor(current);
+      }, 16);
+    }
+
+    // Watch stat numbers
+    const statObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const statEls = entry.target.querySelectorAll('.stat-num[data-target]');
+          statEls.forEach(el => countUp(el));
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const statsSection = document.querySelector('.bg-ink');
+    if (statsSection) statObserver.observe(statsSection);
+
+    // ── Service accordion ──────────────────────────────────────────
+    function toggleService(el) {
+      const detail = el.querySelector('.service-detail');
+      const icon = el.querySelector('.toggle-icon');
+      const isOpen = !detail.classList.contains('hidden');
+
+      // Close all others
+      document.querySelectorAll('.service-detail').forEach(d => d.classList.add('hidden'));
+      document.querySelectorAll('.toggle-icon').forEach(i => {
+        i.textContent = '+';
+        i.style.transform = '';
+      });
+
+      if (!isOpen) {
+        detail.classList.remove('hidden');
+        icon.textContent = '−';
+        icon.style.transform = 'rotate(45deg)';
+      }
+    }
+
+    // ── Mobile menu ────────────────────────────────────────────────
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    const menuLabel = document.getElementById('menuLabel');
+    const bar1 = document.getElementById('bar1');
+    const bar2 = document.getElementById('bar2');
+    let menuOpen = false;
+
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        mobileMenu.style.opacity = '1';
+        mobileMenu.style.pointerEvents = 'auto';
+        menuLabel.textContent = 'Close';
+        bar1.style.transform = 'rotate(45deg) translateY(4px)';
+        bar2.style.transform = 'rotate(-45deg) translateY(-4px)';
+        document.body.style.overflow = 'hidden';
+        mobileLinks.forEach((link, i) => {
+          setTimeout(() => {
+            link.style.opacity = '1';
+            link.style.transform = 'translateY(0)';
+            link.style.transition = 'all 0.5s cubic-bezier(0.16,1,0.3,1)';
+          }, i * 70 + 100);
+        });
+      } else {
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.pointerEvents = 'none';
+        menuLabel.textContent = 'Menu';
+        bar1.style.transform = '';
+        bar2.style.transform = '';
+        document.body.style.overflow = '';
+        mobileLinks.forEach(link => {
+          link.style.opacity = '0';
+          link.style.transform = 'translateY(20px)';
+        });
+      }
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.pointerEvents = 'none';
+        menuLabel.textContent = 'Menu';
+        bar1.style.transform = '';
+        bar2.style.transform = '';
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
 
 </body>
 </html>
