@@ -3,34 +3,125 @@
    ============================================================ */
 
 :root {
-  /* --- Core palette --- */
-  --c-white:      #F5F2EE;
-  --c-black:      #0D0D0D;
-  --c-yellow:     #FFE600;
-  --c-red:        #FF2B00;
 
-  /* --- Semantic --- */
-  --bg:           var(--c-white);
-  --fg:           var(--c-black);
-  --accent:       var(--c-yellow);
-  --accent-alt:   var(--c-red);
+  /* =====================================
+     BASE HUE SCALE
+  ===================================== */
 
-  /* --- Surfaces --- */
-  --surface-1:    #EDEAD4;
-  --surface-inv:  var(--c-black);
-  --fg-inv:       var(--c-white);
+  --orange-50:  #FFF4F0;
+  --orange-100: #FFE1D8;
+  --orange-200: #FFC3B0;
+  --orange-300: #FFA287;
+  --orange-400: #FF825E;
+  --orange-500: #ED582A;
+  --orange-600: #D04C23;
+  --orange-700: #B13F1C;
+  --orange-800: #933215;
+  --orange-900: #6C240E;
+  --orange-950: #3A1307;
 
-  /* --- Borders --- */
-  --border:       var(--c-black);
+  --black-native: #120600;
+  --white-native: #FFE1D8;
+
+
+  /* =====================================
+     CONTRAST (ON-COLOR LOGIC)
+  ===================================== */
+
+  --on-orange-50:  var(--black-native);
+  --on-orange-100: var(--black-native);
+  --on-orange-200: var(--black-native);
+  --on-orange-300: var(--black-native);
+  --on-orange-400: var(--black-native);
+  --on-orange-500: var(--black-native);
+  --on-orange-600: var(--black-native);
+
+  --on-orange-700: var(--orange-50);
+  --on-orange-800: var(--orange-100);
+  --on-orange-900: var(--orange-100);
+  --on-orange-950: var(--orange-100);
+
+
+  /* =====================================
+     SURFACES
+  ===================================== */
+
+  --surface-base:     var(--white-native);
+  --surface-elevated: var(--orange-50);
+
+
+  /* =====================================
+     TEXT
+  ===================================== */
+
+  --text-on-light:  var(--black-native);
+  --text-on-dark:   var(--orange-100);
+  --text-on-accent: var(--on-orange-500);
+
+
+  /* =====================================
+     ACTIONS
+  ===================================== */
+
+  --action-primary-bg:   var(--orange-500);
+  --action-primary-fg:   var(--on-orange-500);
+
+  --action-secondary-bg: var(--orange-100);
+  --action-secondary-fg: var(--on-orange-100);
+
+  --action-strong-bg:    var(--orange-700);
+  --action-strong-fg:    var(--on-orange-700);
+
+  --action-inverse-bg:   var(--black-native);
+  --action-inverse-fg:   var(--orange-500);
+
+
+  /* =====================================
+     ACCENTS
+  ===================================== */
+
+  --accent:       var(--orange-500);
+  --accent-strong: var(--orange-700);
+  --accent-soft:  var(--orange-100);
+
+
+  /* =====================================
+     SPECIAL ROLES
+  ===================================== */
+
+  --hue-on-dark:  var(--orange-950);
+  --text-on-hue:  var(--on-orange-500);
+
+
+  /* =====================================
+     SEMANTIC ALIASES
+     (used throughout components)
+  ===================================== */
+
+  --bg:           var(--surface-base);
+  --fg:           var(--text-on-light);
+
+  /* Legacy aliases — keeps all existing components working */
+  --c-white:      var(--surface-base);
+  --c-black:      var(--black-native);
+  --c-yellow:     var(--accent);
+  --c-red:        var(--accent-strong);
+  --surface-1:    var(--surface-elevated);
+  --surface-inv:  var(--black-native);
+  --fg-inv:       var(--text-on-dark);
+  --border:       var(--black-native);
   --border-width: 2px;
-  --border-accent: var(--c-yellow);
+  --border-accent: var(--accent);
 
-  /* --- Typography --- */
-  --font-display: 'Space Grotesk', 'Arial Black', sans-serif;
-  --font-body:    'Space Grotesk', 'Arial', sans-serif;
-  --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
 
-  /* --- Type scale --- */
+  /* =====================================
+     TYPOGRAPHY
+  ===================================== */
+
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body:    'Geist', 'Arial', sans-serif;
+  --font-mono:    'Geist Mono', 'Courier New', monospace;
+
   --size-hero:    clamp(64px, 12vw, 160px);
   --size-h1:      clamp(40px, 6.5vw, 88px);
   --size-h2:      clamp(28px, 4vw, 52px);
@@ -39,17 +130,17 @@
   --size-small:   13px;
   --size-label:   11px;
 
-  /* --- Spacing --- */
+
+  /* =====================================
+     SPACING & LAYOUT
+  ===================================== */
+
   --space-section: clamp(72px, 10vw, 140px);
   --space-gap:     clamp(16px, 2vw, 32px);
   --space-card:    clamp(20px, 2.5vw, 40px);
-
-  /* --- Grid --- */
-  --max-width:    1440px;
-  --gutter:       clamp(16px, 4vw, 64px);
-
-  /* --- Transitions --- */
-  --transition:   150ms ease;
+  --max-width:     1440px;
+  --gutter:        clamp(16px, 4vw, 64px);
+  --transition:    150ms ease;
 }
 
 /* --- Reset --- */
@@ -109,12 +200,12 @@ ul, ol {
 }
 
 .section--inv {
-  background-color: var(--surface-inv);
-  color: var(--fg-inv);
+  background-color: var(--black-native);
+  color: var(--text-on-dark);
 }
 
 .section--alt {
-  background-color: var(--surface-1);
+  background-color: var(--surface-elevated);
 }
 
 /* --- Horizontal rule divider --- */
@@ -125,18 +216,18 @@ hr {
 }
 
 hr.inv {
-  border-top-color: rgba(255, 255, 255, 0.15);
+  border-top-color: rgba(255, 230, 210, 0.15);
 }
 
 /* --- Selection --- */
 ::selection {
-  background-color: var(--c-yellow);
-  color: var(--c-black);
+  background-color: var(--orange-500);
+  color: var(--black-native);
 }
 
 /* --- Focus --- */
 :focus-visible {
-  outline: 3px solid var(--c-yellow);
+  outline: 3px solid var(--orange-500);
   outline-offset: 2px;
 }
 
@@ -148,5 +239,44 @@ hr.inv {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--c-black);
+  background: var(--orange-300);
+}
+
+/* --- Utility --- */
+.inv-block {
+  background: var(--black-native);
+  color: var(--text-on-dark);
+}
+
+.mark-accent {
+  background: var(--orange-500);
+  color: var(--black-native);
+  padding: 0 4px;
+}
+
+/* --- Marquee ticker --- */
+.marquee-track {
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: var(--border-width) solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
+  padding-block: 12px;
+}
+
+.marquee-inner {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-inner span {
+  padding-inline: 48px;
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }

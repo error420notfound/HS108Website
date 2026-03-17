@@ -1,47 +1,52 @@
 /* ============================================================
    TYPOGRAPHY — HS108
-   Using Google Fonts (Space Grotesk + IBM Plex Mono)
-   To self-host: replace @import with @font-face declarations
-   pointing to /fonts/*.woff2
+   Instrument Serif (display) · Geist (body) · Geist Mono (mono)
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
 
-/* --- Type classes --- */
+/* ============================================================
+   TYPE CLASSES
+   ============================================================ */
 
 .t-hero {
   font-family: var(--font-display);
   font-size: var(--size-hero);
-  font-weight: 700;
-  line-height: 0.92;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
+  font-weight: 400;           /* Instrument Serif is expressive at regular weight */
+  font-style: italic;         /* Italic serif at display size = strong studio identity */
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+}
+
+.t-hero-upright {
+  font-family: var(--font-display);
+  font-size: var(--size-hero);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
 }
 
 .t-h1 {
   font-family: var(--font-display);
   font-size: var(--size-h1);
-  font-weight: 700;
-  line-height: 0.95;
-  letter-spacing: -0.025em;
-  text-transform: uppercase;
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
 }
 
 .t-h2 {
   font-family: var(--font-display);
   font-size: var(--size-h2);
-  font-weight: 700;
-  line-height: 1.0;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.005em;
 }
 
 .t-h3 {
   font-family: var(--font-display);
   font-size: var(--size-h3);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  font-weight: 400;
+  line-height: 1.2;
 }
 
 .t-body {
@@ -51,10 +56,18 @@
   line-height: 1.65;
 }
 
+.t-large {
+  font-family: var(--font-body);
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+/* Mono — for labels, CTAs, micro copy */
 .t-label {
   font-family: var(--font-mono);
   font-size: var(--size-label);
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -62,23 +75,21 @@
 .t-mono {
   font-family: var(--font-mono);
   font-size: var(--size-small);
+  font-weight: 400;
   line-height: 1.5;
 }
 
-.t-large {
-  font-family: var(--font-display);
-  font-size: clamp(18px, 2vw, 24px);
-  font-weight: 500;
-  line-height: 1.4;
-}
-
 /* --- Utility --- */
-.uppercase { text-transform: uppercase; }
-.bold      { font-weight: 700; }
-.medium    { font-weight: 500; }
-.muted     { opacity: 0.5; }
+.uppercase  { text-transform: uppercase; }
+.italic     { font-style: italic; }
+.bold       { font-weight: 700; }
+.medium     { font-weight: 500; }
+.muted      { opacity: 0.5; }
 
-/* --- MDX prose content inside case studies --- */
+/* ============================================================
+   MDX PROSE — case study body content
+   ============================================================ */
+
 .prose {
   max-width: 72ch;
 }
@@ -86,9 +97,9 @@
 .prose h2 {
   font-family: var(--font-display);
   font-size: clamp(24px, 3vw, 40px);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.01em;
   margin-top: 3rem;
   margin-bottom: 1rem;
   padding-top: 3rem;
@@ -98,12 +109,13 @@
 .prose h3 {
   font-family: var(--font-display);
   font-size: clamp(18px, 2vw, 24px);
-  font-weight: 600;
+  font-weight: 400;
   margin-top: 2rem;
   margin-bottom: 0.75rem;
 }
 
 .prose p {
+  font-family: var(--font-body);
   margin-bottom: 1.25rem;
   line-height: 1.7;
 }
@@ -114,7 +126,8 @@
 }
 
 .prose ul li {
-  padding-left: 1.25rem;
+  font-family: var(--font-body);
+  padding-left: 1.5rem;
   position: relative;
   margin-bottom: 0.5rem;
 }
@@ -124,6 +137,9 @@
   position: absolute;
   left: 0;
   font-family: var(--font-mono);
+  font-size: 10px;
+  opacity: 0.4;
+  top: 5px;
 }
 
 .prose ol {
@@ -133,6 +149,7 @@
 }
 
 .prose ol li {
+  font-family: var(--font-body);
   counter-increment: ol-counter;
   padding-left: 2.5rem;
   position: relative;
@@ -146,29 +163,31 @@
   font-family: var(--font-mono);
   font-size: var(--size-label);
   letter-spacing: 0.1em;
-  color: var(--c-black);
   opacity: 0.4;
   top: 4px;
 }
 
 .prose blockquote {
-  border-left: 4px solid var(--c-yellow);
+  border-left: 4px solid var(--orange-500);
   padding-left: 1.5rem;
   margin-block: 2rem;
-  font-size: clamp(18px, 2vw, 24px);
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.5vw, 30px);
+  font-weight: 400;
   font-style: italic;
-  line-height: 1.4;
+  line-height: 1.35;
+  color: var(--orange-700);
 }
 
 .prose strong {
-  font-weight: 700;
+  font-weight: 600;
+  font-family: var(--font-body);
 }
 
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.875em;
-  background: var(--surface-1);
+  background: var(--surface-elevated);
   padding: 0.1em 0.4em;
-  border: 1px solid var(--border);
+  border: 1px solid var(--orange-200);
 }

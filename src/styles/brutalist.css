@@ -60,12 +60,12 @@
 }
 
 .tag--accent {
-  background: var(--c-yellow);
-  border-color: var(--c-yellow);
-  color: var(--c-black);
+  background: var(--action-primary-bg);
+  border-color: var(--action-primary-bg);
+  color: var(--action-primary-fg);
 }
 
-/* --- Buttons --- */
+/* --- Buttons (Geist Mono, all caps) --- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -78,45 +78,50 @@
   text-transform: uppercase;
   border: var(--border-width) solid var(--border);
   cursor: pointer;
-  transition: background var(--transition), color var(--transition);
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
   white-space: nowrap;
 }
 
+/* Primary: orange fill */
 .btn--primary {
-  background: var(--c-black);
-  color: var(--c-white);
-  border-color: var(--c-black);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  border-color: var(--action-primary-bg);
 }
 
 .btn--primary:hover {
-  background: var(--c-yellow);
-  color: var(--c-black);
-  border-color: var(--c-yellow);
+  background: var(--action-strong-bg);
+  color: var(--action-strong-fg);
+  border-color: var(--action-strong-bg);
 }
 
+/* Outline: transparent, strokes with border color */
 .btn--outline {
   background: transparent;
-  color: var(--c-black);
+  color: var(--black-native);
+  border-color: var(--black-native);
 }
 
 .btn--outline:hover {
-  background: var(--c-yellow);
-  border-color: var(--c-yellow);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  border-color: var(--action-primary-bg);
 }
 
+/* Outline on inverted (dark) backgrounds */
 .btn--outline-inv {
   background: transparent;
-  color: var(--c-white);
-  border-color: rgba(255,255,255,0.4);
+  color: var(--text-on-dark);
+  border-color: rgba(255, 225, 216, 0.35);
 }
 
 .btn--outline-inv:hover {
-  background: var(--c-yellow);
-  color: var(--c-black);
-  border-color: var(--c-yellow);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  border-color: var(--action-primary-bg);
 }
 
-/* --- Link with yellow hover swap --- */
+/* --- Link with accent hover swap --- */
 .link-swap {
   position: relative;
   display: inline;
@@ -125,8 +130,8 @@
 }
 
 .link-swap:hover {
-  background: var(--c-yellow);
-  color: var(--c-black);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
 }
 
 /* --- Grid exposed layout --- */

@@ -21,18 +21,35 @@ rebuilt from a single HTML file into a proper Astro project.
 
 This is the most important creative decision. Do NOT drift from it.
 
-- **Background:** `#F5F2EE` (warm off-white) — NOT pure white, NOT dark
-- **Text:** `#0D0D0D` (near-black)
-- **Accent:** `#FFE600` (electric yellow) — primary interactive accent
-- **Accent 2:** `#FF2B00` (raw red) — use very sparingly
-- **Surface alt:** `#EDEAD4` — for alternating section backgrounds
-- **Inverted sections:** `#0D0D0D` background with `#F5F2EE` text
+### Colour System
 
-**Typography:**
-- Headlines/display: **Space Grotesk 700**, uppercase, tight letter-spacing (-0.03em to -0.04em)
-- Body: **Space Grotesk 500**, relaxed line-height (1.65–1.7)
-- Labels/mono/captions: **IBM Plex Mono 400**, uppercase, letter-spaced (0.12–0.14em)
-- Currently loaded via Google Fonts CDN (see TODO: self-host)
+Full orange scale is defined in `global.css`. Key semantic tokens:
+
+| Token | Value | Use |
+|---|---|---|
+| `--surface-base` | `#FFE1D8` (white-native) | Page background |
+| `--surface-elevated` | `#FFF4F0` (orange-50) | Alt sections, cards |
+| `--black-native` | `#120600` | Text, borders, inverted bg |
+| `--accent` / `--orange-500` | `#ED582A` | Primary accent, hover fills |
+| `--accent-strong` / `--orange-700` | `#B13F1C` | Strong hover, blockquote colour |
+| `--action-primary-bg` | `#ED582A` | Filled buttons |
+| `--action-inverse-bg` | `#120600` | Dark/inverted buttons |
+| `--text-on-dark` | `#FFE1D8` (orange-100) | Text on dark sections |
+
+- **Inverted sections:** `#120600` background with `#FFE1D8` text
+- Legacy aliases (`--c-yellow`, `--c-black`, `--c-white`) still work in components
+
+### Typography
+
+- **Display/Headlines:** `Instrument Serif` — regular weight, italic style is the signature treatment
+- **Body:** `Geist` — clean geometric sans, 400/500 weight
+- **Micro copy / CTAs / Labels:** `Geist Mono` — 500 weight, uppercase, letter-spaced
+- Loaded via Google Fonts CDN (TODO: self-host)
+
+**Font variable names:**
+- `--font-display` → Instrument Serif
+- `--font-body` → Geist
+- `--font-mono` → Geist Mono (used in ALL buttons, ALL `.t-label` elements)
 
 **Brutalist rules (never violate these):**
 - All cards, buttons, borders: `border-radius: 0` — zero rounding, always
@@ -195,7 +212,7 @@ running npm/node commands.
    with `@font-face` declarations
 7. **Sitemap** — re-add `@astrojs/sitemap` after Astro 5 upgrade (it crashed on v4)
 8. **OG image** — add a real `public/og-default.jpg` for social sharing
-9. **GitHub Pages settings** — enable GitHub Pages in repo settings → Pages → Source: GitHub Actions
+9. **GitHub Pages settings** — ✅ MUST DO: go to repo Settings → Pages → Build and deployment → Source → change to "GitHub Actions" (not "Deploy from a branch"). Without this, GitHub runs Jekyll instead of our deploy.yml and the build fails.
 
 ---
 
