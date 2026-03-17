@@ -15,6 +15,8 @@ It documents the project plan, decisions made, work completed, and rules to foll
 HS108 is an independent design studio. This is a full multi-page marketing + portfolio site
 rebuilt from a single HTML file into a proper Astro project.
 
+**Deployment:** GitHub Pages is configured. Source set to "GitHub Actions" (done). Push to `main` → site deploys automatically via `.github/workflows/deploy.yml`.
+
 ---
 
 ## Design Direction: Brutalist / Bold
@@ -23,59 +25,103 @@ This is the most important creative decision. Do NOT drift from it.
 
 ### Colour System
 
-Full orange scale is defined in `global.css`. Key semantic tokens:
+Full orange scale is defined in `src/styles/global.css`. Always use the semantic tokens, not raw hex values in components.
 
 | Token | Value | Use |
 |---|---|---|
-| `--surface-base` | `#FFE1D8` (white-native) | Page background |
-| `--surface-elevated` | `#FFF4F0` (orange-50) | Alt sections, cards |
-| `--black-native` | `#120600` | Text, borders, inverted bg |
-| `--accent` / `--orange-500` | `#ED582A` | Primary accent, hover fills |
-| `--accent-strong` / `--orange-700` | `#B13F1C` | Strong hover, blockquote colour |
-| `--action-primary-bg` | `#ED582A` | Filled buttons |
-| `--action-inverse-bg` | `#120600` | Dark/inverted buttons |
-| `--text-on-dark` | `#FFE1D8` (orange-100) | Text on dark sections |
+| `--surface-base` / `--white-native` | `#FFE1D8` | Page background |
+| `--surface-elevated` / `--orange-50` | `#FFF4F0` | Alt section bg, card bg |
+| `--black-native` | `#120600` | All text, borders, inverted section bg |
+| `--accent` / `--orange-500` | `#ED582A` | Primary accent, hover fills, active nav |
+| `--accent-strong` / `--orange-700` | `#B13F1C` | Button hover, blockquote colour |
+| `--action-primary-bg` | `#ED582A` | Filled (primary) buttons |
+| `--action-strong-bg` | `#B13F1C` | Button hover state |
+| `--action-inverse-bg` | `#120600` | Inverted dark buttons |
+| `--text-on-dark` | `#FFE1D8` | Text on dark/inverted sections |
+| `--orange-100` | `#FFE1D8` | Subtle borders, inverted section dividers |
+| `--orange-200` | `#FFC3B0` | Hover borders, soft dividers |
 
-- **Inverted sections:** `#120600` background with `#FFE1D8` text
-- Legacy aliases (`--c-yellow`, `--c-black`, `--c-white`) still work in components
+- **Inverted sections:** `#120600` background + `#FFE1D8` text
+- Legacy aliases still work: `--c-yellow` → orange-500, `--c-black` → black-native, `--c-white` → surface-base
 
 ### Typography
 
-- **Display/Headlines:** `Instrument Serif` — regular weight, italic style is the signature treatment
-- **Body:** `Geist` — clean geometric sans, 400/500 weight
-- **Micro copy / CTAs / Labels:** `Geist Mono` — 500 weight, uppercase, letter-spaced
-- Loaded via Google Fonts CDN (TODO: self-host)
+Three fonts. Each has a specific job. Do not mix them up.
 
-**Font variable names:**
-- `--font-display` → Instrument Serif
-- `--font-body` → Geist
-- `--font-mono` → Geist Mono (used in ALL buttons, ALL `.t-label` elements)
+| Font | Variable | Use |
+|---|---|---|
+| **Instrument Serif** | `--font-display` | All headlines, display text, `.t-h1/.t-h2/.t-h3/.t-hero` |
+| **Geist** | `--font-body` | All body copy, `.t-body`, `.t-large`, paragraphs |
+| **Geist Mono** | `--font-mono` | ALL buttons, ALL labels, CTAs, micro copy, `.t-label`, `.t-mono`, nav links |
 
-**Brutalist rules (never violate these):**
-- All cards, buttons, borders: `border-radius: 0` — zero rounding, always
-- No blur, no transparency, no glassmorphism, no box-shadow
-- All borders: `2px solid #0D0D0D` (or rgba for inverted sections)
-- Hover state: yellow background swap, NOT underline, NOT glow
-- Section dividers: full-width `<hr>` at 2px
-- Section labels: IBM Plex Mono, uppercase, `opacity: 0.4`
-- Focus rings: `3px solid #FFE600`, no border-radius
+Loaded via Google Fonts CDN. `@import` is in `src/styles/typography.css`.
+
+**Instrument Serif notes:**
+- Only one weight exists: `400` (regular). Do NOT use `font-weight: 700` with this font.
+- The signature treatment is **italic** — use `font-style: italic` on display headings.
+- Upright + orange accent word creates contrast (e.g. hero "Scale." is upright + `color: var(--orange-500)`)
+- No `text-transform: uppercase` needed — the natural letterforms are the statement.
+
+**Geist Mono notes:**
+- Used at `font-size: var(--size-label)` (11px), uppercase, `letter-spacing: 0.12–0.14em`
+- This is the "voice" of the studio in UI — buttons, nav links, tags, stat labels
+
+### Brutalist Rules (never violate)
+
+- `border-radius: 0` on everything — zero rounding, always
+- No `box-shadow`, no `filter: blur`, no glassmorphism
+- All borders: `var(--border-width)` (2px) solid `var(--black-native)`
+- Hover: orange background fill swap — NOT underline, NOT glow, NOT scale
+- Section dividers: `<hr>` at 2px full-width
+- Labels: Geist Mono, uppercase, `opacity: 0.4` when decorative
+- Focus rings: `3px solid var(--orange-500)`, no border-radius
 
 ---
 
 ## Site Structure
 
 ```
-/                           Home
-/work                       Work showcase index
-/work/[slug]                Individual case study (dynamic from MDX)
-/about                      About the studio
-/services                   Service offerings
-/process                    How we work (4 phases)
-/why-us                     Why choose HS108
-/contact                    Contact form + email
-/programs/creative-department   Internal R&D program
-/programs/off-menu              Experimental / speculative projects
+/                               Home
+/work                           Work showcase index (filterable by category)
+/work/[slug]                    Individual case study (dynamic from MDX)
+/about                          About the studio
+/services                       Service offerings (6 services)
+/process                        How we work (4 phases)
+/why-us                         Why choose HS108
+/contact                        Contact form (Formspree) + email
+/programs/creative-department   Internal R&D lab
+/programs/off-menu              Speculative / experimental projects
 ```
+
+---
+
+## Components Reference
+
+| File | What it does |
+|---|---|
+| `src/layouts/BaseLayout.astro` | Root layout — `<html>`, `<head>`, SEO meta, imports all 3 CSS files, mounts Nav + Footer |
+| `src/layouts/PageLayout.astro` | BaseLayout + standard page header (label + h1) |
+| `src/layouts/WorkLayout.astro` | BaseLayout + full case study chrome (meta, hero image, next project nav) |
+| `src/components/Nav.astro` | Fixed top nav. Desktop: logo + links + CTA. Mobile ≤900px: hamburger → dropdown menu |
+| `src/components/Footer.astro` | Full footer with nav columns, status dot, email |
+| `src/components/Hero.astro` | Home page hero — Instrument Serif italic headline, stat strip, CTAs |
+| `src/components/WorkCard.astro` | Project card (image, title, outcome metric, category tags) |
+| `src/components/StatBar.astro` | Horizontal strip of bordered stat cells |
+| `src/components/ContactCTA.astro` | Reusable bottom-of-page CTA band (has `invert` prop) |
+
+---
+
+## Nav Component — Mobile Behaviour
+
+The Nav has a working mobile menu. Key details for future edits:
+
+- At `≤900px`: desktop links + CTA button hide; hamburger button appears
+- Hamburger is a `<button>` with 3 `.bar` spans. Each bar needs `width: 100%` explicitly — do NOT remove this, it's what makes the bars visible.
+- Hamburger animates to × when `aria-expanded="true"` (CSS transforms on `.bar` nth-child)
+- Mobile menu is a **dropdown** (not full-screen overlay) — `position: absolute; top: 100%` under the nav bar
+- Menu closes on: link click, outside click
+- All nav links + "Get In Touch" button are present in the dropdown
+- Logo uses `var(--font-mono)` (Geist Mono) at `font-weight: 500` — NOT Instrument Serif (which has no bold weight)
 
 ---
 
@@ -93,44 +139,36 @@ categories: array of enum ['brand','product','design-system','mobile','web','str
 tags:       array of strings
 coverImage: string (path like "/work/project-cover.jpg")
 coverAlt:   string
-color:      string (hex, exactly 6 digits, e.g. "#0a84ff")
+color:      string (hex, exactly 6 digits, e.g. "#ed582a")
 outcome:
   label: string
   value: string
 summary:    string (max 280 chars)
 services:   array of strings
 duration:   string (optional)
-featured:   boolean (default false) — shown on home page
-order:      number (default 99) — manual sort order
-draft:      boolean (default false) — set true to hide from build
+featured:   boolean (default false) — shown on home page featured grid
+order:      number (default 99) — manual sort order on /work
+draft:      boolean (default false) — set true to hide
 ```
 
-**Existing sample files:**
-- `src/content/work/novapay.mdx` — fintech rebrand, featured
-- `src/content/work/urbane-property.mdx` — real estate platform, featured
-- `src/content/work/healthos.mdx` — healthcare design system, featured
-
-**To add a new case study:** create a new `.mdx` file in `src/content/work/` with the frontmatter above, then write the case study body using standard markdown headings, paragraphs, blockquotes, etc.
+**Existing sample files (placeholder content — replace with real work):**
+- `src/content/work/novapay.mdx` — fintech rebrand, featured, order 1
+- `src/content/work/urbane-property.mdx` — real estate platform, featured, order 2
+- `src/content/work/healthos.mdx` — healthcare design system, featured, order 3
 
 ---
 
 ## Known Issue: Work Collection Empty During Build
 
-**Status:** Active bug as of the initial build session (March 2026).
+**Status:** Active bug (not yet fixed).
 
-**Symptom:** `astro build` warns "The collection 'work' does not exist or is empty"
-and generates no `/work/[slug]` pages. The dev server (`npm run dev`) works correctly.
+**Symptom:** `astro build` warns "The collection 'work' does not exist or is empty" and generates no `/work/[slug]` pages. Dev server (`npm run dev`) works correctly — content loads fine there.
 
-**Root cause:** Likely a bug in Astro 4.16's content collection static build pipeline.
-The content types ARE generated correctly (`.astro/astro/content.d.ts` has all 3 entries),
-but `getCollection('work')` returns empty at build time.
+**Root cause:** Bug in Astro 4.16 static build pipeline. Types ARE generated correctly (all 3 entries appear in `.astro/astro/content.d.ts`) but `getCollection('work')` returns empty at build time.
 
-**Recommended fix:** Upgrade to Astro 5, which has a completely rewritten content layer.
-Run: `npx @astrojs/upgrade`
+**Fix:** Upgrade to Astro 5: `npx @astrojs/upgrade`
 
-**Do NOT:** Re-architect the content system, switch to hardcoded data, or use `import.meta.glob`
-as a workaround — the content collection schema and MDX setup is correct, it just needs the
-Astro version bump.
+**Do NOT:** Re-architect the content system, switch to hardcoded data, or use `import.meta.glob` as a workaround. The schema and MDX setup are correct — only the Astro version needs bumping.
 
 ---
 
@@ -138,13 +176,13 @@ Astro version bump.
 
 | Concern | Choice | Notes |
 |---|---|---|
-| Framework | Astro 4.16 (→ upgrade to 5) | Static output, no SSR |
+| Framework | Astro 4.16 | → upgrade to v5 to fix work collection |
 | Content | MDX + Astro Content Collections | Legacy `type: 'content'` |
-| Styling | Raw CSS custom properties | NO CSS framework, NO Tailwind |
-| Fonts | Google Fonts CDN (temporary) | TODO: self-host woff2 |
-| Deployment | GitHub Pages | Via GitHub Actions |
-| Forms | Formspree | Contact page — needs real endpoint ID |
-| Sitemap | Removed temporarily | Re-add after Astro 5 upgrade |
+| Styling | Raw CSS custom properties | NO framework, NO Tailwind |
+| Fonts | Google Fonts CDN | TODO: self-host woff2 files |
+| Deployment | GitHub Pages via GitHub Actions | ✅ Working — source set to "GitHub Actions" |
+| Forms | Formspree | Contact page — endpoint ID not yet set |
+| Sitemap | Removed temporarily | Crashed on v4 — re-add after Astro 5 upgrade |
 
 ---
 
@@ -152,32 +190,45 @@ Astro version bump.
 
 ```
 HS108Website/
-├── .github/workflows/deploy.yml    CI/CD → GitHub Pages
+├── .github/workflows/deploy.yml    CI/CD → GitHub Pages (working)
 ├── public/
 │   ├── CNAME                       "hs108.in"
 │   ├── favicon.svg
-│   ├── fonts/                      (empty — TODO: add woff2 files)
-│   └── robots.txt
+│   ├── fonts/                      (empty — TODO: add woff2 files here)
+│   ├── robots.txt
+│   └── work/                       (empty — TODO: add project cover images here)
 ├── src/
 │   ├── content/
 │   │   ├── config.ts               Zod schema for work collection
-│   │   └── work/*.mdx              Case study files
+│   │   └── work/*.mdx              Case study MDX files
 │   ├── layouts/
-│   │   ├── BaseLayout.astro        <html>, <head>, Nav, Footer, CSS imports
-│   │   ├── PageLayout.astro        BaseLayout + standard page header
-│   │   └── WorkLayout.astro        BaseLayout + case study chrome
+│   │   ├── BaseLayout.astro
+│   │   ├── PageLayout.astro
+│   │   └── WorkLayout.astro
 │   ├── components/
-│   │   ├── Nav.astro               Fixed top nav, mobile hamburger
+│   │   ├── Nav.astro               ← mobile dropdown menu is here
 │   │   ├── Footer.astro
-│   │   ├── Hero.astro              Home page hero section
-│   │   ├── WorkCard.astro          Card used in work grids
-│   │   ├── StatBar.astro           Stat strip with bordered cells
-│   │   └── ContactCTA.astro        Reusable bottom CTA section
-│   ├── pages/                      (all routes listed above)
+│   │   ├── Hero.astro
+│   │   ├── WorkCard.astro
+│   │   ├── StatBar.astro
+│   │   └── ContactCTA.astro
+│   ├── pages/
+│   │   ├── index.astro
+│   │   ├── about.astro
+│   │   ├── contact.astro
+│   │   ├── process.astro
+│   │   ├── services.astro
+│   │   ├── why-us.astro
+│   │   ├── work/
+│   │   │   ├── index.astro
+│   │   │   └── [slug].astro
+│   │   └── programs/
+│   │       ├── creative-department.astro
+│   │       └── off-menu.astro
 │   └── styles/
-│       ├── global.css              CSS custom properties + reset
-│       ├── typography.css          Type classes + Google Fonts import
-│       └── brutalist.css           Border, grid, button, tag utilities
+│       ├── global.css              Color tokens + reset + layout utilities
+│       ├── typography.css          Font imports + type scale classes
+│       └── brutalist.css           Buttons, tags, borders, grid utilities
 ├── astro.config.mjs
 ├── tsconfig.json
 └── package.json
@@ -187,58 +238,52 @@ HS108Website/
 
 ## Node / npm
 
-Node is installed via nvm. Run commands using the full path or export PATH first:
+Node is installed via nvm. The shell does not have nvm in PATH by default.
+Always prefix commands like this:
 
 ```bash
 PATH="/Users/hs108/.nvm/versions/node/v24.14.0/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-# then: npm run dev / npm run build / npm install
+npm run dev
+npm run build
+npm install
 ```
-
-The terminal shell does not have nvm in PATH by default — always prefix or set PATH before
-running npm/node commands.
 
 ---
 
 ## Pending TODOs (Priority Order)
 
-1. **Fix work collection** — upgrade Astro to v5: `npx @astrojs/upgrade`
-2. **Formspree endpoint** — replace `REPLACE_WITH_YOUR_ID` in `src/pages/contact.astro`
-   with a real Formspree form ID (create at formspree.io)
-3. **Real copy** — all pages currently have placeholder/sample copy; replace with real HS108 content
-4. **Real work images** — add actual project images to `public/work/` for cover images
-5. **Real case studies** — replace sample MDX files with real HS108 project write-ups
-6. **Self-host fonts** — download Space Grotesk + IBM Plex Mono woff2 files,
-   place in `public/fonts/`, and replace the Google Fonts `@import` in `typography.css`
-   with `@font-face` declarations
-7. **Sitemap** — re-add `@astrojs/sitemap` after Astro 5 upgrade (it crashed on v4)
-8. **OG image** — add a real `public/og-default.jpg` for social sharing
-9. **GitHub Pages settings** — ✅ MUST DO: go to repo Settings → Pages → Build and deployment → Source → change to "GitHub Actions" (not "Deploy from a branch"). Without this, GitHub runs Jekyll instead of our deploy.yml and the build fails.
+1. **Fix work collection** — upgrade Astro to v5: `npx @astrojs/upgrade` (set PATH first)
+2. **Formspree endpoint** — replace `REPLACE_WITH_YOUR_ID` in `src/pages/contact.astro` with a real Formspree form ID from formspree.io
+3. **Real case study content** — replace the 3 sample MDX files with real HS108 project write-ups
+4. **Real project cover images** — add actual images to `public/work/` matching the `coverImage` paths in each MDX file
+5. **Real copy across all pages** — about, services, process, why-us, programs pages all have placeholder text
+6. **Self-host fonts** — download Instrument Serif, Geist, Geist Mono woff2 files → `public/fonts/` → replace the `@import` in `typography.css` with `@font-face` declarations
+7. **Sitemap** — re-add `@astrojs/sitemap` after Astro 5 upgrade
+8. **OG image** — add `public/og-default.jpg` (1200×630) for social sharing previews
 
 ---
 
 ## Programs (Important Distinction)
 
-HS108 has two internal programs that are NOT client services:
+HS108 has two internal programs — these are NOT client services:
 
-- **Creative Department** (`/programs/creative-department`) — the studio's R&D lab.
-  Research initiatives, published findings, experimental internal work. Email: `cd@hs108.in`
+- **Creative Department** (`/programs/creative-department`) — internal R&D lab. Research, published findings, experimental work. Contact: `cd@hs108.in`
+- **off_menu** (`/programs/off-menu`) — speculative / experimental projects outside traditional design. The name is always lowercase with underscore: `off_menu`. Contact: `offmenu@hs108.in`
 
-- **off_menu** (`/programs/off-menu`) — speculative / experimental projects that fall
-  outside traditional design scope. Wild ideas, typefaces, civic design, etc.
-  The name stays lowercase with underscore: `off_menu`. Email: `offmenu@hs108.in`
-
-These are distinct from the 6 client services on the `/services` page.
+These are separate from the 6 client-facing services on `/services`.
 
 ---
 
 ## What NOT To Do
 
-- Do NOT add border-radius to any element (brutalist rule)
+- Do NOT add `border-radius` to any element
 - Do NOT use Tailwind, Bootstrap, or any CSS framework
-- Do NOT add box-shadow or blur effects
-- Do NOT use glassmorphism (the old site had it — we deliberately moved away)
-- Do NOT use dark backgrounds for the main site (dark sections are for specific inverted blocks only)
-- Do NOT add animations that aren't intentional (no spin, no bounce, no parallax)
+- Do NOT add `box-shadow` or `filter: blur`
+- Do NOT use glassmorphism or transparency effects
+- Do NOT set `font-weight: 700` (or any bold weight) on `Instrument Serif` — it only has weight 400
+- Do NOT use `--font-display` (Instrument Serif) for the Nav logo or any small UI text — use `--font-mono` (Geist Mono) for that
+- Do NOT use dark backgrounds as the main page bg — dark is only for specific `.inv-block` / `.section--inv` elements
+- Do NOT add animations without intent (no spin, bounce, parallax, scroll-triggered)
 - Do NOT use emojis in the UI
 - Do NOT use `!important` in CSS
-- Do NOT add features not requested — keep additions minimal and focused
+- Do NOT add unrequested features or refactor code that isn't broken
