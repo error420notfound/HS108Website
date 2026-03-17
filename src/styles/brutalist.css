@@ -1,0 +1,260 @@
+/* ============================================================
+   BRUTALIST UTILITY CLASSES — HS108
+   ============================================================ */
+
+/* --- Borders --- */
+.b-box {
+  border: var(--border-width) solid var(--border);
+}
+
+.b-top {
+  border-top: var(--border-width) solid var(--border);
+}
+
+.b-bottom {
+  border-bottom: var(--border-width) solid var(--border);
+}
+
+.b-left {
+  border-left: var(--border-width) solid var(--border);
+}
+
+.b-right {
+  border-right: var(--border-width) solid var(--border);
+}
+
+.b-accent {
+  border-color: var(--c-yellow);
+}
+
+.b-inv {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* --- Section numbers --- */
+.section-num {
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+/* --- Tag / label pill (no radius, square) --- */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: var(--border-width) solid var(--border);
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.tag--inv {
+  border-color: rgba(255,255,255,0.3);
+  color: var(--fg-inv);
+}
+
+.tag--accent {
+  background: var(--c-yellow);
+  border-color: var(--c-yellow);
+  color: var(--c-black);
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: var(--border-width) solid var(--border);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background: var(--c-black);
+  color: var(--c-white);
+  border-color: var(--c-black);
+}
+
+.btn--primary:hover {
+  background: var(--c-yellow);
+  color: var(--c-black);
+  border-color: var(--c-yellow);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--c-black);
+}
+
+.btn--outline:hover {
+  background: var(--c-yellow);
+  border-color: var(--c-yellow);
+}
+
+.btn--outline-inv {
+  background: transparent;
+  color: var(--c-white);
+  border-color: rgba(255,255,255,0.4);
+}
+
+.btn--outline-inv:hover {
+  background: var(--c-yellow);
+  color: var(--c-black);
+  border-color: var(--c-yellow);
+}
+
+/* --- Link with yellow hover swap --- */
+.link-swap {
+  position: relative;
+  display: inline;
+  transition: color var(--transition), background var(--transition);
+  padding: 0 2px;
+}
+
+.link-swap:hover {
+  background: var(--c-yellow);
+  color: var(--c-black);
+}
+
+/* --- Grid exposed layout --- */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-gap);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-gap);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-gap);
+}
+
+@media (max-width: 768px) {
+  .grid-12,
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --- Column spans for grid-12 --- */
+.col-4  { grid-column: span 4; }
+.col-6  { grid-column: span 6; }
+.col-8  { grid-column: span 8; }
+.col-12 { grid-column: span 12; }
+
+@media (max-width: 768px) {
+  .col-4, .col-6, .col-8, .col-12 {
+    grid-column: span 12;
+  }
+}
+
+/* --- Stat strip grid (equal-width bordered cells) --- */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: var(--border-width) solid var(--border);
+  border-left: var(--border-width) solid var(--border);
+}
+
+.stat-strip > * {
+  border-right: var(--border-width) solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
+  padding: var(--space-card);
+}
+
+@media (max-width: 768px) {
+  .stat-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --- Full-bleed image (no radius) --- */
+.img-raw {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+/* --- Aspect ratios --- */
+.aspect-16-9 {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.aspect-4-3 {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.aspect-square {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+/* --- Inverted block --- */
+.inv-block {
+  background: var(--c-black);
+  color: var(--c-white);
+}
+
+/* --- Text highlight marker --- */
+.mark-yellow {
+  background: var(--c-yellow);
+  color: var(--c-black);
+  padding: 0 4px;
+}
+
+/* --- Overflow marquee / ticker (CSS-only) --- */
+.marquee-track {
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: var(--border-width) solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
+  padding-block: 12px;
+}
+
+.marquee-inner {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-inner span {
+  padding-inline: 48px;
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}

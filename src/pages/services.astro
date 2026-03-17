@@ -1,0 +1,185 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+
+const services = [
+  {
+    num: '01',
+    name: 'Brand Identity',
+    desc: 'Your brand is the first thing your customers trust — or don\'t. We build brands from the ground up: strategy, naming, visual identity, and the guidelines to keep it consistent at scale.',
+    deliverables: ['Brand strategy & positioning', 'Naming and messaging', 'Logo system & wordmark', 'Type, colour & imagery system', 'Brand guidelines document', 'Stationery & launch assets'],
+    timeline: '6–10 weeks',
+  },
+  {
+    num: '02',
+    name: 'Product Design',
+    desc: 'From the first user interview to the final handoff spec, we design digital products that people actually use. UX that reduces friction. UI that builds trust. No filler screens.',
+    deliverables: ['User research & journey mapping', 'Information architecture', 'Wireframes & prototypes', 'High-fidelity UI design', 'Interaction design', 'Developer handoff (Figma)'],
+    timeline: '8–16 weeks',
+  },
+  {
+    num: '03',
+    name: 'Design Systems',
+    desc: 'A design system is infrastructure. We build scalable component libraries, token architectures, and living documentation — so your team ships faster and stays consistent.',
+    deliverables: ['Design audit & inventory', 'Token architecture', '200+ component library', 'Usage documentation', 'Storybook / Zeroheight setup', 'Engineering handoff & onboarding'],
+    timeline: '10–20 weeks',
+  },
+  {
+    num: '04',
+    name: 'Web Design',
+    desc: 'Marketing sites, landing pages, and digital experiences that convert visitors into believers. We design with real content, not lorem ipsum.',
+    deliverables: ['Site architecture & wireframes', 'Full page UI design', 'Responsive breakpoints', 'Motion & interaction specs', 'CMS integration support', 'Launch QA'],
+    timeline: '4–8 weeks',
+  },
+  {
+    num: '05',
+    name: 'UX Strategy',
+    desc: 'When a product isn\'t working and you\'re not sure why, we come in, map the real problems, and give you a clear plan of attack — before a single pixel is moved.',
+    deliverables: ['Heuristic audit', 'User interviews', 'Opportunity map', 'Prioritised UX roadmap', 'Success metrics definition'],
+    timeline: '2–4 weeks',
+  },
+  {
+    num: '06',
+    name: 'Retainer Partnership',
+    desc: 'For companies that need design embedded, not hired-and-forgotten. A monthly engagement that covers everything — from quick iterations to new feature design.',
+    deliverables: ['Dedicated designer allocation', 'Monthly design sprints', 'Async collaboration', 'Quarterly strategy reviews', 'Unlimited small requests'],
+    timeline: 'Ongoing',
+  },
+];
+---
+
+<PageLayout title="Services" label="What We Do" description="Design services from HS108 — brand identity, product design, design systems, and ongoing retainer partnerships.">
+
+  <div class="container services-intro">
+    <p class="t-large services-lede">
+      We don't offer everything. We offer the things we're exceptional at —
+      brand, product, and the systems that connect them.
+    </p>
+  </div>
+
+  <div class="services-list">
+    {services.map(svc => (
+      <div class="svc-row container">
+        <div class="svc-header">
+          <span class="t-label svc-num">{svc.num}</span>
+          <h2 class="t-h2 svc-name">{svc.name}</h2>
+          <span class="tag">{svc.timeline}</span>
+        </div>
+        <div class="svc-body">
+          <p class="t-body svc-desc">{svc.desc}</p>
+          <div class="svc-deliverables">
+            <p class="t-label svc-del-label">Deliverables</p>
+            <ul class="svc-del-list">
+              {svc.deliverables.map(d => <li class="t-mono">{d}</li>)}
+            </ul>
+          </div>
+        </div>
+        <hr />
+      </div>
+    ))}
+  </div>
+
+  <!-- Callout -->
+  <div class="container services-callout inv-block">
+    <p class="t-label" style="opacity:0.4; margin-bottom:1rem">Not sure what you need?</p>
+    <h2 class="t-h2" style="margin-bottom:1.5rem">Start with a conversation.</h2>
+    <p class="t-body" style="opacity:0.6; max-width:50ch; margin-bottom:2rem">
+      Most projects don't fit neatly into one service. Tell us what you're building
+      and we'll figure out the right scope together.
+    </p>
+    <a href="/contact" class="btn btn--outline-inv">Get In Touch</a>
+  </div>
+
+  <ContactCTA invert={false} />
+
+</PageLayout>
+
+<style>
+  .services-intro {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .services-lede {
+    max-width: 65ch;
+  }
+
+  .services-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .svc-row {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .svc-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .svc-num {
+    opacity: 0.3;
+    flex-shrink: 0;
+  }
+
+  .svc-name {
+    flex: 1;
+  }
+
+  .svc-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .svc-desc {
+    opacity: 0.65;
+    max-width: 55ch;
+    line-height: 1.7;
+  }
+
+  .svc-del-label {
+    opacity: 0.4;
+    margin-bottom: 1rem;
+  }
+
+  .svc-del-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .svc-del-list li {
+    padding-left: 1.25rem;
+    position: relative;
+    opacity: 0.7;
+  }
+
+  .svc-del-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    opacity: 0.4;
+    font-family: var(--font-mono);
+    font-size: 10px;
+  }
+
+  .services-callout {
+    padding: var(--space-section) var(--gutter);
+    margin-top: var(--space-section);
+  }
+
+  @media (max-width: 768px) {
+    .svc-body {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

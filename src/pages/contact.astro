@@ -1,0 +1,251 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+---
+
+<PageLayout title="Contact" label="Get In Touch" description="Start a project with HS108. We're currently accepting new clients.">
+
+  <div class="container contact-wrap">
+    <div class="contact-left">
+      <div class="contact-info">
+        <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Email</p>
+        <a href="mailto:hello@hs108.in" class="contact-email link-swap">
+          hello@hs108.in
+        </a>
+      </div>
+
+      <div class="contact-status">
+        <div class="contact-dot-row">
+          <span class="status-dot-lg"></span>
+          <p class="t-mono">Currently accepting new projects</p>
+        </div>
+        <p class="t-mono contact-status-note">
+          We typically respond within 24 hours.<br />
+          Project kickoffs are scheduled 2–4 weeks out.
+        </p>
+      </div>
+
+      <div class="contact-programs">
+        <p class="t-label" style="opacity:0.4; margin-bottom:1rem">Programs</p>
+        <a href="/programs/creative-department" class="contact-prog-link b-box">
+          <span class="t-mono">Creative Department</span>
+          <span class="t-label">→</span>
+        </a>
+        <a href="/programs/off-menu" class="contact-prog-link b-box">
+          <span class="t-mono">off_menu</span>
+          <span class="t-label">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form-wrap b-box">
+      <p class="t-label contact-form-label">Tell Us About Your Project</p>
+
+      <!-- Form posts to Formspree — replace ACTION_URL with your Formspree endpoint -->
+      <form
+        method="POST"
+        action="https://formspree.io/f/REPLACE_WITH_YOUR_ID"
+        class="contact-form"
+      >
+        <div class="form-group">
+          <label class="form-label t-label" for="name">Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            class="form-input"
+            placeholder="Your name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label t-label" for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            class="form-input"
+            placeholder="your@email.com"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label t-label" for="project-type">What Do You Need?</label>
+          <select id="project-type" name="project_type" class="form-input form-select">
+            <option value="">Select a service</option>
+            <option>Brand Identity</option>
+            <option>Product Design</option>
+            <option>Design System</option>
+            <option>Web Design</option>
+            <option>Retainer Partnership</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label t-label" for="message">Tell Us More</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            class="form-input form-textarea"
+            placeholder="What are you building? What's the timeline? Any context that helps."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--primary form-submit">
+          Send Message →
+        </button>
+      </form>
+    </div>
+  </div>
+
+</PageLayout>
+
+<style>
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    padding-top: 3rem;
+    padding-bottom: var(--space-section);
+    align-items: start;
+  }
+
+  .contact-left {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    position: sticky;
+    top: 6rem;
+  }
+
+  .contact-email {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.5vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .contact-dot-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.75rem;
+  }
+
+  .status-dot-lg {
+    width: 10px;
+    height: 10px;
+    background: #00C47D;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: pulse-status 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-status {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+  }
+
+  .contact-status-note {
+    opacity: 0.5;
+    line-height: 1.7;
+    margin-left: 20px;
+  }
+
+  .contact-programs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contact-prog-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    transition: background var(--transition);
+  }
+
+  .contact-prog-link:hover {
+    background: var(--c-yellow);
+  }
+
+  /* Form */
+  .contact-form-wrap {
+    padding: 2.5rem;
+  }
+
+  .contact-form-label {
+    opacity: 0.4;
+    margin-bottom: 2rem;
+    display: block;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-label {
+    opacity: 0.5;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: var(--border-width) solid var(--border);
+    background: var(--bg);
+    font-family: var(--font-mono);
+    font-size: var(--size-small);
+    color: var(--fg);
+    outline: none;
+    border-radius: 0;
+    transition: border-color var(--transition);
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .form-input:focus {
+    border-color: var(--c-black);
+    outline: 3px solid var(--c-yellow);
+    outline-offset: 0;
+  }
+
+  .form-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230D0D0D' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-submit {
+    align-self: flex-start;
+  }
+
+  @media (max-width: 900px) {
+    .contact-wrap {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-left {
+      position: static;
+    }
+  }
+</style>

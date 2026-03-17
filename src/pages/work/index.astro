@@ -1,0 +1,144 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import WorkCard from '@components/WorkCard.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+import { getCollection } from 'astro:content';
+
+const allWork = await getCollection('work', ({ data }) => !data.draft);
+const sorted  = allWork.sort((a, b) => a.data.order - b.data.order);
+
+const categories = ['All', 'brand', 'product', 'design-system', 'web', 'mobile', 'strategy'];
+---
+
+<BaseLayout title="Work" description="Selected projects from HS108 — brand identity, product design, and design systems for ambitious companies.">
+  <div class="work-header container">
+    <p class="t-label section-num">Selected Work</p>
+    <h1 class="t-h1">Our Work</h1>
+    <p class="t-large work-desc">
+      A selection of projects across brand, product, and systems design.<br />
+      Each one built to last.
+    </p>
+  </div>
+
+  <hr />
+
+  <!-- Filter bar -->
+  <div class="work-filters container" id="filter-bar">
+    {categories.map(cat => (
+      <button
+        class:list={['btn work-filter-btn', { 'btn--primary': cat === 'All' }]}
+        data-filter={cat === 'All' ? 'all' : cat}
+      >
+        {cat === 'All' ? 'All' : cat.replace('-', ' ')}
+      </button>
+    ))}
+  </div>
+
+  <!-- Work grid -->
+  <div class="container work-grid" id="work-grid">
+    {sorted.map((entry, i) => (
+      <div
+        class:list={['work-grid-item', i === 0 ? 'work-grid-item--featured' : '']}
+        data-categories={entry.data.categories.join(',')}
+      >
+        <WorkCard
+          slug={entry.slug}
+          title={entry.data.title}
+          client={entry.data.client}
+          year={entry.data.year}
+          categories={entry.data.categories}
+          coverImage={entry.data.coverImage}
+          coverAlt={entry.data.coverAlt}
+          color={entry.data.color}
+          outcome={entry.data.outcome}
+          summary={entry.data.summary}
+          large={i === 0}
+        />
+      </div>
+    ))}
+  </div>
+
+  <ContactCTA />
+</BaseLayout>
+
+<style>
+  .work-header {
+    padding-top: 8rem;
+    padding-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .work-desc {
+    max-width: 55ch;
+    opacity: 0.65;
+    margin-top: 0.5rem;
+  }
+
+  .work-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .work-filter-btn {
+    padding: 10px 18px;
+    font-size: 10px;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-gap);
+    padding-top: var(--space-gap);
+    padding-bottom: var(--space-section);
+  }
+
+  .work-grid-item {
+    grid-column: span 6;
+    transition: opacity var(--transition);
+  }
+
+  .work-grid-item--featured {
+    grid-column: span 12;
+  }
+
+  .work-grid-item.hidden {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .work-grid-item {
+      grid-column: span 12;
+    }
+  }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.work-filter-btn');
+  const items      = document.querySelectorAll<HTMLElement>('.work-grid-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter ?? 'all';
+
+      // Update active state
+      filterBtns.forEach(b => b.classList.remove('btn--primary'));
+      btn.classList.add('btn--primary');
+
+      // Show/hide items
+      items.forEach(item => {
+        if (filter === 'all') {
+          item.classList.remove('hidden');
+        } else {
+          const cats = item.dataset.categories?.split(',') ?? [];
+          item.classList.toggle('hidden', !cats.includes(filter));
+        }
+      });
+    });
+  });
+</script>

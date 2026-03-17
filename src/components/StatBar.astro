@@ -1,0 +1,74 @@
+---
+interface StatItem {
+  value: string;
+  label: string;
+  sub?: string;
+}
+
+interface Props {
+  stats: StatItem[];
+  invert?: boolean;
+}
+
+const { stats, invert = false } = Astro.props;
+---
+
+<div class:list={['stat-strip', { 'inv-block': invert, 'stat-strip--inv': invert }]}>
+  {stats.map(stat => (
+    <div class="stat-item">
+      <p class="stat-value">{stat.value}</p>
+      <p class="t-label stat-label">{stat.label}</p>
+      {stat.sub && <p class="t-mono stat-sub">{stat.sub}</p>}
+    </div>
+  ))}
+</div>
+
+<style>
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 4), 1fr);
+    border-top: var(--border-width) solid var(--border);
+    border-left: var(--border-width) solid var(--border);
+  }
+
+  .stat-strip--inv {
+    border-top-color: rgba(255,255,255,0.15);
+    border-left-color: rgba(255,255,255,0.15);
+  }
+
+  .stat-item {
+    border-right: var(--border-width) solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .stat-strip--inv .stat-item {
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .stat-label {
+    opacity: 0.5;
+  }
+
+  .stat-sub {
+    opacity: 0.35;
+    font-size: 10px;
+  }
+
+  @media (max-width: 640px) {
+    .stat-strip {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

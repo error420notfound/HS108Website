@@ -1,0 +1,30 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  label?: string;
+}
+
+const { title, description, label } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="page-header container">
+    {label && <p class="t-label section-num">{label}</p>}
+    <h1 class="t-h1">{title}</h1>
+  </div>
+  <hr />
+  <slot />
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-top: 6rem;
+    padding-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+</style>

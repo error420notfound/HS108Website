@@ -1,0 +1,228 @@
+---
+const navLinks = [
+  { label: 'Work',     href: '/work' },
+  { label: 'Services', href: '/services' },
+  { label: 'Process',  href: '/process' },
+  { label: 'About',    href: '/about' },
+  { label: 'Programs', href: '/programs/creative-department' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="nav-wrap">
+  <nav class="nav container">
+    <a href="/" class="nav-logo" aria-label="HS108 Home">
+      <span class="nav-logo-text">HS108</span>
+      <span class="nav-logo-dot"></span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class:list={['nav-link', { active: currentPath.startsWith(link.href) }]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a href="/contact" class="btn btn--primary nav-cta">Get In Touch</a>
+
+    <!-- Mobile hamburger -->
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu overlay -->
+  <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+    <ul role="list">
+      {navLinks.map(link => (
+        <li>
+          <a href={link.href} class="nav-mobile-link">{link.label}</a>
+        </li>
+      ))}
+      <li>
+        <a href="/contact" class="nav-mobile-link nav-mobile-cta">Get In Touch →</a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<style>
+  .nav-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 64px;
+  }
+
+  /* Logo */
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: auto;
+  }
+
+  .nav-logo-text {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .nav-logo-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--c-yellow);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* Nav links */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .nav-link {
+    font-family: var(--font-mono);
+    font-size: var(--size-label);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    display: block;
+    transition: background var(--transition), color var(--transition);
+    position: relative;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    background: var(--c-yellow);
+    color: var(--c-black);
+  }
+
+  /* CTA */
+  .nav-cta {
+    padding: 10px 20px;
+    font-size: 10px;
+  }
+
+  /* Hamburger */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    width: 32px;
+    padding: 4px;
+    cursor: pointer;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    height: 2px;
+    background: var(--c-black);
+    transition: transform var(--transition), opacity var(--transition);
+  }
+
+  /* Mobile overlay */
+  .nav-mobile {
+    display: none;
+    position: fixed;
+    inset: 64px 0 0 0;
+    background: var(--bg);
+    border-top: var(--border-width) solid var(--border);
+    padding: 2rem var(--gutter);
+    overflow-y: auto;
+  }
+
+  .nav-mobile.open {
+    display: block;
+  }
+
+  .nav-mobile ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-mobile-link {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(28px, 8vw, 48px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    padding: 1rem 0;
+    border-bottom: var(--border-width) solid var(--border);
+    transition: background var(--transition), padding-left var(--transition);
+  }
+
+  .nav-mobile-link:hover {
+    padding-left: 1rem;
+    background: var(--c-yellow);
+  }
+
+  .nav-mobile-cta {
+    color: var(--c-yellow);
+    background: var(--c-black);
+    padding-inline: 1rem;
+  }
+
+  .nav-mobile-cta:hover {
+    background: var(--c-yellow);
+    color: var(--c-black);
+  }
+
+  @media (max-width: 900px) {
+    .nav-links,
+    .nav-cta {
+      display: none;
+    }
+
+    .nav-hamburger {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const hamburger = document.getElementById('nav-hamburger')!;
+  const mobileMenu = document.getElementById('nav-mobile')!;
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // Close mobile menu on link click
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    });
+  });
+</script>

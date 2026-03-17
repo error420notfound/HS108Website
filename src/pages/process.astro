@@ -1,0 +1,267 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+
+const phases = [
+  {
+    num: '01',
+    title: 'Understand',
+    sub: 'Weeks 1–2',
+    summary: 'We never design blind. Every project starts with a structured discovery phase — client interviews, user research, competitive analysis, and market mapping.',
+    activities: [
+      'Stakeholder interviews',
+      'User research & persona development',
+      'Competitive landscape mapping',
+      'Brand / product audit',
+      'Goal and success metric definition',
+    ],
+    output: 'Discovery report + project brief',
+  },
+  {
+    num: '02',
+    title: 'Design',
+    sub: 'Weeks 3–8',
+    summary: 'Concepts. Iteration. Refinement. We work in cycles with regular check-ins, not big reveals. You see the work as it evolves.',
+    activities: [
+      'Concept exploration (multiple directions)',
+      'Feedback and iteration cycles',
+      'Prototype development',
+      'Usability testing (where applicable)',
+      'Direction lock-down',
+    ],
+    output: 'Approved design files (Figma)',
+  },
+  {
+    num: '03',
+    title: 'Build',
+    sub: 'Weeks 6–14',
+    summary: 'Production-ready design. We run concurrent with engineering where possible, providing specs, answering questions, and reviewing implementation.',
+    activities: [
+      'Final UI refinement',
+      'Developer handoff package',
+      'Asset export & optimization',
+      'Implementation support',
+      'QA review cycles',
+    ],
+    output: 'Shipped product / live brand',
+  },
+  {
+    num: '04',
+    title: 'Scale',
+    sub: 'Ongoing',
+    summary: 'The project doesn\'t end at launch. We offer retainer partnerships for clients who want design embedded as they grow — new features, new campaigns, new challenges.',
+    activities: [
+      'Monthly design sprints',
+      'Async task management',
+      'Quarterly strategy reviews',
+      'Brand and product evolution',
+      'Design system maintenance',
+    ],
+    output: 'Ongoing partnership',
+  },
+];
+---
+
+<PageLayout title="Process" label="How We Work" description="HS108's four-phase design process — Understand, Design, Build, Scale. Built for clarity, not ceremony.">
+
+  <div class="container process-intro">
+    <p class="t-large process-lede">
+      Our process is built for clarity, not ceremony. Four phases, regular check-ins,
+      no surprises. You always know where we are and what's next.
+    </p>
+  </div>
+
+  <hr />
+
+  <div class="process-phases container">
+    {phases.map((phase, i) => (
+      <div class="phase-row">
+        <div class="phase-left">
+          <span class="t-label phase-num">{phase.num}</span>
+          <h2 class="t-h2 phase-title">{phase.title}</h2>
+          <span class="tag phase-sub">{phase.sub}</span>
+        </div>
+
+        <div class="phase-right">
+          <p class="t-large phase-summary">{phase.summary}</p>
+
+          <div class="phase-details">
+            <div class="phase-activities">
+              <p class="t-label phase-label">Activities</p>
+              <ul class="phase-list">
+                {phase.activities.map(a => <li class="t-mono">{a}</li>)}
+              </ul>
+            </div>
+
+            <div class="phase-output">
+              <p class="t-label phase-label">Output</p>
+              <p class="t-mono phase-output-text">{phase.output}</p>
+            </div>
+          </div>
+        </div>
+
+        {i < phases.length - 1 && (
+          <div class="phase-connector">
+            <span class="t-label">↓</span>
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+
+  <hr />
+
+  <!-- FAQ -->
+  <section class="section container">
+    <p class="t-label section-num" style="margin-bottom:1rem">Common Questions</p>
+    <h2 class="t-h2" style="margin-bottom:3rem">What To Expect</h2>
+
+    <div class="faq-list">
+      {[
+        { q: 'How do check-ins work?', a: 'We schedule regular sync calls (weekly or bi-weekly) plus share progress async in Figma. You\'re never waiting to see the work.' },
+        { q: 'Do you work with our engineering team?', a: 'Yes. We prefer to. We\'ll join standups if helpful, answer questions in Slack, and review implementations before launch.' },
+        { q: 'What if we need changes after launch?', a: 'That\'s what retainers are for. Project clients also get 4 weeks of post-launch support included in every engagement.' },
+        { q: 'How many projects do you run at once?', a: 'We limit ourselves to 3 active projects at any time. This is non-negotiable — it\'s how we maintain quality.' },
+      ].map(item => (
+        <div class="faq-item b-top">
+          <h3 class="t-h3 faq-q">{item.q}</h3>
+          <p class="t-body faq-a">{item.a}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <ContactCTA headline="Ready to start?" sub="Tell us about your project and we'll put together a plan." />
+
+</PageLayout>
+
+<style>
+  .process-intro {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .process-lede {
+    max-width: 65ch;
+    opacity: 0.7;
+  }
+
+  .process-phases {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .phase-row {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 4rem;
+    padding-bottom: 4rem;
+    margin-bottom: 4rem;
+    border-bottom: var(--border-width) solid var(--border);
+    position: relative;
+  }
+
+  .phase-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .phase-num {
+    opacity: 0.35;
+  }
+
+  .phase-sub {
+    align-self: flex-start;
+  }
+
+  .phase-summary {
+    opacity: 0.7;
+    max-width: 55ch;
+    margin-bottom: 2rem;
+  }
+
+  .phase-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .phase-label {
+    opacity: 0.4;
+    margin-bottom: 1rem;
+  }
+
+  .phase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .phase-list li {
+    padding-left: 1.25rem;
+    position: relative;
+    opacity: 0.7;
+  }
+
+  .phase-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    opacity: 0.4;
+    font-family: var(--font-mono);
+    font-size: 10px;
+  }
+
+  .phase-output-text {
+    opacity: 0.7;
+    padding: 1rem;
+    border: var(--border-width) solid var(--border);
+    background: var(--surface-1);
+  }
+
+  .phase-connector {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: -2rem;
+  }
+
+  /* FAQ */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .faq-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    padding: 2rem 0;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .faq-q {
+    font-size: clamp(16px, 1.5vw, 20px);
+  }
+
+  .faq-a {
+    opacity: 0.65;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 900px) {
+    .phase-row {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .phase-details {
+      grid-template-columns: 1fr;
+    }
+
+    .faq-item {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+</style>

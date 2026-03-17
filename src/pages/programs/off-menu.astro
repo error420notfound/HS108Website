@@ -1,0 +1,308 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+
+const projects = [
+  {
+    code: 'OM-001',
+    title: 'A Typeface for Spoken Language',
+    desc: 'Designing a variable typeface that responds to prosody data — pitch, rhythm, and emphasis — from speech recordings.',
+    domain: 'Type Design × Linguistics',
+    status: 'In Progress',
+  },
+  {
+    code: 'OM-002',
+    title: 'The Voter\'s Interface',
+    desc: 'A speculative redesign of India\'s electoral information systems — from EVMs to result dashboards. What if civic design was actually good?',
+    domain: 'Civic Design × Systems',
+    status: 'Concept',
+  },
+  {
+    code: 'OM-003',
+    title: 'Smell as UI',
+    desc: 'An experimental project exploring olfactory interaction — can smell be a meaningful output layer in ambient computing environments?',
+    domain: 'Interaction Design × Hardware',
+    status: 'Research',
+  },
+  {
+    code: 'OM-004',
+    title: 'The Unboxing Economy',
+    desc: 'Packaging design for products that don\'t exist yet — a forward-looking exercise in material, ritual, and identity for speculative objects.',
+    domain: 'Packaging × Futures',
+    status: 'Completed',
+  },
+];
+---
+
+<BaseLayout
+  title="off_menu"
+  description="off_menu is HS108's program for projects that don't fit the brief — wild ideas, speculative design, and creative work that lives outside the traditional design domain."
+>
+  <!-- Header — bold accent treatment -->
+  <div class="om-hero">
+    <div class="container om-hero-inner">
+      <div class="om-overline">
+        <span class="t-label" style="opacity:0.4">A Program by HS108</span>
+        <span class="t-label om-sep">×</span>
+        <span class="t-label om-badge tag tag--accent">Experimental</span>
+      </div>
+
+      <h1 class="t-hero om-title">off_menu</h1>
+
+      <div class="om-rule"></div>
+
+      <p class="t-large om-tagline">
+        Projects that don't have a brief.<br />
+        Ideas that don't belong in a client deck.<br />
+        Design for things nobody asked us to design.
+      </p>
+    </div>
+  </div>
+
+  <div class="container om-body">
+    <!-- What it is -->
+    <section class="om-section">
+      <div class="om-what-grid">
+        <div>
+          <p class="t-label section-num" style="opacity:0.4; margin-bottom:1rem">What Is off_menu?</p>
+          <h2 class="t-h2">Design without a client.</h2>
+        </div>
+        <div class="prose om-prose">
+          <p>
+            Design is too often defined by what clients ask for. off_menu exists for everything else.
+          </p>
+          <p>
+            It's a program for speculative projects — the kind of work that starts with "what if?" rather than a brief. We design typefaces for spoken language. We redesign civic systems. We build interfaces for senses that don't usually get interfaces.
+          </p>
+          <p>
+            Some of it is genuinely useful. Some of it is just interesting. All of it is honest.
+          </p>
+          <p>
+            The name is intentional: these projects are <em>off the menu</em> — not because they're secret, but because you can't order them. They happen when the idea is ready.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Projects grid -->
+    <section class="om-section">
+      <p class="t-label section-num" style="opacity:0.4; margin-bottom:3rem">Projects</p>
+
+      <div class="om-grid">
+        {projects.map(proj => (
+          <div class="om-card b-box">
+            <div class="om-card-header">
+              <span class="t-label om-code">{proj.code}</span>
+              <span class:list={['tag', { 'tag--accent': proj.status === 'Completed' }]}>
+                {proj.status}
+              </span>
+            </div>
+            <h3 class="t-h3 om-card-title">{proj.title}</h3>
+            <p class="t-body om-card-desc">{proj.desc}</p>
+            <span class="tag om-domain">{proj.domain}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Suggest -->
+    <section class="om-section om-suggest">
+      <div class="om-suggest-grid">
+        <div>
+          <h2 class="t-h2" style="margin-bottom:1rem">Have a wild idea?</h2>
+          <p class="t-body" style="opacity:0.6; max-width:45ch; margin-bottom:0.5rem">
+            off_menu projects occasionally come from outside HS108 — collaborators who bring a strange question, an unusual material, or a domain we've never worked in before.
+          </p>
+          <p class="t-body" style="opacity:0.6; max-width:45ch; margin-bottom:2rem">
+            If your idea sounds weird in a good way, we want to hear it.
+          </p>
+          <div class="om-suggest-ctas">
+            <a href="mailto:offmenu@hs108.in" class="btn btn--primary">offmenu@hs108.in</a>
+            <a href="/contact" class="btn btn--outline">Or use the contact form</a>
+          </div>
+        </div>
+
+        <div class="om-suggest-box inv-block">
+          <p class="t-label" style="opacity:0.4; margin-bottom:1.5rem">What makes a good off_menu project?</p>
+          <ul class="om-criteria">
+            {[
+              'It doesn\'t fit any existing service category',
+              'The question is more interesting than the answer',
+              'No client would ever pay for it',
+              'It teaches us something we couldn\'t learn on a brief',
+              'It\'s genuinely strange',
+            ].map(c => <li class="t-mono">{c}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <ContactCTA
+    headline="Looking for client work? That's elsewhere."
+    sub="off_menu is for the wild stuff. For design that scales businesses, visit our services."
+  />
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .om-hero {
+    margin-top: 64px;
+    padding-top: 4rem;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .om-hero-inner {
+    padding-bottom: 3rem;
+  }
+
+  .om-overline {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .om-sep {
+    opacity: 0.2;
+  }
+
+  .om-title {
+    font-size: var(--size-hero);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 2rem;
+    letter-spacing: -0.04em;
+    line-height: 0.85;
+  }
+
+  .om-rule {
+    height: var(--border-width);
+    background: var(--c-black);
+    margin-bottom: 2rem;
+  }
+
+  .om-tagline {
+    max-width: 55ch;
+    opacity: 0.7;
+    line-height: 1.55;
+  }
+
+  /* Body */
+  .om-body {
+    padding-bottom: var(--space-section);
+  }
+
+  .om-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .om-what-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .om-prose p {
+    margin-bottom: 1.25rem;
+    opacity: 0.7;
+    line-height: 1.75;
+    max-width: 60ch;
+  }
+
+  .om-prose em {
+    font-style: italic;
+  }
+
+  /* Projects grid */
+  .om-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .om-card {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .om-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .om-code {
+    opacity: 0.3;
+  }
+
+  .om-card-desc {
+    opacity: 0.6;
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .om-domain {
+    align-self: flex-start;
+    opacity: 0.5;
+  }
+
+  /* Suggest */
+  .om-suggest-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .om-suggest-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .om-suggest-box {
+    padding: var(--space-card);
+  }
+
+  .om-criteria {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .om-criteria li {
+    padding-left: 1.5rem;
+    position: relative;
+    opacity: 0.65;
+    color: var(--c-white);
+  }
+
+  .om-criteria li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--c-yellow);
+    font-size: 10px;
+    top: 3px;
+  }
+
+  @media (max-width: 900px) {
+    .om-what-grid,
+    .om-suggest-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .om-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

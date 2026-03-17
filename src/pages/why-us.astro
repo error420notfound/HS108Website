@@ -1,0 +1,230 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+
+const differentiators = [
+  { num: '01', title: 'Senior talent, always', body: 'Every project is led by a senior designer with real experience — not handed to a junior after the pitch.' },
+  { num: '02', title: 'Systems-first thinking', body: 'We design for scale, not just launch. Everything we build is made to grow with your company.' },
+  { num: '03', title: 'Brutal honesty', body: 'We\'d rather tell you something doesn\'t work than take your money to ship something bad. This makes the work better for everyone.' },
+  { num: '04', title: 'Small by design', body: 'We deliberately cap at 3 active projects. Your work gets real attention, not account management.' },
+  { num: '05', title: 'Process, not chaos', body: 'Structured discovery. Regular check-ins. Clear deliverables. You always know where we are and what\'s next.' },
+  { num: '06', title: 'Long-term thinking', body: 'We\'re not optimising for the invoice. We\'re optimising for the outcome. Half our clients are on long-term retainers because it works.' },
+];
+
+const comparison = [
+  { attr: 'Senior-led work',        hs108: true,  agency: false, freelancer: 'maybe' },
+  { attr: 'Brand + product + systems', hs108: true, agency: 'sometimes', freelancer: false },
+  { attr: 'Max 3 concurrent projects', hs108: true, agency: false, freelancer: 'maybe' },
+  { attr: 'Structured process',     hs108: true,  agency: true,   freelancer: false },
+  { attr: 'Direct communication',   hs108: true,  agency: false,  freelancer: true },
+  { attr: 'Long-term retainers',    hs108: true,  agency: true,   freelancer: 'sometimes' },
+  { attr: 'R&D / creative programs',hs108: true,  agency: false,  freelancer: false },
+];
+---
+
+<PageLayout title="Why HS108" label="Why Choose Us" description="Why clients choose HS108 over generalist agencies and freelancers. Senior talent, systems thinking, brutal honesty.">
+
+  <!-- Differentiators -->
+  <div class="container why-intro">
+    <p class="t-large why-lede">
+      Most studios are too big to care or too small to be reliable.
+      HS108 is built to be neither.
+    </p>
+  </div>
+
+  <hr />
+
+  <section class="section container">
+    <p class="t-label section-num" style="margin-bottom:3rem">Our Differentiators</p>
+    <div class="diff-grid">
+      {differentiators.map(d => (
+        <div class="diff-item b-box">
+          <span class="t-label diff-num">{d.num}</span>
+          <h3 class="t-h3 diff-title">{d.title}</h3>
+          <p class="t-body diff-body">{d.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Comparison table -->
+  <section class="section container">
+    <p class="t-label section-num" style="margin-bottom:1rem">How We Compare</p>
+    <h2 class="t-h2" style="margin-bottom:3rem">HS108 vs. The Alternatives</h2>
+
+    <div class="compare-table b-box">
+      <div class="compare-header">
+        <div class="compare-attr t-label">Attribute</div>
+        <div class="compare-col t-label">HS108</div>
+        <div class="compare-col t-label muted">Big Agency</div>
+        <div class="compare-col t-label muted">Freelancer</div>
+      </div>
+
+      {comparison.map(row => (
+        <div class="compare-row b-top">
+          <div class="compare-attr t-mono">{row.attr}</div>
+          <div class="compare-col">
+            {row.hs108 === true
+              ? <span class="compare-yes">✓ Yes</span>
+              : row.hs108 === false
+                ? <span class="compare-no">✗ No</span>
+                : <span class="compare-maybe">{row.hs108}</span>
+            }
+          </div>
+          <div class="compare-col muted">
+            {row.agency === true
+              ? <span>✓</span>
+              : row.agency === false
+                ? <span>✗</span>
+                : <span>{row.agency}</span>
+            }
+          </div>
+          <div class="compare-col muted">
+            {row.freelancer === true
+              ? <span>✓</span>
+              : row.freelancer === false
+                ? <span>✗</span>
+                : <span>{row.freelancer}</span>
+            }
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Testimonial -->
+  <section class="section container">
+    <div class="testimonial inv-block">
+      <p class="t-label" style="opacity:0.4; margin-bottom:2rem">What Clients Say</p>
+      <blockquote class="testimonial-quote">
+        "HS108 didn't just design our product — they redesigned how we think about design.
+        The system they built let us ship 3× faster within two months of handoff."
+      </blockquote>
+      <div class="testimonial-attr">
+        <span class="t-mono" style="opacity:0.5">— Founder, HealthOS</span>
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA headline="Let's talk." sub="Tell us what you're working on and we'll tell you how we can help." />
+
+</PageLayout>
+
+<style>
+  .why-intro {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .why-lede {
+    max-width: 60ch;
+    opacity: 0.7;
+  }
+
+  .diff-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .diff-item {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .diff-num {
+    opacity: 0.3;
+  }
+
+  .diff-body {
+    opacity: 0.65;
+    line-height: 1.65;
+  }
+
+  /* Comparison table */
+  .compare-table {
+    overflow-x: auto;
+  }
+
+  .compare-header,
+  .compare-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 0;
+  }
+
+  .compare-header {
+    padding: 1rem 1.5rem;
+    background: var(--surface-1);
+  }
+
+  .compare-row {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(13,13,13,0.1);
+  }
+
+  .compare-col {
+    display: flex;
+    align-items: center;
+  }
+
+  .compare-yes {
+    font-family: var(--font-mono);
+    font-size: var(--size-label);
+    letter-spacing: 0.08em;
+    color: var(--c-black);
+    background: var(--c-yellow);
+    padding: 2px 8px;
+  }
+
+  .compare-no {
+    font-family: var(--font-mono);
+    font-size: var(--size-label);
+    letter-spacing: 0.08em;
+    opacity: 0.3;
+  }
+
+  .compare-maybe {
+    font-family: var(--font-mono);
+    font-size: var(--size-label);
+    letter-spacing: 0.08em;
+    opacity: 0.5;
+  }
+
+  .compare-attr {
+    opacity: 0.7;
+  }
+
+  /* Testimonial */
+  .testimonial {
+    padding: var(--space-section) var(--space-card);
+    max-width: 900px;
+  }
+
+  .testimonial-quote {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.5vw, 32px);
+    font-weight: 500;
+    line-height: 1.35;
+    margin-bottom: 2rem;
+    color: var(--c-white);
+  }
+
+  @media (max-width: 900px) {
+    .diff-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .diff-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

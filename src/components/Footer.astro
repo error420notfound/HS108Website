@@ -1,0 +1,200 @@
+---
+const year = new Date().getFullYear();
+
+const footerLinks = [
+  { label: 'Work',      href: '/work' },
+  { label: 'Services',  href: '/services' },
+  { label: 'Process',   href: '/process' },
+  { label: 'About',     href: '/about' },
+  { label: 'Why Us',    href: '/why-us' },
+  { label: 'Contact',   href: '/contact' },
+];
+
+const programs = [
+  { label: 'Creative Department', href: '/programs/creative-department' },
+  { label: 'off_menu',            href: '/programs/off-menu' },
+];
+---
+
+<footer class="footer">
+  <div class="footer-main container">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo">HS108<span class="footer-dot"></span></a>
+      <p class="t-body footer-tagline">
+        An independent design studio<br />building brands &amp; products that scale.
+      </p>
+      <a href="mailto:hello@hs108.in" class="footer-email link-swap">hello@hs108.in</a>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-col">
+        <p class="t-label footer-col-label">Navigation</p>
+        <ul role="list">
+          {footerLinks.map(link => (
+            <li><a href={link.href} class="footer-link">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="t-label footer-col-label">Programs</p>
+        <ul role="list">
+          {programs.map(p => (
+            <li><a href={p.href} class="footer-link">{p.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="t-label footer-col-label">Status</p>
+        <div class="footer-status">
+          <span class="status-dot"></span>
+          <span class="t-mono">Accepting projects</span>
+        </div>
+        <p class="t-mono footer-location">Based in India<br />Working worldwide</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar container">
+    <p class="t-mono footer-copy">&copy; {year} HS108. All rights reserved.</p>
+    <p class="t-mono">Designed &amp; built in-house.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: var(--border-width) solid var(--border);
+    background: var(--bg);
+    margin-top: auto;
+  }
+
+  .footer-main {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .footer-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--c-yellow);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .footer-tagline {
+    opacity: 0.6;
+    max-width: 28ch;
+  }
+
+  .footer-email {
+    font-family: var(--font-mono);
+    font-size: var(--size-small);
+    letter-spacing: 0.04em;
+  }
+
+  .footer-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .footer-col-label {
+    margin-bottom: 1rem;
+    opacity: 0.4;
+  }
+
+  .footer-link {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--size-small);
+    letter-spacing: 0.06em;
+    padding: 4px 0;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition), background var(--transition);
+    padding: 2px 4px;
+  }
+
+  .footer-link:hover {
+    background: var(--c-yellow);
+  }
+
+  .footer-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: #00C47D;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: pulse-status 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-status {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+
+  .footer-location {
+    opacity: 0.5;
+    line-height: 1.7;
+  }
+
+  .footer-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    opacity: 0.45;
+  }
+
+  @media (max-width: 768px) {
+    .footer-main {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .footer-cols {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-cols {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

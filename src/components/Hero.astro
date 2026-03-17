@@ -1,0 +1,149 @@
+---
+---
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-overline">
+      <span class="t-label">Independent Design Studio</span>
+      <span class="hero-sep">—</span>
+      <span class="t-label">Est. 2019</span>
+      <span class="hero-sep">—</span>
+      <span class="t-label hero-status">
+        <span class="hero-dot"></span>
+        Accepting Projects
+      </span>
+    </div>
+
+    <h1 class="hero-headline">
+      Design<br />
+      Built to<br />
+      <span class="hero-headline-accent">Scale.</span>
+    </h1>
+
+    <div class="hero-bottom">
+      <p class="t-large hero-sub">
+        We build brands and digital products for companies<br class="hero-br" />
+        ready to grow. No generalists. No templates. Just systems<br class="hero-br" />
+        that work at scale.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="/contact" class="btn btn--primary">Start a Project</a>
+        <a href="/work" class="btn btn--outline">See Our Work →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: calc(100svh - 64px);
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: var(--border-width) solid var(--border);
+    position: relative;
+  }
+
+  .hero-inner {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .hero-overline {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 12px 0;
+    border-top: var(--border-width) solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .hero-sep {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    opacity: 0.3;
+  }
+
+  .hero-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: #00C47D;
+    border-radius: 50%;
+    animation: pulse-hero 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-hero {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+  }
+
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: var(--size-hero);
+    font-weight: 700;
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    padding-bottom: 2rem;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .hero-headline-accent {
+    color: transparent;
+    -webkit-text-stroke: 3px var(--c-black);
+  }
+
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 3rem;
+  }
+
+  .hero-sub {
+    max-width: 55ch;
+    opacity: 0.65;
+    line-height: 1.55;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .hero-headline-accent {
+      -webkit-text-stroke-width: 2px;
+    }
+
+    .hero-bottom {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-ctas {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero-br {
+      display: none;
+    }
+  }
+</style>

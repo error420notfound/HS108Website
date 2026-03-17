@@ -1,0 +1,222 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+
+const initiatives = [
+  {
+    code: 'CD-001',
+    title: 'Type in Context',
+    desc: 'An ongoing study of how typography behaves across cultures, scripts, and digital surfaces. Published as a living reference.',
+    status: 'Active',
+  },
+  {
+    code: 'CD-002',
+    title: 'The Brand Archive',
+    desc: 'A curated repository of identity systems from Indian companies — documenting the visual language of a generation.',
+    status: 'Active',
+  },
+  {
+    code: 'CD-003',
+    title: 'Grid Systems for Digital Products',
+    desc: 'Research into how editorial grid systems from print can be adapted for responsive digital layouts without losing structure.',
+    status: 'Published',
+  },
+  {
+    code: 'CD-004',
+    title: 'Motion as Language',
+    desc: 'When does motion communicate meaning versus distraction? A framework for intentional animation in product design.',
+    status: 'In Research',
+  },
+];
+---
+
+<BaseLayout
+  title="Creative Department"
+  description="The Creative Department is HS108's internal R&D lab — where we research, experiment, and publish work that pushes design thinking forward."
+>
+  <!-- Header — inverted -->
+  <div class="cd-hero inv-block">
+    <div class="container cd-hero-inner">
+      <div class="cd-logo">
+        <span class="t-label" style="opacity:0.4">A Program by HS108</span>
+        <h1 class="t-h1 cd-title">Creative<br />Department</h1>
+      </div>
+
+      <p class="t-large cd-tagline">
+        Our internal R&D lab. Where we research what the industry doesn't
+        talk about enough, experiment with ideas that don't have a brief,
+        and publish findings that are actually useful.
+      </p>
+    </div>
+  </div>
+
+  <div class="container cd-body">
+    <!-- What it is -->
+    <section class="cd-section">
+      <div class="cd-section-grid">
+        <div class="cd-section-left">
+          <p class="t-label section-num" style="opacity:0.4">What It Is</p>
+        </div>
+        <div class="cd-section-right">
+          <div class="prose">
+            <p>
+              The Creative Department is not a client-facing service. It's the part of HS108 that exists purely for curiosity — a dedicated allocation of time and resources for research, experimentation, and discourse.
+            </p>
+            <p>
+              Design thinking doesn't stop when client work does. The Creative Department is where we push ideas further, document patterns we notice across projects, and share work that has no deliverable except being interesting.
+            </p>
+            <p>
+              It exists because we believe the best design studios contribute to the field, not just to their clients.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Active initiatives -->
+    <section class="cd-section">
+      <p class="t-label section-num" style="opacity:0.4; margin-bottom:3rem">Active Initiatives</p>
+
+      <div class="initiatives-list">
+        {initiatives.map(item => (
+          <div class="initiative-row b-box">
+            <div class="initiative-header">
+              <span class="t-label initiative-code">{item.code}</span>
+              <span class:list={['tag', { 'tag--accent': item.status === 'Active' }]}>
+                {item.status}
+              </span>
+            </div>
+            <h3 class="t-h3 initiative-title">{item.title}</h3>
+            <p class="t-body initiative-desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Collaborate -->
+    <section class="cd-section cd-collaborate">
+      <div class="cd-collab-grid">
+        <h2 class="t-h2">Want to contribute?</h2>
+        <div>
+          <p class="t-body" style="opacity:0.65; max-width:50ch; margin-bottom:2rem">
+            The Creative Department occasionally brings in external contributors — researchers, writers, practitioners, and thinkers from adjacent fields. If you have something worth exploring, we'd like to hear about it.
+          </p>
+          <a href="mailto:cd@hs108.in" class="btn btn--primary">cd@hs108.in</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <ContactCTA
+    headline="Interested in HS108's client work?"
+    sub="The Creative Department is our internal lab. Our client services are where we apply the thinking."
+  />
+</BaseLayout>
+
+<style>
+  .cd-hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-end;
+    padding-top: 10rem;
+    padding-bottom: 0;
+  }
+
+  .cd-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    padding-bottom: 4rem;
+    border-bottom: var(--border-width) solid rgba(255,255,255,0.15);
+  }
+
+  .cd-title {
+    margin-top: 1rem;
+    color: var(--c-white);
+  }
+
+  .cd-tagline {
+    opacity: 0.65;
+    color: var(--c-white);
+    max-width: 50ch;
+    align-self: end;
+  }
+
+  /* Body */
+  .cd-body {
+    padding-bottom: var(--space-section);
+  }
+
+  .cd-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .cd-section-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+  }
+
+  .cd-section-right .prose p {
+    margin-bottom: 1.25rem;
+    opacity: 0.7;
+    line-height: 1.75;
+    max-width: 65ch;
+  }
+
+  /* Initiatives */
+  .initiatives-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .initiative-row {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .initiative-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .initiative-code {
+    opacity: 0.3;
+  }
+
+  .initiative-desc {
+    opacity: 0.6;
+    line-height: 1.65;
+  }
+
+  /* Collaborate */
+  .cd-collab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .cd-hero-inner,
+    .cd-section-grid,
+    .cd-collab-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .initiatives-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

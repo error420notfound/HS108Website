@@ -1,0 +1,152 @@
+/* ============================================================
+   GLOBAL CSS — HS108 Design System
+   ============================================================ */
+
+:root {
+  /* --- Core palette --- */
+  --c-white:      #F5F2EE;
+  --c-black:      #0D0D0D;
+  --c-yellow:     #FFE600;
+  --c-red:        #FF2B00;
+
+  /* --- Semantic --- */
+  --bg:           var(--c-white);
+  --fg:           var(--c-black);
+  --accent:       var(--c-yellow);
+  --accent-alt:   var(--c-red);
+
+  /* --- Surfaces --- */
+  --surface-1:    #EDEAD4;
+  --surface-inv:  var(--c-black);
+  --fg-inv:       var(--c-white);
+
+  /* --- Borders --- */
+  --border:       var(--c-black);
+  --border-width: 2px;
+  --border-accent: var(--c-yellow);
+
+  /* --- Typography --- */
+  --font-display: 'Space Grotesk', 'Arial Black', sans-serif;
+  --font-body:    'Space Grotesk', 'Arial', sans-serif;
+  --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+
+  /* --- Type scale --- */
+  --size-hero:    clamp(64px, 12vw, 160px);
+  --size-h1:      clamp(40px, 6.5vw, 88px);
+  --size-h2:      clamp(28px, 4vw, 52px);
+  --size-h3:      clamp(20px, 2.2vw, 30px);
+  --size-body:    clamp(15px, 1.1vw, 18px);
+  --size-small:   13px;
+  --size-label:   11px;
+
+  /* --- Spacing --- */
+  --space-section: clamp(72px, 10vw, 140px);
+  --space-gap:     clamp(16px, 2vw, 32px);
+  --space-card:    clamp(20px, 2.5vw, 40px);
+
+  /* --- Grid --- */
+  --max-width:    1440px;
+  --gutter:       clamp(16px, 4vw, 64px);
+
+  /* --- Transitions --- */
+  --transition:   150ms ease;
+}
+
+/* --- Reset --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* --- Container --- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* --- Section spacing --- */
+.section {
+  padding-block: var(--space-section);
+}
+
+.section--inv {
+  background-color: var(--surface-inv);
+  color: var(--fg-inv);
+}
+
+.section--alt {
+  background-color: var(--surface-1);
+}
+
+/* --- Horizontal rule divider --- */
+hr {
+  border: none;
+  border-top: var(--border-width) solid var(--border);
+  width: 100%;
+}
+
+hr.inv {
+  border-top-color: rgba(255, 255, 255, 0.15);
+}
+
+/* --- Selection --- */
+::selection {
+  background-color: var(--c-yellow);
+  color: var(--c-black);
+}
+
+/* --- Focus --- */
+:focus-visible {
+  outline: 3px solid var(--c-yellow);
+  outline-offset: 2px;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-black);
+}

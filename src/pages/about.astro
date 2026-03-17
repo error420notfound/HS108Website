@@ -1,0 +1,186 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+
+const values = [
+  { num: '01', title: 'Systems First', body: 'We design things that scale. Every decision is made with the long game in mind — not just the launch, but the second version, the pivot, and the growth that comes after.' },
+  { num: '02', title: 'Senior Always', body: 'No bait-and-switch. The people you meet in the pitch are the people doing the work. Every project is led by someone with real experience, not supervised by them.' },
+  { num: '03', title: 'Small on Purpose', body: 'We deliberately stay small. It keeps us sharp, invested, and close to the work. Big agencies have overhead. We have attention.' },
+  { num: '04', title: 'Honest Work', body: 'We\'ll tell you if something doesn\'t work — even if it\'s your idea. Good design is a conversation, not a service delivery. We\'d rather be right than agreeable.' },
+];
+---
+
+<PageLayout title="About" label="Who We Are" description="HS108 is an independent design studio founded in 2019. We build brands and digital products for companies ready to scale.">
+
+  <!-- Studio narrative -->
+  <div class="container about-intro">
+    <div class="about-intro-grid">
+      <div class="about-story">
+        <h2 class="t-h2">A studio built for scale.</h2>
+        <div class="prose about-body">
+          <p>
+            HS108 was founded in 2019 on a single thesis: that most design studios are either too big to care or too small to be reliable. We built something in between — small enough to be invested, structured enough to deliver.
+          </p>
+          <p>
+            We work with companies at inflection points. Seed-stage startups about to launch. Growth-stage companies whose brand no longer fits their ambition. Enterprises that need their product design system rebuilt from scratch.
+          </p>
+          <p>
+            What we're not: a generalist shop that does anything for anyone. We do brand, product, and systems — and we do them exceptionally.
+          </p>
+        </div>
+      </div>
+
+      <div class="about-numbers">
+        <div class="about-num-item b-box">
+          <span class="about-big-num">2019</span>
+          <span class="t-label">Founded</span>
+        </div>
+        <div class="about-num-item b-box">
+          <span class="about-big-num">38+</span>
+          <span class="t-label">Clients Served</span>
+        </div>
+        <div class="about-num-item b-box">
+          <span class="about-big-num">100%</span>
+          <span class="t-label">Senior Team</span>
+        </div>
+        <div class="about-num-item b-box inv-block">
+          <span class="about-big-num" style="color: var(--c-yellow)">HS108</span>
+          <span class="t-label" style="color: rgba(255,255,255,0.5)">Independent</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- Values -->
+  <section class="section container">
+    <p class="t-label section-num" style="margin-bottom:1rem">Our Values</p>
+    <h2 class="t-h2" style="margin-bottom:3rem">What We Stand For</h2>
+
+    <div class="values-grid">
+      {values.map(v => (
+        <div class="value-card b-box">
+          <span class="t-label value-num">{v.num}</span>
+          <h3 class="t-h3 value-title">{v.title}</h3>
+          <p class="t-body value-body">{v.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Clients -->
+  <section class="section container">
+    <p class="t-label section-num" style="margin-bottom:2rem">Who We've Worked With</p>
+    <div class="clients-row">
+      {['NovaPay', 'Urbane Property', 'HealthOS', 'Luma Commerce', 'MedFlow', 'VeritasAI', 'PocketScale', 'OrbitEd'].map(name => (
+        <span class="client-name t-h3">{name}</span>
+      ))}
+    </div>
+  </section>
+
+  <ContactCTA />
+
+</PageLayout>
+
+<style>
+  .about-intro {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+  }
+
+  .about-intro-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-story h2 {
+    margin-bottom: 2rem;
+  }
+
+  .about-body p {
+    margin-bottom: 1.25rem;
+    opacity: 0.7;
+    line-height: 1.75;
+    max-width: 60ch;
+  }
+
+  .about-numbers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .about-num-item {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: 0;
+  }
+
+  .about-big-num {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  /* Values */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .value-card {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .value-num {
+    opacity: 0.3;
+  }
+
+  .value-title {
+    margin-top: 0.25rem;
+  }
+
+  .value-body {
+    opacity: 0.6;
+    line-height: 1.7;
+  }
+
+  /* Clients */
+  .clients-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 3rem;
+  }
+
+  .client-name {
+    opacity: 0.35;
+    transition: opacity var(--transition);
+  }
+
+  .client-name:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 900px) {
+    .about-intro-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

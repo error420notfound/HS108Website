@@ -1,0 +1,242 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import StatBar from '@components/StatBar.astro';
+import WorkCard from '@components/WorkCard.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+import { getCollection } from 'astro:content';
+
+const allWork  = await getCollection('work', ({ data }) => !data.draft && data.featured);
+const featured = allWork.sort((a, b) => a.data.order - b.data.order).slice(0, 3);
+
+const stats = [
+  { value: '38+',  label: 'Brands Scaled',     sub: 'Since 2019' },
+  { value: '5×',   label: 'Avg. Growth',        sub: 'Across active clients' },
+  { value: '100%', label: 'Senior Talent',      sub: 'No juniors on your work' },
+  { value: '6 yrs', label: 'In Business',       sub: 'Independent, bootstrapped' },
+];
+
+const services = [
+  { num: '01', name: 'Brand Identity',    desc: 'Strategy, naming, visual identity, brand guidelines — everything a new or pivoting brand needs to launch with confidence.' },
+  { num: '02', name: 'Product Design',    desc: 'UX research, wireframes, UI design, and handoff for web and mobile products. We design it. Engineers ship it.' },
+  { num: '03', name: 'Design Systems',    desc: 'Scalable component libraries, token architecture, and documentation that lets teams move fast without breaking consistency.' },
+];
+---
+
+<BaseLayout title="HS108" description="HS108 is an independent design studio building brands and products that scale.">
+
+  <!-- Hero -->
+  <Hero />
+
+  <!-- Stats -->
+  <StatBar stats={stats} />
+
+  <!-- Ticker -->
+  <div class="marquee-track" aria-hidden="true">
+    <div class="marquee-inner">
+      {Array(4).fill(null).map(() => (
+        <>
+          <span>Brand Identity</span>
+          <span>·</span>
+          <span>Product Design</span>
+          <span>·</span>
+          <span>Design Systems</span>
+          <span>·</span>
+          <span>UX Strategy</span>
+          <span>·</span>
+          <span>Creative Direction</span>
+          <span>·</span>
+          <span>Motion Design</span>
+          <span>·</span>
+        </>
+      ))}
+    </div>
+  </div>
+
+  <!-- Featured Work -->
+  <section class="section container">
+    <div class="section-header">
+      <div>
+        <p class="t-label section-num">Selected Work</p>
+        <h2 class="t-h2">What We've Built</h2>
+      </div>
+      <a href="/work" class="btn btn--outline">All Projects →</a>
+    </div>
+
+    <div class="featured-grid">
+      {featured.map((entry, i) => (
+        <div class:list={['featured-item', { 'featured-item--wide': i === 0 }]}>
+          <WorkCard
+            slug={entry.slug}
+            title={entry.data.title}
+            client={entry.data.client}
+            year={entry.data.year}
+            categories={entry.data.categories}
+            coverImage={entry.data.coverImage}
+            coverAlt={entry.data.coverAlt}
+            color={entry.data.color}
+            outcome={entry.data.outcome}
+            summary={entry.data.summary}
+            large={i === 0}
+          />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Services teaser -->
+  <section class="section container">
+    <div class="section-header">
+      <div>
+        <p class="t-label section-num">What We Do</p>
+        <h2 class="t-h2">Our Services</h2>
+      </div>
+      <a href="/services" class="btn btn--outline">Full Services →</a>
+    </div>
+
+    <div class="services-list">
+      {services.map(svc => (
+        <div class="service-row b-top">
+          <span class="t-label service-num">{svc.num}</span>
+          <h3 class="t-h3 service-name">{svc.name}</h3>
+          <p class="t-body service-desc">{svc.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Process teaser -->
+  <section class="section section--inv container">
+    <p class="t-label section-num" style="opacity:0.4">How We Work</p>
+    <h2 class="t-h2" style="margin-bottom:3rem">Our Process</h2>
+
+    <div class="process-strip stat-strip">
+      {[
+        { n: '01', title: 'Understand', desc: 'Deep research. Client interviews. Market mapping. We never design blind.' },
+        { n: '02', title: 'Design', desc: 'Strategic concepts, iteration, and refinement until we hit something true.' },
+        { n: '03', title: 'Build', desc: 'Production-ready files, handoff docs, and implementation support.' },
+        { n: '04', title: 'Scale', desc: 'Systems that grow with your company. Retainers for ongoing partnership.' },
+      ].map(step => (
+        <div class="process-step">
+          <span class="t-label process-num">{step.n}</span>
+          <h3 class="t-h3 process-title">{step.title}</h3>
+          <p class="t-body process-desc">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <div style="margin-top:3rem">
+      <a href="/process" class="btn btn--outline-inv">See Full Process →</a>
+    </div>
+  </section>
+
+  <ContactCTA />
+
+</BaseLayout>
+
+<style>
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .section-header .t-h2 {
+    margin-top: 0.5rem;
+  }
+
+  /* Featured work grid */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .featured-item {
+    grid-column: span 6;
+  }
+
+  .featured-item--wide {
+    grid-column: span 12;
+  }
+
+  /* Services */
+  .services-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-row {
+    display: grid;
+    grid-template-columns: 3rem 1fr 2fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    align-items: start;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .service-num {
+    opacity: 0.35;
+    padding-top: 4px;
+  }
+
+  .service-desc {
+    opacity: 0.6;
+    max-width: 60ch;
+  }
+
+  /* Process */
+  .process-strip {
+    border-top-color: rgba(255,255,255,0.15);
+    border-left-color: rgba(255,255,255,0.15);
+  }
+
+  .process-step {
+    border-right: var(--border-width) solid rgba(255,255,255,0.15);
+    border-bottom: var(--border-width) solid rgba(255,255,255,0.15);
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .process-num {
+    opacity: 0.4;
+  }
+
+  .process-title {
+    color: var(--c-yellow);
+  }
+
+  .process-desc {
+    opacity: 0.6;
+  }
+
+  @media (max-width: 900px) {
+    .featured-item {
+      grid-column: span 12;
+    }
+
+    .service-row {
+      grid-template-columns: 3rem 1fr;
+    }
+
+    .service-desc {
+      grid-column: 2;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .service-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

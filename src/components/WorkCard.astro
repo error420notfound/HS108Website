@@ -1,0 +1,130 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  client: string;
+  year: number;
+  categories: string[];
+  coverImage: string;
+  coverAlt: string;
+  color: string;
+  outcome: { label: string; value: string };
+  summary: string;
+  large?: boolean;
+}
+
+const {
+  slug, title, client, year, categories,
+  coverImage, coverAlt, color, outcome, summary,
+  large = false,
+} = Astro.props;
+---
+
+<a href={`/work/${slug}`} class:list={['work-card b-box', { 'work-card--large': large }]}>
+  <div class="work-card-img aspect-16-9" style={`background-color: ${color}18`}>
+    <img src={coverImage} alt={coverAlt} class="img-raw" loading="lazy" />
+  </div>
+
+  <div class="work-card-body">
+    <div class="work-card-meta">
+      <span class="t-label">{client}</span>
+      <span class="t-label muted">{year}</span>
+    </div>
+    <h3 class:list={['work-card-title', large ? 't-h2' : 't-h3']}>{title}</h3>
+    <p class="t-body work-card-summary">{summary}</p>
+    <div class="work-card-footer">
+      <div class="work-card-cats">
+        {categories.slice(0, 3).map(c => <span class="tag">{c}</span>)}
+      </div>
+      <div class="work-card-outcome">
+        <span class="t-label muted">{outcome.label}</span>
+        <span class="work-card-value">{outcome.value}</span>
+      </div>
+    </div>
+  </div>
+</a>
+
+<style>
+  .work-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: border-color var(--transition), transform var(--transition);
+    text-decoration: none;
+  }
+
+  .work-card:hover {
+    border-color: var(--c-yellow);
+  }
+
+  .work-card:hover .work-card-img img {
+    transform: scale(1.03);
+  }
+
+  .work-card-img {
+    overflow: hidden;
+  }
+
+  .work-card-img img {
+    transition: transform 400ms ease;
+  }
+
+  .work-card-body {
+    padding: var(--space-card);
+    border-top: var(--border-width) solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+  }
+
+  .work-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.45;
+  }
+
+  .work-card-title {
+    line-height: 1.05;
+  }
+
+  .work-card-summary {
+    opacity: 0.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .work-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(13,13,13,0.1);
+  }
+
+  .work-card-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .work-card-outcome {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  .work-card-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+</style>
