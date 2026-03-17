@@ -17,6 +17,7 @@ const currentPath = Astro.url.pathname;
       <span class="nav-logo-dot"></span>
     </a>
 
+    <!-- Desktop links -->
     <ul class="nav-links" role="list">
       {navLinks.map(link => (
         <li>
@@ -33,29 +34,43 @@ const currentPath = Astro.url.pathname;
     <a href="/contact" class="btn btn--primary nav-cta">Get In Touch</a>
 
     <!-- Mobile hamburger -->
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button
+      class="nav-hamburger"
+      id="nav-hamburger"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="nav-mobile"
+    >
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
     </button>
   </nav>
 
-  <!-- Mobile menu overlay -->
+  <!-- Mobile dropdown menu -->
   <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
     <ul role="list">
       {navLinks.map(link => (
         <li>
-          <a href={link.href} class="nav-mobile-link">{link.label}</a>
+          <a
+            href={link.href}
+            class:list={['nav-mobile-link', { active: currentPath.startsWith(link.href) }]}
+          >
+            {link.label}
+          </a>
         </li>
       ))}
-      <li>
-        <a href="/contact" class="nav-mobile-link nav-mobile-cta">Get In Touch →</a>
-      </li>
     </ul>
+    <div class="nav-mobile-footer">
+      <a href="/contact" class="btn btn--primary nav-mobile-cta">
+        Get In Touch →
+      </a>
+    </div>
   </div>
 </header>
 
 <style>
+  /* ── Wrapper ── */
   .nav-wrap {
     position: fixed;
     top: 0;
@@ -66,39 +81,42 @@ const currentPath = Astro.url.pathname;
     border-bottom: var(--border-width) solid var(--border);
   }
 
+  /* ── Bar ── */
   .nav {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
     height: 64px;
   }
 
-  /* Logo */
+  /* ── Logo ── */
   .nav-logo {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-right: auto;
+    text-decoration: none;
   }
 
   .nav-logo-text {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-family: var(--font-mono);   /* Geist Mono — works at any weight */
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     line-height: 1;
+    color: var(--black-native);
   }
 
   .nav-logo-dot {
     width: 8px;
     height: 8px;
-    background: var(--c-yellow);
+    background: var(--orange-500);
     border-radius: 50%;
-    display: inline-block;
+    flex-shrink: 0;
   }
 
-  /* Nav links */
+  /* ── Desktop nav links ── */
   .nav-links {
     display: flex;
     align-items: center;
@@ -110,50 +128,75 @@ const currentPath = Astro.url.pathname;
     font-size: var(--size-label);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 8px 16px;
+    padding: 8px 14px;
     display: block;
     transition: background var(--transition), color var(--transition);
-    position: relative;
+    color: var(--black-native);
   }
 
   .nav-link:hover,
   .nav-link.active {
-    background: var(--c-yellow);
-    color: var(--c-black);
+    background: var(--orange-500);
+    color: var(--black-native);
   }
 
-  /* CTA */
+  /* ── Desktop CTA ── */
   .nav-cta {
-    padding: 10px 20px;
+    padding: 10px 18px;
     font-size: 10px;
+    flex-shrink: 0;
   }
 
-  /* Hamburger */
+  /* ══════════════════════════════════════
+     HAMBURGER BUTTON
+  ══════════════════════════════════════ */
   .nav-hamburger {
-    display: none;
+    display: none;           /* shown only at mobile breakpoint */
     flex-direction: column;
+    justify-content: center;
     gap: 5px;
-    width: 32px;
-    padding: 4px;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
     cursor: pointer;
+    background: none;
+    border: var(--border-width) solid var(--border);
+    flex-shrink: 0;
   }
 
-  .nav-hamburger span {
+  .bar {
     display: block;
+    width: 100%;             /* fills the 40px button width minus padding */
     height: 2px;
-    background: var(--c-black);
-    transition: transform var(--transition), opacity var(--transition);
+    background: var(--black-native);
+    transition: transform 250ms ease, opacity 250ms ease;
+    transform-origin: center;
   }
 
-  /* Mobile overlay */
+  /* Animated X when open */
+  .nav-hamburger[aria-expanded="true"] .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .nav-hamburger[aria-expanded="true"] .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-hamburger[aria-expanded="true"] .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ══════════════════════════════════════
+     MOBILE DROPDOWN
+  ══════════════════════════════════════ */
   .nav-mobile {
     display: none;
-    position: fixed;
-    inset: 64px 0 0 0;
     background: var(--bg);
     border-top: var(--border-width) solid var(--border);
-    padding: 2rem var(--gutter);
-    overflow-y: auto;
+    /* Dropdown from nav bar — no full-screen overlay */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
   }
 
   .nav-mobile.open {
@@ -166,33 +209,52 @@ const currentPath = Astro.url.pathname;
   }
 
   .nav-mobile-link {
-    display: block;
-    font-family: var(--font-display);
-    font-size: clamp(28px, 8vw, 48px);
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: -0.02em;
-    padding: 1rem 0;
-    border-bottom: var(--border-width) solid var(--border);
+    color: var(--black-native);
+    padding: 1rem var(--gutter);
+    border-bottom: 1px solid var(--orange-100);
     transition: background var(--transition), padding-left var(--transition);
   }
 
-  .nav-mobile-link:hover {
-    padding-left: 1rem;
-    background: var(--c-yellow);
+  .nav-mobile-link::after {
+    content: '→';
+    font-family: var(--font-mono);
+    font-size: 11px;
+    opacity: 0.35;
+  }
+
+  .nav-mobile-link:hover,
+  .nav-mobile-link.active {
+    background: var(--orange-500);
+    color: var(--black-native);
+    padding-left: calc(var(--gutter) + 0.5rem);
+  }
+
+  .nav-mobile-link.active::after {
+    opacity: 1;
+  }
+
+  .nav-mobile-footer {
+    padding: 1.25rem var(--gutter);
+    border-top: var(--border-width) solid var(--border);
+    background: var(--surface-elevated);
   }
 
   .nav-mobile-cta {
-    color: var(--c-yellow);
-    background: var(--c-black);
-    padding-inline: 1rem;
+    width: 100%;
+    justify-content: center;
   }
 
-  .nav-mobile-cta:hover {
-    background: var(--c-yellow);
-    color: var(--c-black);
-  }
-
+  /* ══════════════════════════════════════
+     BREAKPOINT
+  ══════════════════════════════════════ */
   @media (max-width: 900px) {
     .nav-links,
     .nav-cta {
@@ -212,17 +274,28 @@ const currentPath = Astro.url.pathname;
   hamburger.addEventListener('click', () => {
     const isOpen = mobileMenu.classList.toggle('open');
     hamburger.setAttribute('aria-expanded', String(isOpen));
+    hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
     mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
-  // Close mobile menu on link click
+  // Close on link click
   mobileMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.setAttribute('aria-label', 'Open menu');
       mobileMenu.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
     });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    const header = document.querySelector('.nav-wrap');
+    if (header && !header.contains(e.target as Node)) {
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.setAttribute('aria-label', 'Open menu');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    }
   });
 </script>
