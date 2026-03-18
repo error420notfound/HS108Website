@@ -108,7 +108,7 @@ These are HS108's engagement models and community initiatives — distinct from 
 ### Creative Department (`/programs/creative-department`)
 **Type:** Flagship retainer program
 **What:** Ongoing design support for businesses — a dedicated team embedded in the client's workflow. Covers all four practices under one monthly engagement. Senior talent only.
-**Email:** `cd@hs108.in`
+**Email:** `contact.studio@hs108.in`
 
 ### Design Lab (`/programs/design-lab`)
 **Type:** Research & discovery program
@@ -118,13 +118,13 @@ These are HS108's engagement models and community initiatives — distinct from 
 ### off_menu (`/programs/off-menu`)
 **Type:** Bespoke / custom package
 **What:** Custom, tailor-made engagements for clients whose needs span multiple disciplines or don't fit a standard scope. Combines any of the four practices as the project requires.
-**Email:** `offmenu@hs108.in`
+**Email:** `contact.studio@hs108.in`
 **Note:** Name is always `off_menu` — lowercase, underscore, no space.
 
 ### Atelier Discourse (`/programs/atelier-discourse`)
 **Type:** Community / conversation platform
 **What:** HS108's channel for discourse with designers, artisans, and industry experts. Covers topics: Material & Craft, Design & Commerce, Systems Design, Visual Culture. Not client-facing — community and field contribution.
-**Email:** `hello@hs108.in`
+**Email:** `contact.studio@hs108.in`
 
 ---
 
