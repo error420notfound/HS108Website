@@ -136,13 +136,18 @@ These are HS108's engagement models and community initiatives — distinct from 
 /work/[slug]                    Individual case study (dynamic from MDX)
 /about                          About the studio
 /services                       4 services: WebCanvas, CX&Identity, CMF_Nexus, Lumina.raw
+/services/webcanvas             WebCanvas service page (theme-blue)
+/services/cx-identity           CX&Identity service page (theme-purple)
+/services/cmf-nexus             CMF_Nexus service page (theme-vermilion)
+/services/lumina-raw            Lumina.raw service page (theme-green)
 /process                        How we work (4 phases)
 /why-us                         Why choose HS108
 /contact                        Contact form (Formspree) + email
-/programs/creative-department   Retainer program
-/programs/design-lab            Research & discovery program
-/programs/off-menu              Bespoke / custom package
-/programs/atelier-discourse     Discourse / community platform
+/programs                       Programs list/index page (all 4 programs)
+/programs/creative-department   Retainer program (theme-rose)
+/programs/design-lab            Research & discovery program (theme-vermilion)
+/programs/off-menu              Bespoke / custom package (theme-cool)
+/programs/atelier-discourse     Discourse / community platform (theme-teal)
 ```
 
 ---
@@ -163,6 +168,39 @@ These are HS108's engagement models and community initiatives — distinct from 
 
 ---
 
+## Per-Page Colour Theming
+
+Individual pages can be given a colour theme by passing `bodyClass` to `BaseLayout`:
+
+```astro
+<BaseLayout title="..." bodyClass="theme-blue">
+```
+
+This sets the `class` on `<body>` and overrides all semantic colour tokens (`--bg`, `--fg`, `--accent`, `--surface-base`, etc.) for that page. Every theme class **explicitly** sets `--bg` and `--fg` directly — do not rely on intermediate variable inheritance.
+
+**Current theme assignments:**
+
+| Page | Theme |
+|---|---|
+| `/services/webcanvas` | `theme-blue` |
+| `/services/cx-identity` | `theme-purple` |
+| `/services/cmf-nexus` | `theme-vermilion` |
+| `/services/lumina-raw` | `theme-green` |
+| `/programs/creative-department` | `theme-rose` |
+| `/programs/design-lab` | `theme-vermilion` |
+| `/programs/off-menu` | `theme-cool` |
+| `/programs/atelier-discourse` | `theme-teal` |
+
+All 18 theme classes are defined in `src/styles/global.css`. Available themes: `theme-orange` (default), `theme-lime`, `theme-yellow`, `theme-green`, `theme-blue`, `theme-rose`, `theme-indigo`, `theme-pink`, `theme-purple`, `theme-cyan`, `theme-teal`, `theme-mint`, `theme-amber`, `theme-brown`, `theme-red`, `theme-vermilion`, `theme-warm`, `theme-cool`, `theme-neutral`.
+
+**Font pair modifiers** (can be combined with theme classes):
+- `.font-pair-a` — switches display to Genos (700 italic) + body to Rajdhani
+- `.font-pair-b` — switches display to Michroma + body to IBM Plex Serif
+
+**CSS variable fix:** The `--bg` / `--fg` aliases defined on `:root` do NOT auto-resolve when intermediate tokens are overridden on `body`. Always set `--bg` and `--fg` directly inside every theme class — never rely on the chain.
+
+---
+
 ## Nav Component — Mobile Behaviour
 
 The Nav has a working mobile menu. Key details for future edits:
@@ -174,6 +212,7 @@ The Nav has a working mobile menu. Key details for future edits:
 - Menu closes on: link click, outside click
 - All main nav links + all 4 program sub-links + "Get In Touch" button are in the dropdown
 - Programs appear as a sub-group with a label: `Creative Department`, `Design Lab`, `off_menu`, `Atelier Discourse`
+- Desktop "Programs" nav link goes to `/programs` (the programs index page)
 - Logo uses `var(--font-mono)` (Geist Mono) at `font-weight: 500` — NOT Instrument Serif (which has no bold weight)
 
 ---
@@ -288,11 +327,17 @@ HS108Website/
 │   │   ├── work/
 │   │   │   ├── index.astro
 │   │   │   └── [slug].astro
+│   │   ├── services/
+│   │   │   ├── webcanvas.astro             ← theme-blue
+│   │   │   ├── cx-identity.astro           ← theme-purple
+│   │   │   ├── cmf-nexus.astro             ← theme-vermilion
+│   │   │   └── lumina-raw.astro            ← theme-green
 │   │   └── programs/
-│   │       ├── creative-department.astro   ← retainer program
-│   │       ├── design-lab.astro            ← research & discovery (NEW)
-│   │       ├── off-menu.astro              ← bespoke custom package
-│   │       └── atelier-discourse.astro     ← discourse platform (NEW)
+│   │       ├── index.astro                 ← programs list page (mirrors services index)
+│   │       ├── creative-department.astro   ← theme-rose
+│   │       ├── design-lab.astro            ← theme-vermilion
+│   │       ├── off-menu.astro              ← theme-cool
+│   │       └── atelier-discourse.astro     ← theme-teal
 │   └── styles/
 │       ├── global.css              Color tokens + reset + layout utilities
 │       ├── typography.css          Font imports + type scale classes
@@ -328,6 +373,16 @@ npm install
 6. **Self-host fonts** — download Instrument Serif, Geist, Geist Mono woff2 files → `public/fonts/` → replace the `@import` in `typography.css` with `@font-face` declarations
 7. **Sitemap** — re-add `@astrojs/sitemap` after Astro 5 upgrade
 8. **OG image** — add `public/og-default.jpg` (1200×630) for social sharing previews
+
+## Completed This Session
+
+- ✅ Created `/programs/index.astro` — programs list page (mirrors services index structure, 4 program rows + services teaser + callout)
+- ✅ Applied `theme-rose` to `creative-department.astro`
+- ✅ Applied `theme-vermilion` to `design-lab.astro`
+- ✅ Applied `theme-cool` to `off-menu.astro`
+- ✅ Applied `theme-teal` to `atelier-discourse.astro`
+- ✅ Updated Nav "Programs" desktop link from `/programs/creative-department` → `/programs`
+- ✅ Added per-page theming section to this file
 
 ---
 

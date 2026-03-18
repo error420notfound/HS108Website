@@ -1,0 +1,284 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+
+const programs = [
+  {
+    num: '01',
+    code: 'Creative Department',
+    name: 'Embedded Design Team',
+    desc: 'Our flagship retainer — a dedicated design team embedded in your business. Senior designers allocated to your account, across all four HS108 practices, working in structured monthly sprints.',
+    features: ['Dedicated senior designers', 'All four practices under one retainer', 'Monthly sprints + quarterly strategy', 'Unlimited design requests', 'Async collaboration in your tools', 'No change orders for small asks'],
+    model: 'Retainer',
+    accent: 'Ongoing · Embedded · Senior',
+    href: '/programs/creative-department',
+    theme: 'theme-rose',
+  },
+  {
+    num: '02',
+    code: 'Design Lab',
+    name: 'Research & Discovery',
+    desc: 'For design problems that don\'t have obvious answers. Rigorous user research, structured discovery sprints, and systems thinking — before any execution begins.',
+    features: ['Deep-dive user research', 'Discovery sprints (2–4 weeks)', 'Complex systems design', 'Concept development & exploration', 'Co-design workshops', 'Research outputs + design briefs'],
+    model: 'Project',
+    accent: 'Research · Discovery · Thinking',
+    href: '/programs/design-lab',
+    theme: 'theme-vermilion',
+  },
+  {
+    num: '03',
+    code: 'off_menu',
+    name: 'Bespoke Packages',
+    desc: 'Your project doesn\'t fit a standard package. off_menu is for clients who need a custom scope — combining disciplines, structures, and timelines in ways that standard services don\'t allow.',
+    features: ['Cross-discipline engagements', 'Custom scope + team assembly', 'All four practices available to combine', 'Flexible engagement structure', 'Tailored timeline and milestones', 'Single point of contact'],
+    model: 'Bespoke',
+    accent: 'Custom · Cross-Discipline · Tailored',
+    href: '/programs/off-menu',
+    theme: 'theme-cool',
+  },
+  {
+    num: '04',
+    code: 'Atelier Discourse',
+    name: 'Design Conversations',
+    desc: 'A platform for discourse with designers, artisans, and industry thinkers. Conversations, publications, and events that engage with the ideas that shape the practice of design.',
+    features: ['Design conversations & interviews', 'Published essays & criticism', 'Material & craft dialogues', 'Design & commerce discussions', 'Visual culture explorations', 'Open to practitioners at all stages'],
+    model: 'Community',
+    accent: 'Conversations · Publications · Events',
+    href: '/programs/atelier-discourse',
+    theme: 'theme-teal',
+  },
+];
+---
+
+<PageLayout title="Programs" label="Beyond Client Work" description="HS108 programs — Creative Department, Design Lab, off_menu, and Atelier Discourse. Retainers, research, bespoke packages, and design discourse.">
+
+  <div class="container programs-intro">
+    <p class="t-large programs-lede">
+      Four programs. Each one a different relationship with design.
+      Client services are what we do — programs are how we think about it.
+    </p>
+  </div>
+
+  <div class="programs-list">
+    {programs.map(prog => (
+      <div class="prog-row container">
+        <div class="prog-header">
+          <span class="t-label prog-num">{prog.num}</span>
+          <div class="prog-name-block">
+            <span class="t-label prog-code">{prog.code}</span>
+            <h2 class="t-h2 prog-name">{prog.name}</h2>
+          </div>
+          <span class="tag prog-accent">{prog.accent}</span>
+          <span class="tag">{prog.model}</span>
+          <a href={prog.href} class="btn btn--outline prog-detail-btn">Explore →</a>
+        </div>
+        <div class="prog-body">
+          <p class="t-body prog-desc">{prog.desc}</p>
+          <div class="prog-features">
+            <p class="t-label prog-feat-label">What's Included</p>
+            <ul class="prog-feat-list">
+              {prog.features.map(f => <li class="t-mono">{f}</li>)}
+            </ul>
+          </div>
+        </div>
+        <hr />
+      </div>
+    ))}
+  </div>
+
+  <!-- Services callout -->
+  <div class="container programs-services">
+    <p class="t-label" style="opacity:0.4; margin-bottom:1.5rem">Not a Program? Try a Service</p>
+    <div class="svc-grid">
+      <div class="svc-card b-box">
+        <p class="t-label svc-label">WebCanvas</p>
+        <p class="t-body svc-desc">Digital design — websites, apps, and product interfaces.</p>
+        <a href="/services/webcanvas" class="btn btn--outline">View Service →</a>
+      </div>
+      <div class="svc-card b-box">
+        <p class="t-label svc-label">CX&amp;Identity</p>
+        <p class="t-body svc-desc">Branding and identity systems built to last.</p>
+        <a href="/services/cx-identity" class="btn btn--outline">View Service →</a>
+      </div>
+      <div class="svc-card b-box">
+        <p class="t-label svc-label">CMF_Nexus</p>
+        <p class="t-body svc-desc">Product design from concept sketch to production.</p>
+        <a href="/services/cmf-nexus" class="btn btn--outline">View Service →</a>
+      </div>
+      <div class="svc-card b-box">
+        <p class="t-label svc-label">Lumina.raw</p>
+        <p class="t-body svc-desc">Photography and video that stops the scroll.</p>
+        <a href="/services/lumina-raw" class="btn btn--outline">View Service →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Callout -->
+  <div class="container programs-callout inv-block">
+    <p class="t-label" style="opacity:0.4; margin-bottom:1rem">Not sure which program fits?</p>
+    <h2 class="t-h2" style="margin-bottom:1.5rem">Start with a conversation.</h2>
+    <p class="t-body" style="opacity:0.6; max-width:50ch; margin-bottom:2rem">
+      Programs work differently to standard services. Tell us what you're trying to build
+      and we'll explain what makes sense for your situation.
+    </p>
+    <a href="/contact" class="btn btn--outline-inv">Get In Touch</a>
+  </div>
+
+  <ContactCTA invert={false} />
+
+</PageLayout>
+
+<style>
+  .programs-intro {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .programs-lede {
+    max-width: 65ch;
+  }
+
+  .programs-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .prog-row {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .prog-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .prog-num {
+    opacity: 0.3;
+    flex-shrink: 0;
+  }
+
+  .prog-name-block {
+    flex: 1;
+  }
+
+  .prog-code {
+    opacity: 0.45;
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--accent);
+  }
+
+  .prog-name {
+    line-height: 1;
+  }
+
+  .prog-accent {
+    background: var(--surface-elevated);
+    opacity: 0.7;
+  }
+
+  .prog-detail-btn {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-size: 10px;
+    padding: 8px 14px;
+  }
+
+  .prog-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .prog-desc {
+    opacity: 0.65;
+    max-width: 55ch;
+    line-height: 1.7;
+  }
+
+  .prog-feat-label {
+    opacity: 0.4;
+    margin-bottom: 1rem;
+  }
+
+  .prog-feat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .prog-feat-list li {
+    padding-left: 1.25rem;
+    position: relative;
+    opacity: 0.7;
+  }
+
+  .prog-feat-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    opacity: 0.4;
+    font-family: var(--font-mono);
+    font-size: 10px;
+  }
+
+  /* Services grid */
+  .programs-services {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+  }
+
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-gap);
+    margin-top: 1.5rem;
+  }
+
+  .svc-card {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .svc-label {
+    color: var(--accent);
+  }
+
+  .svc-desc {
+    opacity: 0.6;
+    line-height: 1.6;
+    flex: 1;
+    font-size: 14px;
+  }
+
+  /* Callout */
+  .programs-callout {
+    padding: var(--space-section) var(--gutter);
+    margin-top: 0;
+  }
+
+  @media (max-width: 900px) {
+    .prog-body {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .svc-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .svc-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
