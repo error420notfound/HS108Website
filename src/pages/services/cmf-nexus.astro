@@ -1,0 +1,369 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+
+const deliverables = [
+  { group: 'Concept & Ideation', items: ['Industrial design sketches', 'Concept exploration & selection', 'Ergonomics & human factors research', 'Form language development', 'Design intent documentation'] },
+  { group: 'Engineering Design', items: ['3D CAD modelling (SolidWorks/Fusion)', 'CMF specification (colour, material, finish)', 'Design for manufacture (DFM) review', 'Tolerancing & assembly planning', 'Technical drawings & BOM support'] },
+  { group: 'Prototyping', items: ['Appearance models & soft mockups', 'Functional prototypes', 'User testing models', 'Pre-production samples', 'Production-ready design files'] },
+];
+
+const process = [
+  { n: '01', title: 'Research', desc: 'User needs, market context, manufacturing constraints — understanding all inputs before anything is drawn.' },
+  { n: '02', title: 'Concept', desc: 'Rapid ideation across multiple directions. Wide before narrow — we explore before we commit.' },
+  { n: '03', title: 'Develop', desc: 'CAD, CMF, DFM — the work of turning concept into something buildable, manufacturable, and right.' },
+  { n: '04', title: 'Deliver', desc: 'Production-ready files, documentation, and manufacturing liaison support through to first article.' },
+];
+---
+
+<BaseLayout
+  title="CMF_Nexus"
+  description="CMF_Nexus is HS108's product design practice — from concept sketches and CAD to prototyping and production-ready design."
+  bodyClass="theme-vermilion"
+>
+  <!-- Hero -->
+  <div class="cn-hero inv-block">
+    <div class="container cn-hero-inner">
+      <div class="cn-hero-left">
+        <span class="t-label cn-service-label">A Service by HS108</span>
+        <p class="t-label cn-code">CMF_Nexus</p>
+        <h1 class="t-h1 cn-title">Product<br />Design</h1>
+        <div class="cn-tags">
+          <span class="tag cn-tag">CAD</span>
+          <span class="tag cn-tag">CMF</span>
+          <span class="tag cn-tag">Prototype</span>
+          <span class="tag cn-tag">Production</span>
+        </div>
+      </div>
+      <div class="cn-hero-right">
+        <p class="t-large cn-tagline">
+          From concept sketch to production-ready file. We blend design thinking with engineering rigour to develop products that look right, work right, and manufacture efficiently.
+        </p>
+        <div class="cn-hero-meta">
+          <div class="cn-meta-item">
+            <span class="t-label cn-meta-label">Timeline</span>
+            <span class="t-mono cn-meta-val">8–20 weeks depending on complexity</span>
+          </div>
+          <div class="cn-meta-item">
+            <span class="t-label cn-meta-label">Output</span>
+            <span class="t-mono cn-meta-val">Production-ready CAD + documentation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container cn-body">
+
+    <!-- What we do -->
+    <section class="cn-section">
+      <div class="cn-two-col">
+        <div>
+          <p class="t-label" style="opacity:0.4; margin-bottom:1rem">What We Do</p>
+          <h2 class="t-h2">Design that bridges<br />form and factory.</h2>
+        </div>
+        <div class="prose cn-prose">
+          <p>
+            CMF_Nexus is HS108's product design practice. The name reflects the focus: Colour, Material, and Finish — the decisions that determine how a product feels, communicates, and holds up over time — brought together at the nexus of design and manufacture.
+          </p>
+          <p>
+            We work across the full product development cycle: from early ideation and form exploration through to detailed CAD, DFM review, and production-ready deliverables.
+          </p>
+          <p>
+            Our approach combines design intent with engineering discipline. A product should be desirable and buildable. Those aren't competing goals — they're the same goal, approached with enough rigour to get both right.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Deliverables -->
+    <section class="cn-section">
+      <p class="t-label" style="opacity:0.4; margin-bottom:3rem">Deliverables</p>
+      <div class="del-grid">
+        {deliverables.map(group => (
+          <div class="del-group b-box">
+            <p class="t-label del-group-title">{group.group}</p>
+            <ul class="del-list">
+              {group.items.map(item => (
+                <li class="t-mono del-item">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Process -->
+    <section class="cn-section">
+      <p class="t-label" style="opacity:0.4; margin-bottom:3rem">How We Work</p>
+      <div class="process-grid">
+        {process.map(step => (
+          <div class="process-step b-box">
+            <span class="t-label process-num">{step.n}</span>
+            <h3 class="t-h3 process-title">{step.title}</h3>
+            <p class="t-body process-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- CTA -->
+    <section class="cn-section cn-cta">
+      <div class="cn-cta-grid">
+        <div>
+          <h2 class="t-h2" style="margin-bottom:1rem">Start a CMF_Nexus project.</h2>
+          <p class="t-body" style="opacity:0.65; max-width:48ch; margin-bottom:2rem">
+            Tell us about the product you're building — what it needs to do, who it's for, and where in the development process you are. We'll work from there.
+          </p>
+          <div class="cn-cta-btns">
+            <a href="/contact" class="btn btn--primary">Get In Touch</a>
+            <a href="/services" class="btn btn--outline">← All Services</a>
+          </div>
+        </div>
+        <div class="cn-stat-block inv-block">
+          <p class="t-label" style="opacity:0.4; margin-bottom:2rem">CMF_Nexus at a Glance</p>
+          <div class="cn-stats">
+            <div class="cn-stat">
+              <span class="cn-stat-val t-h1">8–20</span>
+              <span class="t-label cn-stat-label">Weeks for full development cycle</span>
+            </div>
+            <div class="cn-stat">
+              <span class="cn-stat-val t-h1">3D</span>
+              <span class="t-label cn-stat-label">CAD-ready files for manufacturing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <ContactCTA
+    headline="Need the product to look as good as it works?"
+    sub="CMF_Nexus pairs with CX&Identity and Lumina.raw for full product launch coverage."
+  />
+</BaseLayout>
+
+<style>
+  .cn-hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-end;
+    padding-top: 10rem;
+    padding-bottom: 0;
+  }
+
+  .cn-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    padding-bottom: 4rem;
+    border-bottom: var(--border-width) solid rgba(255,255,255,0.15);
+  }
+
+  .cn-service-label {
+    opacity: 0.4;
+    display: block;
+    margin-bottom: 1.5rem;
+    color: var(--text-on-dark);
+  }
+
+  .cn-code {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .cn-title {
+    color: var(--text-on-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .cn-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .cn-tag {
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text-on-dark);
+  }
+
+  .cn-tagline {
+    color: var(--text-on-dark);
+    opacity: 0.7;
+    max-width: 50ch;
+    margin-bottom: 2rem;
+  }
+
+  .cn-hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .cn-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .cn-meta-label {
+    opacity: 0.35;
+    color: var(--text-on-dark);
+  }
+
+  .cn-meta-val {
+    color: var(--text-on-dark);
+    font-size: 12px;
+  }
+
+  .cn-body {
+    padding-bottom: var(--space-section);
+  }
+
+  .cn-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .cn-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .cn-prose p {
+    margin-bottom: 1.25rem;
+    opacity: 0.7;
+    line-height: 1.75;
+    max-width: 60ch;
+  }
+
+  .del-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .del-group {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .del-group-title { color: var(--accent); }
+
+  .del-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .del-item {
+    padding-left: 1rem;
+    position: relative;
+    opacity: 0.65;
+    font-size: 11px;
+  }
+
+  .del-item::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+    opacity: 0.5;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .process-step {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .process-num { opacity: 0.3; }
+  .process-title { color: var(--accent); }
+
+  .process-desc {
+    opacity: 0.6;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .cn-cta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .cn-cta-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .cn-stat-block { padding: var(--space-card); }
+
+  .cn-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .cn-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .cn-stat-val {
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .cn-stat-label {
+    opacity: 0.4;
+    color: var(--text-on-dark);
+  }
+
+  @media (max-width: 900px) {
+    .cn-hero-inner,
+    .cn-two-col,
+    .cn-cta-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .del-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .process-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

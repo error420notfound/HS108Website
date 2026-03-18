@@ -11,6 +11,7 @@ const services = [
     deliverables: ['Web design (marketing, product, landing pages)', 'App UI design (iOS & Android)', 'UX research & user journey mapping', 'Wireframes & interactive prototypes', 'Responsive design across all breakpoints', 'Developer handoff (Figma)'],
     timeline: '4–16 weeks',
     accent: 'Web · App · UI · UX',
+    href: '/services/webcanvas',
   },
   {
     num: '02',
@@ -20,6 +21,7 @@ const services = [
     deliverables: ['Brand strategy & positioning', 'Logo system & wordmark', 'Type, colour & imagery system', 'Packaging design', 'Brand guidelines document', 'Launch assets & stationery'],
     timeline: '6–10 weeks',
     accent: 'Logo · Identity · Packaging',
+    href: '/services/cx-identity',
   },
   {
     num: '03',
@@ -29,6 +31,7 @@ const services = [
     deliverables: ['Concept sketches & ideation', 'CAD modelling & 3D design', 'CMF (colour, material, finish) specification', 'Prototyping & model making', 'Production-ready design files', 'Manufacture liaison support'],
     timeline: '8–20 weeks',
     accent: 'CAD · Prototype · Production',
+    href: '/services/cmf-nexus',
   },
   {
     num: '04',
@@ -38,6 +41,7 @@ const services = [
     deliverables: ['Product & campaign photography', 'Photo editing & retouching', 'Brand & documentary videography', 'Video editing & post-production', 'Social media content packages', 'Motion graphics'],
     timeline: '1–6 weeks',
     accent: 'Photo · Video · Motion',
+    href: '/services/lumina-raw',
   },
 ];
 ---
@@ -62,6 +66,7 @@ const services = [
           </div>
           <span class="tag svc-accent">{svc.accent}</span>
           <span class="tag">{svc.timeline}</span>
+          <a href={svc.href} class="btn btn--outline svc-detail-btn">Full Practice →</a>
         </div>
         <div class="svc-body">
           <p class="t-body svc-desc">{svc.desc}</p>
@@ -171,6 +176,13 @@ const services = [
   .svc-accent {
     background: var(--surface-elevated);
     opacity: 0.7;
+  }
+
+  .svc-detail-btn {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-size: 10px;
+    padding: 8px 14px;
   }
 
   .svc-body {

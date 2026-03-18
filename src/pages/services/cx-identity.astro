@@ -1,0 +1,368 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+
+const deliverables = [
+  { group: 'Brand Strategy', items: ['Brand positioning & strategy', 'Naming & messaging framework', 'Audience definition & personas', 'Competitive landscape analysis', 'Brand voice & tone guidelines'] },
+  { group: 'Visual Identity', items: ['Logo system & wordmark', 'Colour palette & type system', 'Imagery & photography direction', 'Iconography & illustration style', 'Full brand guidelines document'] },
+  { group: 'Applied Design', items: ['Packaging design & dielines', 'Stationery & print collateral', 'Environmental & signage concepts', 'Digital asset templates', 'Launch kit & brand rollout assets'] },
+];
+
+const process = [
+  { n: '01', title: 'Discover', desc: 'Brand audit, stakeholder interviews, and market analysis to understand where you are and where you need to go.' },
+  { n: '02', title: 'Define', desc: 'Positioning, naming, and messaging — the strategic foundation everything visual builds from.' },
+  { n: '03', title: 'Design', desc: 'Visual identity development from concepts through refinement to a complete, consistent system.' },
+  { n: '04', title: 'Deploy', desc: 'Guidelines, templates, and launch assets that let your team execute the identity immediately and consistently.' },
+];
+---
+
+<BaseLayout
+  title="CX&Identity"
+  description="CX&Identity is HS108's branding practice — logo design, brand identity, and packaging for companies that need to stand out and stay consistent."
+  bodyClass="theme-purple"
+>
+  <!-- Hero -->
+  <div class="cx-hero inv-block">
+    <div class="container cx-hero-inner">
+      <div class="cx-hero-left">
+        <span class="t-label cx-service-label">A Service by HS108</span>
+        <p class="t-label cx-code">CX&amp;Identity</p>
+        <h1 class="t-h1 cx-title">Branding<br />&amp; Identity</h1>
+        <div class="cx-tags">
+          <span class="tag cx-tag">Logo</span>
+          <span class="tag cx-tag">Identity</span>
+          <span class="tag cx-tag">Packaging</span>
+        </div>
+      </div>
+      <div class="cx-hero-right">
+        <p class="t-large cx-tagline">
+          A brand is more than a logo. We build the full identity system — strategy, visual language, and the guidelines that keep it coherent as your company grows.
+        </p>
+        <div class="cx-hero-meta">
+          <div class="cx-meta-item">
+            <span class="t-label cx-meta-label">Timeline</span>
+            <span class="t-mono cx-meta-val">6–10 weeks for full identity</span>
+          </div>
+          <div class="cx-meta-item">
+            <span class="t-label cx-meta-label">Output</span>
+            <span class="t-mono cx-meta-val">Brand guidelines + all asset formats</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container cx-body">
+
+    <!-- What we do -->
+    <section class="cx-section">
+      <div class="cx-two-col">
+        <div>
+          <p class="t-label" style="opacity:0.4; margin-bottom:1rem">What We Do</p>
+          <h2 class="t-h2">Identity that holds<br />at any scale.</h2>
+        </div>
+        <div class="prose cx-prose">
+          <p>
+            CX&Identity is HS108's branding practice. We help companies establish and own a visual identity that is distinctive, coherent, and built to last — from the logo on a business card to the brand expression across a full product ecosystem.
+          </p>
+          <p>
+            Every engagement starts with strategy. We don't design logos in a vacuum — we understand who you're for, what you stand for, and how you need to be perceived. The visual work follows directly from that foundation.
+          </p>
+          <p>
+            The result is a brand system that your team can implement without us — because we build guidelines that leave nothing open to interpretation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Deliverables -->
+    <section class="cx-section">
+      <p class="t-label" style="opacity:0.4; margin-bottom:3rem">Deliverables</p>
+      <div class="del-grid">
+        {deliverables.map(group => (
+          <div class="del-group b-box">
+            <p class="t-label del-group-title">{group.group}</p>
+            <ul class="del-list">
+              {group.items.map(item => (
+                <li class="t-mono del-item">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Process -->
+    <section class="cx-section">
+      <p class="t-label" style="opacity:0.4; margin-bottom:3rem">How We Work</p>
+      <div class="process-grid">
+        {process.map(step => (
+          <div class="process-step b-box">
+            <span class="t-label process-num">{step.n}</span>
+            <h3 class="t-h3 process-title">{step.title}</h3>
+            <p class="t-body process-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- CTA -->
+    <section class="cx-section cx-cta">
+      <div class="cx-cta-grid">
+        <div>
+          <h2 class="t-h2" style="margin-bottom:1rem">Start a CX&amp;Identity project.</h2>
+          <p class="t-body" style="opacity:0.65; max-width:48ch; margin-bottom:2rem">
+            Whether you're starting from scratch or rebranding an established company, tell us where you are. We'll figure out what you need.
+          </p>
+          <div class="cx-cta-btns">
+            <a href="/contact" class="btn btn--primary">Get In Touch</a>
+            <a href="/services" class="btn btn--outline">← All Services</a>
+          </div>
+        </div>
+        <div class="cx-stat-block inv-block">
+          <p class="t-label" style="opacity:0.4; margin-bottom:2rem">CX&amp;Identity at a Glance</p>
+          <div class="cx-stats">
+            <div class="cx-stat">
+              <span class="cx-stat-val t-h1">6–10</span>
+              <span class="t-label cx-stat-label">Weeks for a full identity system</span>
+            </div>
+            <div class="cx-stat">
+              <span class="cx-stat-val t-h1">0</span>
+              <span class="t-label cx-stat-label">Templated logos — everything bespoke</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <ContactCTA
+    headline="Building more than a brand?"
+    sub="CX&Identity pairs with WebCanvas and Lumina.raw for a complete brand and digital presence."
+  />
+</BaseLayout>
+
+<style>
+  .cx-hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-end;
+    padding-top: 10rem;
+    padding-bottom: 0;
+  }
+
+  .cx-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    padding-bottom: 4rem;
+    border-bottom: var(--border-width) solid rgba(255,255,255,0.15);
+  }
+
+  .cx-service-label {
+    opacity: 0.4;
+    display: block;
+    margin-bottom: 1.5rem;
+    color: var(--text-on-dark);
+  }
+
+  .cx-code {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .cx-title {
+    color: var(--text-on-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .cx-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .cx-tag {
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text-on-dark);
+  }
+
+  .cx-tagline {
+    color: var(--text-on-dark);
+    opacity: 0.7;
+    max-width: 50ch;
+    margin-bottom: 2rem;
+  }
+
+  .cx-hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .cx-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .cx-meta-label {
+    opacity: 0.35;
+    color: var(--text-on-dark);
+  }
+
+  .cx-meta-val {
+    color: var(--text-on-dark);
+    font-size: 12px;
+  }
+
+  .cx-body {
+    padding-bottom: var(--space-section);
+  }
+
+  .cx-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .cx-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .cx-prose p {
+    margin-bottom: 1.25rem;
+    opacity: 0.7;
+    line-height: 1.75;
+    max-width: 60ch;
+  }
+
+  .del-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .del-group {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .del-group-title { color: var(--accent); }
+
+  .del-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .del-item {
+    padding-left: 1rem;
+    position: relative;
+    opacity: 0.65;
+    font-size: 11px;
+  }
+
+  .del-item::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+    opacity: 0.5;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .process-step {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .process-num { opacity: 0.3; }
+  .process-title { color: var(--accent); }
+
+  .process-desc {
+    opacity: 0.6;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .cx-cta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .cx-cta-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .cx-stat-block { padding: var(--space-card); }
+
+  .cx-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .cx-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .cx-stat-val {
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .cx-stat-label {
+    opacity: 0.4;
+    color: var(--text-on-dark);
+  }
+
+  @media (max-width: 900px) {
+    .cx-hero-inner,
+    .cx-two-col,
+    .cx-cta-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .del-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .process-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

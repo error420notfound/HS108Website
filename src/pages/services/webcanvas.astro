@@ -1,0 +1,385 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+
+const deliverables = [
+  { group: 'Web Design', items: ['Marketing sites & landing pages', 'Product & SaaS web interfaces', 'CMS-ready design (Webflow, Framer, custom)', 'Responsive design across all breakpoints', 'Launch QA and developer handoff'] },
+  { group: 'App & Product UI', items: ['iOS & Android app UI design', 'Dashboard & data visualisation', 'Component-level UI systems', 'Interaction & micro-animation specs', 'Design tokens for engineering'] },
+  { group: 'UX', items: ['User research & interviews', 'User journey mapping', 'Information architecture', 'Wireframes & low-fidelity concepts', 'High-fidelity prototypes (Figma)'] },
+];
+
+const process = [
+  { n: '01', title: 'Research', desc: 'User interviews, competitor analysis, and content audit before any screen is designed.' },
+  { n: '02', title: 'Architecture', desc: 'Site map, information hierarchy, and wireframe flows aligned to user goals.' },
+  { n: '03', title: 'Design', desc: 'Full high-fidelity UI — every page, every state, every breakpoint.' },
+  { n: '04', title: 'Handoff', desc: 'Figma files structured for engineering. Dev tokens, annotations, and QA support.' },
+];
+---
+
+<BaseLayout
+  title="WebCanvas"
+  description="WebCanvas is HS108's digital design practice — web, app, UI, and UX design for companies building digital products and experiences."
+  bodyClass="theme-blue"
+>
+  <!-- Hero -->
+  <div class="wc-hero inv-block">
+    <div class="container wc-hero-inner">
+      <div class="wc-hero-left">
+        <span class="t-label wc-service-label">A Service by HS108</span>
+        <p class="t-label wc-code">WebCanvas</p>
+        <h1 class="t-h1 wc-title">Digital<br />Design</h1>
+        <div class="wc-tags">
+          <span class="tag wc-tag">Web</span>
+          <span class="tag wc-tag">App</span>
+          <span class="tag wc-tag">UI</span>
+          <span class="tag wc-tag">UX</span>
+        </div>
+      </div>
+      <div class="wc-hero-right">
+        <p class="t-large wc-tagline">
+          Intuitive digital experiences that captivate audiences and perform at every touchpoint. From the first wireframe to the final pixel.
+        </p>
+        <div class="wc-hero-meta">
+          <div class="wc-meta-item">
+            <span class="t-label wc-meta-label">Timeline</span>
+            <span class="t-mono wc-meta-val">4–16 weeks depending on scope</span>
+          </div>
+          <div class="wc-meta-item">
+            <span class="t-label wc-meta-label">Output</span>
+            <span class="t-mono wc-meta-val">Production-ready Figma files</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container wc-body">
+
+    <!-- What we do -->
+    <section class="wc-section">
+      <div class="wc-two-col">
+        <div>
+          <p class="t-label" style="opacity:0.4; margin-bottom:1rem">What We Do</p>
+          <h2 class="t-h2">Design for screens<br />people actually use.</h2>
+        </div>
+        <div class="prose wc-prose">
+          <p>
+            WebCanvas is how HS108 approaches digital. It covers the full range — from the marketing site that converts visitors into believers, to the product interface that earns daily use.
+          </p>
+          <p>
+            We don't design for Dribbble. We design for the person who lands on your page, clicks through your app, and decides whether to trust your product. That means research before execution, structure before aesthetics, and accessibility baked in from the start.
+          </p>
+          <p>
+            Every WebCanvas project is grounded in how people actually behave — not how we hope they will.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Deliverables -->
+    <section class="wc-section">
+      <p class="t-label" style="opacity:0.4; margin-bottom:3rem">Deliverables</p>
+
+      <div class="del-grid">
+        {deliverables.map(group => (
+          <div class="del-group b-box">
+            <p class="t-label del-group-title">{group.group}</p>
+            <ul class="del-list">
+              {group.items.map(item => (
+                <li class="t-mono del-item">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Process -->
+    <section class="wc-section">
+      <p class="t-label" style="opacity:0.4; margin-bottom:3rem">How We Work</p>
+
+      <div class="process-grid">
+        {process.map(step => (
+          <div class="process-step b-box">
+            <span class="t-label process-num">{step.n}</span>
+            <h3 class="t-h3 process-title">{step.title}</h3>
+            <p class="t-body process-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- CTA -->
+    <section class="wc-section wc-cta">
+      <div class="wc-cta-grid">
+        <div>
+          <h2 class="t-h2" style="margin-bottom:1rem">Start a WebCanvas project.</h2>
+          <p class="t-body" style="opacity:0.65; max-width:48ch; margin-bottom:2rem">
+            Tell us what you're building — a new site, an app redesign, or a product that doesn't exist yet. We'll scope it together.
+          </p>
+          <div class="wc-cta-btns">
+            <a href="/contact" class="btn btn--primary">Get In Touch</a>
+            <a href="/services" class="btn btn--outline">← All Services</a>
+          </div>
+        </div>
+        <div class="wc-stat-block inv-block">
+          <p class="t-label" style="opacity:0.4; margin-bottom:2rem">WebCanvas at a Glance</p>
+          <div class="wc-stats">
+            <div class="wc-stat">
+              <span class="wc-stat-val t-h1">4–16</span>
+              <span class="t-label wc-stat-label">Weeks typical engagement</span>
+            </div>
+            <div class="wc-stat">
+              <span class="wc-stat-val t-h1">100%</span>
+              <span class="t-label wc-stat-label">Figma — no black box tools</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <ContactCTA
+    headline="Need more than digital?"
+    sub="WebCanvas is one of four HS108 practices. Explore branding, product design, and visual production."
+  />
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .wc-hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-end;
+    padding-top: 10rem;
+    padding-bottom: 0;
+  }
+
+  .wc-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    padding-bottom: 4rem;
+    border-bottom: var(--border-width) solid rgba(255,255,255,0.15);
+  }
+
+  .wc-service-label {
+    opacity: 0.4;
+    display: block;
+    margin-bottom: 1.5rem;
+    color: var(--text-on-dark);
+  }
+
+  .wc-code {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .wc-title {
+    color: var(--text-on-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .wc-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .wc-tag {
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text-on-dark);
+  }
+
+  .wc-tagline {
+    color: var(--text-on-dark);
+    opacity: 0.7;
+    max-width: 50ch;
+    margin-bottom: 2rem;
+  }
+
+  .wc-hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .wc-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .wc-meta-label {
+    opacity: 0.35;
+    color: var(--text-on-dark);
+  }
+
+  .wc-meta-val {
+    color: var(--text-on-dark);
+    font-size: 12px;
+  }
+
+  /* Body */
+  .wc-body {
+    padding-bottom: var(--space-section);
+  }
+
+  .wc-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .wc-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .wc-prose p {
+    margin-bottom: 1.25rem;
+    opacity: 0.7;
+    line-height: 1.75;
+    max-width: 60ch;
+  }
+
+  /* Deliverables */
+  .del-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .del-group {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .del-group-title {
+    color: var(--accent);
+  }
+
+  .del-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .del-item {
+    padding-left: 1rem;
+    position: relative;
+    opacity: 0.65;
+    font-size: 11px;
+  }
+
+  .del-item::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+    opacity: 0.5;
+  }
+
+  /* Process */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .process-step {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .process-num {
+    opacity: 0.3;
+  }
+
+  .process-title {
+    color: var(--accent);
+  }
+
+  .process-desc {
+    opacity: 0.6;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* CTA */
+  .wc-cta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .wc-cta-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .wc-stat-block {
+    padding: var(--space-card);
+  }
+
+  .wc-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .wc-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .wc-stat-val {
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .wc-stat-label {
+    opacity: 0.4;
+    color: var(--text-on-dark);
+  }
+
+  @media (max-width: 900px) {
+    .wc-hero-inner,
+    .wc-two-col,
+    .wc-cta-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .del-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .process-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

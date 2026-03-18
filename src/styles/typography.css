@@ -1,9 +1,21 @@
 /* ============================================================
    TYPOGRAPHY — HS108
-   Instrument Serif (display) · Geist (body) · Geist Mono (mono)
+
+   Core (always loaded):
+     Instrument Serif — display / headlines
+     Geist            — body copy
+     Geist Mono       — labels, CTAs, micro copy
+
+   Alt pair A (selective use with .font-pair-a):
+     Genos            — display, 700 bold italic
+     Rajdhani         — body companion
+
+   Alt pair B (selective use with .font-pair-b):
+     Michroma         — display, geometric technical
+     IBM Plex Serif   — editorial body companion
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Genos:ital,wght@0,400;0,700;1,400;1,700&family=Michroma&family=Rajdhani:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
 /* ============================================================
    TYPE CLASSES
@@ -77,6 +89,53 @@
   font-size: var(--size-small);
   font-weight: 400;
   line-height: 1.5;
+}
+
+/* ── Alt font display classes ──────────────────────────────
+   Use these on specific elements when a page uses an alt pair.
+   They apply the alt font directly, regardless of theme class.
+   ─────────────────────────────────────────────────────────── */
+
+/* Genos — the primary treatment: 700 bold italic
+   Use for hero / large display text on alt-a pages */
+.t-genos {
+  font-family: var(--font-alt-a-display);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+/* Genos upright — same weight, no italic */
+.t-genos-upright {
+  font-family: var(--font-alt-a-display);
+  font-weight: 700;
+  font-style: normal;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+/* Michroma — geometric, single weight, all-caps works well */
+.t-michroma {
+  font-family: var(--font-alt-b-display);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+/* Rajdhani — humanist sans, good at medium/semibold */
+.t-rajdhani {
+  font-family: var(--font-alt-a-body);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+
+/* IBM Plex Serif — editorial companion, italic is expressive */
+.t-plex-serif {
+  font-family: var(--font-alt-b-body);
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 /* --- Utility --- */

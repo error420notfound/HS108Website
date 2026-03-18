@@ -9,12 +9,14 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  bodyClass?: string;
 }
 
 const {
   title,
   description = 'HS108 — An independent design studio building brands and products that scale.',
   ogImage = '/og-default.jpg',
+  bodyClass = '',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -48,7 +50,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
-  <body>
+  <body class={bodyClass}>
     <Nav />
     <main>
       <slot />
