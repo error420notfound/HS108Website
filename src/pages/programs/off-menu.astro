@@ -2,49 +2,52 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ContactCTA from '@components/ContactCTA.astro';
 
-const projects = [
+const examples = [
   {
     code: 'OM-001',
-    title: 'A Typeface for Spoken Language',
-    desc: 'Designing a variable typeface that responds to prosody data — pitch, rhythm, and emphasis — from speech recordings.',
-    domain: 'Type Design × Linguistics',
-    status: 'In Progress',
+    title: 'Full-Studio Brand Launch',
+    desc: 'A client needed naming, identity, packaging, web design, and launch photography — all from one team, under one vision. off_menu made it possible.',
+    scope: 'CX&Identity + WebCanvas + Lumina.raw',
   },
   {
     code: 'OM-002',
-    title: 'The Voter\'s Interface',
-    desc: 'A speculative redesign of India\'s electoral information systems — from EVMs to result dashboards. What if civic design was actually good?',
-    domain: 'Civic Design × Systems',
-    status: 'Concept',
+    title: 'Product + Digital Ecosystem',
+    desc: 'Hardware product design combined with a companion app and brand identity for a single cohesive launch. Cross-discipline, custom-scoped.',
+    scope: 'CMF_Nexus + WebCanvas + CX&Identity',
   },
   {
     code: 'OM-003',
-    title: 'Smell as UI',
-    desc: 'An experimental project exploring olfactory interaction — can smell be a meaningful output layer in ambient computing environments?',
-    domain: 'Interaction Design × Hardware',
-    status: 'Research',
+    title: 'Brand Overhaul + Content Engine',
+    desc: 'A rebrand paired with an ongoing visual content system — photography and video produced monthly to maintain the new identity across channels.',
+    scope: 'CX&Identity + Lumina.raw (retainer)',
   },
   {
     code: 'OM-004',
-    title: 'The Unboxing Economy',
-    desc: 'Packaging design for products that don\'t exist yet — a forward-looking exercise in material, ritual, and identity for speculative objects.',
-    domain: 'Packaging × Futures',
-    status: 'Completed',
+    title: 'Discovery + Design Sprint',
+    desc: 'For a client who didn\'t know what they needed — a structured discovery engagement that delivered clarity, direction, and a design plan of action.',
+    scope: 'Strategy + Design Lab',
   },
+];
+
+const process = [
+  { n: '01', title: 'Tell Us', desc: 'Describe your situation, your goal, and whatever constraints you\'re working with. Nothing is too unusual.' },
+  { n: '02', title: 'We Scope', desc: 'We figure out the right mix of practices, people, and timeline. You get a clear proposal — no surprises.' },
+  { n: '03', title: 'We Build', desc: 'The work happens across whatever disciplines your project needs, coordinated internally by us.' },
+  { n: '04', title: 'You Launch', desc: 'Delivery is designed around your timeline. We stay through handoff and can continue as a retainer if needed.' },
 ];
 ---
 
 <BaseLayout
   title="off_menu"
-  description="off_menu is HS108's program for projects that don't fit the brief — wild ideas, speculative design, and creative work that lives outside the traditional design domain."
+  description="off_menu is HS108's bespoke program — custom, tailor-made packages that address unique client requirements across disciplines."
 >
-  <!-- Header — bold accent treatment -->
+  <!-- Header -->
   <div class="om-hero">
     <div class="container om-hero-inner">
       <div class="om-overline">
-        <span class="t-label" style="opacity:0.4">A Program by HS108</span>
+        <span class="t-label" style="opacity:0.4">Program by HS108</span>
         <span class="t-label om-sep">×</span>
-        <span class="t-label om-badge tag tag--accent">Experimental</span>
+        <span class="t-label om-badge tag tag--accent">Bespoke</span>
       </div>
 
       <h1 class="t-hero om-title">off_menu</h1>
@@ -52,33 +55,34 @@ const projects = [
       <div class="om-rule"></div>
 
       <p class="t-large om-tagline">
-        Projects that don't have a brief.<br />
-        Ideas that don't belong in a client deck.<br />
-        Design for things nobody asked us to design.
+        Your project doesn't fit a standard package.<br />
+        That's exactly why off_menu exists.<br />
+        Custom scope. Tailored team. One seamless engagement.
       </p>
     </div>
   </div>
 
   <div class="container om-body">
+
     <!-- What it is -->
     <section class="om-section">
       <div class="om-what-grid">
         <div>
           <p class="t-label section-num" style="opacity:0.4; margin-bottom:1rem">What Is off_menu?</p>
-          <h2 class="t-h2">Design without a client.</h2>
+          <h2 class="t-h2">Design built around you.</h2>
         </div>
         <div class="prose om-prose">
           <p>
-            Design is too often defined by what clients ask for. off_menu exists for everything else.
+            Most design studios have fixed packages. You choose one, they deliver it. Simple — unless your needs don't fit the menu.
           </p>
           <p>
-            It's a program for speculative projects — the kind of work that starts with "what if?" rather than a brief. We design typefaces for spoken language. We redesign civic systems. We build interfaces for senses that don't usually get interfaces.
+            off_menu is for clients who need something different. A cross-discipline project that spans branding, product design, and visual content. A brief that sits between categories. An engagement structure that doesn't match any retainer or one-off model.
           </p>
           <p>
-            Some of it is genuinely useful. Some of it is just interesting. All of it is honest.
+            We take your actual situation — the scope, the team you need, the timeline you're working with — and build a bespoke engagement around it. All four HS108 practices are available to combine as the work demands.
           </p>
           <p>
-            The name is intentional: these projects are <em>off the menu</em> — not because they're secret, but because you can't order them. They happen when the idea is ready.
+            If standard packages feel like a compromise, off_menu is the alternative.
           </p>
         </div>
       </div>
@@ -86,22 +90,19 @@ const projects = [
 
     <hr />
 
-    <!-- Projects grid -->
+    <!-- Example project types -->
     <section class="om-section">
-      <p class="t-label section-num" style="opacity:0.4; margin-bottom:3rem">Projects</p>
+      <p class="t-label section-num" style="opacity:0.4; margin-bottom:3rem">Example Engagements</p>
 
       <div class="om-grid">
-        {projects.map(proj => (
+        {examples.map(proj => (
           <div class="om-card b-box">
             <div class="om-card-header">
               <span class="t-label om-code">{proj.code}</span>
-              <span class:list={['tag', { 'tag--accent': proj.status === 'Completed' }]}>
-                {proj.status}
-              </span>
             </div>
             <h3 class="t-h3 om-card-title">{proj.title}</h3>
             <p class="t-body om-card-desc">{proj.desc}</p>
-            <span class="tag om-domain">{proj.domain}</span>
+            <span class="tag om-scope">{proj.scope}</span>
           </div>
         ))}
       </div>
@@ -109,42 +110,57 @@ const projects = [
 
     <hr />
 
-    <!-- Suggest -->
-    <section class="om-section om-suggest">
-      <div class="om-suggest-grid">
+    <!-- How it works -->
+    <section class="om-section">
+      <p class="t-label" style="opacity:0.4; margin-bottom:3rem">How It Works</p>
+
+      <div class="om-process">
+        {process.map(step => (
+          <div class="om-step b-box">
+            <span class="t-label om-step-num">{step.n}</span>
+            <h3 class="t-h3 om-step-title">{step.title}</h3>
+            <p class="t-body om-step-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- CTA -->
+    <section class="om-section om-cta-section">
+      <div class="om-cta-grid">
         <div>
-          <h2 class="t-h2" style="margin-bottom:1rem">Have a wild idea?</h2>
-          <p class="t-body" style="opacity:0.6; max-width:45ch; margin-bottom:0.5rem">
-            off_menu projects occasionally come from outside HS108 — collaborators who bring a strange question, an unusual material, or a domain we've never worked in before.
-          </p>
+          <h2 class="t-h2" style="margin-bottom:1rem">Have something unusual in mind?</h2>
           <p class="t-body" style="opacity:0.6; max-width:45ch; margin-bottom:2rem">
-            If your idea sounds weird in a good way, we want to hear it.
+            Tell us what you're trying to do — even if you're not sure how to frame it. That's where off_menu starts.
           </p>
-          <div class="om-suggest-ctas">
-            <a href="mailto:offmenu@hs108.in" class="btn btn--primary">offmenu@hs108.in</a>
-            <a href="/contact" class="btn btn--outline">Or use the contact form</a>
+          <div class="om-ctas">
+            <a href="/contact" class="btn btn--primary">Start a Conversation</a>
+            <a href="mailto:offmenu@hs108.in" class="btn btn--outline">offmenu@hs108.in</a>
           </div>
         </div>
 
-        <div class="om-suggest-box inv-block">
-          <p class="t-label" style="opacity:0.4; margin-bottom:1.5rem">What makes a good off_menu project?</p>
+        <div class="om-criteria-box inv-block">
+          <p class="t-label" style="opacity:0.4; margin-bottom:1.5rem">off_menu is right for you if…</p>
           <ul class="om-criteria">
             {[
-              'It doesn\'t fit any existing service category',
-              'The question is more interesting than the answer',
-              'No client would ever pay for it',
-              'It teaches us something we couldn\'t learn on a brief',
-              'It\'s genuinely strange',
+              'Your project spans more than one design discipline',
+              'You need a single team across the full scope',
+              'Standard packages don\'t reflect your actual needs',
+              'You want one point of contact, not multiple agencies',
+              'You\'re building something that doesn\'t have a precedent',
             ].map(c => <li class="t-mono">{c}</li>)}
           </ul>
         </div>
       </div>
     </section>
+
   </div>
 
   <ContactCTA
-    headline="Looking for client work? That's elsewhere."
-    sub="off_menu is for the wild stuff. For design that scales businesses, visit our services."
+    headline="Looking for something more standard?"
+    sub="off_menu is for complex, bespoke projects. Our four core services handle more focused engagements."
   />
 </BaseLayout>
 
@@ -173,15 +189,16 @@ const projects = [
 
   .om-title {
     font-size: var(--size-hero);
-    font-variant-numeric: tabular-nums;
+    font-family: var(--font-mono);
+    font-weight: 500;
     margin-bottom: 2rem;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.02em;
     line-height: 0.85;
   }
 
   .om-rule {
     height: var(--border-width);
-    background: var(--c-black);
+    background: var(--black-native);
     margin-bottom: 2rem;
   }
 
@@ -215,11 +232,7 @@ const projects = [
     max-width: 60ch;
   }
 
-  .om-prose em {
-    font-style: italic;
-  }
-
-  /* Projects grid */
+  /* Cards */
   .om-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -243,32 +256,66 @@ const projects = [
     opacity: 0.3;
   }
 
+  .om-card-title {
+    line-height: 1.2;
+  }
+
   .om-card-desc {
     opacity: 0.6;
     line-height: 1.65;
     flex: 1;
   }
 
-  .om-domain {
+  .om-scope {
     align-self: flex-start;
-    opacity: 0.5;
+    color: var(--accent);
+    background: var(--surface-elevated);
+    opacity: 0.85;
   }
 
-  /* Suggest */
-  .om-suggest-grid {
+  /* Process */
+  .om-process {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .om-step {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .om-step-num {
+    opacity: 0.3;
+  }
+
+  .om-step-title {
+    color: var(--accent);
+  }
+
+  .om-step-desc {
+    opacity: 0.6;
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  /* CTA */
+  .om-cta-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: start;
   }
 
-  .om-suggest-ctas {
+  .om-ctas {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
   }
 
-  .om-suggest-box {
+  .om-criteria-box {
     padding: var(--space-card);
   }
 
@@ -282,25 +329,32 @@ const projects = [
     padding-left: 1.5rem;
     position: relative;
     opacity: 0.65;
-    color: var(--c-white);
+    color: var(--text-on-dark);
+    font-size: 11px;
   }
 
   .om-criteria li::before {
-    content: '✦';
+    content: '→';
     position: absolute;
     left: 0;
-    color: var(--c-yellow);
+    color: var(--accent);
     font-size: 10px;
-    top: 3px;
   }
 
   @media (max-width: 900px) {
     .om-what-grid,
-    .om-suggest-grid {
+    .om-cta-grid {
       grid-template-columns: 1fr;
       gap: 2rem;
     }
 
+    .om-grid,
+    .om-process {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
     .om-grid {
       grid-template-columns: 1fr;
     }

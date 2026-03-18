@@ -1,0 +1,300 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+
+const capabilities = [
+  {
+    code: 'DL-01',
+    title: 'Design Research',
+    desc: 'Deep-dive user research, competitor audits, and market mapping to surface the real problem before any design begins.',
+    status: 'Available',
+  },
+  {
+    code: 'DL-02',
+    title: 'Discovery Sprints',
+    desc: 'Structured two-to-four week engagements that take ambiguous briefs and turn them into clear design direction and a prioritised roadmap.',
+    status: 'Available',
+  },
+  {
+    code: 'DL-03',
+    title: 'Complex Systems Design',
+    desc: 'Design challenges that sit at the intersection of multiple domains — products that require systems thinking, not just visual execution.',
+    status: 'Available',
+  },
+  {
+    code: 'DL-04',
+    title: 'Concept Development',
+    desc: 'Rapid exploration of design directions at the front end of large projects — before committing to a single path.',
+    status: 'Available',
+  },
+  {
+    code: 'DL-05',
+    title: 'Design Audits',
+    desc: 'A structured review of existing products, brands, or systems — with a clear diagnosis and a concrete recommendation.',
+    status: 'Available',
+  },
+  {
+    code: 'DL-06',
+    title: 'Experimental Prototyping',
+    desc: 'High-fidelity prototypes built to test specific hypotheses — faster than full production, more reliable than assumptions.',
+    status: 'Available',
+  },
+];
+
+const suits = [
+  'Organisations tackling a design problem they haven\'t solved before',
+  'Teams that need clarity before committing to a large engagement',
+  'Companies with technical or cross-disciplinary design challenges',
+  'Clients who have tried other approaches and need a fresh diagnostic',
+];
+---
+
+<BaseLayout
+  title="Design Lab"
+  description="Design Lab is HS108's research and discovery program — purpose-built for high-demand design challenges that require investigation, experimentation, and rigorous thinking."
+>
+  <!-- Header -->
+  <div class="dl-hero inv-block">
+    <div class="container dl-hero-inner">
+      <div class="dl-header-left">
+        <span class="t-label" style="opacity:0.4">Program by HS108</span>
+        <h1 class="t-h1 dl-title">Design<br />Lab</h1>
+        <span class="tag dl-tag">Research & Discovery</span>
+      </div>
+
+      <div class="dl-header-right">
+        <p class="t-large dl-tagline">
+          For the design problems that don't have obvious answers.
+          Rigorous research, structured experimentation, and discovery
+          that gives you clarity before commitment.
+        </p>
+        <p class="t-body dl-sub" style="opacity:0.45; margin-top:1.5rem">
+          When the brief is complex, the stakes are high, or the path forward isn't clear — Design Lab is where we start.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container dl-body">
+
+    <!-- What it is -->
+    <section class="dl-section">
+      <div class="dl-two-col">
+        <div>
+          <p class="t-label" style="opacity:0.4; margin-bottom:1rem">What It Is</p>
+          <h2 class="t-h2">Research before execution.</h2>
+        </div>
+        <div class="prose dl-prose">
+          <p>
+            Design Lab is HS108's research and discovery program. It exists for one reason: some design challenges are too complex, too high-stakes, or too ambiguous to solve with execution alone.
+          </p>
+          <p>
+            Before a project goes into design production, Design Lab asks harder questions. Who is this actually for? What problem does it genuinely solve? What have others tried? What constraints are we not seeing?
+          </p>
+          <p>
+            The output of a Design Lab engagement is not a finished product — it's the foundation that makes the finished product better. Research findings, design direction, prioritised opportunities, and a clear brief that the rest of the studio can execute against.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Capabilities -->
+    <section class="dl-section">
+      <p class="t-label" style="opacity:0.4; margin-bottom:3rem">Capabilities</p>
+
+      <div class="dl-cap-grid">
+        {capabilities.map(cap => (
+          <div class="dl-cap-row b-box">
+            <div class="dl-cap-header">
+              <span class="t-label dl-cap-code">{cap.code}</span>
+              <span class="tag">{cap.status}</span>
+            </div>
+            <h3 class="t-h3 dl-cap-title">{cap.title}</h3>
+            <p class="t-body dl-cap-desc">{cap.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Who it suits -->
+    <section class="dl-section">
+      <div class="dl-two-col">
+        <div>
+          <p class="t-label" style="opacity:0.4; margin-bottom:1rem">Who It's For</p>
+          <h2 class="t-h2">When execution isn't the problem.</h2>
+        </div>
+        <ul class="suits-list">
+          {suits.map(s => (
+            <li class="suits-item t-body">
+              <span class="suits-tick">→</span>
+              {s}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- CTA -->
+    <section class="dl-section dl-cta">
+      <h2 class="t-h2" style="margin-bottom:1rem">Have a complex problem?</h2>
+      <p class="t-body" style="opacity:0.65; max-width:50ch; margin-bottom:2rem">
+        Design Lab engagements typically start with a short diagnostic call. Describe the challenge — we'll tell you whether it's a Lab engagement or a straight production brief.
+      </p>
+      <div class="dl-ctas">
+        <a href="/contact" class="btn btn--primary">Start a Conversation</a>
+        <a href="/services" class="btn btn--outline">See Core Services →</a>
+      </div>
+    </section>
+
+  </div>
+
+  <ContactCTA
+    headline="Ready to move from research to execution?"
+    sub="Design Lab delivers the brief. Our four practices deliver the work."
+  />
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .dl-hero {
+    min-height: 55vh;
+    display: flex;
+    align-items: flex-end;
+    padding-top: 10rem;
+    padding-bottom: 0;
+  }
+
+  .dl-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    padding-bottom: 4rem;
+    border-bottom: var(--border-width) solid rgba(255,255,255,0.15);
+  }
+
+  .dl-title {
+    margin-top: 1rem;
+    color: var(--text-on-dark);
+  }
+
+  .dl-tag {
+    margin-top: 1.5rem;
+    display: inline-block;
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text-on-dark);
+  }
+
+  .dl-tagline {
+    opacity: 0.7;
+    color: var(--text-on-dark);
+    max-width: 50ch;
+  }
+
+  /* Body */
+  .dl-body {
+    padding-bottom: var(--space-section);
+  }
+
+  .dl-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .dl-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .dl-prose p {
+    margin-bottom: 1.25rem;
+    opacity: 0.7;
+    line-height: 1.75;
+    max-width: 60ch;
+  }
+
+  /* Capabilities */
+  .dl-cap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .dl-cap-row {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .dl-cap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .dl-cap-code {
+    opacity: 0.3;
+  }
+
+  .dl-cap-title {
+    color: var(--accent);
+  }
+
+  .dl-cap-desc {
+    opacity: 0.6;
+    line-height: 1.65;
+    font-size: 14px;
+  }
+
+  /* Suits */
+  .suits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 0.5rem;
+  }
+
+  .suits-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    opacity: 0.7;
+    line-height: 1.6;
+  }
+
+  .suits-tick {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    padding-top: 4px;
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .dl-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .dl-hero-inner,
+    .dl-two-col {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .dl-cap-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

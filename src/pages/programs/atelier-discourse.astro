@@ -1,0 +1,372 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+
+const topics = [
+  {
+    code: 'AD-001',
+    title: 'Material & Craft',
+    desc: 'Conversations at the intersection of traditional craft and contemporary design — with artisans, makers, and material innovators.',
+    status: 'Ongoing',
+  },
+  {
+    code: 'AD-002',
+    title: 'Design & Commerce',
+    desc: 'How design creates business value. With founders, brand directors, and designers who work at the intersection of aesthetics and outcomes.',
+    status: 'Ongoing',
+  },
+  {
+    code: 'AD-003',
+    title: 'The Design of Systems',
+    desc: 'Complex, interconnected design challenges — from design systems and service design to urban infrastructure and policy.',
+    status: 'Upcoming',
+  },
+  {
+    code: 'AD-004',
+    title: 'Visual Culture',
+    desc: 'Image-making, typography, photography, and the broader visual landscape — with practitioners who shape how things look.',
+    status: 'Ongoing',
+  },
+];
+
+const who = [
+  'Practising designers across disciplines',
+  'Artisans and makers working at the edge of craft',
+  'Industry experts from adjacent fields',
+  'Founders and leaders with a design-led perspective',
+  'Researchers and academics working in design-related domains',
+];
+---
+
+<BaseLayout
+  title="Atelier Discourse"
+  description="Atelier Discourse is HS108's platform for design conversations — with designers, artisans, and industry experts on topics that matter to the field."
+>
+  <!-- Header -->
+  <div class="ad-hero">
+    <div class="container ad-hero-inner">
+      <div class="ad-overline">
+        <span class="t-label" style="opacity:0.4">Program by HS108</span>
+      </div>
+
+      <h1 class="t-hero ad-title">Atelier<br /><em>Discourse</em></h1>
+
+      <hr class="ad-rule" />
+
+      <div class="ad-hero-footer">
+        <p class="t-large ad-tagline">
+          Design doesn't happen in isolation. The best thinking
+          in the field comes from conversations across disciplines,
+          craft, and commerce.
+        </p>
+        <div class="ad-hero-meta">
+          <div class="ad-meta-item">
+            <span class="t-label ad-meta-label">Format</span>
+            <span class="t-mono ad-meta-val">Conversations & Publications</span>
+          </div>
+          <div class="ad-meta-item">
+            <span class="t-label ad-meta-label">Audience</span>
+            <span class="t-mono ad-meta-val">Designers, Makers, Thinkers</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container ad-body">
+
+    <!-- What it is -->
+    <section class="ad-section">
+      <div class="ad-two-col">
+        <div>
+          <p class="t-label" style="opacity:0.4; margin-bottom:1rem">What It Is</p>
+          <h2 class="t-h2">A culture of discourse.</h2>
+        </div>
+        <div class="prose ad-prose">
+          <p>
+            Atelier Discourse is HS108's platform for conversations about design — with the people who practice it, teach it, fund it, and push it forward.
+          </p>
+          <p>
+            It's not a podcast. Not a newsletter. It's a commitment to the ongoing exchange of ideas between HS108 and the broader design community. We engage with designers, artisans, and industry experts on topics that matter to the field: craft, commerce, systems, visual culture, and the future of design practice.
+          </p>
+          <p>
+            These conversations keep us sharp. They expose us to ideas and perspectives we wouldn't encounter inside client work alone. And they contribute something back to a field that has given us a great deal.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Discussion topics -->
+    <section class="ad-section">
+      <p class="t-label" style="opacity:0.4; margin-bottom:3rem">Discussion Threads</p>
+
+      <div class="ad-grid">
+        {topics.map(topic => (
+          <div class="ad-card b-box">
+            <div class="ad-card-header">
+              <span class="t-label ad-code">{topic.code}</span>
+              <span class:list={['tag', { 'tag--accent': topic.status === 'Ongoing' }]}>
+                {topic.status}
+              </span>
+            </div>
+            <h3 class="t-h3 ad-card-title">{topic.title}</h3>
+            <p class="t-body ad-card-desc">{topic.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Who we talk with -->
+    <section class="ad-section">
+      <div class="ad-two-col">
+        <div>
+          <p class="t-label" style="opacity:0.4; margin-bottom:1rem">Who We Talk With</p>
+          <h2 class="t-h2">Practitioners, not pundits.</h2>
+        </div>
+        <ul class="ad-who-list">
+          {who.map(w => (
+            <li class="ad-who-item t-body">
+              <span class="ad-tick">→</span>
+              {w}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Participate -->
+    <section class="ad-section">
+      <div class="ad-participate-grid">
+        <div>
+          <h2 class="t-h2" style="margin-bottom:1rem">Want to be part of the conversation?</h2>
+          <p class="t-body" style="opacity:0.65; max-width:50ch; margin-bottom:2rem">
+            Atelier Discourse occasionally invites contributors — practitioners with something worth saying on topics we're actively exploring. If you're a designer, maker, or thinker working in an interesting domain, reach out.
+          </p>
+          <a href="mailto:hello@hs108.in" class="btn btn--primary">Get In Touch</a>
+        </div>
+
+        <div class="ad-values inv-block">
+          <p class="t-label" style="opacity:0.4; margin-bottom:1.5rem">What We Value in Discourse</p>
+          <ul class="ad-values-list">
+            {[
+              'Specificity over generality',
+              'Practice over theory',
+              'Honest disagreement over polite consensus',
+              'Cross-discipline thinking',
+              'Work that stands on its own',
+            ].map(v => (
+              <li class="t-mono ad-value-item">{v}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <ContactCTA
+    headline="Looking for our client work?"
+    sub="Atelier Discourse is our community platform. For design services, visit what we offer."
+  />
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .ad-hero {
+    margin-top: 64px;
+    padding-top: 4rem;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .ad-hero-inner {
+    padding-bottom: 3rem;
+  }
+
+  .ad-overline {
+    margin-bottom: 2rem;
+  }
+
+  .ad-title {
+    font-size: var(--size-hero);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 2rem;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+  }
+
+  .ad-rule {
+    margin-bottom: 2rem;
+  }
+
+  .ad-hero-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .ad-tagline {
+    max-width: 55ch;
+    opacity: 0.7;
+    line-height: 1.55;
+  }
+
+  .ad-hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .ad-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .ad-meta-label {
+    opacity: 0.35;
+  }
+
+  .ad-meta-val {
+    font-size: 12px;
+  }
+
+  /* Body */
+  .ad-body {
+    padding-bottom: var(--space-section);
+  }
+
+  .ad-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .ad-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .ad-prose p {
+    margin-bottom: 1.25rem;
+    opacity: 0.7;
+    line-height: 1.75;
+    max-width: 60ch;
+  }
+
+  /* Topic cards */
+  .ad-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .ad-card {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ad-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .ad-code {
+    opacity: 0.3;
+  }
+
+  .ad-card-title {
+    line-height: 1.2;
+  }
+
+  .ad-card-desc {
+    opacity: 0.6;
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  /* Who */
+  .ad-who-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 0.5rem;
+  }
+
+  .ad-who-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    opacity: 0.7;
+    line-height: 1.6;
+  }
+
+  .ad-tick {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    padding-top: 4px;
+    flex-shrink: 0;
+  }
+
+  /* Participate */
+  .ad-participate-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .ad-values {
+    padding: var(--space-card);
+  }
+
+  .ad-values-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .ad-value-item {
+    padding-left: 1.5rem;
+    position: relative;
+    opacity: 0.65;
+    color: var(--text-on-dark);
+    font-size: 11px;
+  }
+
+  .ad-value-item::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 9px;
+    top: 3px;
+  }
+
+  @media (max-width: 900px) {
+    .ad-hero-footer,
+    .ad-two-col,
+    .ad-participate-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .ad-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

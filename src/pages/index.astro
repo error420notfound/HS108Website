@@ -17,9 +17,17 @@ const stats = [
 ];
 
 const services = [
-  { num: '01', name: 'Brand Identity',    desc: 'Strategy, naming, visual identity, brand guidelines — everything a new or pivoting brand needs to launch with confidence.' },
-  { num: '02', name: 'Product Design',    desc: 'UX research, wireframes, UI design, and handoff for web and mobile products. We design it. Engineers ship it.' },
-  { num: '03', name: 'Design Systems',    desc: 'Scalable component libraries, token architecture, and documentation that lets teams move fast without breaking consistency.' },
+  { num: '01', code: 'WebCanvas',    name: 'Digital Design',    desc: 'Web, app, UI, and UX design. Intuitive digital experiences that captivate audiences and perform at every touchpoint.' },
+  { num: '02', code: 'CX&Identity',  name: 'Branding & Identity', desc: 'Logo, brand identity, and packaging design. A strong, recognisable presence that resonates with your audience and lasts.' },
+  { num: '03', code: 'CMF_Nexus',    name: 'Product Design',    desc: 'From concept sketch and CAD to prototyping and production-ready files. Design meets engineering precision.' },
+  { num: '04', code: 'Lumina.raw',   name: 'Photo & Video',     desc: 'Photography, videography, and editing. Visuals that tell your brand story and stop the scroll.' },
+];
+
+const programs = [
+  { name: 'Creative Department', slug: 'creative-department', desc: 'Our flagship retainer — embedded design support for businesses that need design ongoing, not one-off.' },
+  { name: 'Design Lab',          slug: 'design-lab',          desc: 'Research and discovery for complex, high-demand design challenges before execution begins.' },
+  { name: 'off_menu',            slug: 'off-menu',            desc: 'Bespoke, tailor-made packages for clients whose needs don\'t fit a standard scope.' },
+  { name: 'Atelier Discourse',   slug: 'atelier-discourse',   desc: 'Our platform for discourse with designers, artisans, and industry experts.' },
 ];
 ---
 
@@ -36,17 +44,17 @@ const services = [
     <div class="marquee-inner">
       {Array(4).fill(null).map(() => (
         <>
-          <span>Brand Identity</span>
+          <span>WebCanvas</span>
           <span>·</span>
-          <span>Product Design</span>
+          <span>CX&amp;Identity</span>
           <span>·</span>
-          <span>Design Systems</span>
+          <span>CMF_Nexus</span>
           <span>·</span>
-          <span>UX Strategy</span>
+          <span>Lumina.raw</span>
           <span>·</span>
-          <span>Creative Direction</span>
+          <span>Creative Department</span>
           <span>·</span>
-          <span>Motion Design</span>
+          <span>off_menu</span>
           <span>·</span>
         </>
       ))}
@@ -100,7 +108,10 @@ const services = [
       {services.map(svc => (
         <div class="service-row b-top">
           <span class="t-label service-num">{svc.num}</span>
-          <h3 class="t-h3 service-name">{svc.name}</h3>
+          <div class="service-name-block">
+            <span class="t-label service-code">{svc.code}</span>
+            <h3 class="t-h3 service-name">{svc.name}</h3>
+          </div>
           <p class="t-body service-desc">{svc.desc}</p>
         </div>
       ))}
@@ -131,6 +142,29 @@ const services = [
 
     <div style="margin-top:3rem">
       <a href="/process" class="btn btn--outline-inv">See Full Process →</a>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Programs -->
+  <section class="section container">
+    <div class="section-header">
+      <div>
+        <p class="t-label section-num">Beyond Projects</p>
+        <h2 class="t-h2">Our Programs</h2>
+      </div>
+      <a href="/programs/creative-department" class="btn btn--outline">Explore Programs →</a>
+    </div>
+
+    <div class="programs-grid">
+      {programs.map(prog => (
+        <a href={`/programs/${prog.slug}`} class="program-card b-box">
+          <p class="t-label program-name">{prog.name}</p>
+          <p class="t-body program-desc">{prog.desc}</p>
+          <span class="t-mono program-cta">Learn More →</span>
+        </a>
+      ))}
     </div>
   </section>
 
@@ -188,6 +222,17 @@ const services = [
     padding-top: 4px;
   }
 
+  .service-name-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .service-code {
+    opacity: 0.45;
+    color: var(--accent);
+  }
+
   .service-desc {
     opacity: 0.6;
     max-width: 60ch;
@@ -220,6 +265,50 @@ const services = [
     opacity: 0.6;
   }
 
+  /* Programs */
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .program-card {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: background var(--transition);
+  }
+
+  .program-card:hover {
+    background: var(--orange-500);
+  }
+
+  .program-name {
+    color: var(--accent);
+  }
+
+  .program-card:hover .program-name {
+    color: var(--black-native);
+  }
+
+  .program-desc {
+    opacity: 0.6;
+    line-height: 1.6;
+    flex: 1;
+    font-size: 14px;
+  }
+
+  .program-cta {
+    font-size: 10px;
+    opacity: 0.45;
+    margin-top: auto;
+  }
+
+  .program-card:hover .program-cta {
+    opacity: 1;
+  }
+
   @media (max-width: 900px) {
     .featured-item {
       grid-column: span 12;
@@ -232,10 +321,18 @@ const services = [
     .service-desc {
       grid-column: 2;
     }
+
+    .programs-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 600px) {
     .service-row {
+      grid-template-columns: 1fr;
+    }
+
+    .programs-grid {
       grid-template-columns: 1fr;
     }
   }

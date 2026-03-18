@@ -2,55 +2,46 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ContactCTA from '@components/ContactCTA.astro';
 
-const initiatives = [
-  {
-    code: 'CD-001',
-    title: 'Type in Context',
-    desc: 'An ongoing study of how typography behaves across cultures, scripts, and digital surfaces. Published as a living reference.',
-    status: 'Active',
-  },
-  {
-    code: 'CD-002',
-    title: 'The Brand Archive',
-    desc: 'A curated repository of identity systems from Indian companies — documenting the visual language of a generation.',
-    status: 'Active',
-  },
-  {
-    code: 'CD-003',
-    title: 'Grid Systems for Digital Products',
-    desc: 'Research into how editorial grid systems from print can be adapted for responsive digital layouts without losing structure.',
-    status: 'Published',
-  },
-  {
-    code: 'CD-004',
-    title: 'Motion as Language',
-    desc: 'When does motion communicate meaning versus distraction? A framework for intentional animation in product design.',
-    status: 'In Research',
-  },
+const included = [
+  { label: 'Dedicated Design Team', desc: 'Senior designers allocated to your account — no juniors, no generalists.' },
+  { label: 'Monthly Design Sprints', desc: 'Structured cycles of briefing, design, and review. Predictable, fast, repeatable.' },
+  { label: 'All Four Practices', desc: 'Access to WebCanvas, CX&Identity, CMF_Nexus, and Lumina.raw under one retainer.' },
+  { label: 'Async Collaboration', desc: 'No time zone friction. We work in your tools, on your schedule.' },
+  { label: 'Quarterly Strategy Reviews', desc: 'We step back from the work every quarter to align on direction, priorities, and goals.' },
+  { label: 'Unlimited Requests', desc: 'Raise design needs as they come. No scope debates, no change orders for small asks.' },
+];
+
+const suits = [
+  'Companies with ongoing, evolving design needs',
+  'Brands that want embedded design — not freelancers',
+  'Teams that have shipped product and need design to keep pace with growth',
+  'Businesses replacing or augmenting an internal design function',
 ];
 ---
 
 <BaseLayout
   title="Creative Department"
-  description="The Creative Department is HS108's internal R&D lab — where we research, experiment, and publish work that pushes design thinking forward."
+  description="Creative Department is HS108's flagship retainer program — a dedicated design team embedded in your business for ongoing support, consistency, and growth."
 >
   <!-- Header — inverted -->
   <div class="cd-hero inv-block">
     <div class="container cd-hero-inner">
       <div class="cd-logo">
-        <span class="t-label" style="opacity:0.4">A Program by HS108</span>
+        <span class="t-label" style="opacity:0.4">Program by HS108</span>
         <h1 class="t-h1 cd-title">Creative<br />Department</h1>
+        <span class="tag tag--inv cd-tag">Retainer</span>
       </div>
 
       <p class="t-large cd-tagline">
-        Our internal R&D lab. Where we research what the industry doesn't
-        talk about enough, experiment with ideas that don't have a brief,
-        and publish findings that are actually useful.
+        Your design team, without the overhead of hiring one.
+        A dedicated allocation of senior design talent, embedded in your business
+        and available as your needs evolve.
       </p>
     </div>
   </div>
 
   <div class="container cd-body">
+
     <!-- What it is -->
     <section class="cd-section">
       <div class="cd-section-grid">
@@ -60,13 +51,13 @@ const initiatives = [
         <div class="cd-section-right">
           <div class="prose">
             <p>
-              The Creative Department is not a client-facing service. It's the part of HS108 that exists purely for curiosity — a dedicated allocation of time and resources for research, experimentation, and discourse.
+              Creative Department is HS108's flagship retainer program. It gives businesses consistent, high-quality design support without the cost and complexity of building an in-house team.
             </p>
             <p>
-              Design thinking doesn't stop when client work does. The Creative Department is where we push ideas further, document patterns we notice across projects, and share work that has no deliverable except being interesting.
+              Instead of briefing a studio project-by-project — waiting for quotes, negotiating scope, onboarding teams repeatedly — Creative Department clients get a dedicated design function that knows their brand, their product, and their goals.
             </p>
             <p>
-              It exists because we believe the best design studios contribute to the field, not just to their clients.
+              It's the model that makes sense when design is not a one-off need but an ongoing engine of your business.
             </p>
           </div>
         </div>
@@ -75,21 +66,15 @@ const initiatives = [
 
     <hr />
 
-    <!-- Active initiatives -->
+    <!-- What's included -->
     <section class="cd-section">
-      <p class="t-label section-num" style="opacity:0.4; margin-bottom:3rem">Active Initiatives</p>
+      <p class="t-label" style="opacity:0.4; margin-bottom:3rem">What's Included</p>
 
-      <div class="initiatives-list">
-        {initiatives.map(item => (
-          <div class="initiative-row b-box">
-            <div class="initiative-header">
-              <span class="t-label initiative-code">{item.code}</span>
-              <span class:list={['tag', { 'tag--accent': item.status === 'Active' }]}>
-                {item.status}
-              </span>
-            </div>
-            <h3 class="t-h3 initiative-title">{item.title}</h3>
-            <p class="t-body initiative-desc">{item.desc}</p>
+      <div class="included-grid">
+        {included.map(item => (
+          <div class="included-row b-box">
+            <p class="t-label included-label">{item.label}</p>
+            <p class="t-body included-desc">{item.desc}</p>
           </div>
         ))}
       </div>
@@ -97,29 +82,67 @@ const initiatives = [
 
     <hr />
 
-    <!-- Collaborate -->
-    <section class="cd-section cd-collaborate">
-      <div class="cd-collab-grid">
-        <h2 class="t-h2">Want to contribute?</h2>
-        <div>
-          <p class="t-body" style="opacity:0.65; max-width:50ch; margin-bottom:2rem">
-            The Creative Department occasionally brings in external contributors — researchers, writers, practitioners, and thinkers from adjacent fields. If you have something worth exploring, we'd like to hear about it.
-          </p>
-          <a href="mailto:cd@hs108.in" class="btn btn--primary">cd@hs108.in</a>
+    <!-- Who it suits -->
+    <section class="cd-section">
+      <div class="cd-section-grid">
+        <div class="cd-section-left">
+          <p class="t-label" style="opacity:0.4">Who It's For</p>
+        </div>
+        <div class="cd-section-right">
+          <ul class="suits-list">
+            {suits.map(s => (
+              <li class="suits-item t-body">
+                <span class="suits-tick">→</span>
+                {s}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
+
+    <hr />
+
+    <!-- Start -->
+    <section class="cd-section cd-start">
+      <div class="cd-start-grid">
+        <div>
+          <h2 class="t-h2" style="margin-bottom:1rem">Ready to talk?</h2>
+          <p class="t-body" style="opacity:0.65; max-width:48ch; margin-bottom:2rem">
+            Creative Department engagements are scoped to each client. Tell us where you are and what you need — we'll put together the right structure.
+          </p>
+          <div class="cd-ctas">
+            <a href="/contact" class="btn btn--primary">Start a Conversation</a>
+            <a href="mailto:cd@hs108.in" class="btn btn--outline">cd@hs108.in</a>
+          </div>
+        </div>
+        <div class="cd-stat-box inv-block">
+          <p class="t-label" style="opacity:0.4; margin-bottom:2rem">The Creative Department Difference</p>
+          <div class="cd-stats">
+            <div class="cd-stat">
+              <span class="t-hero cd-stat-val">100%</span>
+              <span class="t-label cd-stat-label">Senior talent</span>
+            </div>
+            <div class="cd-stat">
+              <span class="t-hero cd-stat-val">4</span>
+              <span class="t-label cd-stat-label">Practices under one retainer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <ContactCTA
-    headline="Interested in HS108's client work?"
-    sub="The Creative Department is our internal lab. Our client services are where we apply the thinking."
+    headline="Interested in our project-based services?"
+    sub="Creative Department is our retainer model. For one-time projects, explore our full service offering."
   />
 </BaseLayout>
 
 <style>
   .cd-hero {
-    min-height: 60vh;
+    min-height: 55vh;
     display: flex;
     align-items: flex-end;
     padding-top: 10rem;
@@ -137,12 +160,22 @@ const initiatives = [
 
   .cd-title {
     margin-top: 1rem;
-    color: var(--c-white);
+    color: var(--text-on-dark);
+  }
+
+  .cd-tag {
+    margin-top: 1.5rem;
+    display: inline-block;
+  }
+
+  .tag--inv {
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text-on-dark);
   }
 
   .cd-tagline {
     opacity: 0.65;
-    color: var(--c-white);
+    color: var(--text-on-dark);
     max-width: 50ch;
     align-self: end;
   }
@@ -170,52 +203,104 @@ const initiatives = [
     max-width: 65ch;
   }
 
-  /* Initiatives */
-  .initiatives-list {
+  /* Included */
+  .included-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-gap);
   }
 
-  .initiative-row {
+  .included-row {
     padding: var(--space-card);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
-  .initiative-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .included-label {
+    color: var(--accent);
   }
 
-  .initiative-code {
-    opacity: 0.3;
-  }
-
-  .initiative-desc {
+  .included-desc {
     opacity: 0.6;
-    line-height: 1.65;
+    line-height: 1.6;
+    font-size: 14px;
   }
 
-  /* Collaborate */
-  .cd-collab-grid {
+  /* Who it suits */
+  .suits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 60ch;
+  }
+
+  .suits-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    opacity: 0.7;
+    line-height: 1.6;
+  }
+
+  .suits-tick {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    padding-top: 4px;
+    flex-shrink: 0;
+  }
+
+  /* Start */
+  .cd-start-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: start;
   }
 
+  .cd-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .cd-stat-box {
+    padding: var(--space-card);
+  }
+
+  .cd-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .cd-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .cd-stat-val {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .cd-stat-label {
+    opacity: 0.45;
+    color: var(--text-on-dark);
+  }
+
   @media (max-width: 900px) {
     .cd-hero-inner,
     .cd-section-grid,
-    .cd-collab-grid {
+    .cd-start-grid {
       grid-template-columns: 1fr;
       gap: 2rem;
     }
 
-    .initiatives-list {
+    .included-grid {
       grid-template-columns: 1fr;
     }
   }

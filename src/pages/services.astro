@@ -5,55 +5,49 @@ import ContactCTA from '@components/ContactCTA.astro';
 const services = [
   {
     num: '01',
-    name: 'Brand Identity',
-    desc: 'Your brand is the first thing your customers trust — or don\'t. We build brands from the ground up: strategy, naming, visual identity, and the guidelines to keep it consistent at scale.',
-    deliverables: ['Brand strategy & positioning', 'Naming and messaging', 'Logo system & wordmark', 'Type, colour & imagery system', 'Brand guidelines document', 'Stationery & launch assets'],
-    timeline: '6–10 weeks',
+    code: 'WebCanvas',
+    name: 'Digital Design',
+    desc: 'End-to-end digital experiences — from the first wireframe to the final pixel. We design websites, apps, and product interfaces that are intuitive, accessible, and built to perform.',
+    deliverables: ['Web design (marketing, product, landing pages)', 'App UI design (iOS & Android)', 'UX research & user journey mapping', 'Wireframes & interactive prototypes', 'Responsive design across all breakpoints', 'Developer handoff (Figma)'],
+    timeline: '4–16 weeks',
+    accent: 'Web · App · UI · UX',
   },
   {
     num: '02',
-    name: 'Product Design',
-    desc: 'From the first user interview to the final handoff spec, we design digital products that people actually use. UX that reduces friction. UI that builds trust. No filler screens.',
-    deliverables: ['User research & journey mapping', 'Information architecture', 'Wireframes & prototypes', 'High-fidelity UI design', 'Interaction design', 'Developer handoff (Figma)'],
-    timeline: '8–16 weeks',
+    code: 'CX&Identity',
+    name: 'Branding & Identity',
+    desc: 'A brand is more than a logo. We build the full identity system — strategy, visual language, and the guidelines that keep it coherent as your company grows.',
+    deliverables: ['Brand strategy & positioning', 'Logo system & wordmark', 'Type, colour & imagery system', 'Packaging design', 'Brand guidelines document', 'Launch assets & stationery'],
+    timeline: '6–10 weeks',
+    accent: 'Logo · Identity · Packaging',
   },
   {
     num: '03',
-    name: 'Design Systems',
-    desc: 'A design system is infrastructure. We build scalable component libraries, token architectures, and living documentation — so your team ships faster and stays consistent.',
-    deliverables: ['Design audit & inventory', 'Token architecture', '200+ component library', 'Usage documentation', 'Storybook / Zeroheight setup', 'Engineering handoff & onboarding'],
-    timeline: '10–20 weeks',
+    code: 'CMF_Nexus',
+    name: 'Product Design',
+    desc: 'From concept sketch to production-ready file. We blend design thinking with engineering rigour to develop products that look right, work right, and manufacture efficiently.',
+    deliverables: ['Concept sketches & ideation', 'CAD modelling & 3D design', 'CMF (colour, material, finish) specification', 'Prototyping & model making', 'Production-ready design files', 'Manufacture liaison support'],
+    timeline: '8–20 weeks',
+    accent: 'CAD · Prototype · Production',
   },
   {
     num: '04',
-    name: 'Web Design',
-    desc: 'Marketing sites, landing pages, and digital experiences that convert visitors into believers. We design with real content, not lorem ipsum.',
-    deliverables: ['Site architecture & wireframes', 'Full page UI design', 'Responsive breakpoints', 'Motion & interaction specs', 'CMS integration support', 'Launch QA'],
-    timeline: '4–8 weeks',
-  },
-  {
-    num: '05',
-    name: 'UX Strategy',
-    desc: 'When a product isn\'t working and you\'re not sure why, we come in, map the real problems, and give you a clear plan of attack — before a single pixel is moved.',
-    deliverables: ['Heuristic audit', 'User interviews', 'Opportunity map', 'Prioritised UX roadmap', 'Success metrics definition'],
-    timeline: '2–4 weeks',
-  },
-  {
-    num: '06',
-    name: 'Retainer Partnership',
-    desc: 'For companies that need design embedded, not hired-and-forgotten. A monthly engagement that covers everything — from quick iterations to new feature design.',
-    deliverables: ['Dedicated designer allocation', 'Monthly design sprints', 'Async collaboration', 'Quarterly strategy reviews', 'Unlimited small requests'],
-    timeline: 'Ongoing',
+    code: 'Lumina.raw',
+    name: 'Photo & Video',
+    desc: 'Visuals that stop the scroll. We produce photography and video content that tells your story with precision — from product shoots to brand films, edited and ready to publish.',
+    deliverables: ['Product & campaign photography', 'Photo editing & retouching', 'Brand & documentary videography', 'Video editing & post-production', 'Social media content packages', 'Motion graphics'],
+    timeline: '1–6 weeks',
+    accent: 'Photo · Video · Motion',
   },
 ];
 ---
 
-<PageLayout title="Services" label="What We Do" description="Design services from HS108 — brand identity, product design, design systems, and ongoing retainer partnerships.">
+<PageLayout title="Services" label="What We Do" description="HS108 design services — WebCanvas, CX&Identity, CMF_Nexus, and Lumina.raw. Digital design, branding, product design, and visual production.">
 
   <div class="container services-intro">
     <p class="t-large services-lede">
-      We don't offer everything. We offer the things we're exceptional at —
-      brand, product, and the systems that connect them.
+      Four specialised practices. One studio.
+      We don't offer everything — we offer the things we're exceptional at.
     </p>
   </div>
 
@@ -62,7 +56,11 @@ const services = [
       <div class="svc-row container">
         <div class="svc-header">
           <span class="t-label svc-num">{svc.num}</span>
-          <h2 class="t-h2 svc-name">{svc.name}</h2>
+          <div class="svc-name-block">
+            <span class="t-label svc-code">{svc.code}</span>
+            <h2 class="t-h2 svc-name">{svc.name}</h2>
+          </div>
+          <span class="tag svc-accent">{svc.accent}</span>
           <span class="tag">{svc.timeline}</span>
         </div>
         <div class="svc-body">
@@ -77,6 +75,33 @@ const services = [
         <hr />
       </div>
     ))}
+  </div>
+
+  <!-- Programs callout -->
+  <div class="container services-programs">
+    <p class="t-label" style="opacity:0.4; margin-bottom:1.5rem">Also From HS108</p>
+    <div class="programs-grid">
+      <div class="program-card b-box">
+        <p class="t-label program-label">Creative Department</p>
+        <p class="t-body program-desc">Our flagship retainer — an embedded design team that grows with your business.</p>
+        <a href="/programs/creative-department" class="btn btn--outline">Learn More →</a>
+      </div>
+      <div class="program-card b-box">
+        <p class="t-label program-label">Design Lab</p>
+        <p class="t-body program-desc">Research and discovery for high-demand, complex design challenges.</p>
+        <a href="/programs/design-lab" class="btn btn--outline">Learn More →</a>
+      </div>
+      <div class="program-card b-box">
+        <p class="t-label program-label">off_menu</p>
+        <p class="t-body program-desc">Bespoke, tailor-made packages for clients with unique requirements.</p>
+        <a href="/programs/off-menu" class="btn btn--outline">Learn More →</a>
+      </div>
+      <div class="program-card b-box">
+        <p class="t-label program-label">Atelier Discourse</p>
+        <p class="t-body program-desc">A platform for discourse with designers, artisans, and industry thinkers.</p>
+        <a href="/programs/atelier-discourse" class="btn btn--outline">Learn More →</a>
+      </div>
+    </div>
   </div>
 
   <!-- Callout -->
@@ -128,8 +153,24 @@ const services = [
     flex-shrink: 0;
   }
 
-  .svc-name {
+  .svc-name-block {
     flex: 1;
+  }
+
+  .svc-code {
+    opacity: 0.45;
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--accent);
+  }
+
+  .svc-name {
+    line-height: 1;
+  }
+
+  .svc-accent {
+    background: var(--surface-elevated);
+    opacity: 0.7;
   }
 
   .svc-body {
@@ -171,15 +212,57 @@ const services = [
     font-size: 10px;
   }
 
-  .services-callout {
-    padding: var(--space-section) var(--gutter);
-    margin-top: var(--space-section);
+  /* Programs grid */
+  .services-programs {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
   }
 
-  @media (max-width: 768px) {
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-gap);
+    margin-top: 1.5rem;
+  }
+
+  .program-card {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .program-label {
+    color: var(--accent);
+  }
+
+  .program-desc {
+    opacity: 0.6;
+    line-height: 1.6;
+    flex: 1;
+    font-size: 14px;
+  }
+
+  /* Callout */
+  .services-callout {
+    padding: var(--space-section) var(--gutter);
+    margin-top: 0;
+  }
+
+  @media (max-width: 900px) {
     .svc-body {
       grid-template-columns: 1fr;
       gap: 2rem;
+    }
+
+    .programs-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .programs-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>

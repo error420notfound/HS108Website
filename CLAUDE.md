@@ -78,6 +78,56 @@ Loaded via Google Fonts CDN. `@import` is in `src/styles/typography.css`.
 
 ---
 
+## Studio Identity
+
+HS108 is an independent design studio established in 2019.
+Tagline: *"Design Built to Scale."*
+Core promise: brands and digital products for companies ready to grow. No generalists. No templates. Systems that work at scale.
+
+---
+
+## Services (4 Practices)
+
+These are HS108's four client-facing services. Use these exact code names — they are brand terms.
+
+| Code | Practice Name | Scope |
+|---|---|---|
+| **WebCanvas** | Digital Design | Web design, app UI, UX design, prototypes, developer handoff |
+| **CX&Identity** | Branding & Identity | Logo, brand identity system, packaging design, brand guidelines |
+| **CMF_Nexus** | Product Design | Concept sketches, CAD, CMF spec, prototyping, production-ready files |
+| **Lumina.raw** | Photo & Video | Photography, photo editing, videography, video editing, motion graphics |
+
+Page: `src/pages/services.astro`
+
+---
+
+## Programs (4 Programs)
+
+These are HS108's engagement models and community initiatives — distinct from the 4 services above.
+
+### Creative Department (`/programs/creative-department`)
+**Type:** Flagship retainer program
+**What:** Ongoing design support for businesses — a dedicated team embedded in the client's workflow. Covers all four practices under one monthly engagement. Senior talent only.
+**Email:** `cd@hs108.in`
+
+### Design Lab (`/programs/design-lab`)
+**Type:** Research & discovery program
+**What:** For high-demand, complex design challenges. Structured discovery, research sprints, design audits, concept development, and experimental prototyping. Output is clarity and brief — not finished product.
+**When to use:** Client problems that are too ambiguous or high-stakes to go straight into execution.
+
+### off_menu (`/programs/off-menu`)
+**Type:** Bespoke / custom package
+**What:** Custom, tailor-made engagements for clients whose needs span multiple disciplines or don't fit a standard scope. Combines any of the four practices as the project requires.
+**Email:** `offmenu@hs108.in`
+**Note:** Name is always `off_menu` — lowercase, underscore, no space.
+
+### Atelier Discourse (`/programs/atelier-discourse`)
+**Type:** Community / conversation platform
+**What:** HS108's channel for discourse with designers, artisans, and industry experts. Covers topics: Material & Craft, Design & Commerce, Systems Design, Visual Culture. Not client-facing — community and field contribution.
+**Email:** `hello@hs108.in`
+
+---
+
 ## Site Structure
 
 ```
@@ -85,12 +135,14 @@ Loaded via Google Fonts CDN. `@import` is in `src/styles/typography.css`.
 /work                           Work showcase index (filterable by category)
 /work/[slug]                    Individual case study (dynamic from MDX)
 /about                          About the studio
-/services                       Service offerings (6 services)
+/services                       4 services: WebCanvas, CX&Identity, CMF_Nexus, Lumina.raw
 /process                        How we work (4 phases)
 /why-us                         Why choose HS108
 /contact                        Contact form (Formspree) + email
-/programs/creative-department   Internal R&D lab
-/programs/off-menu              Speculative / experimental projects
+/programs/creative-department   Retainer program
+/programs/design-lab            Research & discovery program
+/programs/off-menu              Bespoke / custom package
+/programs/atelier-discourse     Discourse / community platform
 ```
 
 ---
@@ -102,7 +154,7 @@ Loaded via Google Fonts CDN. `@import` is in `src/styles/typography.css`.
 | `src/layouts/BaseLayout.astro` | Root layout — `<html>`, `<head>`, SEO meta, imports all 3 CSS files, mounts Nav + Footer |
 | `src/layouts/PageLayout.astro` | BaseLayout + standard page header (label + h1) |
 | `src/layouts/WorkLayout.astro` | BaseLayout + full case study chrome (meta, hero image, next project nav) |
-| `src/components/Nav.astro` | Fixed top nav. Desktop: logo + links + CTA. Mobile ≤900px: hamburger → dropdown menu |
+| `src/components/Nav.astro` | Fixed top nav. Desktop: logo + links + CTA. Mobile ≤900px: hamburger → dropdown with all 4 programs listed |
 | `src/components/Footer.astro` | Full footer with nav columns, status dot, email |
 | `src/components/Hero.astro` | Home page hero — Instrument Serif italic headline, stat strip, CTAs |
 | `src/components/WorkCard.astro` | Project card (image, title, outcome metric, category tags) |
@@ -120,8 +172,22 @@ The Nav has a working mobile menu. Key details for future edits:
 - Hamburger animates to × when `aria-expanded="true"` (CSS transforms on `.bar` nth-child)
 - Mobile menu is a **dropdown** (not full-screen overlay) — `position: absolute; top: 100%` under the nav bar
 - Menu closes on: link click, outside click
-- All nav links + "Get In Touch" button are present in the dropdown
+- All main nav links + all 4 program sub-links + "Get In Touch" button are in the dropdown
+- Programs appear as a sub-group with a label: `Creative Department`, `Design Lab`, `off_menu`, `Atelier Discourse`
 - Logo uses `var(--font-mono)` (Geist Mono) at `font-weight: 500` — NOT Instrument Serif (which has no bold weight)
+
+---
+
+## Homepage Sections (index.astro)
+
+1. Hero (Instrument Serif italic, stat strip, CTAs)
+2. StatBar (38+ brands, 5× avg growth, 100% senior talent, 6 yrs in business)
+3. Marquee ticker (service + program names scrolling)
+4. Featured Work (from content collection — 3 projects, first is wide)
+5. Services teaser (all 4 services with code names)
+6. Process teaser (inverted section — 4 phases)
+7. **Programs section** (all 4 programs as linked cards)
+8. ContactCTA
 
 ---
 
@@ -206,7 +272,7 @@ HS108Website/
 │   │   ├── PageLayout.astro
 │   │   └── WorkLayout.astro
 │   ├── components/
-│   │   ├── Nav.astro               ← mobile dropdown menu is here
+│   │   ├── Nav.astro               ← mobile dropdown with all 4 program links
 │   │   ├── Footer.astro
 │   │   ├── Hero.astro
 │   │   ├── WorkCard.astro
@@ -217,14 +283,16 @@ HS108Website/
 │   │   ├── about.astro
 │   │   ├── contact.astro
 │   │   ├── process.astro
-│   │   ├── services.astro
+│   │   ├── services.astro          ← 4 services: WebCanvas, CX&Identity, CMF_Nexus, Lumina.raw
 │   │   ├── why-us.astro
 │   │   ├── work/
 │   │   │   ├── index.astro
 │   │   │   └── [slug].astro
 │   │   └── programs/
-│   │       ├── creative-department.astro
-│   │       └── off-menu.astro
+│   │       ├── creative-department.astro   ← retainer program
+│   │       ├── design-lab.astro            ← research & discovery (NEW)
+│   │       ├── off-menu.astro              ← bespoke custom package
+│   │       └── atelier-discourse.astro     ← discourse platform (NEW)
 │   └── styles/
 │       ├── global.css              Color tokens + reset + layout utilities
 │       ├── typography.css          Font imports + type scale classes
@@ -256,21 +324,10 @@ npm install
 2. **Formspree endpoint** — replace `REPLACE_WITH_YOUR_ID` in `src/pages/contact.astro` with a real Formspree form ID from formspree.io
 3. **Real case study content** — replace the 3 sample MDX files with real HS108 project write-ups
 4. **Real project cover images** — add actual images to `public/work/` matching the `coverImage` paths in each MDX file
-5. **Real copy across all pages** — about, services, process, why-us, programs pages all have placeholder text
+5. **Real copy on secondary pages** — about.astro, why-us.astro, process.astro still have placeholder text
 6. **Self-host fonts** — download Instrument Serif, Geist, Geist Mono woff2 files → `public/fonts/` → replace the `@import` in `typography.css` with `@font-face` declarations
 7. **Sitemap** — re-add `@astrojs/sitemap` after Astro 5 upgrade
 8. **OG image** — add `public/og-default.jpg` (1200×630) for social sharing previews
-
----
-
-## Programs (Important Distinction)
-
-HS108 has two internal programs — these are NOT client services:
-
-- **Creative Department** (`/programs/creative-department`) — internal R&D lab. Research, published findings, experimental work. Contact: `cd@hs108.in`
-- **off_menu** (`/programs/off-menu`) — speculative / experimental projects outside traditional design. The name is always lowercase with underscore: `off_menu`. Contact: `offmenu@hs108.in`
-
-These are separate from the 6 client-facing services on `/services`.
 
 ---
 
@@ -287,3 +344,5 @@ These are separate from the 6 client-facing services on `/services`.
 - Do NOT use emojis in the UI
 - Do NOT use `!important` in CSS
 - Do NOT add unrequested features or refactor code that isn't broken
+- Do NOT rename service codes (WebCanvas, CX&Identity, CMF_Nexus, Lumina.raw) — these are brand terms
+- Do NOT rename `off_menu` — it's always lowercase with underscore
