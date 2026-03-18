@@ -510,7 +510,7 @@ hr.inv {
 
 /* --- Selection --- */
 ::selection {
-  background-color: var(--orange-500);
+  background-color: var(--accent);
   color: var(--black-native);
 }
 
@@ -528,7 +528,7 @@ hr.inv {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--orange-300);
+  background: var(--accent-soft);
 }
 
 /* --- Utility --- */
@@ -592,6 +592,8 @@ hr.inv {
 
 /* ── Lime ── */
 .theme-lime {
+  --bg:                  var(--lime-100);
+  --fg:                  var(--lime-black-native);
   --white-native:        var(--lime-white-native);
   --black-native:        var(--lime-black-native);
   --surface-base:        var(--lime-100);
@@ -614,6 +616,8 @@ hr.inv {
 
 /* ── Yellow ── */
 .theme-yellow {
+  --bg:                  var(--yellow-100);
+  --fg:                  var(--yellow-black-native);
   --white-native:        var(--yellow-white-native);
   --black-native:        var(--yellow-black-native);
   --surface-base:        var(--yellow-100);
@@ -636,6 +640,8 @@ hr.inv {
 
 /* ── Green ── */
 .theme-green {
+  --bg:                  var(--green-100);
+  --fg:                  var(--green-black-native);
   --white-native:        var(--green-white-native);
   --black-native:        var(--green-black-native);
   --surface-base:        var(--green-100);
@@ -658,6 +664,8 @@ hr.inv {
 
 /* ── Blue ── */
 .theme-blue {
+  --bg:                  var(--blue-100);
+  --fg:                  var(--blue-black-native);
   --white-native:        var(--blue-white-native);
   --black-native:        var(--blue-black-native);
   --surface-base:        var(--blue-100);
@@ -680,6 +688,8 @@ hr.inv {
 
 /* ── Rose ── */
 .theme-rose {
+  --bg:                  var(--rose-100);
+  --fg:                  var(--rose-black-native);
   --white-native:        var(--rose-white-native);
   --black-native:        var(--rose-black-native);
   --surface-base:        var(--rose-100);
@@ -702,6 +712,8 @@ hr.inv {
 
 /* ── Indigo ── */
 .theme-indigo {
+  --bg:                  var(--indigo-100);
+  --fg:                  var(--indigo-black-native);
   --white-native:        var(--indigo-white-native);
   --black-native:        var(--indigo-black-native);
   --surface-base:        var(--indigo-100);
@@ -724,6 +736,8 @@ hr.inv {
 
 /* ── Pink ── */
 .theme-pink {
+  --bg:                  var(--pink-100);
+  --fg:                  var(--pink-black-native);
   --white-native:        var(--pink-white-native);
   --black-native:        var(--pink-black-native);
   --surface-base:        var(--pink-100);
@@ -746,6 +760,8 @@ hr.inv {
 
 /* ── Purple ── */
 .theme-purple {
+  --bg:                  var(--purple-100);
+  --fg:                  var(--purple-black-native);
   --white-native:        var(--purple-white-native);
   --black-native:        var(--purple-black-native);
   --surface-base:        var(--purple-100);
@@ -768,6 +784,8 @@ hr.inv {
 
 /* ── Cyan ── */
 .theme-cyan {
+  --bg:                  var(--cyan-100);
+  --fg:                  var(--cyan-black-native);
   --white-native:        var(--cyan-white-native);
   --black-native:        var(--cyan-black-native);
   --surface-base:        var(--cyan-100);
@@ -790,6 +808,8 @@ hr.inv {
 
 /* ── Teal ── */
 .theme-teal {
+  --bg:                  var(--teal-100);
+  --fg:                  var(--teal-black-native);
   --white-native:        var(--teal-white-native);
   --black-native:        var(--teal-black-native);
   --surface-base:        var(--teal-100);
@@ -812,6 +832,8 @@ hr.inv {
 
 /* ── Mint ── */
 .theme-mint {
+  --bg:                  var(--mint-100);
+  --fg:                  var(--mint-black-native);
   --white-native:        var(--mint-white-native);
   --black-native:        var(--mint-black-native);
   --surface-base:        var(--mint-100);
@@ -834,6 +856,8 @@ hr.inv {
 
 /* ── Amber ── */
 .theme-amber {
+  --bg:                  var(--amber-100);
+  --fg:                  var(--amber-black-native);
   --white-native:        var(--amber-white-native);
   --black-native:        var(--amber-black-native);
   --surface-base:        var(--amber-100);
@@ -856,6 +880,8 @@ hr.inv {
 
 /* ── Brown ── */
 .theme-brown {
+  --bg:                  var(--brown-100);
+  --fg:                  var(--brown-black-native);
   --white-native:        var(--brown-white-native);
   --black-native:        var(--brown-black-native);
   --surface-base:        var(--brown-100);
@@ -878,6 +904,8 @@ hr.inv {
 
 /* ── Red ── */
 .theme-red {
+  --bg:                  var(--red-100);
+  --fg:                  var(--red-black-native);
   --white-native:        var(--red-white-native);
   --black-native:        var(--red-black-native);
   --surface-base:        var(--red-100);
@@ -900,6 +928,8 @@ hr.inv {
 
 /* ── Vermilion ── */
 .theme-vermilion {
+  --bg:                  var(--vermilion-100);
+  --fg:                  var(--vermilion-black-native);
   --white-native:        var(--vermilion-white-native);
   --black-native:        var(--vermilion-black-native);
   --surface-base:        var(--vermilion-100);
@@ -922,6 +952,8 @@ hr.inv {
 
 /* ── Warm grey ── */
 .theme-warm {
+  --bg:                  var(--warm-100);
+  --fg:                  var(--warm-black-native);
   --white-native:        var(--warm-white-native);
   --black-native:        var(--warm-black-native);
   --surface-base:        var(--warm-100);
@@ -944,6 +976,8 @@ hr.inv {
 
 /* ── Cool grey ── */
 .theme-cool {
+  --bg:                  var(--cool-100);
+  --fg:                  var(--cool-black-native);
   --white-native:        var(--cool-white-native);
   --black-native:        var(--cool-black-native);
   --surface-base:        var(--cool-100);
@@ -966,6 +1000,8 @@ hr.inv {
 
 /* ── Neutral ── */
 .theme-neutral {
+  --bg:                  var(--neutral-100);
+  --fg:                  var(--neutral-black-native);
   --white-native:        var(--neutral-white-native);
   --black-native:        var(--neutral-black-native);
   --surface-base:        var(--neutral-100);
