@@ -278,3 +278,35 @@ const services = [
     }
   }
 </style>
+
+<script>
+  import { animate, inView, stagger } from 'motion';
+  const ease = [0.16, 1, 0.3, 1] as const;
+
+  // Service rows staggered on scroll
+  document.querySelectorAll<HTMLElement>('.svc-row').forEach(row => {
+    row.style.opacity = '0';
+    inView(row, () => {
+      animate(row, { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0px)'] }, { duration: 0.6, easing: ease });
+    }, { amount: 0.08 });
+  });
+
+  // Program cards
+  const programsGrid = document.querySelector<HTMLElement>('.programs-grid');
+  if (programsGrid) {
+    const cards = programsGrid.querySelectorAll<HTMLElement>('.program-card');
+    cards.forEach(el => { el.style.opacity = '0'; });
+    inView(programsGrid, () => {
+      animate(cards, { opacity: [0, 1], transform: ['translateY(16px)', 'translateY(0px)'] }, { duration: 0.5, easing: ease, delay: stagger(0.07) });
+    }, { amount: 0.1 });
+  }
+
+  // Callout block
+  const callout = document.querySelector<HTMLElement>('.services-callout');
+  if (callout) {
+    callout.style.opacity = '0';
+    inView(callout, () => {
+      animate(callout, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.55, easing: ease });
+    }, { amount: 0.2 });
+  }
+</script>

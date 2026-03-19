@@ -371,3 +371,30 @@ const process = [
     }
   }
 </style>
+
+<script>
+  import { animate, inView, stagger } from 'motion';
+  const ease = [0.16, 1, 0.3, 1] as const;
+
+  const hero = document.querySelector<HTMLElement>('.lr-hero-inner');
+  if (hero) {
+    hero.style.opacity = '0';
+    animate(hero, { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0px)'] }, { duration: 0.65, easing: ease });
+  }
+
+  document.querySelectorAll<HTMLElement>('.del-group').forEach(group => {
+    group.style.opacity = '0';
+    inView(group, () => {
+      animate(group, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.55, easing: ease });
+    }, { amount: 0.1 });
+  });
+
+  const processGrid = document.querySelector<HTMLElement>('.process-grid');
+  if (processGrid) {
+    const steps = processGrid.querySelectorAll<HTMLElement>('.process-step');
+    steps.forEach(el => { el.style.opacity = '0'; });
+    inView(processGrid, () => {
+      animate(steps, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.5, easing: ease, delay: stagger(0.08) });
+    }, { amount: 0.1 });
+  }
+</script>

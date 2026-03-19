@@ -697,6 +697,16 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 </style>
 
 <script>
+  import { animate } from 'motion';
+  const ease = [0.16, 1, 0.3, 1] as const;
+  const header = document.querySelector<HTMLElement>('.contact-header');
+  if (header) {
+    header.style.opacity = '0';
+    animate(header, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.55, easing: ease });
+  }
+</script>
+
+<script>
   const flow = document.getElementById('contact-flow')!;
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const barFill = document.getElementById('flow-bar-fill')!;
