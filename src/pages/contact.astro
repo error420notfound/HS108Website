@@ -1,144 +1,304 @@
 ---
-import PageLayout from '@layouts/PageLayout.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 ---
 
-<PageLayout title="Contact" label="Get In Touch" description="Start a project with HS108. We're currently accepting new clients.">
+<BaseLayout
+  title="Get In Touch"
+  description="Start a project with HS108. We're currently accepting new clients."
+>
 
-  <div class="container contact-wrap">
-    <div class="contact-left">
-      <div class="contact-info">
-        <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Email</p>
-        <a href="mailto:contact.studio@hs108.in" class="contact-email link-swap">
-          contact.studio@hs108.in
-        </a>
+  <!-- Page header -->
+  <div class="contact-header container">
+    <span class="t-label" style="opacity:0.4">Get In Touch</span>
+    <h1 class="t-h1 contact-title">Start a project<br /><em>with HS108.</em></h1>
+    <div class="contact-meta">
+      <div class="contact-dot-row">
+        <span class="status-dot-lg"></span>
+        <span class="t-mono">Accepting new projects</span>
+      </div>
+      <span class="t-mono contact-response">Responds within 24 hours</span>
+    </div>
+  </div>
+
+  <hr class="contact-divider" />
+
+  <!-- Multi-step form shell -->
+  <div class="contact-flow container" id="contact-flow">
+
+    <!-- Progress bar -->
+    <div class="flow-progress" aria-label="Form progress">
+      <div class="flow-steps">
+        {[
+          { n: '01', label: 'What you need' },
+          { n: '02', label: 'Your project' },
+          { n: '03', label: 'Your details' },
+        ].map((s, i) => (
+          <div class:list={['flow-step', { 'flow-step--active': i === 0 }]} data-step={i + 1}>
+            <span class="flow-step-num t-label">{s.n}</span>
+            <span class="flow-step-label t-mono">{s.label}</span>
+          </div>
+        ))}
+      </div>
+      <div class="flow-bar">
+        <div class="flow-bar-fill" id="flow-bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form
+      id="contact-form"
+      method="POST"
+      action="https://formspree.io/f/REPLACE_WITH_YOUR_ID"
+      class="flow-form"
+      novalidate
+    >
+
+      <!-- ── Step 1: What you need ── -->
+      <div class="flow-panel" data-panel="1">
+        <div class="flow-panel-header">
+          <h2 class="t-h2 flow-panel-title">What do you need?</h2>
+          <p class="t-body flow-panel-sub">Pick everything that applies. We'll figure out the right approach together.</p>
+        </div>
+
+        <div class="choice-grid" role="group" aria-label="Service type">
+          {[
+            { val: 'Brand Identity',       code: 'CX&Identity',     desc: 'Logo, visual identity, guidelines' },
+            { val: 'Product Design',        code: 'CMF_Nexus',       desc: 'CAD, CMF, production-ready files' },
+            { val: 'Web & App Design',      code: 'WebCanvas',       desc: 'UI/UX, prototypes, design systems' },
+            { val: 'Photo & Video',         code: 'Lumina.raw',      desc: 'Photography, videography, motion' },
+            { val: 'Ongoing Design Support', code: 'Creative Dept.', desc: 'Embedded retainer — ongoing work' },
+            { val: 'Research & Discovery',  code: 'Design Lab',      desc: 'Structured discovery before build' },
+            { val: 'Bespoke Package',       code: 'off_menu',        desc: 'Custom cross-discipline scope' },
+            { val: 'Not sure yet',          code: '—',               desc: 'Tell us your problem instead' },
+          ].map(c => (
+            <label class="choice-card">
+              <input type="checkbox" name="service_type" value={c.val} class="choice-input" />
+              <span class="choice-body">
+                <span class="choice-code t-label">{c.code}</span>
+                <span class="choice-val t-mono">{c.val}</span>
+                <span class="choice-desc t-mono">{c.desc}</span>
+              </span>
+              <span class="choice-check">✓</span>
+            </label>
+          ))}
+        </div>
+
+        <div class="flow-actions">
+          <button type="button" class="btn btn--primary flow-next" data-next="2">
+            Next — Your Project →
+          </button>
+        </div>
       </div>
 
-      <div class="contact-status">
-        <div class="contact-dot-row">
-          <span class="status-dot-lg"></span>
-          <p class="t-mono">Currently accepting new projects</p>
+      <!-- ── Step 2: Project details ── -->
+      <div class="flow-panel flow-panel--hidden" data-panel="2">
+        <div class="flow-panel-header">
+          <h2 class="t-h2 flow-panel-title">Tell us about the project.</h2>
+          <p class="t-body flow-panel-sub">The more specific you are, the faster we can give you a useful response.</p>
         </div>
-        <p class="t-mono contact-status-note">
+
+        <div class="flow-fields">
+          <div class="form-group">
+            <label class="form-label t-label" for="project-brief">What are you building?</label>
+            <textarea
+              id="project-brief"
+              name="message"
+              rows="5"
+              required
+              class="form-input form-textarea"
+              placeholder="Describe the project — what it is, who it's for, what problem it solves. Include any constraints, competitors, or references you find relevant."
+            ></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label t-label" for="timeline">Timeline</label>
+              <select id="timeline" name="timeline" class="form-input form-select">
+                <option value="">When do you need to start?</option>
+                <option>ASAP — urgent</option>
+                <option>Within 4 weeks</option>
+                <option>1–3 months out</option>
+                <option>3+ months out</option>
+                <option>Flexible / exploring</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label t-label" for="budget">Budget range</label>
+              <select id="budget" name="budget" class="form-input form-select">
+                <option value="">Approximate budget</option>
+                <option>Under ₹2L</option>
+                <option>₹2L – ₹5L</option>
+                <option>₹5L – ₹15L</option>
+                <option>₹15L – ₹50L</option>
+                <option>₹50L+</option>
+                <option>Prefer to discuss</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-actions">
+          <button type="button" class="btn btn--outline flow-back" data-back="1">← Back</button>
+          <button type="button" class="btn btn--primary flow-next" data-next="3">
+            Next — Your Details →
+          </button>
+        </div>
+      </div>
+
+      <!-- ── Step 3: Contact details ── -->
+      <div class="flow-panel flow-panel--hidden" data-panel="3">
+        <div class="flow-panel-header">
+          <h2 class="t-h2 flow-panel-title">Last step.</h2>
+          <p class="t-body flow-panel-sub">Who are we talking to?</p>
+        </div>
+
+        <div class="flow-fields">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label t-label" for="name">Your name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                class="form-input"
+                placeholder="Full name"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label t-label" for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                class="form-input"
+                placeholder="your@email.com"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label t-label" for="company">Company / Brand</label>
+              <input
+                id="company"
+                name="company"
+                type="text"
+                class="form-input"
+                placeholder="Optional"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label t-label" for="how-found">How did you find us?</label>
+              <select id="how-found" name="how_found" class="form-input form-select">
+                <option value="">Select one</option>
+                <option>Referral</option>
+                <option>Search</option>
+                <option>Social media</option>
+                <option>Saw our work</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Summary card -->
+          <div class="flow-summary b-box" id="flow-summary">
+            <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Your Request Summary</p>
+            <p class="t-mono flow-summary-services" id="summary-services" style="opacity:0.6; margin-bottom:0.5rem">—</p>
+          </div>
+        </div>
+
+        <div class="flow-actions">
+          <button type="button" class="btn btn--outline flow-back" data-back="2">← Back</button>
+          <button type="submit" class="btn btn--primary flow-submit">
+            Send to HS108 →
+          </button>
+        </div>
+      </div>
+
+      <!-- ── Confirmation ── -->
+      <div class="flow-panel flow-panel--hidden flow-confirm" data-panel="confirm">
+        <div class="flow-confirm-inner">
+          <span class="flow-confirm-mark t-label">✓</span>
+          <h2 class="t-h2 flow-confirm-title">Message received.</h2>
+          <p class="t-body flow-confirm-sub">
+            We'll review your brief and respond within 24 hours. In the meantime, feel free to explore our work.
+          </p>
+          <div class="flow-confirm-links">
+            <a href="/work" class="btn btn--outline">View Our Work</a>
+            <a href="/programs" class="btn btn--outline">Explore Programs</a>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- Side info — visible on all steps desktop -->
+    <aside class="flow-aside">
+      <div class="aside-block">
+        <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Email Us Directly</p>
+        <a href="mailto:contact.studio@hs108.in" class="aside-email link-swap">contact.studio@hs108.in</a>
+      </div>
+      <hr />
+      <div class="aside-block">
+        <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Programs</p>
+        <div class="aside-programs">
+          {[
+            { label: 'Creative Department', href: '/programs/creative-department', note: 'Retainer' },
+            { label: 'Design Lab',          href: '/programs/design-lab',          note: 'Research' },
+            { label: 'off_menu',            href: '/programs/off-menu',            note: 'Bespoke' },
+            { label: 'Field Notes',         href: '/programs/field-notes',         note: 'Community' },
+          ].map(p => (
+            <a href={p.href} class="aside-prog-link b-box">
+              <span class="t-mono">{p.label}</span>
+              <span class="t-label aside-prog-note">{p.note}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+      <hr />
+      <div class="aside-block">
+        <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Response Time</p>
+        <p class="t-mono" style="opacity:0.65; line-height:1.6">
           We typically respond within 24 hours.<br />
           Project kickoffs are scheduled 2–4 weeks out.
         </p>
       </div>
+    </aside>
 
-      <div class="contact-programs">
-        <p class="t-label" style="opacity:0.4; margin-bottom:1rem">Programs</p>
-        <a href="/programs/creative-department" class="contact-prog-link b-box">
-          <span class="t-mono">Creative Department</span>
-          <span class="t-label">→</span>
-        </a>
-        <a href="/programs/off-menu" class="contact-prog-link b-box">
-          <span class="t-mono">off_menu</span>
-          <span class="t-label">→</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="contact-form-wrap b-box">
-      <p class="t-label contact-form-label">Tell Us About Your Project</p>
-
-      <!-- Form posts to Formspree — replace ACTION_URL with your Formspree endpoint -->
-      <form
-        method="POST"
-        action="https://formspree.io/f/REPLACE_WITH_YOUR_ID"
-        class="contact-form"
-      >
-        <div class="form-group">
-          <label class="form-label t-label" for="name">Name</label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            required
-            class="form-input"
-            placeholder="Your name"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label t-label" for="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            class="form-input"
-            placeholder="your@email.com"
-          />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label t-label" for="project-type">What Do You Need?</label>
-          <select id="project-type" name="project_type" class="form-input form-select">
-            <option value="">Select a service</option>
-            <option>Brand Identity</option>
-            <option>Product Design</option>
-            <option>Design System</option>
-            <option>Web Design</option>
-            <option>Retainer Partnership</option>
-            <option>Not sure yet</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label t-label" for="message">Tell Us More</label>
-          <textarea
-            id="message"
-            name="message"
-            rows="5"
-            required
-            class="form-input form-textarea"
-            placeholder="What are you building? What's the timeline? Any context that helps."
-          ></textarea>
-        </div>
-
-        <button type="submit" class="btn btn--primary form-submit">
-          Send Message →
-        </button>
-      </form>
-    </div>
   </div>
 
-</PageLayout>
+</BaseLayout>
 
 <style>
-  .contact-wrap {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 4rem;
-    padding-top: 3rem;
-    padding-bottom: var(--space-section);
-    align-items: start;
+  /* ── Page header ── */
+  .contact-header {
+    padding-top: 5rem;
+    padding-bottom: 3rem;
   }
 
-  .contact-left {
+  .contact-title {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-meta {
     display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    position: sticky;
-    top: 6rem;
-  }
-
-  .contact-email {
-    font-family: var(--font-display);
-    font-size: clamp(20px, 2.5vw, 32px);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
   }
 
   .contact-dot-row {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 0.75rem;
   }
 
   .status-dot-lg {
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
     background: #00C47D;
     border-radius: 50%;
     flex-shrink: 0;
@@ -150,44 +310,204 @@ import PageLayout from '@layouts/PageLayout.astro';
     50%       { opacity: 0.3; }
   }
 
-  .contact-status-note {
-    opacity: 0.5;
-    line-height: 1.7;
-    margin-left: 20px;
+  .contact-response {
+    opacity: 0.4;
   }
 
-  .contact-programs {
+  .contact-divider {
+    margin: 0;
+  }
+
+  /* ── Flow shell ── */
+  .contact-flow {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    grid-template-rows: auto 1fr;
+    gap: 0 4rem;
+    padding-top: 3rem;
+    padding-bottom: var(--space-section);
+    align-items: start;
+  }
+
+  /* ── Progress ── */
+  .flow-progress {
+    grid-column: 1;
+    margin-bottom: 3rem;
+  }
+
+  .flow-steps {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1rem;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 1rem 0.5rem 0;
+    flex: 1;
+    opacity: 0.3;
+    transition: opacity 200ms ease;
+    border-right: 1px solid var(--border);
+    margin-right: 1rem;
+  }
+
+  .flow-step:last-child {
+    border-right: none;
+    margin-right: 0;
+  }
+
+  .flow-step--active {
+    opacity: 1;
+  }
+
+  .flow-step-num {
+    color: var(--accent);
+  }
+
+  .flow-step-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .flow-bar {
+    height: 2px;
+    background: var(--border);
+    width: 100%;
+  }
+
+  .flow-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 300ms ease;
+    width: 33.33%;
+  }
+
+  /* ── Form ── */
+  .flow-form {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .flow-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .flow-panel--hidden {
+    display: none;
+  }
+
+  .flow-panel-header {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .contact-prog-link {
+  .flow-panel-title {
+    line-height: 1.1;
+  }
+
+  .flow-panel-sub {
+    opacity: 0.55;
+    max-width: 55ch;
+    line-height: 1.6;
+  }
+
+  /* ── Choice cards ── */
+  .choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .choice-card {
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    transition: background var(--transition);
+    border: var(--border-width) solid var(--border);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: background var(--transition), border-color var(--transition);
+    gap: 1rem;
+    position: relative;
   }
 
-  .contact-prog-link:hover {
-    background: var(--c-yellow);
+  .choice-card:hover {
+    border-color: var(--accent);
   }
 
-  /* Form */
-  .contact-form-wrap {
-    padding: 2.5rem;
+  .choice-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
   }
 
-  .contact-form-label {
-    opacity: 0.4;
-    margin-bottom: 2rem;
-    display: block;
+  .choice-input:checked + .choice-body + .choice-check {
+    opacity: 1;
   }
 
-  .contact-form {
+  .choice-input:checked ~ * {
+    /* handled via JS class */
+  }
+
+  .choice-body {
     display: flex;
     flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .choice-code {
+    color: var(--accent);
+    opacity: 0.6;
+    font-size: 9px;
+  }
+
+  .choice-val {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .choice-desc {
+    font-size: 10px;
+    opacity: 0.45;
+    letter-spacing: 0.06em;
+  }
+
+  .choice-check {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    opacity: 0;
+    flex-shrink: 0;
+    transition: opacity 150ms ease;
+  }
+
+  .choice-card--selected {
+    background: var(--surface-elevated);
+    border-color: var(--black-native);
+  }
+
+  .choice-card--selected .choice-check {
+    opacity: 1;
+  }
+
+  /* ── Text fields ── */
+  .flow-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
   }
 
@@ -217,8 +537,8 @@ import PageLayout from '@layouts/PageLayout.astro';
   }
 
   .form-input:focus {
-    border-color: var(--c-black);
-    outline: 3px solid var(--c-yellow);
+    border-color: var(--black-native);
+    outline: 3px solid var(--accent);
     outline-offset: 0;
   }
 
@@ -232,20 +552,241 @@ import PageLayout from '@layouts/PageLayout.astro';
 
   .form-textarea {
     resize: vertical;
-    min-height: 120px;
+    min-height: 130px;
+    line-height: 1.6;
   }
 
-  .form-submit {
-    align-self: flex-start;
+  /* ── Summary ── */
+  .flow-summary {
+    padding: 1.25rem;
+    background: var(--surface-elevated);
   }
 
-  @media (max-width: 900px) {
-    .contact-wrap {
+  .flow-summary-services {
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  /* ── Actions row ── */
+  .flow-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  /* ── Confirmation ── */
+  .flow-confirm-inner {
+    padding: 4rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 55ch;
+  }
+
+  .flow-confirm-mark {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: var(--border-width) solid var(--accent);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .flow-confirm-title {
+    line-height: 1.1;
+  }
+
+  .flow-confirm-sub {
+    opacity: 0.6;
+    max-width: 48ch;
+    line-height: 1.7;
+  }
+
+  .flow-confirm-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  /* ── Aside ── */
+  .flow-aside {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    border-left: var(--border-width) solid var(--border);
+    padding-left: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: sticky;
+    top: 80px;
+  }
+
+  .aside-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .aside-email {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(18px, 2vw, 26px);
+    line-height: 1.2;
+  }
+
+  .aside-programs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .aside-prog-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    transition: background var(--transition);
+  }
+
+  .aside-prog-link:hover {
+    background: var(--accent);
+  }
+
+  .aside-prog-link .t-mono {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .aside-prog-note {
+    opacity: 0.4;
+    font-size: 9px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .contact-flow {
       grid-template-columns: 1fr;
     }
 
-    .contact-left {
+    .flow-aside {
+      grid-column: 1;
+      grid-row: auto;
+      border-left: none;
+      border-top: var(--border-width) solid var(--border);
+      padding-left: 0;
+      padding-top: 3rem;
       position: static;
     }
   }
+
+  @media (max-width: 640px) {
+    .choice-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .flow-confirm-links {
+      flex-direction: column;
+    }
+  }
 </style>
+
+<script>
+  const flow = document.getElementById('contact-flow')!;
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const barFill = document.getElementById('flow-bar-fill')!;
+
+  const barWidths: Record<string, string> = {
+    '1': '33.33%',
+    '2': '66.66%',
+    '3': '100%',
+    'confirm': '100%',
+  };
+
+  function showPanel(target: string) {
+    flow.querySelectorAll<HTMLElement>('.flow-panel').forEach(p => {
+      p.classList.add('flow-panel--hidden');
+    });
+    const panel = flow.querySelector<HTMLElement>(`[data-panel="${target}"]`);
+    if (panel) panel.classList.remove('flow-panel--hidden');
+
+    // Progress steps
+    flow.querySelectorAll<HTMLElement>('.flow-step').forEach(s => {
+      s.classList.remove('flow-step--active');
+      if (s.dataset.step && parseInt(s.dataset.step) <= parseInt(target)) {
+        s.classList.add('flow-step--active');
+      }
+    });
+
+    barFill.style.width = barWidths[target] ?? '33.33%';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Next buttons
+  flow.querySelectorAll<HTMLButtonElement>('.flow-next').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const next = btn.dataset.next!;
+      showPanel(next);
+      updateSummary();
+    });
+  });
+
+  // Back buttons
+  flow.querySelectorAll<HTMLButtonElement>('.flow-back').forEach(btn => {
+    btn.addEventListener('click', () => {
+      showPanel(btn.dataset.back!);
+    });
+  });
+
+  // Choice card toggle
+  flow.querySelectorAll<HTMLElement>('.choice-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('choice-card--selected');
+    });
+  });
+
+  // Summary updater
+  function updateSummary() {
+    const checked = Array.from(
+      flow.querySelectorAll<HTMLInputElement>('.choice-input:checked')
+    ).map(i => i.value);
+
+    const el = document.getElementById('summary-services')!;
+    el.textContent = checked.length ? checked.join(' · ') : '—';
+  }
+
+  // Sync checkbox state with card visual
+  flow.querySelectorAll<HTMLInputElement>('.choice-input').forEach(input => {
+    input.addEventListener('change', () => {
+      input.closest('.choice-card')?.classList.toggle('choice-card--selected', input.checked);
+    });
+  });
+
+  // Form submit → show confirmation
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (res.ok) {
+        showPanel('confirm');
+      } else {
+        alert('Something went wrong. Please email us directly at contact.studio@hs108.in');
+      }
+    } catch {
+      alert('Network error. Please email us directly at contact.studio@hs108.in');
+    }
+  });
+</script>
+

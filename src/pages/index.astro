@@ -27,7 +27,7 @@ const programs = [
   { name: 'Creative Department', slug: 'creative-department', desc: 'Our flagship retainer — embedded design support for businesses that need design ongoing, not one-off.' },
   { name: 'Design Lab',          slug: 'design-lab',          desc: 'Research and discovery for complex, high-demand design challenges before execution begins.' },
   { name: 'off_menu',            slug: 'off-menu',            desc: 'Bespoke, tailor-made packages for clients whose needs don\'t fit a standard scope.' },
-  { name: 'Atelier Discourse',   slug: 'atelier-discourse',   desc: 'Our platform for discourse with designers, artisans, and industry experts.' },
+  { name: 'Field Notes',         slug: 'field-notes',         desc: 'Our platform for discourse with designers, artisans, and industry experts.' },
 ];
 ---
 
@@ -171,6 +171,55 @@ const programs = [
   <ContactCTA />
 
 </BaseLayout>
+
+<script>
+  import { animate, inView, stagger } from 'motion';
+
+  const ease = [0.16, 1, 0.3, 1] as const;
+
+  // ── Utility: animate a group in when it enters the viewport ──
+  function revealGroup(selector: string, options?: { staggerDelay?: number; y?: number }) {
+    const { staggerDelay = 0.07, y = 20 } = options ?? {};
+    document.querySelectorAll<HTMLElement>(selector).forEach(el => {
+      el.style.opacity = '0';
+    });
+
+    document.querySelectorAll<HTMLElement>(selector).forEach(el => {
+      inView(el, () => {
+        animate(el, { opacity: [0, 1], transform: [`translateY(${y}px)`, 'translateY(0px)'] }, { duration: 0.55, easing: ease });
+      }, { amount: 0.15 });
+    });
+  }
+
+  // ── Stagger children when parent enters viewport ──
+  function revealChildren(parentSelector: string, childSelector: string, options?: { staggerDelay?: number }) {
+    const { staggerDelay = 0.07 } = options ?? {};
+    document.querySelectorAll<HTMLElement>(parentSelector).forEach(parent => {
+      const children = parent.querySelectorAll<HTMLElement>(childSelector);
+      children.forEach(c => { c.style.opacity = '0'; });
+
+      inView(parent, () => {
+        animate(
+          children,
+          { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] },
+          { duration: 0.5, easing: ease, delay: stagger(staggerDelay) }
+        );
+      }, { amount: 0.1 });
+    });
+  }
+
+  // Section headers — each fades up individually
+  revealGroup('.section-header', { y: 16 });
+
+  // Service rows — staggered as a group
+  revealChildren('.services-list', '.service-row', { staggerDelay: 0.09 });
+
+  // Program cards — staggered
+  revealChildren('.programs-grid', '.program-card', { staggerDelay: 0.08 });
+
+  // Process steps — staggered
+  revealChildren('.process-strip', '.process-step', { staggerDelay: 0.1 });
+</script>
 
 <style>
   .section-header {

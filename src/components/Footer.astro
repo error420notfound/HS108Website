@@ -12,7 +12,15 @@ const footerLinks = [
 
 const programs = [
   { label: 'Creative Department', href: '/programs/creative-department' },
+  { label: 'Design Lab',          href: '/programs/design-lab' },
   { label: 'off_menu',            href: '/programs/off-menu' },
+  { label: 'Field Notes',         href: '/programs/field-notes' },
+];
+
+const subdomains = [
+  { label: 'docs.hs108.in',        href: 'https://docs.hs108.in',        desc: 'Design Documents' },
+  { label: 'field-notes.hs108.in', href: 'https://field-notes.hs108.in', desc: 'Blog' },
+  { label: 'toolkit.hs108.in',     href: 'https://toolkit.hs108.in',     desc: 'Design Toolkit' },
 ];
 ---
 
@@ -41,6 +49,20 @@ const programs = [
         <ul role="list">
           {programs.map(p => (
             <li><a href={p.href} class="footer-link">{p.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="t-label footer-col-label">HS108 Network</p>
+        <ul role="list">
+          {subdomains.map(s => (
+            <li>
+              <a href={s.href} class="footer-link footer-link--ext" target="_blank" rel="noopener noreferrer">
+                {s.label}
+                <span class="footer-link-desc">{s.desc}</span>
+              </a>
+            </li>
           ))}
         </ul>
       </div>
@@ -85,10 +107,10 @@ const programs = [
   }
 
   .footer-logo {
-    font-family: var(--font-display);
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.03em;
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     display: inline-flex;
     align-items: center;
@@ -98,7 +120,7 @@ const programs = [
   .footer-dot {
     width: 8px;
     height: 8px;
-    background: var(--c-yellow);
+    background: var(--accent);
     border-radius: 50%;
     display: inline-block;
   }
@@ -116,7 +138,7 @@ const programs = [
 
   .footer-cols {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
   }
 
@@ -126,18 +148,33 @@ const programs = [
   }
 
   .footer-link {
-    display: block;
+    display: flex;
+    flex-direction: column;
     font-family: var(--font-mono);
     font-size: var(--size-small);
     letter-spacing: 0.06em;
-    padding: 4px 0;
-    border-bottom: 1px solid transparent;
-    transition: border-color var(--transition), background var(--transition);
-    padding: 2px 4px;
+    padding: 3px 4px;
+    transition: background var(--transition);
   }
 
   .footer-link:hover {
-    background: var(--c-yellow);
+    background: var(--accent);
+    color: var(--black-native);
+  }
+
+  .footer-link-desc {
+    font-size: 9px;
+    opacity: 0.45;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  .footer-link--ext::after {
+    content: ' ↗';
+    opacity: 0.35;
+    font-size: 9px;
+    display: inline;
   }
 
   .footer-status {
@@ -175,14 +212,16 @@ const programs = [
     opacity: 0.45;
   }
 
+  @media (max-width: 1024px) {
+    .footer-cols {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media (max-width: 768px) {
     .footer-main {
       grid-template-columns: 1fr;
       gap: 2.5rem;
-    }
-
-    .footer-cols {
-      grid-template-columns: repeat(2, 1fr);
     }
 
     .footer-bar {

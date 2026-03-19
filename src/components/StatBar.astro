@@ -23,6 +23,24 @@ const { stats, invert = false } = Astro.props;
   ))}
 </div>
 
+<script>
+  import { animate, inView, stagger } from 'motion';
+
+  const strip = document.querySelector<HTMLElement>('.stat-strip');
+  if (strip) {
+    const items = strip.querySelectorAll<HTMLElement>('.stat-item');
+    items.forEach(el => { el.style.opacity = '0'; });
+
+    inView(strip, () => {
+      animate(
+        items,
+        { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] },
+        { duration: 0.5, easing: [0.16, 1, 0.3, 1], delay: stagger(0.08) }
+      );
+    }, { amount: 0.2 });
+  }
+</script>
+
 <style>
   .stat-strip {
     display: grid;

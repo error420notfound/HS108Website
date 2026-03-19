@@ -121,10 +121,11 @@ These are HS108's engagement models and community initiatives — distinct from 
 **Email:** `contact.studio@hs108.in`
 **Note:** Name is always `off_menu` — lowercase, underscore, no space.
 
-### Atelier Discourse (`/programs/atelier-discourse`)
+### Field Notes (`/programs/field-notes`)
 **Type:** Community / conversation platform
 **What:** HS108's channel for discourse with designers, artisans, and industry experts. Covers topics: Material & Craft, Design & Commerce, Systems Design, Visual Culture. Not client-facing — community and field contribution.
 **Email:** `contact.studio@hs108.in`
+**Note:** Previously called "Atelier Discourse" — renamed to "Field Notes". File: `programs/field-notes.astro`, route: `/programs/field-notes`.
 
 ---
 
@@ -147,7 +148,7 @@ These are HS108's engagement models and community initiatives — distinct from 
 /programs/creative-department   Retainer program (theme-rose)
 /programs/design-lab            Research & discovery program (theme-vermilion)
 /programs/off-menu              Bespoke / custom package (theme-cool)
-/programs/atelier-discourse     Discourse / community platform (theme-teal)
+/programs/field-notes           Field Notes community platform (theme-teal)
 ```
 
 ---
@@ -189,7 +190,7 @@ This sets the `class` on `<body>` and overrides all semantic colour tokens (`--b
 | `/programs/creative-department` | `theme-rose` |
 | `/programs/design-lab` | `theme-vermilion` |
 | `/programs/off-menu` | `theme-cool` |
-| `/programs/atelier-discourse` | `theme-teal` |
+| `/programs/field-notes` | `theme-teal` |
 
 All 18 theme classes are defined in `src/styles/global.css`. Available themes: `theme-orange` (default), `theme-lime`, `theme-yellow`, `theme-green`, `theme-blue`, `theme-rose`, `theme-indigo`, `theme-pink`, `theme-purple`, `theme-cyan`, `theme-teal`, `theme-mint`, `theme-amber`, `theme-brown`, `theme-red`, `theme-vermilion`, `theme-warm`, `theme-cool`, `theme-neutral`.
 
@@ -213,6 +214,8 @@ The Nav has a working mobile menu. Key details for future edits:
 - All main nav links + all 4 program sub-links + "Get In Touch" button are in the dropdown
 - Programs appear as a sub-group with a label: `Creative Department`, `Design Lab`, `off_menu`, `Atelier Discourse`
 - Desktop "Programs" nav link goes to `/programs` (the programs index page)
+- Desktop **Services** and **Programs** links show a hover dropdown with sub-links (service/program name + category label). Implemented with CSS `:hover` + `position: absolute` dropdown panel — no JS needed.
+- Mobile: Services and Programs are **accordion buttons** that expand inline to show sub-links. Each accordion has its own `aria-expanded` state toggled via JS. Close behaviour: link click or outside click collapses the main menu.
 - Logo uses `var(--font-mono)` (Geist Mono) at `font-weight: 500` — NOT Instrument Serif (which has no bold weight)
 
 ---
@@ -277,6 +280,46 @@ draft:      boolean (default false) — set true to hide
 
 ---
 
+## HS108 Network — Subdomains
+
+Three subdomains linked from the footer "HS108 Network" column. All open in a new tab.
+
+| Subdomain | URL | Purpose |
+|---|---|---|
+| docs.hs108.in | `https://docs.hs108.in` | Internal design documents |
+| field-notes.hs108.in | `https://field-notes.hs108.in` | Blog / editorial |
+| toolkit.hs108.in | `https://toolkit.hs108.in` | Design tools & resources built in-house |
+
+These are external links — not pages inside the Astro project.
+
+---
+
+## Contact Page — Stepped UX Flow
+
+The contact page (`/contact`) uses a 3-step multi-step form inspired by Apple's Mac checkout flow. No modal — single-page stepped panels revealed in sequence.
+
+**Steps:**
+1. **What you need** — checkbox choice cards (8 options, maps to all 4 services + 4 programs). Multiple selection allowed.
+2. **Your project** — textarea (brief), timeline select, budget select.
+3. **Your details** — name, email, company, how-found. Summary card shows selected services.
+4. **Confirmation** — shown after successful Formspree submit. No page reload.
+
+**Key behaviours:**
+- Progress bar (2px orange fill) advances at each step (33% → 67% → 100%)
+- Step indicators (01/02/03) light up as user advances
+- "Back" button returns to previous step, form state is preserved
+- Form submits via `fetch()` (AJAX) to Formspree — no page reload on success
+- Confirmation panel replaces form content on success
+- Aside panel (email, programs, response time) is sticky on desktop, stacks below on mobile
+
+**Layout:** 2-col grid — form (left, wider) + aside (right, 320px, sticky). Collapses to 1-col below 1024px.
+
+**Uses:** `BaseLayout` directly (not `PageLayout`) so the full-width header section can be custom.
+
+**TODO:** Replace `REPLACE_WITH_YOUR_ID` in the form action URL with a real Formspree endpoint.
+
+---
+
 ## Technical Stack
 
 | Concern | Choice | Notes |
@@ -337,7 +380,7 @@ HS108Website/
 │   │       ├── creative-department.astro   ← theme-rose
 │   │       ├── design-lab.astro            ← theme-vermilion
 │   │       ├── off-menu.astro              ← theme-cool
-│   │       └── atelier-discourse.astro     ← theme-teal
+│   │       └── field-notes.astro           ← theme-teal (renamed from atelier-discourse)
 │   └── styles/
 │       ├── global.css              Color tokens + reset + layout utilities
 │       ├── typography.css          Font imports + type scale classes
@@ -374,15 +417,18 @@ npm install
 7. **Sitemap** — re-add `@astrojs/sitemap` after Astro 5 upgrade
 8. **OG image** — add `public/og-default.jpg` (1200×630) for social sharing previews
 
-## Completed This Session
+## Completed
 
 - ✅ Created `/programs/index.astro` — programs list page (mirrors services index structure, 4 program rows + services teaser + callout)
 - ✅ Applied `theme-rose` to `creative-department.astro`
 - ✅ Applied `theme-vermilion` to `design-lab.astro`
 - ✅ Applied `theme-cool` to `off-menu.astro`
-- ✅ Applied `theme-teal` to `atelier-discourse.astro`
-- ✅ Updated Nav "Programs" desktop link from `/programs/creative-department` → `/programs`
-- ✅ Added per-page theming section to this file
+- ✅ Applied `theme-teal` to `field-notes.astro`
+- ✅ Updated Nav "Programs" desktop link → `/programs`
+- ✅ Renamed "Atelier Discourse" → "Field Notes" (file renamed `atelier-discourse.astro` → `field-notes.astro`, route `/programs/field-notes`)
+- ✅ Footer: added all 4 programs, added "HS108 Network" column with 3 subdomain links (docs, field-notes, toolkit)
+- ✅ Nav: added hover dropdown for Services and Programs on desktop; accordion submenu for both in mobile
+- ✅ Contact page: rebuilt as 3-step Apple-style multi-step flow (choice cards → project brief → contact details → AJAX confirmation)
 
 ---
 

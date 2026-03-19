@@ -1,17 +1,16 @@
 ---
-const navLinks = [
-  { label: 'Work',     href: '/work' },
-  { label: 'Services', href: '/services' },
-  { label: 'Process',  href: '/process' },
-  { label: 'About',    href: '/about' },
-  { label: 'Programs', href: '/programs' },
+const serviceLinks = [
+  { label: 'WebCanvas',    sub: 'Digital Design',     href: '/services/webcanvas' },
+  { label: 'CX&Identity',  sub: 'Branding & Identity', href: '/services/cx-identity' },
+  { label: 'CMF_Nexus',    sub: 'Product Design',      href: '/services/cmf-nexus' },
+  { label: 'Lumina.raw',   sub: 'Photo & Video',       href: '/services/lumina-raw' },
 ];
 
 const programLinks = [
-  { label: 'Creative Department', href: '/programs/creative-department' },
-  { label: 'Design Lab',          href: '/programs/design-lab' },
-  { label: 'off_menu',            href: '/programs/off-menu' },
-  { label: 'Atelier Discourse',   href: '/programs/atelier-discourse' },
+  { label: 'Creative Department', sub: 'Retainer',  href: '/programs/creative-department' },
+  { label: 'Design Lab',          sub: 'Research',   href: '/programs/design-lab' },
+  { label: 'off_menu',            sub: 'Bespoke',    href: '/programs/off-menu' },
+  { label: 'Field Notes',         sub: 'Community',  href: '/programs/field-notes' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -26,16 +25,46 @@ const currentPath = Astro.url.pathname;
 
     <!-- Desktop links -->
     <ul class="nav-links" role="list">
-      {navLinks.map(link => (
-        <li>
-          <a
-            href={link.href}
-            class:list={['nav-link', { active: currentPath.startsWith(link.href) }]}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
+      <li>
+        <a href="/work" class:list={['nav-link', { active: currentPath.startsWith('/work') }]}>Work</a>
+      </li>
+
+      <!-- Services dropdown -->
+      <li class="nav-item--dropdown">
+        <a href="/services" class:list={['nav-link nav-link--dropdown', { active: currentPath.startsWith('/services') }]}>
+          Services <span class="nav-chevron">▾</span>
+        </a>
+        <div class="nav-dropdown">
+          {serviceLinks.map(link => (
+            <a href={link.href} class:list={['nav-dropdown-item', { active: currentPath === link.href }]}>
+              <span class="nav-dropdown-label">{link.label}</span>
+              <span class="nav-dropdown-sub">{link.sub}</span>
+            </a>
+          ))}
+        </div>
+      </li>
+
+      <li>
+        <a href="/process" class:list={['nav-link', { active: currentPath.startsWith('/process') }]}>Process</a>
+      </li>
+      <li>
+        <a href="/about" class:list={['nav-link', { active: currentPath.startsWith('/about') }]}>About</a>
+      </li>
+
+      <!-- Programs dropdown -->
+      <li class="nav-item--dropdown">
+        <a href="/programs" class:list={['nav-link nav-link--dropdown', { active: currentPath.startsWith('/programs') }]}>
+          Programs <span class="nav-chevron">▾</span>
+        </a>
+        <div class="nav-dropdown">
+          {programLinks.map(link => (
+            <a href={link.href} class:list={['nav-dropdown-item', { active: currentPath === link.href }]}>
+              <span class="nav-dropdown-label">{link.label}</span>
+              <span class="nav-dropdown-sub">{link.sub}</span>
+            </a>
+          ))}
+        </div>
+      </li>
     </ul>
 
     <a href="/contact" class="btn btn--primary nav-cta">Get In Touch</a>
@@ -57,35 +86,60 @@ const currentPath = Astro.url.pathname;
   <!-- Mobile dropdown menu -->
   <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
     <ul role="list">
-      {navLinks.filter(l => l.label !== 'Programs').map(link => (
-        <li>
-          <a
-            href={link.href}
-            class:list={['nav-mobile-link', { active: currentPath.startsWith(link.href) }]}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
-      <!-- Programs sub-group -->
-      <li class="nav-mobile-group-label">
-        <span class="t-label" style="opacity:0.4">Programs</span>
+      <li>
+        <a href="/work" class:list={['nav-mobile-link', { active: currentPath.startsWith('/work') }]}>Work</a>
       </li>
-      {programLinks.map(link => (
-        <li>
-          <a
-            href={link.href}
-            class:list={['nav-mobile-link nav-mobile-link--sub', { active: currentPath === link.href }]}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
+
+      <!-- Services accordion -->
+      <li class="nav-mobile-accordion">
+        <button class="nav-mobile-link nav-mobile-accordion-btn" aria-expanded="false">
+          Services <span class="nav-acc-chevron">▾</span>
+        </button>
+        <ul class="nav-mobile-submenu" role="list">
+          <li class="nav-mobile-group-label">
+            <span class="t-label" style="opacity:0.4">Services</span>
+          </li>
+          {serviceLinks.map(link => (
+            <li>
+              <a href={link.href} class:list={['nav-mobile-link nav-mobile-link--sub', { active: currentPath === link.href }]}>
+                <span>{link.label}</span>
+                <span class="nav-sub-tag">{link.sub}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </li>
+
+      <li>
+        <a href="/process" class:list={['nav-mobile-link', { active: currentPath.startsWith('/process') }]}>Process</a>
+      </li>
+      <li>
+        <a href="/about" class:list={['nav-mobile-link', { active: currentPath.startsWith('/about') }]}>About</a>
+      </li>
+
+      <!-- Programs accordion -->
+      <li class="nav-mobile-accordion">
+        <button class="nav-mobile-link nav-mobile-accordion-btn" aria-expanded="false">
+          Programs <span class="nav-acc-chevron">▾</span>
+        </button>
+        <ul class="nav-mobile-submenu" role="list">
+          <li class="nav-mobile-group-label">
+            <span class="t-label" style="opacity:0.4">Programs</span>
+          </li>
+          {programLinks.map(link => (
+            <li>
+              <a href={link.href} class:list={['nav-mobile-link nav-mobile-link--sub', { active: currentPath === link.href }]}>
+                <span>{link.label}</span>
+                <span class="nav-sub-tag">{link.sub}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </li>
     </ul>
+
     <div class="nav-mobile-footer">
-      <a href="/contact" class="btn btn--primary nav-mobile-cta">
-        Get In Touch →
-      </a>
+      <a href="/contact" class="btn btn--primary nav-mobile-cta">Get In Touch →</a>
     </div>
   </div>
 </header>
@@ -120,7 +174,7 @@ const currentPath = Astro.url.pathname;
   }
 
   .nav-logo-text {
-    font-family: var(--font-mono);   /* Geist Mono — works at any weight */
+    font-family: var(--font-mono);
     font-size: 18px;
     font-weight: 500;
     letter-spacing: 0.06em;
@@ -150,14 +204,84 @@ const currentPath = Astro.url.pathname;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     padding: 8px 14px;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 4px;
     transition: background var(--transition), color var(--transition);
     color: var(--black-native);
+    white-space: nowrap;
+    height: 64px;
   }
 
   .nav-link:hover,
   .nav-link.active {
     background: var(--orange-500);
+    color: var(--black-native);
+  }
+
+  .nav-chevron {
+    font-size: 8px;
+    opacity: 0.5;
+    transition: transform 200ms ease;
+  }
+
+  /* ── Dropdown items ── */
+  .nav-item--dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--bg);
+    border: var(--border-width) solid var(--border);
+    border-top: none;
+    min-width: 220px;
+    z-index: 200;
+  }
+
+  .nav-item--dropdown:hover .nav-dropdown,
+  .nav-item--dropdown:focus-within .nav-dropdown {
+    display: block;
+  }
+
+  .nav-item--dropdown:hover .nav-chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--orange-100);
+    transition: background var(--transition);
+  }
+
+  .nav-dropdown-item:last-child {
+    border-bottom: none;
+  }
+
+  .nav-dropdown-item:hover {
+    background: var(--orange-500);
+  }
+
+  .nav-dropdown-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black-native);
+  }
+
+  .nav-dropdown-sub {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.4;
     color: var(--black-native);
   }
 
@@ -172,7 +296,7 @@ const currentPath = Astro.url.pathname;
      HAMBURGER BUTTON
   ══════════════════════════════════════ */
   .nav-hamburger {
-    display: none;           /* shown only at mobile breakpoint */
+    display: none;
     flex-direction: column;
     justify-content: center;
     gap: 5px;
@@ -187,14 +311,13 @@ const currentPath = Astro.url.pathname;
 
   .bar {
     display: block;
-    width: 100%;             /* fills the 40px button width minus padding */
+    width: 100%;
     height: 2px;
     background: var(--black-native);
     transition: transform 250ms ease, opacity 250ms ease;
     transform-origin: center;
   }
 
-  /* Animated X when open */
   .nav-hamburger[aria-expanded="true"] .bar:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
   }
@@ -212,19 +335,20 @@ const currentPath = Astro.url.pathname;
     display: none;
     background: var(--bg);
     border-top: var(--border-width) solid var(--border);
-    /* Dropdown from nav bar — no full-screen overlay */
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     z-index: 99;
+    max-height: calc(100dvh - 64px);
+    overflow-y: auto;
   }
 
   .nav-mobile.open {
     display: block;
   }
 
-  .nav-mobile ul {
+  .nav-mobile > ul {
     display: flex;
     flex-direction: column;
   }
@@ -242,13 +366,10 @@ const currentPath = Astro.url.pathname;
     padding: 1rem var(--gutter);
     border-bottom: 1px solid var(--orange-100);
     transition: background var(--transition), padding-left var(--transition);
-  }
-
-  .nav-mobile-link::after {
-    content: '→';
-    font-family: var(--font-mono);
-    font-size: 11px;
-    opacity: 0.35;
+    width: 100%;
+    background: none;
+    cursor: pointer;
+    text-align: left;
   }
 
   .nav-mobile-link:hover,
@@ -256,10 +377,6 @@ const currentPath = Astro.url.pathname;
     background: var(--orange-500);
     color: var(--black-native);
     padding-left: calc(var(--gutter) + 0.5rem);
-  }
-
-  .nav-mobile-link.active::after {
-    opacity: 1;
   }
 
   .nav-mobile-group-label {
@@ -272,12 +389,43 @@ const currentPath = Astro.url.pathname;
     padding-left: calc(var(--gutter) + 1rem);
     font-size: 11px;
     background: var(--surface-elevated);
+    justify-content: flex-start;
+    gap: 1rem;
   }
 
   .nav-mobile-link--sub:hover,
   .nav-mobile-link--sub.active {
     padding-left: calc(var(--gutter) + 1.5rem);
     background: var(--orange-200);
+  }
+
+  /* accordion submenu hidden by default */
+  .nav-mobile-submenu {
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-mobile-submenu.open {
+    display: flex;
+  }
+
+  .nav-acc-chevron {
+    font-size: 8px;
+    opacity: 0.5;
+    transition: transform 200ms ease;
+    flex-shrink: 0;
+  }
+
+  .nav-mobile-accordion-btn[aria-expanded="true"] .nav-acc-chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-sub-tag {
+    font-size: 9px;
+    opacity: 0.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-left: auto;
   }
 
   .nav-mobile-footer {
@@ -307,6 +455,21 @@ const currentPath = Astro.url.pathname;
 </style>
 
 <script>
+  import { animate } from 'motion';
+
+  // ── Nav entrance — slide down on first load ──
+  const navWrap = document.querySelector<HTMLElement>('.nav-wrap');
+  if (navWrap) {
+    animate(
+      navWrap,
+      { opacity: [0, 1], transform: ['translateY(-8px)', 'translateY(0px)'] },
+      { duration: 0.4, easing: [0.16, 1, 0.3, 1] }
+    );
+  }
+</script>
+
+<script>
+  // ── Main mobile menu ──
   const hamburger = document.getElementById('nav-hamburger')!;
   const mobileMenu = document.getElementById('nav-mobile')!;
 
@@ -317,7 +480,7 @@ const currentPath = Astro.url.pathname;
     mobileMenu.setAttribute('aria-hidden', String(!isOpen));
   });
 
-  // Close on link click
+  // Close on link (non-accordion) click
   mobileMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
@@ -336,5 +499,14 @@ const currentPath = Astro.url.pathname;
       hamburger.setAttribute('aria-label', 'Open menu');
       mobileMenu.setAttribute('aria-hidden', 'true');
     }
+  });
+
+  // ── Mobile accordion (Services / Programs) ──
+  mobileMenu.querySelectorAll<HTMLButtonElement>('.nav-mobile-accordion-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const submenu = btn.closest('li')!.querySelector<HTMLElement>('.nav-mobile-submenu')!;
+      const isOpen = submenu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(isOpen));
+    });
   });
 </script>
