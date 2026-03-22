@@ -205,6 +205,13 @@ import BaseLayout from '@layouts/BaseLayout.astro';
             </div>
           </div>
 
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label t-label" for="website">Company Website</label>
+              <input id="website" name="website_url" type="url" class="form-input" placeholder="https://yourwebsite.com" />
+            </div>
+          </div>
+
           <!-- Summary card — shows services selected + estimated cost -->
           <div class="flow-summary b-box" id="flow-summary">
             <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Your Request Summary</p>
@@ -773,6 +780,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
       message:       fd.get('message') as string ?? '',
       timeline:      fd.get('timeline') as string ?? '',
       budget:        fd.get('budget')  as string ?? '',
+      website_url:   fd.get('website_url')  as string ?? '',
       service_types: selectedServices,                    // array of service names
       estimated_cost: formatINR(getSelectedTotal()),      // pre-formatted total
       submitted_at:  new Date().toISOString(),
