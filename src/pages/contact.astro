@@ -45,13 +45,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     </div>
 
     <!-- Form -->
-    <form
-      id="contact-form"
-      method="POST"
-      action="https://formspree.io/f/REPLACE_WITH_YOUR_ID"
-      class="flow-form"
-      novalidate
-    >
+    <form id="contact-form" class="flow-form" novalidate>
 
       <!-- ── Step 1: What you need ── -->
       <div class="flow-panel" data-panel="1">
@@ -60,27 +54,55 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           <p class="t-body flow-panel-sub">Pick everything that applies. We'll figure out the right approach together.</p>
         </div>
 
+        <!--
+          Each service card carries:
+            data-price  — base starting cost in INR (shown summed, not individually)
+          Prices are starting-point estimates; the actual quote may differ.
+        -->
         <div class="choice-grid" role="group" aria-label="Service type">
           {[
-            { val: 'Brand Identity',       code: 'CX&Identity',     desc: 'Logo, visual identity, guidelines' },
-            { val: 'Product Design',        code: 'CMF_Nexus',       desc: 'CAD, CMF, production-ready files' },
-            { val: 'Web & App Design',      code: 'WebCanvas',       desc: 'UI/UX, prototypes, design systems' },
-            { val: 'Photo & Video',         code: 'Lumina.raw',      desc: 'Photography, videography, motion' },
-            { val: 'Ongoing Design Support', code: 'Creative Dept.', desc: 'Embedded retainer — ongoing work' },
-            { val: 'Research & Discovery',  code: 'Design Lab',      desc: 'Structured discovery before build' },
-            { val: 'Bespoke Package',       code: 'off_menu',        desc: 'Custom cross-discipline scope' },
-            { val: 'Not sure yet',          code: '—',               desc: 'Tell us your problem instead' },
+            { val: 'Brand Identity',         code: 'CX&Identity',    desc: 'Logo, visual identity, guidelines',          price: 120000  },
+            { val: 'Product Design',         code: 'CMF_Nexus',      desc: 'CAD, CMF, production-ready files',          price: 200000  },
+            { val: 'Web & App Design',       code: 'WebCanvas',      desc: 'UI/UX, prototypes, design systems',         price: 150000  },
+            { val: 'Photo & Video',          code: 'Lumina.raw',     desc: 'Photography, videography, motion',          price: 80000   },
+            { val: 'Ongoing Design Support', code: 'Creative Dept.', desc: 'Embedded retainer — ongoing work',          price: 60000   },
+            { val: 'Research & Discovery',   code: 'Design Lab',     desc: 'Structured discovery before build',         price: 50000   },
+            { val: 'Bespoke Package',        code: 'off_menu',       desc: 'Custom cross-discipline scope',             price: 300000  },
+            { val: 'Not sure yet',           code: '—',              desc: 'Tell us your problem instead',              price: 0       },
           ].map(c => (
-            <label class="choice-card">
-              <input type="checkbox" name="service_type" value={c.val} class="choice-input" />
+            <label class="choice-card" data-price={c.price}>
+              <input
+                type="checkbox"
+                name="service_type"
+                value={c.val}
+                class="choice-input"
+                data-price={c.price}
+              />
               <span class="choice-body">
                 <span class="choice-code t-label">{c.code}</span>
                 <span class="choice-val t-mono">{c.val}</span>
                 <span class="choice-desc t-mono">{c.desc}</span>
               </span>
+              {c.price > 0 && (
+                <span class="choice-price t-label">
+                  starts ₹{(c.price / 100000).toFixed(1)}L
+                </span>
+              )}
               <span class="choice-check">✓</span>
             </label>
           ))}
+        </div>
+
+        <!-- Live cost estimate — only shown when ≥1 priced option is selected -->
+        <div class="cost-estimate b-box" id="cost-estimate" aria-live="polite" hidden>
+          <div class="cost-estimate-inner">
+            <span class="t-label cost-estimate-label">Estimated starting from</span>
+            <span class="t-mono cost-estimate-amount" id="cost-amount">₹0</span>
+          </div>
+          <p class="t-mono cost-estimate-note">
+            This is an indicative combined starting figure — not a fixed quote.
+            Final scope and pricing are confirmed after we review your brief.
+          </p>
         </div>
 
         <div class="flow-actions">
@@ -122,6 +144,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
                 <option>Flexible / exploring</option>
               </select>
             </div>
+
             <div class="form-group">
               <label class="form-label t-label" for="budget">Budget range</label>
               <select id="budget" name="budget" class="form-input form-select">
@@ -156,38 +179,18 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           <div class="form-row">
             <div class="form-group">
               <label class="form-label t-label" for="name">Your name</label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                required
-                class="form-input"
-                placeholder="Full name"
-              />
+              <input id="name" name="name" type="text" required class="form-input" placeholder="Full name" />
             </div>
             <div class="form-group">
               <label class="form-label t-label" for="email">Email</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                class="form-input"
-                placeholder="your@email.com"
-              />
+              <input id="email" name="email" type="email" required class="form-input" placeholder="your@email.com" />
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label class="form-label t-label" for="company">Company / Brand</label>
-              <input
-                id="company"
-                name="company"
-                type="text"
-                class="form-input"
-                placeholder="Optional"
-              />
+              <input id="company" name="company" type="text" class="form-input" placeholder="Optional" />
             </div>
             <div class="form-group">
               <label class="form-label t-label" for="how-found">How did you find us?</label>
@@ -202,16 +205,21 @@ import BaseLayout from '@layouts/BaseLayout.astro';
             </div>
           </div>
 
-          <!-- Summary card -->
+          <!-- Summary card — shows services selected + estimated cost -->
           <div class="flow-summary b-box" id="flow-summary">
             <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Your Request Summary</p>
             <p class="t-mono flow-summary-services" id="summary-services" style="opacity:0.6; margin-bottom:0.5rem">—</p>
+            <!-- Cost line — only shown when a priced option is selected -->
+            <div class="summary-cost-row" id="summary-cost-row" hidden>
+              <span class="t-label" style="opacity:0.4">Estimated starting from</span>
+              <span class="t-mono summary-cost-amount" id="summary-cost-amount"></span>
+            </div>
           </div>
         </div>
 
         <div class="flow-actions">
           <button type="button" class="btn btn--outline flow-back" data-back="2">← Back</button>
-          <button type="submit" class="btn btn--primary flow-submit">
+          <button type="submit" class="btn btn--primary flow-submit" id="submit-btn">
             Send to HS108 →
           </button>
         </div>
@@ -223,7 +231,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           <span class="flow-confirm-mark t-label">✓</span>
           <h2 class="t-h2 flow-confirm-title">Message received.</h2>
           <p class="t-body flow-confirm-sub">
-            We'll review your brief and respond within 24 hours. In the meantime, feel free to explore our work.
+            We'll review your brief and respond within 24 hours.
+            In the meantime, feel free to explore our work.
           </p>
           <div class="flow-confirm-links">
             <a href="/work" class="btn btn--outline">View Our Work</a>
@@ -247,8 +256,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           {[
             { label: 'Creative Department', href: '/programs/creative-department', note: 'Retainer' },
             { label: 'Design Lab',          href: '/programs/design-lab',          note: 'Research' },
-            { label: 'off_menu',            href: '/programs/off-menu',            note: 'Bespoke' },
-            { label: 'Field Notes',         href: '/programs/field-notes',         note: 'Community' },
+            { label: 'off_menu',            href: '/programs/off-menu',            note: 'Bespoke'  },
+            { label: 'Field Notes',         href: '/programs/field-notes',         note: 'Community'},
           ].map(p => (
             <a href={p.href} class="aside-prog-link b-box">
               <span class="t-mono">{p.label}</span>
@@ -272,443 +281,359 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
-  /* ── Page header ── */
-  .contact-header {
-    padding-top: 5rem;
-    padding-bottom: 3rem;
-  }
+/* ── Page header ── */
+.contact-header {
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+}
+.contact-title {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.contact-meta {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.contact-dot-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.status-dot-lg {
+  width: 9px;
+  height: 9px;
+  background: #00C47D;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse-status 2s ease-in-out infinite;
+}
+@keyframes pulse-status {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+.contact-response { opacity: 0.4; }
+.contact-divider  { margin: 0; }
 
-  .contact-title {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-  }
+/* ── Flow shell ── */
+.contact-flow {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  grid-template-rows: auto 1fr;
+  gap: 0 4rem;
+  padding-top: 3rem;
+  padding-bottom: var(--space-section);
+  align-items: start;
+}
 
-  .contact-meta {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
+/* ── Progress ── */
+.flow-progress {
+  grid-column: 1;
+  margin-bottom: 3rem;
+}
+.flow-steps {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1rem;
+}
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1rem 0.5rem 0;
+  flex: 1;
+  opacity: 0.3;
+  transition: opacity 200ms ease;
+  border-right: 1px solid var(--border);
+  margin-right: 1rem;
+}
+.flow-step:last-child {
+  border-right: none;
+  margin-right: 0;
+}
+.flow-step--active { opacity: 1; }
+.flow-step-num     { color: var(--accent); }
+.flow-step-label   { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
 
-  .contact-dot-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+.flow-bar { height: 2px; background: var(--border); width: 100%; }
+.flow-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 300ms ease;
+  width: 33.33%;
+}
 
-  .status-dot-lg {
-    width: 9px;
-    height: 9px;
-    background: #00C47D;
-    border-radius: 50%;
-    flex-shrink: 0;
-    animation: pulse-status 2s ease-in-out infinite;
-  }
+/* ── Form ── */
+.flow-form   { grid-column: 1; grid-row: 2; }
+.flow-panel  { display: flex; flex-direction: column; gap: 2.5rem; }
+.flow-panel--hidden { display: none; }
 
-  @keyframes pulse-status {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.3; }
-  }
+.flow-panel-header { display: flex; flex-direction: column; gap: 0.75rem; }
+.flow-panel-title  { line-height: 1.1; }
+.flow-panel-sub    { opacity: 0.55; max-width: 55ch; line-height: 1.6; }
 
-  .contact-response {
-    opacity: 0.4;
-  }
+/* ── Choice cards ── */
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-gap);
+}
+.choice-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border: var(--border-width) solid var(--border);
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+  gap: 1rem;
+  position: relative;
+}
+.choice-card:hover { border-color: var(--accent); }
 
-  .contact-divider {
-    margin: 0;
-  }
+.choice-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.choice-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.choice-code  { color: var(--accent); opacity: 0.6; font-size: 9px; }
+.choice-val   { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+.choice-desc  { font-size: 10px; opacity: 0.45; letter-spacing: 0.06em; }
 
-  /* ── Flow shell ── */
-  .contact-flow {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    grid-template-rows: auto 1fr;
-    gap: 0 4rem;
-    padding-top: 3rem;
-    padding-bottom: var(--space-section);
-    align-items: start;
-  }
+/* Price tag — sits top-right, pushes check below */
+.choice-price {
+  font-size: 9px;
+  opacity: 0.4;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: flex-start;
+  transition: opacity 150ms ease;
+}
+.choice-card--selected .choice-price { opacity: 0.25; }
 
-  /* ── Progress ── */
-  .flow-progress {
-    grid-column: 1;
-    margin-bottom: 3rem;
-  }
+.choice-check {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  opacity: 0;
+  flex-shrink: 0;
+  transition: opacity 150ms ease;
+  /* sits after price, same column */
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+}
+.choice-card--selected {
+  background: var(--surface-elevated);
+  border-color: var(--black-native);
+}
+.choice-card--selected .choice-check { opacity: 1; }
 
-  .flow-steps {
-    display: flex;
-    gap: 0;
-    margin-bottom: 1rem;
-  }
+/* ── Cost estimate bar ── */
+.cost-estimate {
+  padding: 1.25rem 1.5rem;
+  background: var(--surface-elevated);
+  border: var(--border-width) solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  /* entrance animation driven by JS */
+  animation: fadeSlideIn 250ms ease forwards;
+}
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cost-estimate-inner {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.cost-estimate-label {
+  opacity: 0.45;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.cost-estimate-amount {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  transition: color 200ms ease;
+}
+.cost-estimate-note {
+  font-size: 10px;
+  opacity: 0.4;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}
 
-  .flow-step {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.5rem 1rem 0.5rem 0;
-    flex: 1;
-    opacity: 0.3;
-    transition: opacity 200ms ease;
-    border-right: 1px solid var(--border);
-    margin-right: 1rem;
-  }
+/* ── Text fields ── */
+.flow-fields { display: flex; flex-direction: column; gap: 1.5rem; }
+.form-row    { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.form-group  { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-label  { opacity: 0.5; }
+.form-input  {
+  width: 100%;
+  padding: 12px 16px;
+  border: var(--border-width) solid var(--border);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: var(--size-small);
+  color: var(--fg);
+  outline: none;
+  border-radius: 0;
+  transition: border-color var(--transition);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.form-input:focus {
+  border-color: var(--black-native);
+  outline: 3px solid var(--accent);
+  outline-offset: 0;
+}
+.form-select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230D0D0D' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+.form-textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
 
-  .flow-step:last-child {
-    border-right: none;
-    margin-right: 0;
-  }
+/* ── Summary card ── */
+.flow-summary {
+  padding: 1.25rem;
+  background: var(--surface-elevated);
+}
+.flow-summary-services { font-size: 11px; line-height: 1.7; }
 
-  .flow-step--active {
-    opacity: 1;
-  }
+.summary-cost-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: var(--border-width) solid var(--border);
+  gap: 1rem;
+}
+.summary-cost-amount {
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
 
-  .flow-step-num {
-    color: var(--accent);
-  }
+/* ── Actions row ── */
+.flow-actions { display: flex; gap: 1rem; align-items: center; }
 
-  .flow-step-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
+/* ── Confirmation ── */
+.flow-confirm-inner {
+  padding: 4rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 55ch;
+}
+.flow-confirm-mark {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  border: var(--border-width) solid var(--accent);
+  color: var(--accent);
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.flow-confirm-title { line-height: 1.1; }
+.flow-confirm-sub   { opacity: 0.6; max-width: 48ch; line-height: 1.7; }
+.flow-confirm-links { display: flex; gap: 1rem; }
 
-  .flow-bar {
-    height: 2px;
-    background: var(--border);
-    width: 100%;
-  }
+/* ── Aside ── */
+.flow-aside {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  border-left: var(--border-width) solid var(--border);
+  padding-left: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: sticky;
+  top: 80px;
+}
+.aside-block   { display: flex; flex-direction: column; }
+.aside-email   {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(18px, 2vw, 26px);
+  line-height: 1.2;
+}
+.aside-programs   { display: flex; flex-direction: column; gap: 0.5rem; }
+.aside-prog-link  {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  transition: background var(--transition);
+}
+.aside-prog-link:hover { background: var(--accent); }
+.aside-prog-link .t-mono { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.aside-prog-note { opacity: 0.4; font-size: 9px; }
 
-  .flow-bar-fill {
-    height: 100%;
-    background: var(--accent);
-    transition: width 300ms ease;
-    width: 33.33%;
-  }
-
-  /* ── Form ── */
-  .flow-form {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .flow-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-  }
-
-  .flow-panel--hidden {
-    display: none;
-  }
-
-  .flow-panel-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .flow-panel-title {
-    line-height: 1.1;
-  }
-
-  .flow-panel-sub {
-    opacity: 0.55;
-    max-width: 55ch;
-    line-height: 1.6;
-  }
-
-  /* ── Choice cards ── */
-  .choice-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-gap);
-  }
-
-  .choice-card {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    border: var(--border-width) solid var(--border);
-    padding: 1.25rem;
-    cursor: pointer;
-    transition: background var(--transition), border-color var(--transition);
-    gap: 1rem;
-    position: relative;
-  }
-
-  .choice-card:hover {
-    border-color: var(--accent);
-  }
-
-  .choice-input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  .choice-input:checked + .choice-body + .choice-check {
-    opacity: 1;
-  }
-
-  .choice-input:checked ~ * {
-    /* handled via JS class */
-  }
-
-  .choice-body {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex: 1;
-  }
-
-  .choice-code {
-    color: var(--accent);
-    opacity: 0.6;
-    font-size: 9px;
-  }
-
-  .choice-val {
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .choice-desc {
-    font-size: 10px;
-    opacity: 0.45;
-    letter-spacing: 0.06em;
-  }
-
-  .choice-check {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--accent);
-    opacity: 0;
-    flex-shrink: 0;
-    transition: opacity 150ms ease;
-  }
-
-  .choice-card--selected {
-    background: var(--surface-elevated);
-    border-color: var(--black-native);
-  }
-
-  .choice-card--selected .choice-check {
-    opacity: 1;
-  }
-
-  /* ── Text fields ── */
-  .flow-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .form-label {
-    opacity: 0.5;
-  }
-
-  .form-input {
-    width: 100%;
-    padding: 12px 16px;
-    border: var(--border-width) solid var(--border);
-    background: var(--bg);
-    font-family: var(--font-mono);
-    font-size: var(--size-small);
-    color: var(--fg);
-    outline: none;
-    border-radius: 0;
-    transition: border-color var(--transition);
-    -webkit-appearance: none;
-    appearance: none;
-  }
-
-  .form-input:focus {
-    border-color: var(--black-native);
-    outline: 3px solid var(--accent);
-    outline-offset: 0;
-  }
-
-  .form-select {
-    cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230D0D0D' stroke-width='2' fill='none'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    padding-right: 40px;
-  }
-
-  .form-textarea {
-    resize: vertical;
-    min-height: 130px;
-    line-height: 1.6;
-  }
-
-  /* ── Summary ── */
-  .flow-summary {
-    padding: 1.25rem;
-    background: var(--surface-elevated);
-  }
-
-  .flow-summary-services {
-    font-size: 11px;
-    line-height: 1.7;
-  }
-
-  /* ── Actions row ── */
-  .flow-actions {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  /* ── Confirmation ── */
-  .flow-confirm-inner {
-    padding: 4rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 55ch;
-  }
-
-  .flow-confirm-mark {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    border: var(--border-width) solid var(--accent);
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-  }
-
-  .flow-confirm-title {
-    line-height: 1.1;
-  }
-
-  .flow-confirm-sub {
-    opacity: 0.6;
-    max-width: 48ch;
-    line-height: 1.7;
-  }
-
-  .flow-confirm-links {
-    display: flex;
-    gap: 1rem;
-  }
-
-  /* ── Aside ── */
+/* Responsive */
+@media (max-width: 1024px) {
+  .contact-flow { grid-template-columns: 1fr; }
   .flow-aside {
-    grid-column: 2;
-    grid-row: 1 / 3;
-    border-left: var(--border-width) solid var(--border);
-    padding-left: 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    position: sticky;
-    top: 80px;
+    grid-column: 1;
+    grid-row: auto;
+    border-left: none;
+    border-top: var(--border-width) solid var(--border);
+    padding-left: 0;
+    padding-top: 3rem;
+    position: static;
   }
-
-  .aside-block {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .aside-email {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(18px, 2vw, 26px);
-    line-height: 1.2;
-  }
-
-  .aside-programs {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .aside-prog-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    transition: background var(--transition);
-  }
-
-  .aside-prog-link:hover {
-    background: var(--accent);
-  }
-
-  .aside-prog-link .t-mono {
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .aside-prog-note {
-    opacity: 0.4;
-    font-size: 9px;
-  }
-
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .contact-flow {
-      grid-template-columns: 1fr;
-    }
-
-    .flow-aside {
-      grid-column: 1;
-      grid-row: auto;
-      border-left: none;
-      border-top: var(--border-width) solid var(--border);
-      padding-left: 0;
-      padding-top: 3rem;
-      position: static;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .choice-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .form-row {
-      grid-template-columns: 1fr;
-    }
-
-    .flow-confirm-links {
-      flex-direction: column;
-    }
-  }
+}
+@media (max-width: 640px) {
+  .choice-grid      { grid-template-columns: 1fr; }
+  .form-row         { grid-template-columns: 1fr; }
+  .flow-confirm-links { flex-direction: column; }
+}
 </style>
 
 <script>
   import { animate } from 'motion';
+
   const ease = [0.16, 1, 0.3, 1] as const;
   const header = document.querySelector<HTMLElement>('.contact-header');
   if (header) {
     header.style.opacity = '0';
-    animate(header, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.55, easing: ease });
+    animate(
+      header,
+      { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] },
+      { duration: 0.55, easing: ease }
+    );
   }
 </script>
 
 <script>
-  const flow = document.getElementById('contact-flow')!;
-  const form = document.getElementById('contact-form') as HTMLFormElement;
+  // ─────────────────────────────────────────────────────────────────
+  //  Contact form — step logic, pricing, and Google Apps Script POST
+  //
+  //  SETUP: Replace the URL below with your deployed Apps Script URL.
+  //  Once you've deployed your Apps Script web app, paste its URL here.
+  // ─────────────────────────────────────────────────────────────────
+  const APPS_SCRIPT_URL = 'REPLACE_WITH_YOUR_APPS_SCRIPT_URL';
+
+  const flow    = document.getElementById('contact-flow')!;
+  const form    = document.getElementById('contact-form') as HTMLFormElement;
   const barFill = document.getElementById('flow-bar-fill')!;
 
   const barWidths: Record<string, string> = {
@@ -718,6 +643,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     'confirm': '100%',
   };
 
+  // ── Panel switcher ──────────────────────────────────────────────
   function showPanel(target: string) {
     flow.querySelectorAll<HTMLElement>('.flow-panel').forEach(p => {
       p.classList.add('flow-panel--hidden');
@@ -737,7 +663,64 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Next buttons
+  // ── Pricing ─────────────────────────────────────────────────────
+  /**
+   * Returns the sum of prices for all checked service options.
+   * Options with price=0 (e.g. "Not sure yet") are excluded from the total.
+   */
+  function getSelectedTotal(): number {
+    return Array.from(
+      flow.querySelectorAll<HTMLInputElement>('.choice-input:checked')
+    ).reduce((sum, input) => {
+      const price = parseInt(input.dataset.price ?? '0', 10);
+      return sum + price;
+    }, 0);
+  }
+
+  /**
+   * Formats an INR amount using Indian numbering conventions.
+   * e.g. 350000 → "₹3,50,000"
+   */
+  function formatINR(amount: number): string {
+    return '₹' + amount.toLocaleString('en-IN');
+  }
+
+  /**
+   * Re-calculates and updates all cost display elements.
+   * Called whenever a service checkbox changes.
+   */
+  function updateCostDisplay() {
+    const total        = getSelectedTotal();
+    const estimateBox  = document.getElementById('cost-estimate')!;
+    const estimateAmt  = document.getElementById('cost-amount')!;
+    const summaryRow   = document.getElementById('summary-cost-row')!;
+    const summaryAmt   = document.getElementById('summary-cost-amount')!;
+
+    if (total > 0) {
+      estimateBox.hidden = false;
+      estimateAmt.textContent = formatINR(total);
+      summaryRow.hidden = false;
+      summaryAmt.textContent = formatINR(total);
+    } else {
+      estimateBox.hidden = true;
+      summaryRow.hidden = true;
+    }
+  }
+
+  // ── Summary text ────────────────────────────────────────────────
+  function updateSummary() {
+    const checked = Array.from(
+      flow.querySelectorAll<HTMLInputElement>('.choice-input:checked')
+    ).map(i => i.value);
+
+    const el = document.getElementById('summary-services')!;
+    el.textContent = checked.length ? checked.join(' · ') : '—';
+
+    // Also refresh cost in summary
+    updateCostDisplay();
+  }
+
+  // ── Next / Back buttons ─────────────────────────────────────────
   flow.querySelectorAll<HTMLButtonElement>('.flow-next').forEach(btn => {
     btn.addEventListener('click', () => {
       const next = btn.dataset.next!;
@@ -746,57 +729,82 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     });
   });
 
-  // Back buttons
   flow.querySelectorAll<HTMLButtonElement>('.flow-back').forEach(btn => {
     btn.addEventListener('click', () => {
       showPanel(btn.dataset.back!);
     });
   });
 
-  // Choice card toggle
+  // ── Choice card toggle ──────────────────────────────────────────
   flow.querySelectorAll<HTMLElement>('.choice-card').forEach(card => {
     card.addEventListener('click', () => {
       card.classList.toggle('choice-card--selected');
     });
   });
 
-  // Summary updater
-  function updateSummary() {
-    const checked = Array.from(
-      flow.querySelectorAll<HTMLInputElement>('.choice-input:checked')
-    ).map(i => i.value);
-
-    const el = document.getElementById('summary-services')!;
-    el.textContent = checked.length ? checked.join(' · ') : '—';
-  }
-
-  // Sync checkbox state with card visual
+  // Sync checkbox state ↔ card visual + update pricing
   flow.querySelectorAll<HTMLInputElement>('.choice-input').forEach(input => {
     input.addEventListener('change', () => {
       input.closest('.choice-card')?.classList.toggle('choice-card--selected', input.checked);
+      updateCostDisplay();
     });
   });
 
-  // Form submit → show confirmation
+  // ── Form submit → Google Apps Script ───────────────────────────
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const data = new FormData(form);
+
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+
+    // Collect all checked services
+    const selectedServices = Array.from(
+      flow.querySelectorAll<HTMLInputElement>('.choice-input:checked')
+    ).map(i => i.value);
+
+    // Build a clean payload object from the form
+    const fd = new FormData(form);
+    const payload: Record<string, string | string[]> = {
+      name:          fd.get('name')    as string ?? '',
+      email:         fd.get('email')   as string ?? '',
+      company:       fd.get('company') as string ?? '',
+      how_found:     fd.get('how_found') as string ?? '',
+      message:       fd.get('message') as string ?? '',
+      timeline:      fd.get('timeline') as string ?? '',
+      budget:        fd.get('budget')  as string ?? '',
+      service_types: selectedServices,                    // array of service names
+      estimated_cost: formatINR(getSelectedTotal()),      // pre-formatted total
+      submitted_at:  new Date().toISOString(),
+    };
 
     try {
-      const res = await fetch(form.action, {
+      // Google Apps Script web apps require a POST with the body as JSON.
+      // The script must have doPost(e) implemented and be deployed as
+      // "Execute as: Me" + "Who has access: Anyone".
+      const res = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' },
+        // Apps Script requires text/plain to avoid a CORS preflight on the
+        // free tier — it still receives valid JSON on the server side.
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
       });
 
-      if (res.ok) {
+      const json = await res.json().catch(() => ({}));
+
+      if (res.ok && json.result !== 'error') {
         showPanel('confirm');
       } else {
-        alert('Something went wrong. Please email us directly at contact.studio@hs108.in');
+        throw new Error(json.message ?? 'Unknown error');
       }
-    } catch {
-      alert('Network error. Please email us directly at contact.studio@hs108.in');
+    } catch (err) {
+      console.error('Submission error:', err);
+      submitBtn.textContent = 'Send to HS108 →';
+      submitBtn.disabled = false;
+      alert(
+        'Something went wrong — please email us directly at contact.studio@hs108.in\n\n' +
+        'Your information has not been lost.'
+      );
     }
   });
 </script>
-
