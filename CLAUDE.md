@@ -5,6 +5,23 @@ It documents the project plan, decisions made, work completed, and rules to foll
 
 ---
 
+## Design Skills Reference
+
+Two supporting files govern all design and frontend decisions on this project.
+Read them before making any visual, layout, or interaction change.
+
+| File | What it covers |
+|---|---|
+| [`SIAM-FILTER.md`](SIAM-FILTER.md) | Four decision questions, energy defaults, hierarchy model, hard refusals |
+| [`FRONTEND-SYSTEM.md`](FRONTEND-SYSTEM.md) | Token rules, component rules, motion rules, layout system, pre-ship checklist |
+
+**The short version:**
+- Quiet over loud. Grounded over expressive. Restrained over bold.
+- No decorative animations. No hardcoded values. No `font-weight: 700` on Instrument Serif.
+- Every decision must answer: does this serve function or perform expression?
+
+---
+
 ## Project Overview
 
 **Client:** HS108 (Design Studio)
@@ -434,6 +451,9 @@ npm install
 
 ## What NOT To Do
 
+See [`SIAM-FILTER.md`](SIAM-FILTER.md) and [`FRONTEND-SYSTEM.md`](FRONTEND-SYSTEM.md) for the full decision framework.
+
+**Hard stops — project-specific:**
 - Do NOT add `border-radius` to any element
 - Do NOT use Tailwind, Bootstrap, or any CSS framework
 - Do NOT add `box-shadow` or `filter: blur`
@@ -441,7 +461,8 @@ npm install
 - Do NOT set `font-weight: 700` (or any bold weight) on `Instrument Serif` — it only has weight 400
 - Do NOT use `--font-display` (Instrument Serif) for the Nav logo or any small UI text — use `--font-mono` (Geist Mono) for that
 - Do NOT use dark backgrounds as the main page bg — dark is only for specific `.inv-block` / `.section--inv` elements
-- Do NOT add animations without intent (no spin, bounce, parallax, scroll-triggered)
+- Do NOT add scroll-triggered reveal animations, entrance fades, or pulse effects
+- Do NOT hardcode hex, rgba, or px values in component `<style>` blocks — use tokens from `global.css`
 - Do NOT use emojis in the UI
 - Do NOT use `!important` in CSS
 - Do NOT add unrequested features or refactor code that isn't broken
