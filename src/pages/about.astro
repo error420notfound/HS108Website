@@ -126,7 +126,7 @@ const values = [
   .about-big-num {
     font-family: var(--font-display);
     font-size: clamp(28px, 4vw, 44px);
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: -0.03em;
     line-height: 1;
   }
@@ -185,37 +185,3 @@ const values = [
   }
 </style>
 
-<script>
-  import { animate, inView, stagger } from 'motion';
-  const ease = [0.16, 1, 0.3, 1] as const;
-
-  // Story + numbers fade in
-  const story = document.querySelector<HTMLElement>('.about-story');
-  const numbers = document.querySelector<HTMLElement>('.about-numbers');
-  if (story) { story.style.opacity = '0'; animate(story, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.6, easing: ease, delay: 0.1 }); }
-  if (numbers) {
-    const items = numbers.querySelectorAll<HTMLElement>('.about-num-item');
-    items.forEach(el => { el.style.opacity = '0'; });
-    animate(items, { opacity: [0, 1], transform: ['translateY(16px)', 'translateY(0px)'] }, { duration: 0.5, easing: ease, delay: stagger(0.07, { start: 0.2 }) });
-  }
-
-  // Value cards staggered on scroll
-  const valuesGrid = document.querySelector<HTMLElement>('.values-grid');
-  if (valuesGrid) {
-    const cards = valuesGrid.querySelectorAll<HTMLElement>('.value-card');
-    cards.forEach(el => { el.style.opacity = '0'; });
-    inView(valuesGrid, () => {
-      animate(cards, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.5, easing: ease, delay: stagger(0.08) });
-    }, { amount: 0.1 });
-  }
-
-  // Client names staggered on scroll
-  const clientsRow = document.querySelector<HTMLElement>('.clients-row');
-  if (clientsRow) {
-    const names = clientsRow.querySelectorAll<HTMLElement>('.client-name');
-    names.forEach(el => { el.style.opacity = '0'; });
-    inView(clientsRow, () => {
-      animate(names, { opacity: [0, 0.35], transform: ['translateY(12px)', 'translateY(0px)'] }, { duration: 0.45, easing: ease, delay: stagger(0.05) });
-    }, { amount: 0.2 });
-  }
-</script>

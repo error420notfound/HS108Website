@@ -172,54 +172,6 @@ const programs = [
 
 </BaseLayout>
 
-<script>
-  import { animate, inView, stagger } from 'motion';
-
-  const ease = [0.16, 1, 0.3, 1] as const;
-
-  // ── Utility: animate a group in when it enters the viewport ──
-  function revealGroup(selector: string, options?: { staggerDelay?: number; y?: number }) {
-    const { staggerDelay = 0.07, y = 20 } = options ?? {};
-    document.querySelectorAll<HTMLElement>(selector).forEach(el => {
-      el.style.opacity = '0';
-    });
-
-    document.querySelectorAll<HTMLElement>(selector).forEach(el => {
-      inView(el, () => {
-        animate(el, { opacity: [0, 1], transform: [`translateY(${y}px)`, 'translateY(0px)'] }, { duration: 0.55, easing: ease });
-      }, { amount: 0.15 });
-    });
-  }
-
-  // ── Stagger children when parent enters viewport ──
-  function revealChildren(parentSelector: string, childSelector: string, options?: { staggerDelay?: number }) {
-    const { staggerDelay = 0.07 } = options ?? {};
-    document.querySelectorAll<HTMLElement>(parentSelector).forEach(parent => {
-      const children = parent.querySelectorAll<HTMLElement>(childSelector);
-      children.forEach(c => { c.style.opacity = '0'; });
-
-      inView(parent, () => {
-        animate(
-          children,
-          { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] },
-          { duration: 0.5, easing: ease, delay: stagger(staggerDelay) }
-        );
-      }, { amount: 0.1 });
-    });
-  }
-
-  // Section headers — each fades up individually
-  revealGroup('.section-header', { y: 16 });
-
-  // Service rows — staggered as a group
-  revealChildren('.services-list', '.service-row', { staggerDelay: 0.09 });
-
-  // Program cards — staggered
-  revealChildren('.programs-grid', '.program-card', { staggerDelay: 0.08 });
-
-  // Process steps — staggered
-  revealChildren('.process-strip', '.process-step', { staggerDelay: 0.1 });
-</script>
 
 <style>
   .section-header {
@@ -289,13 +241,13 @@ const programs = [
 
   /* Process */
   .process-strip {
-    border-top-color: rgba(255,255,255,0.15);
-    border-left-color: rgba(255,255,255,0.15);
+    border-top-color: var(--border-inv);
+    border-left-color: var(--border-inv);
   }
 
   .process-step {
-    border-right: var(--border-width) solid rgba(255,255,255,0.15);
-    border-bottom: var(--border-width) solid rgba(255,255,255,0.15);
+    border-right: var(--border-width) solid var(--border-inv);
+    border-bottom: var(--border-width) solid var(--border-inv);
     padding: var(--space-card);
     display: flex;
     flex-direction: column;

@@ -35,25 +35,6 @@
   </div>
 </section>
 
-<script>
-  import { animate } from 'motion';
-
-  const ease = [0.16, 1, 0.3, 1] as const;
-
-  const overline = document.querySelector<HTMLElement>('.hero-overline');
-  const headline = document.querySelector<HTMLElement>('.hero-headline');
-  const bottom   = document.querySelector<HTMLElement>('.hero-bottom');
-
-  // Set elements invisible before first paint so there's no flicker
-  [overline, headline, bottom].forEach(el => {
-    if (el) el.style.opacity = '0';
-  });
-
-  // Staggered entrance on load
-  if (overline) animate(overline, { opacity: [0, 1], transform: ['translateY(14px)', 'translateY(0px)'] }, { duration: 0.5, easing: ease, delay: 0.05 });
-  if (headline) animate(headline, { opacity: [0, 1], transform: ['translateY(28px)', 'translateY(0px)'] }, { duration: 0.7,  easing: ease, delay: 0.18 });
-  if (bottom)   animate(bottom,   { opacity: [0, 1], transform: ['translateY(18px)', 'translateY(0px)'] }, { duration: 0.55, easing: ease, delay: 0.44 });
-</script>
 
 <style>
   .hero {
@@ -100,14 +81,8 @@
     display: inline-block;
     width: 7px;
     height: 7px;
-    background: #00C47D;
+    background: var(--color-status-green);
     border-radius: 50%;
-    animation: pulse-hero 2.5s ease-in-out infinite;
-  }
-
-  @keyframes pulse-hero {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.3; }
   }
 
   .hero-headline {

@@ -455,20 +455,6 @@ const currentPath = Astro.url.pathname;
 </style>
 
 <script>
-  import { animate } from 'motion';
-
-  // ── Nav entrance — slide down on first load ──
-  const navWrap = document.querySelector<HTMLElement>('.nav-wrap');
-  if (navWrap) {
-    animate(
-      navWrap,
-      { opacity: [0, 1], transform: ['translateY(-8px)', 'translateY(0px)'] },
-      { duration: 0.4, easing: [0.16, 1, 0.3, 1] }
-    );
-  }
-</script>
-
-<script>
   // ── Main mobile menu ──
   const hamburger = document.getElementById('nav-hamburger')!;
   const mobileMenu = document.getElementById('nav-mobile')!;

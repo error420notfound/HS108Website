@@ -28,7 +28,7 @@
 }
 
 .b-inv {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--border-inv);
 }
 
 /* --- Section numbers --- */
@@ -44,7 +44,7 @@
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
+  padding: 4px 8px;
   border: var(--border-width) solid var(--border);
   font-family: var(--font-mono);
   font-size: var(--size-label);
@@ -55,7 +55,7 @@
 }
 
 .tag--inv {
-  border-color: rgba(255,255,255,0.3);
+  border-color: var(--border-inv);
   color: var(--fg-inv);
 }
 
@@ -70,7 +70,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 14px 28px;
+  padding: 16px 24px;
   font-family: var(--font-mono);
   font-size: var(--size-label);
   font-weight: 500;
@@ -112,7 +112,7 @@
 .btn--outline-inv {
   background: transparent;
   color: var(--text-on-dark);
-  border-color: rgba(255, 225, 216, 0.35);
+  border-color: var(--border-inv-warm);
 }
 
 .btn--outline-inv:hover {
@@ -243,12 +243,12 @@
   white-space: nowrap;
   border-top: var(--border-width) solid var(--border);
   border-bottom: var(--border-width) solid var(--border);
-  padding-block: 12px;
+  padding-block: 8px;
 }
 
 .marquee-inner {
   display: inline-flex;
-  animation: marquee 30s linear infinite;
+  animation: marquee var(--duration-marquee) linear infinite;
 }
 
 .marquee-inner span {

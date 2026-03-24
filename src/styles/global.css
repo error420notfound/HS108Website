@@ -430,6 +430,29 @@
   --max-width:     1440px;
   --gutter:        clamp(16px, 4vw, 64px);
   --transition:    150ms ease;
+
+  /* =====================================
+     UTILITY TOKENS
+     Centralised values for repeated
+     non-palette rgba / special colors.
+  ===================================== */
+
+  /* Named accent aliases — use in prose/editorial when a specific
+     hue is intentional regardless of the active theme */
+  --accent-orange:      var(--orange-500);
+  --accent-orange-dark: var(--orange-700);
+  --accent-orange-soft: var(--orange-200);
+
+  /* Status indicator — "available / online" */
+  --color-status-green: #00C47D;
+
+  /* Inverted (dark bg) border and overlay */
+  --border-inv:      rgba(255, 255, 255, 0.15);
+  --border-inv-warm: rgba(255, 225, 216, 0.35);
+  --overlay-light:   rgba(13, 13, 13, 0.08);
+
+  /* Motion — marquee ticker */
+  --duration-marquee: 30s;
 }
 
 /* --- Reset --- */
