@@ -6,12 +6,6 @@ const serviceLinks = [
   { label: 'Lumina.raw',   sub: 'Photo & Video',       href: '/services/lumina-raw' },
 ];
 
-const aboutLinks = [
-  { label: 'Studio',    sub: 'Who we are',       href: '/about' },
-  { label: 'Why HS108', sub: 'Why choose us',    href: '/why-us' },
-  { label: 'Process',   sub: 'How we work',      href: '/process' },
-];
-
 const programLinks = [
   { label: 'Creative Department', sub: 'Retainer',  href: '/programs/creative-department' },
   { label: 'Design Lab',          sub: 'Research',   href: '/programs/design-lab' },
@@ -50,19 +44,11 @@ const currentPath = Astro.url.pathname;
         </div>
       </li>
 
-      <!-- About dropdown -->
-      <li class="nav-item--dropdown">
-        <a href="/about" class:list={['nav-link nav-link--dropdown', { active: currentPath.startsWith('/about') || currentPath.startsWith('/why-us') || currentPath.startsWith('/process') }]}>
-          About <span class="nav-chevron">▾</span>
-        </a>
-        <div class="nav-dropdown">
-          {aboutLinks.map(link => (
-            <a href={link.href} class:list={['nav-dropdown-item', { active: currentPath === link.href }]}>
-              <span class="nav-dropdown-label">{link.label}</span>
-              <span class="nav-dropdown-sub">{link.sub}</span>
-            </a>
-          ))}
-        </div>
+      <li>
+        <a href="/process" class:list={['nav-link', { active: currentPath.startsWith('/process') }]}>Process</a>
+      </li>
+      <li>
+        <a href="/about" class:list={['nav-link', { active: currentPath.startsWith('/about') }]}>About</a>
       </li>
 
       <!-- Programs dropdown -->
@@ -124,24 +110,11 @@ const currentPath = Astro.url.pathname;
         </ul>
       </li>
 
-      <!-- About accordion -->
-      <li class="nav-mobile-accordion">
-        <button class="nav-mobile-link nav-mobile-accordion-btn" aria-expanded="false">
-          About <span class="nav-acc-chevron">▾</span>
-        </button>
-        <ul class="nav-mobile-submenu" role="list">
-          <li class="nav-mobile-group-label">
-            <span class="t-label" style="opacity:0.4">About</span>
-          </li>
-          {aboutLinks.map(link => (
-            <li>
-              <a href={link.href} class:list={['nav-mobile-link nav-mobile-link--sub', { active: currentPath === link.href }]}>
-                <span>{link.label}</span>
-                <span class="nav-sub-tag">{link.sub}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+      <li>
+        <a href="/process" class:list={['nav-mobile-link', { active: currentPath.startsWith('/process') }]}>Process</a>
+      </li>
+      <li>
+        <a href="/about" class:list={['nav-mobile-link', { active: currentPath.startsWith('/about') }]}>About</a>
       </li>
 
       <!-- Programs accordion -->
@@ -179,8 +152,8 @@ const currentPath = Astro.url.pathname;
     left: 0;
     right: 0;
     z-index: 100;
-    background: transparent;
-    border-bottom: 1px solid var(--color-border);
+    background: var(--bg);
+    border-bottom: var(--border-width) solid var(--border);
   }
 
   /* ── Bar ── */
@@ -202,13 +175,12 @@ const currentPath = Astro.url.pathname;
   }
 
   .nav-logo-text {
-    font-family: var(--font-body);
-    font-size: 13px;
+    font-family: var(--font-mono);
+    font-size: 18px;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    line-height: 1;
-    color: var(--color-text-primary);
+    color: var(--black-native);
   }
 
   .nav-logo-dot {
@@ -227,24 +199,24 @@ const currentPath = Astro.url.pathname;
   }
 
   .nav-link {
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    padding: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: var(--size-label);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 8px 14px;
     display: flex;
     align-items: center;
     gap: 4px;
-    border-radius: 4px;
-    transition: color var(--dur-fast), background var(--dur-fast);
-    color: var(--color-text-muted);
+    transition: color var(--transition), background var(--transition);
+    color: var(--black-native);
     white-space: nowrap;
     height: 64px;
   }
 
   .nav-link:hover,
   .nav-link.active {
-    color: var(--color-text-primary);
-    background: rgba(26, 25, 23, 0.05);
+    background: var(--orange-500);
+    color: var(--black-native);
   }
 
   .nav-chevron {
@@ -263,12 +235,11 @@ const currentPath = Astro.url.pathname;
     position: absolute;
     top: 100%;
     left: 0;
-    background: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
+    background: var(--bg);
+    border: var(--border-width) solid var(--border);
     border-top: none;
     min-width: 220px;
     z-index: 200;
-    border-radius: 0 0 4px 4px;
   }
 
   .nav-item--dropdown:hover .nav-dropdown,
@@ -285,8 +256,8 @@ const currentPath = Astro.url.pathname;
     flex-direction: column;
     gap: 2px;
     padding: 10px 16px;
-    border-bottom: 1px solid var(--color-border);
-    transition: background var(--dur-fast);
+    border-bottom: 1px solid var(--orange-100);
+    transition: background var(--transition);
   }
 
   .nav-dropdown-item:last-child {
@@ -294,38 +265,24 @@ const currentPath = Astro.url.pathname;
   }
 
   .nav-dropdown-item:hover {
-    background: var(--color-bg-subtle);
+    background: var(--orange-500);
   }
 
   .nav-dropdown-label {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    color: var(--color-text-primary);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black-native);
   }
 
   .nav-dropdown-sub {
-    font-size: 11px;
-    letter-spacing: 0.02em;
-    color: var(--color-text-faint);
-  }
-
-  /* ── Desktop CTA ── */
-  .nav-cta {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--color-bg-surface);
-    background: var(--color-text-primary);
-    padding: 8px 18px;
-    border-radius: 2px;
-    transition: opacity var(--dur-fast);
-    flex-shrink: 0;
-    text-decoration: none;
-  }
-
-  .nav-cta:hover {
-    opacity: 0.85;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    color: var(--black-native);
   }
 
   /* ══════════════════════════════════════

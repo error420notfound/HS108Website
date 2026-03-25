@@ -296,8 +296,8 @@
   --neutral-black-native: #0B0B0B;
   --neutral-white-native: #F3F3F3;
 
-  --black-native: #1A1917;
-  --white-native: #F7F5F0;
+  --black-native: #120600;
+  --white-native: #FFE1D8;
 
 
   /* =====================================
@@ -395,8 +395,8 @@
   ===================================== */
 
   /* Core fonts — used site-wide */
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body:    'Geist', 'Arial', sans-serif;
   --font-mono:    'Geist Mono', 'Courier New', monospace;
 
   /* Alt font pair A — tech / bold / geometric
@@ -455,62 +455,6 @@
   --duration-marquee: 30s;
 
 
-  /* =====================================
-     REDESIGN TOKENS (§1)
-     Warm editorial palette + type system.
-     Use these in all new / updated components.
-  ===================================== */
-
-  /* Background surfaces */
-  --color-bg:           #F7F5F0;
-  --color-bg-surface:   #FDFCF9;
-  --color-bg-subtle:    #F0EDE5;
-
-  /* Text */
-  --color-text-primary: #1A1917;
-  --color-text-muted:   #7A7870;
-  --color-text-faint:   #B5B3AA;
-
-  /* Borders */
-  --color-border:       #E2DFD8;
-  --color-border-mid:   #C8C5BC;
-  --color-border-dark:  #1A1917;
-
-  /* Type scale */
-  --text-xs:   10px;
-  --text-sm:   12px;
-  --text-base: 15px;
-  --text-lg:   18px;
-  --text-h3:   clamp(22px, 2.5vw, 28px);
-  --text-h2:   clamp(28px, 3.5vw, 40px);
-  --text-h1:   clamp(48px, 6.5vw, 96px);
-
-  /* Line heights */
-  --leading-tight:  1.0;
-  --leading-snug:   1.2;
-  --leading-body:   1.65;
-
-  /* Tracking */
-  --tracking-tight: -0.025em;
-  --tracking-label:  0.1em;
-
-  /* 8pt spacing scale */
-  --sp-1:  4px;
-  --sp-2:  8px;
-  --sp-3: 16px;
-  --sp-4: 24px;
-  --sp-5: 32px;
-  --sp-6: 48px;
-  --sp-7: 64px;
-  --sp-8: 96px;
-  --sp-9: 128px;
-
-  /* Motion */
-  --dur-fast:   150ms;
-  --dur-base:   250ms;
-  --dur-slow:   400ms;
-  --ease-out:   cubic-bezier(0, 0, 0.2, 1);
-  --ease-std:   cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* --- Reset --- */
@@ -530,86 +474,9 @@ body {
   background-color: var(--bg);
   color: var(--fg);
   font-family: var(--font-body);
-  font-weight: 300;
-  font-size: var(--text-base);
-  line-height: var(--leading-body);
+  font-size: var(--size-body);
+  line-height: 1.6;
   overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-h1 {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: var(--text-h1);
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-tight);
-  color: var(--color-text-primary);
-}
-
-h1 em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--color-text-muted);
-}
-
-h1 strong {
-  font-style: normal;
-  font-weight: 400;
-  display: block;
-}
-
-h2 {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: var(--text-h2);
-  line-height: var(--leading-snug);
-  letter-spacing: -0.015em;
-  color: var(--color-text-primary);
-}
-
-h3 {
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: var(--text-h3);
-  line-height: var(--leading-snug);
-  letter-spacing: -0.01em;
-  color: var(--color-text-primary);
-}
-
-/* ── Eyebrow / label pattern ── */
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-text-faint);
-}
-
-.eyebrow::before {
-  content: '';
-  display: block;
-  width: 24px;
-  height: 1px;
-  background: var(--color-text-faint);
-  flex-shrink: 0;
-}
-
-/* Fade-up entry animation (used in hero) */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  @keyframes fadeUp {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
 }
 
 img, video {
@@ -631,22 +498,6 @@ button {
 
 ul, ol {
   list-style: none;
-}
-
-/* --- GLSL canvas --- */
-#glsl-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  display: block;
-}
-
-.site-wrapper {
-  position: relative;
-  z-index: 1;
 }
 
 /* --- Container --- */
