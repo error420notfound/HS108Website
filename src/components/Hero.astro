@@ -1,63 +1,35 @@
 ---
-const metrics = [
-  { num: '38+',  label: 'Brands Scaled' },
-  { num: '5×',   label: 'Avg. Growth' },
-  { num: '100%', label: 'Senior Talent' },
-  { num: '6 yrs', label: 'In Business' },
-];
 ---
 
 <section class="hero">
   <div class="container hero-inner">
-    <div class="hero-top">
-      <div class="hero-left">
-        <p class="eyebrow hero-eyebrow">Independent Design Studio — Est. 2019</p>
-
-        <h1 class="hero-headline">
-          <em>Design built</em>
-          <strong>to scale.</strong>
-        </h1>
-
-        <p class="hero-sub">
-          We build brands and digital products for companies<br class="hero-br" />
-          ready to grow. No generalists. No templates. Just systems<br class="hero-br" />
-          that work at scale.
-        </p>
-
-        <div class="hero-actions">
-          <a href="/contact" class="cta-primary">Start a Project →</a>
-          <a href="/work" class="cta-ghost">See Our Work</a>
-        </div>
-      </div>
-
-      <div class="hero-metrics">
-        {metrics.map(m => (
-          <div class="metric">
-            <div class="metric-num">{m.num}</div>
-            <div class="metric-label">{m.label}</div>
-          </div>
-        ))}
-      </div>
+    <div class="hero-overline">
+      <span class="t-label">Independent Design Studio</span>
+      <span class="hero-sep">—</span>
+      <span class="t-label">Est. 2019</span>
+      <span class="hero-sep">—</span>
+      <span class="t-label hero-status">
+        <span class="hero-dot"></span>
+        Accepting Projects
+      </span>
     </div>
 
-    <div class="hero-ticker" aria-hidden="true">
-      <div class="ticker-track">
-        {Array(4).fill(null).map(() => (
-          <>
-            <span>WebCanvas</span>
-            <span>·</span>
-            <span>CX&amp;Identity</span>
-            <span>·</span>
-            <span>CMF_Nexus</span>
-            <span>·</span>
-            <span>Lumina.raw</span>
-            <span>·</span>
-            <span>Creative Department</span>
-            <span>·</span>
-            <span>off_menu</span>
-            <span>·</span>
-          </>
-        ))}
+    <h1 class="hero-headline">
+      Design<br />
+      Built to<br />
+      <span class="hero-headline-accent">Scale.</span>
+    </h1>
+
+    <div class="hero-bottom">
+      <p class="t-large hero-sub">
+        We build brands and digital products for companies<br class="hero-br" />
+        ready to grow. No generalists. No templates. Just systems<br class="hero-br" />
+        that work at scale.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="/contact" class="btn btn--primary">Start a Project</a>
+        <a href="/work" class="btn btn--outline">See Our Work →</a>
       </div>
     </div>
   </div>
@@ -71,7 +43,7 @@ const metrics = [
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: var(--border-width) solid var(--border);
     position: relative;
   }
 
@@ -80,203 +52,94 @@ const metrics = [
     padding-bottom: 4rem;
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 2rem;
   }
 
-  .hero-top {
+  .hero-overline {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 12px 0;
+    border-top: var(--border-width) solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .hero-sep {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    opacity: 0.3;
+  }
+
+  .hero-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: var(--color-status-green);
+    border-radius: 50%;
+  }
+
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: var(--size-hero);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    padding-bottom: 2rem;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  /* The accented word breaks into upright style for contrast */
+  .hero-headline-accent {
+    font-style: normal;
+    color: var(--orange-500);
+  }
+
+  .hero-bottom {
     display: grid;
     grid-template-columns: 1fr auto;
+    align-items: end;
     gap: 3rem;
-    align-items: start;
-  }
-
-  .hero-left {
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
-  }
-
-  /* Eyebrow animation */
-  .hero-eyebrow {
-    animation: fadeUp 0.7s 0.10s var(--ease-out, cubic-bezier(0,0,0.2,1)) both;
-  }
-
-  /* Headline */
-  .hero-headline {
-    animation: fadeUp 0.8s 0.20s var(--ease-out, cubic-bezier(0,0,0.2,1)) both;
-    margin: 0;
   }
 
   .hero-sub {
-    font-size: var(--text-lg);
-    font-weight: 300;
-    line-height: 1.55;
-    color: var(--color-text-muted);
     max-width: 55ch;
-    animation: fadeUp 0.7s 0.35s var(--ease-out, cubic-bezier(0,0,0.2,1)) both;
+    opacity: 0.65;
+    line-height: 1.55;
   }
 
-  .hero-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .cta-primary {
-    display: inline-block;
-    font-size: var(--text-sm);
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    padding: 12px 24px;
-    background: var(--color-text-primary);
-    color: var(--color-bg-surface);
-    border-radius: 2px;
-    text-decoration: none;
-    transition: opacity var(--dur-fast, 150ms);
-  }
-
-  .cta-primary:hover {
-    opacity: 0.85;
-  }
-
-  .cta-ghost {
-    display: inline-block;
-    font-size: var(--text-sm);
-    font-weight: 400;
-    color: var(--color-text-muted);
-    padding: 12px 0;
-    text-decoration: none;
-    border-bottom: 1px solid var(--color-border);
-    transition: color var(--dur-fast, 150ms), border-color var(--dur-fast, 150ms);
-  }
-
-  .cta-ghost:hover {
-    color: var(--color-text-primary);
-    border-color: var(--color-border-mid);
-  }
-
-  /* Metrics panel */
-  .hero-metrics {
+  .hero-ctas {
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--color-border);
-    border-radius: 3px;
-    overflow: hidden;
-    background: rgba(253, 252, 249, 0.6);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    min-width: 160px;
+    gap: 1rem;
     flex-shrink: 0;
-    animation: fadeUp 0.7s 0.45s var(--ease-out, cubic-bezier(0,0,0.2,1)) both;
-  }
-
-  .metric {
-    padding: 18px 20px;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .metric:last-child {
-    border-bottom: none;
-  }
-
-  .metric-num {
-    font-family: var(--font-display);
-    font-size: 34px;
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    line-height: 1;
-    color: var(--color-text-primary);
-  }
-
-  .metric-label {
-    font-size: var(--text-xs);
-    font-weight: 500;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--color-text-faint);
-    margin-top: 5px;
-  }
-
-  /* Ticker */
-  .hero-ticker {
-    border-top: 1px solid var(--color-border);
-    padding-top: 20px;
-    overflow: hidden;
-    animation: fadeUp 0.6s 0.60s var(--ease-out, cubic-bezier(0,0,0.2,1)) both;
-  }
-
-  .ticker-track {
-    display: inline-flex;
-    animation: marquee 30s linear infinite;
-    white-space: nowrap;
-  }
-
-  .ticker-track span {
-    padding-inline: 32px;
-    font-size: var(--text-xs);
-    font-weight: 500;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--color-text-faint);
-  }
-
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-eyebrow,
-    .hero-headline,
-    .hero-sub,
-    .hero-metrics,
-    .hero-ticker {
-      animation: fadeIn 0.3s both;
-    }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .ticker-track { animation: none; }
   }
 
   @media (max-width: 900px) {
-    .hero-top {
+    .hero-headline-accent {
+      -webkit-text-stroke-width: 2px;
+    }
+
+    .hero-bottom {
       grid-template-columns: 1fr;
     }
 
-    .hero-metrics {
+    .hero-ctas {
       flex-direction: row;
-      min-width: unset;
-    }
-
-    .metric {
-      flex: 1;
-      border-bottom: none;
-      border-right: 1px solid var(--color-border);
-      padding: 14px 16px;
-    }
-
-    .metric:last-child {
-      border-right: none;
+      flex-wrap: wrap;
     }
   }
 
   @media (max-width: 600px) {
     .hero-br {
       display: none;
-    }
-
-    .hero-metrics {
-      flex-direction: column;
-    }
-
-    .metric {
-      flex: unset;
-      border-right: none;
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .metric:last-child {
-      border-bottom: none;
     }
   }
 </style>

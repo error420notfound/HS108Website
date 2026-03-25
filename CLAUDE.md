@@ -7,13 +7,18 @@ It documents the project plan, decisions made, work completed, and rules to foll
 
 ## Design Skills Reference
 
-Two supporting files govern design and frontend decisions.
+Two supporting files govern all design and frontend decisions on this project.
+Read them before making any visual, layout, or interaction change.
 
 | File | What it covers |
 |---|---|
-| [`SIAM-FILTER.md`](SIAM-FILTER.md) | Four decision questions, energy defaults, hierarchy model |
-| [`FRONTEND-SYSTEM.md`](FRONTEND-SYSTEM.md) | Token rules, component rules, motion rules, layout system |
-| [`REVERT-STYLES.md`](REVERT-STYLES.md) | Full rollback instructions to restore the original brutalist/orange design |
+| [`SIAM-FILTER.md`](SIAM-FILTER.md) | Four decision questions, energy defaults, hierarchy model, hard refusals |
+| [`FRONTEND-SYSTEM.md`](FRONTEND-SYSTEM.md) | Token rules, component rules, motion rules, layout system, pre-ship checklist |
+
+**The short version:**
+- Quiet over loud. Grounded over expressive. Restrained over bold.
+- No decorative animations. No hardcoded values. No `font-weight: 700` on Instrument Serif.
+- Every decision must answer: does this serve function or perform expression?
 
 ---
 
@@ -24,119 +29,83 @@ Two supporting files govern design and frontend decisions.
 **Framework:** Astro 4.16 (static output)
 **Repo:** `/Users/hs108/Downloads/Vedik's Identity/VS Code/HS108 Website/HS108Website`
 
-HS108 is an independent design studio. This is a full multi-page marketing + portfolio site.
+HS108 is an independent design studio. This is a full multi-page marketing + portfolio site
+rebuilt from a single HTML file into a proper Astro project.
 
-**Deployment:** GitHub Pages via GitHub Actions. Push to `main` → auto-deploy via `.github/workflows/deploy.yml`.
+**Deployment:** GitHub Pages is configured. Source set to "GitHub Actions" (done). Push to `main` → site deploys automatically via `.github/workflows/deploy.yml`.
 
 ---
 
-## Design Direction: Warm Editorial
+## Design Direction: Brutalist / Bold
 
-The site was redesigned from a brutalist/orange palette to a warm, refined editorial aesthetic in March 2026. To revert to the original brutalist design, see [`REVERT-STYLES.md`](REVERT-STYLES.md).
+This is the most important creative decision. Do NOT drift from it.
 
 ### Colour System
 
-Two token layers exist in `global.css`. Always use the **redesign tokens** (`--color-*`) in new and updated components. The legacy tokens (`--bg`, `--accent`, `--border`) remain for backward compatibility with un-updated components.
-
-#### Redesign tokens (use these)
+Full orange scale is defined in `src/styles/global.css`. Always use the semantic tokens, not raw hex values in components.
 
 | Token | Value | Use |
 |---|---|---|
-| `--color-bg` | `#F7F5F0` | Page background |
-| `--color-bg-surface` | `#FDFCF9` | Card / panel surface |
-| `--color-bg-subtle` | `#F0EDE5` | Hover states, subtle fills |
-| `--color-text-primary` | `#1A1917` | All headings and primary text |
-| `--color-text-muted` | `#7A7870` | Secondary text, subheadings |
-| `--color-text-faint` | `#B5B3AA` | Labels, eyebrows, captions |
-| `--color-border` | `#E2DFD8` | Default 1px borders |
-| `--color-border-mid` | `#C8C5BC` | Hover / emphasis borders |
-| `--color-border-dark` | `#1A1917` | Active / selected borders |
+| `--surface-base` / `--white-native` | `#FFE1D8` | Page background |
+| `--surface-elevated` / `--orange-50` | `#FFF4F0` | Alt section bg, card bg |
+| `--black-native` | `#120600` | All text, borders, inverted section bg |
+| `--accent` / `--orange-500` | `#ED582A` | Primary accent, hover fills, active nav |
+| `--accent-strong` / `--orange-700` | `#B13F1C` | Button hover, blockquote colour |
+| `--action-primary-bg` | `#ED582A` | Filled (primary) buttons |
+| `--action-strong-bg` | `#B13F1C` | Button hover state |
+| `--action-inverse-bg` | `#120600` | Inverted dark buttons |
+| `--text-on-dark` | `#FFE1D8` | Text on dark/inverted sections |
+| `--orange-100` | `#FFE1D8` | Subtle borders, inverted section dividers |
+| `--orange-200` | `#FFC3B0` | Hover borders, soft dividers |
 
-#### Legacy semantic tokens (still used in un-updated components)
-
-`--bg`, `--fg`, `--accent`, `--border`, `--border-width`, `--surface-base`, `--surface-elevated`, `--black-native` (`#1A1917`), `--white-native` (`#F7F5F0`).
-
-The orange accent (`--orange-500: #ED582A`) is still present in the palette and theme system but is no longer the primary UI colour.
+- **Inverted sections:** `#120600` background + `#FFE1D8` text
+- Legacy aliases still work: `--c-yellow` → orange-500, `--c-black` → black-native, `--c-white` → surface-base
 
 ### Typography
 
-Three fonts. Core display and body have changed; mono is unchanged.
+Three fonts. Each has a specific job. Do not mix them up.
 
 | Font | Variable | Use |
 |---|---|---|
-| **Cormorant Garamond** | `--font-display` | All headlines (h1, h2, card titles, display text) |
-| **DM Sans** | `--font-body` | All body copy, eyebrow labels, nav links, UI text |
-| **Geist Mono** | `--font-mono` | Code, mono labels — rarely used in UI now |
+| **Instrument Serif** | `--font-display` | All headlines, display text, `.t-h1/.t-h2/.t-h3/.t-hero` |
+| **Geist** | `--font-body` | All body copy, `.t-body`, `.t-large`, paragraphs |
+| **Geist Mono** | `--font-mono` | ALL buttons, ALL labels, CTAs, micro copy, `.t-label`, `.t-mono`, nav links |
 
-**Cormorant Garamond notes:**
-- Available weights: 300 (light) and 400 (regular), both normal and italic
-- Use `font-weight: 300` for display headings — this is the spec default
-- Italic treatment: `h1 em` → italic muted (color: `--color-text-muted`); `h1 strong` → upright roman
-- Do NOT use `font-weight: 700` — it does not exist in this font
+Loaded via Google Fonts CDN. `@import` is in `src/styles/typography.css`.
 
-**DM Sans notes:**
-- Available: weights 300, 400, 500; also italic 300
-- Use 300 for body copy, 400–500 for UI labels and buttons
-- Eyebrows use 500 weight, `text-transform: uppercase`, `letter-spacing: 0.1em`
+**Instrument Serif notes:**
+- Only one weight exists: `400` (regular). Do NOT use `font-weight: 700` with this font.
+- The signature treatment is **italic** — use `font-style: italic` on display headings.
+- Upright + orange accent word creates contrast (e.g. hero "Scale." is upright + `color: var(--orange-500)`)
+- No `text-transform: uppercase` needed — the natural letterforms are the statement.
 
-### Type Scale Tokens
+**Geist Mono notes:**
+- Used at `font-size: var(--size-label)` (11px), uppercase, `letter-spacing: 0.12–0.14em`
+- This is the "voice" of the studio in UI — buttons, nav links, tags, stat labels
 
-```css
---text-xs:   10px;   /* eyebrows, labels */
---text-sm:   12px;   /* captions, secondary UI */
---text-base: 15px;   /* body copy */
---text-lg:   18px;   /* lead paragraphs */
---text-h3:   clamp(22px, 2.5vw, 28px);
---text-h2:   clamp(28px, 3.5vw, 40px);
---text-h1:   clamp(48px, 6.5vw, 96px);
-```
+### Brutalist Rules (never violate)
 
-### Spacing Tokens (8pt scale)
-
-```css
---sp-1: 4px  --sp-2: 8px   --sp-3: 16px  --sp-4: 24px  --sp-5: 32px
---sp-6: 48px --sp-7: 64px  --sp-8: 96px  --sp-9: 128px
-```
-
-### Motion Tokens
-
-```css
---dur-fast: 150ms   --dur-base: 250ms   --dur-slow: 400ms
---ease-out: cubic-bezier(0, 0, 0.2, 1)
---ease-std: cubic-bezier(0.4, 0, 0.2, 1)
-```
-
-### Design Rules (current)
-
-- Border radius: `3px` on cards/panels; `2px` on buttons; `4px` on nav dropdown and small tags; `20px` on pill tags
-- Borders: `1px solid var(--color-border)` — not `2px` any more
-- Hover states: border-color shift (`--color-border` → `--color-border-mid`) + background shift (`--color-bg-surface` → `--color-bg-subtle`)
-- Eyebrow pattern: `.eyebrow` class (defined globally) — `::before` pseudo-element adds a 24px line automatically
-- Hero animations: staggered `fadeUp` (opacity + translateY 12px) — respects `prefers-reduced-motion`
-- GLSL background: `<canvas id="glsl-canvas">` with `position: fixed; z-index: 0`. Enabled on: `/`, `/about`, `/why-us`, `/process`, `/contact`. Script at `public/scripts/glsl-field.js`.
-
-### What NOT to do (current design)
-
-- Do NOT add hardcoded hex/rgba values in component styles — use `--color-*` tokens
-- Do NOT use `font-weight: 700` on Cormorant Garamond — only 300 and 400 exist
-- Do NOT use Tailwind, Bootstrap, or any CSS framework
-- Do NOT use `!important` in CSS
-- Do NOT add unrequested features or refactor code that isn't broken
-- Do NOT rename service codes (WebCanvas, CX&Identity, CMF_Nexus, Lumina.raw) — brand terms
-- Do NOT rename `off_menu` — always lowercase with underscore
+- `border-radius: 0` on everything — zero rounding, always
+- No `box-shadow`, no `filter: blur`, no glassmorphism
+- All borders: `var(--border-width)` (2px) solid `var(--black-native)`
+- Hover: orange background fill swap — NOT underline, NOT glow, NOT scale
+- Section dividers: `<hr>` at 2px full-width
+- Labels: Geist Mono, uppercase, `opacity: 0.4` when decorative
+- Focus rings: `3px solid var(--orange-500)`, no border-radius
 
 ---
 
 ## Studio Identity
 
-**Name:** HS108
-**Tagline:** *"Design Built to Scale."*
-**Established:** 2019
-**Email:** contact.studio@hs108.in
+HS108 is an independent design studio established in 2019.
+Tagline: *"Design Built to Scale."*
+Core promise: brands and digital products for companies ready to grow. No generalists. No templates. Systems that work at scale.
 
 ---
 
 ## Services (4 Practices)
+
+These are HS108's four client-facing services. Use these exact code names — they are brand terms.
 
 | Code | Practice Name | Scope |
 |---|---|---|
@@ -145,44 +114,58 @@ Three fonts. Core display and body have changed; mono is unchanged.
 | **CMF_Nexus** | Product Design | Concept sketches, CAD, CMF spec, prototyping, production-ready files |
 | **Lumina.raw** | Photo & Video | Photography, photo editing, videography, video editing, motion graphics |
 
+Page: `src/pages/services.astro`
+
 ---
 
 ## Programs (4 Programs)
 
-### Creative Department (`/programs/creative-department`) — `theme-rose`
-Flagship retainer. Ongoing embedded design support. All four practices under one monthly engagement.
+These are HS108's engagement models and community initiatives — distinct from the 4 services above.
 
-### Design Lab (`/programs/design-lab`) — `theme-vermilion`
-Research & discovery for complex, ambiguous challenges. Output is clarity and brief — not finished product.
+### Creative Department (`/programs/creative-department`)
+**Type:** Flagship retainer program
+**What:** Ongoing design support for businesses — a dedicated team embedded in the client's workflow. Covers all four practices under one monthly engagement. Senior talent only.
+**Email:** `contact.studio@hs108.in`
 
-### off_menu (`/programs/off-menu`) — `theme-cool`
-Bespoke custom packages. Name is always `off_menu` (lowercase, underscore).
+### Design Lab (`/programs/design-lab`)
+**Type:** Research & discovery program
+**What:** For high-demand, complex design challenges. Structured discovery, research sprints, design audits, concept development, and experimental prototyping. Output is clarity and brief — not finished product.
+**When to use:** Client problems that are too ambiguous or high-stakes to go straight into execution.
 
-### Field Notes (`/programs/field-notes`) — `theme-teal`
-Community/discourse platform. Not client-facing. Previously called "Atelier Discourse".
+### off_menu (`/programs/off-menu`)
+**Type:** Bespoke / custom package
+**What:** Custom, tailor-made engagements for clients whose needs span multiple disciplines or don't fit a standard scope. Combines any of the four practices as the project requires.
+**Email:** `contact.studio@hs108.in`
+**Note:** Name is always `off_menu` — lowercase, underscore, no space.
+
+### Field Notes (`/programs/field-notes`)
+**Type:** Community / conversation platform
+**What:** HS108's channel for discourse with designers, artisans, and industry experts. Covers topics: Material & Craft, Design & Commerce, Systems Design, Visual Culture. Not client-facing — community and field contribution.
+**Email:** `contact.studio@hs108.in`
+**Note:** Previously called "Atelier Discourse" — renamed to "Field Notes". File: `programs/field-notes.astro`, route: `/programs/field-notes`.
 
 ---
 
 ## Site Structure
 
 ```
-/                               Home (glsl bg)
-/work                           Work showcase index (filterable)
-/work/[slug]                    Case study (dynamic from MDX)
-/about                          About the studio (glsl bg)
-/services                       Services overview
-/services/webcanvas             WebCanvas (theme-blue)
-/services/cx-identity           CX&Identity (theme-purple)
-/services/cmf-nexus             CMF_Nexus (theme-vermilion)
-/services/lumina-raw            Lumina.raw (theme-green)
-/process                        How we work (glsl bg)
-/why-us                         Why choose HS108 (glsl bg)
-/contact                        Contact form (glsl bg)
-/programs                       Programs index
-/programs/creative-department   Retainer (theme-rose)
-/programs/design-lab            Research (theme-vermilion)
-/programs/off-menu              Bespoke (theme-cool)
-/programs/field-notes           Community (theme-teal)
+/                               Home
+/work                           Work showcase index (filterable by category)
+/work/[slug]                    Individual case study (dynamic from MDX)
+/about                          About the studio
+/services                       4 services: WebCanvas, CX&Identity, CMF_Nexus, Lumina.raw
+/services/webcanvas             WebCanvas service page (theme-blue)
+/services/cx-identity           CX&Identity service page (theme-purple)
+/services/cmf-nexus             CMF_Nexus service page (theme-vermilion)
+/services/lumina-raw            Lumina.raw service page (theme-green)
+/process                        How we work (4 phases)
+/why-us                         Why choose HS108
+/contact                        Contact form (Formspree) + email
+/programs                       Programs list/index page (all 4 programs)
+/programs/creative-department   Retainer program (theme-rose)
+/programs/design-lab            Research & discovery program (theme-vermilion)
+/programs/off-menu              Bespoke / custom package (theme-cool)
+/programs/field-notes           Field Notes community platform (theme-teal)
 ```
 
 ---
@@ -191,140 +174,166 @@ Community/discourse platform. Not client-facing. Previously called "Atelier Disc
 
 | File | What it does |
 |---|---|
-| `src/layouts/BaseLayout.astro` | Root layout. Props: `title`, `description`, `ogImage`, `bodyClass`, `glsl` (boolean — enables GLSL canvas) |
-| `src/layouts/PageLayout.astro` | BaseLayout + page header. Props: `title`, `description`, `label`, `glsl` |
-| `src/layouts/WorkLayout.astro` | Case study layout — includes services-used section (slug-keyed) and Field Notes capture |
-| `src/components/Nav.astro` | Fixed nav. Desktop dropdowns: Services, About (Studio / Why HS108 / Process), Programs. Mobile: hamburger → accordions |
-| `src/components/Footer.astro` | 4-column footer — Navigation, Programs, HS108 Network, Status |
-| `src/components/Hero.astro` | Homepage hero — eyebrow, h1 with em/strong, metrics panel (4 stats), CTAs, ticker. No external props needed. |
-| `src/components/WorkCard.astro` | Project card — warm card style with `--color-border` borders and `border-radius: 3px` |
-| `src/components/StatBar.astro` | Horizontal strip of bordered stat cells (not used on homepage — metrics are in Hero) |
-| `src/components/ContactCTA.astro` | Bottom-of-page CTA band. Props: `headline`, `sub`, `invert`. Secondary link: "Book a 20-min call" → `/contact?path=call` |
-
----
-
-## Nav Structure (desktop)
-
-```
-Work  |  Services ▾  |  About ▾  |  Programs ▾  |  Get In Touch
-                          └─ Studio (/about)
-                          └─ Why HS108 (/why-us)
-                          └─ Process (/process)
-```
-
-Process and Why HS108 are accessible only through the About dropdown (not top-level). Both remain in the footer nav.
-
----
-
-## GLSL Background
-
-- Canvas ID: `#glsl-canvas` — `position: fixed; inset: 0; z-index: 0; pointer-events: none`
-- Site content wraps in `.site-wrapper` — `position: relative; z-index: 1`
-- Script: `public/scripts/glsl-field.js` — warm field shader, ~30fps, GPU-based
-- Low-end guard: skipped when `navigator.hardwareConcurrency <= 2`
-- WebGL fallback: canvas hidden, page background falls back to `--color-bg` (`#F7F5F0`)
-- Enable on a page: pass `glsl={true}` to BaseLayout or PageLayout
-
----
-
-## Hero Component
-
-Metrics panel (inline, no external data prop — hardcoded in Hero.astro):
-- 38+ Brands Scaled
-- 5× Avg. Growth
-- 100% Senior Talent
-- 6 yrs In Business
-
-StatBar (`src/components/StatBar.astro`) is no longer used on the homepage. It still exists for other uses.
-
----
-
-## Homepage Sections (index.astro)
-
-1. Hero (Cormorant Garamond, metrics panel, staggered animations, ticker)
-2. Featured Work (3 projects from content collection)
-3. Services teaser (4 services)
-4. Process teaser (inverted section)
-5. Programs (4 program cards — warm card style)
-6. Field Notes email capture
-7. ContactCTA (with "Book a 20-min call" secondary link)
-
----
-
-## Contact Page — Stepped UX Flow
-
-**Step 0 (new — path chooser):** Two cards — "Starting a project" (project path) and "Looking for ongoing support" (retainer path). Clicking a card reveals the form. `?path=call` URL param pre-selects the retainer card.
-
-**Project path (Steps 1–3):**
-1. Service picker (checkboxes) + live price estimate
-2. Brief, timeline, budget
-3. Name, email, company, how-found
-
-**Key behaviours:**
-- Progress bar advances 33% → 66% → 100%
-- AJAX submit to Google Apps Script (URL already set in the script)
-- `?path=call` handled via JS on page load
-
----
-
-## Case Study Pages — Services Used
-
-`WorkLayout.astro` renders a "Services used on this project" grid above "Next Project", keyed by slug:
-
-| Slug | Cards |
-|---|---|
-| `novapay` | CX&Identity, WebCanvas (2 cards) |
-| `urbane-property` | CX&Identity, WebCanvas, WebCanvas (3 cards) |
-| `healthos` | WebCanvas, WebCanvas (2 cards) |
-
-All case study pages also show a **Field Notes email capture** block after the MDX body.
+| `src/layouts/BaseLayout.astro` | Root layout — `<html>`, `<head>`, SEO meta, imports all 3 CSS files, mounts Nav + Footer |
+| `src/layouts/PageLayout.astro` | BaseLayout + standard page header (label + h1) |
+| `src/layouts/WorkLayout.astro` | BaseLayout + full case study chrome (meta, hero image, next project nav) |
+| `src/components/Nav.astro` | Fixed top nav. Desktop: logo + links + CTA. Mobile ≤900px: hamburger → dropdown with all 4 programs listed |
+| `src/components/Footer.astro` | Full footer with nav columns, status dot, email |
+| `src/components/Hero.astro` | Home page hero — Instrument Serif italic headline, stat strip, CTAs |
+| `src/components/WorkCard.astro` | Project card (image, title, outcome metric, category tags) |
+| `src/components/StatBar.astro` | Horizontal strip of bordered stat cells |
+| `src/components/ContactCTA.astro` | Reusable bottom-of-page CTA band (has `invert` prop) |
 
 ---
 
 ## Per-Page Colour Theming
 
-Pass `bodyClass` to BaseLayout to apply a theme:
+Individual pages can be given a colour theme by passing `bodyClass` to `BaseLayout`:
 
 ```astro
 <BaseLayout title="..." bodyClass="theme-blue">
 ```
 
-All 18 theme classes are defined in `global.css`. Available: `theme-orange` (default), `theme-lime`, `theme-yellow`, `theme-green`, `theme-blue`, `theme-rose`, `theme-indigo`, `theme-pink`, `theme-purple`, `theme-cyan`, `theme-teal`, `theme-mint`, `theme-amber`, `theme-brown`, `theme-red`, `theme-vermilion`, `theme-warm`, `theme-cool`, `theme-neutral`.
+This sets the `class` on `<body>` and overrides all semantic colour tokens (`--bg`, `--fg`, `--accent`, `--surface-base`, etc.) for that page. Every theme class **explicitly** sets `--bg` and `--fg` directly — do not rely on intermediate variable inheritance.
 
-Note: Themed pages (services/programs) use the existing `--bg`/`--fg` token system. The redesign `--color-*` tokens are not overridden by theme classes — they remain warm-neutral on themed pages.
+**Current theme assignments:**
+
+| Page | Theme |
+|---|---|
+| `/services/webcanvas` | `theme-blue` |
+| `/services/cx-identity` | `theme-purple` |
+| `/services/cmf-nexus` | `theme-vermilion` |
+| `/services/lumina-raw` | `theme-green` |
+| `/programs/creative-department` | `theme-rose` |
+| `/programs/design-lab` | `theme-vermilion` |
+| `/programs/off-menu` | `theme-cool` |
+| `/programs/field-notes` | `theme-teal` |
+
+All 18 theme classes are defined in `src/styles/global.css`. Available themes: `theme-orange` (default), `theme-lime`, `theme-yellow`, `theme-green`, `theme-blue`, `theme-rose`, `theme-indigo`, `theme-pink`, `theme-purple`, `theme-cyan`, `theme-teal`, `theme-mint`, `theme-amber`, `theme-brown`, `theme-red`, `theme-vermilion`, `theme-warm`, `theme-cool`, `theme-neutral`.
+
+**Font pair modifiers** (can be combined with theme classes):
+- `.font-pair-a` — switches display to Genos (700 italic) + body to Rajdhani
+- `.font-pair-b` — switches display to Michroma + body to IBM Plex Serif
+
+**CSS variable fix:** The `--bg` / `--fg` aliases defined on `:root` do NOT auto-resolve when intermediate tokens are overridden on `body`. Always set `--bg` and `--fg` directly inside every theme class — never rely on the chain.
+
+---
+
+## Nav Component — Mobile Behaviour
+
+The Nav has a working mobile menu. Key details for future edits:
+
+- At `≤900px`: desktop links + CTA button hide; hamburger button appears
+- Hamburger is a `<button>` with 3 `.bar` spans. Each bar needs `width: 100%` explicitly — do NOT remove this, it's what makes the bars visible.
+- Hamburger animates to × when `aria-expanded="true"` (CSS transforms on `.bar` nth-child)
+- Mobile menu is a **dropdown** (not full-screen overlay) — `position: absolute; top: 100%` under the nav bar
+- Menu closes on: link click, outside click
+- All main nav links + all 4 program sub-links + "Get In Touch" button are in the dropdown
+- Programs appear as a sub-group with a label: `Creative Department`, `Design Lab`, `off_menu`, `Atelier Discourse`
+- Desktop "Programs" nav link goes to `/programs` (the programs index page)
+- Desktop **Services** and **Programs** links show a hover dropdown with sub-links (service/program name + category label). Implemented with CSS `:hover` + `position: absolute` dropdown panel — no JS needed.
+- Mobile: Services and Programs are **accordion buttons** that expand inline to show sub-links. Each accordion has its own `aria-expanded` state toggled via JS. Close behaviour: link click or outside click collapses the main menu.
+- Logo uses `var(--font-mono)` (Geist Mono) at `font-weight: 500` — NOT Instrument Serif (which has no bold weight)
+
+---
+
+## Homepage Sections (index.astro)
+
+1. Hero (Instrument Serif italic, stat strip, CTAs)
+2. StatBar (38+ brands, 5× avg growth, 100% senior talent, 6 yrs in business)
+3. Marquee ticker (service + program names scrolling)
+4. Featured Work (from content collection — 3 projects, first is wide)
+5. Services teaser (all 4 services with code names)
+6. Process teaser (inverted section — 4 phases)
+7. **Programs section** (all 4 programs as linked cards)
+8. ContactCTA
 
 ---
 
 ## Content Collections (Work Showcase)
 
-Case studies: `.mdx` files in `src/content/work/`. Schema in `src/content/config.ts`.
+Case studies live as `.mdx` files in `src/content/work/`.
+Schema is defined in `src/content/config.ts`.
 
-**Required frontmatter:**
+**Required frontmatter fields:**
 ```yaml
-title, client, year, categories, tags, coverImage, coverAlt, color,
-outcome: { label, value }, summary, services, duration, featured, order, draft
+title:      string
+client:     string
+year:       number (2018–2030)
+categories: array of enum ['brand','product','design-system','mobile','web','strategy','motion']
+tags:       array of strings
+coverImage: string (path like "/work/project-cover.jpg")
+coverAlt:   string
+color:      string (hex, exactly 6 digits, e.g. "#ed582a")
+outcome:
+  label: string
+  value: string
+summary:    string (max 280 chars)
+services:   array of strings
+duration:   string (optional)
+featured:   boolean (default false) — shown on home page featured grid
+order:      number (default 99) — manual sort order on /work
+draft:      boolean (default false) — set true to hide
 ```
 
-**Existing files:** `novapay.mdx`, `urbane-property.mdx`, `healthos.mdx`
+**Existing sample files (placeholder content — replace with real work):**
+- `src/content/work/novapay.mdx` — fintech rebrand, featured, order 1
+- `src/content/work/urbane-property.mdx` — real estate platform, featured, order 2
+- `src/content/work/healthos.mdx` — healthcare design system, featured, order 3
 
 ---
 
 ## Known Issue: Work Collection Empty During Build
 
 **Status:** Active bug (not yet fixed).
-**Symptom:** Build warns "collection 'work' is empty" — no `/work/[slug]` pages generated. Dev server works.
-**Fix:** Upgrade to Astro 5: `npx @astrojs/upgrade` (set PATH first).
-**Do NOT** re-architect the content system as a workaround.
+
+**Symptom:** `astro build` warns "The collection 'work' does not exist or is empty" and generates no `/work/[slug]` pages. Dev server (`npm run dev`) works correctly — content loads fine there.
+
+**Root cause:** Bug in Astro 4.16 static build pipeline. Types ARE generated correctly (all 3 entries appear in `.astro/astro/content.d.ts`) but `getCollection('work')` returns empty at build time.
+
+**Fix:** Upgrade to Astro 5: `npx @astrojs/upgrade`
+
+**Do NOT:** Re-architect the content system, switch to hardcoded data, or use `import.meta.glob` as a workaround. The schema and MDX setup are correct — only the Astro version needs bumping.
 
 ---
 
 ## HS108 Network — Subdomains
 
+Three subdomains linked from the footer "HS108 Network" column. All open in a new tab.
+
 | Subdomain | URL | Purpose |
 |---|---|---|
 | docs.hs108.in | `https://docs.hs108.in` | Internal design documents |
 | field-notes.hs108.in | `https://field-notes.hs108.in` | Blog / editorial |
-| toolkit.hs108.in | `https://toolkit.hs108.in` | Design tools & resources |
+| toolkit.hs108.in | `https://toolkit.hs108.in` | Design tools & resources built in-house |
+
+These are external links — not pages inside the Astro project.
+
+---
+
+## Contact Page — Stepped UX Flow
+
+The contact page (`/contact`) uses a 3-step multi-step form inspired by Apple's Mac checkout flow. No modal — single-page stepped panels revealed in sequence.
+
+**Steps:**
+1. **What you need** — checkbox choice cards (8 options, maps to all 4 services + 4 programs). Multiple selection allowed.
+2. **Your project** — textarea (brief), timeline select, budget select.
+3. **Your details** — name, email, company, how-found. Summary card shows selected services.
+4. **Confirmation** — shown after successful Formspree submit. No page reload.
+
+**Key behaviours:**
+- Progress bar (2px orange fill) advances at each step (33% → 67% → 100%)
+- Step indicators (01/02/03) light up as user advances
+- "Back" button returns to previous step, form state is preserved
+- Form submits via `fetch()` (AJAX) to Formspree — no page reload on success
+- Confirmation panel replaces form content on success
+- Aside panel (email, programs, response time) is sticky on desktop, stacks below on mobile
+
+**Layout:** 2-col grid — form (left, wider) + aside (right, 320px, sticky). Collapses to 1-col below 1024px.
+
+**Uses:** `BaseLayout` directly (not `PageLayout`) so the full-width header section can be custom.
+
+**TODO:** Replace `REPLACE_WITH_YOUR_ID` in the form action URL with a real Formspree endpoint.
 
 ---
 
@@ -334,11 +343,11 @@ outcome: { label, value }, summary, services, duration, featured, order, draft
 |---|---|---|
 | Framework | Astro 4.16 | → upgrade to v5 to fix work collection |
 | Content | MDX + Astro Content Collections | Legacy `type: 'content'` |
-| Styling | Raw CSS custom properties | No framework, no Tailwind |
-| Fonts | Google Fonts CDN | Cormorant Garamond, DM Sans, Geist Mono |
-| Deployment | GitHub Pages via GitHub Actions | ✅ Working |
-| Forms | Google Apps Script | Endpoint already set in contact.astro |
-| Sitemap | Removed temporarily | Re-add after Astro 5 upgrade |
+| Styling | Raw CSS custom properties | NO framework, NO Tailwind |
+| Fonts | Google Fonts CDN | TODO: self-host woff2 files |
+| Deployment | GitHub Pages via GitHub Actions | ✅ Working — source set to "GitHub Actions" |
+| Forms | Formspree | Contact page — endpoint ID not yet set |
+| Sitemap | Removed temporarily | Crashed on v4 — re-add after Astro 5 upgrade |
 
 ---
 
@@ -346,49 +355,53 @@ outcome: { label, value }, summary, services, duration, featured, order, draft
 
 ```
 HS108Website/
-├── .github/workflows/deploy.yml
+├── .github/workflows/deploy.yml    CI/CD → GitHub Pages (working)
 ├── public/
 │   ├── CNAME                       "hs108.in"
 │   ├── favicon.svg
-│   ├── fonts/                      (empty — TODO: add woff2 files)
-│   ├── scripts/
-│   │   └── glsl-field.js           GLSL warm field shader
+│   ├── fonts/                      (empty — TODO: add woff2 files here)
 │   ├── robots.txt
-│   └── work/                       (empty — TODO: add cover images)
+│   └── work/                       (empty — TODO: add project cover images here)
 ├── src/
 │   ├── content/
-│   │   ├── config.ts
-│   │   └── work/*.mdx
+│   │   ├── config.ts               Zod schema for work collection
+│   │   └── work/*.mdx              Case study MDX files
 │   ├── layouts/
-│   │   ├── BaseLayout.astro        glsl prop
-│   │   ├── PageLayout.astro        glsl prop forwarded
-│   │   └── WorkLayout.astro        services-used + field notes
+│   │   ├── BaseLayout.astro
+│   │   ├── PageLayout.astro
+│   │   └── WorkLayout.astro
 │   ├── components/
-│   │   ├── Nav.astro               About dropdown (Studio/Why HS108/Process)
+│   │   ├── Nav.astro               ← mobile dropdown with all 4 program links
 │   │   ├── Footer.astro
-│   │   ├── Hero.astro              eyebrow + h1 em/strong + metrics + ticker
-│   │   ├── WorkCard.astro          warm card style
-│   │   ├── StatBar.astro           (not used on homepage)
-│   │   └── ContactCTA.astro        "Book a 20-min call" secondary link
+│   │   ├── Hero.astro
+│   │   ├── WorkCard.astro
+│   │   ├── StatBar.astro
+│   │   └── ContactCTA.astro
 │   ├── pages/
-│   │   ├── index.astro             glsl, field notes capture
-│   │   ├── about.astro             glsl, client links
-│   │   ├── contact.astro           glsl, path chooser
-│   │   ├── process.astro           glsl
-│   │   ├── services.astro
-│   │   ├── why-us.astro            glsl
-│   │   ├── work/index.astro
-│   │   ├── work/[slug].astro
-│   │   ├── services/*.astro
-│   │   └── programs/*.astro
+│   │   ├── index.astro
+│   │   ├── about.astro
+│   │   ├── contact.astro
+│   │   ├── process.astro
+│   │   ├── services.astro          ← 4 services: WebCanvas, CX&Identity, CMF_Nexus, Lumina.raw
+│   │   ├── why-us.astro
+│   │   ├── work/
+│   │   │   ├── index.astro
+│   │   │   └── [slug].astro
+│   │   ├── services/
+│   │   │   ├── webcanvas.astro             ← theme-blue
+│   │   │   ├── cx-identity.astro           ← theme-purple
+│   │   │   ├── cmf-nexus.astro             ← theme-vermilion
+│   │   │   └── lumina-raw.astro            ← theme-green
+│   │   └── programs/
+│   │       ├── index.astro                 ← programs list page (mirrors services index)
+│   │       ├── creative-department.astro   ← theme-rose
+│   │       ├── design-lab.astro            ← theme-vermilion
+│   │       ├── off-menu.astro              ← theme-cool
+│   │       └── field-notes.astro           ← theme-teal (renamed from atelier-discourse)
 │   └── styles/
-│       ├── global.css              Tokens (legacy + redesign), reset, body/heading rules, eyebrow
-│       ├── typography.css          Font imports (Cormorant Garamond, DM Sans + originals)
-│       └── brutalist.css           Buttons, tags, grids (unchanged)
-├── CLAUDE.md                       ← this file
-├── REVERT-STYLES.md                ← rollback instructions
-├── SIAM-FILTER.md
-├── FRONTEND-SYSTEM.md
+│       ├── global.css              Color tokens + reset + layout utilities
+│       ├── typography.css          Font imports + type scale classes
+│       └── brutalist.css           Buttons, tags, borders, grid utilities
 ├── astro.config.mjs
 ├── tsconfig.json
 └── package.json
@@ -398,7 +411,8 @@ HS108Website/
 
 ## Node / npm
 
-Node via nvm. Always prefix:
+Node is installed via nvm. The shell does not have nvm in PATH by default.
+Always prefix commands like this:
 
 ```bash
 PATH="/Users/hs108/.nvm/versions/node/v24.14.0/bin:/usr/bin:/bin:/usr/sbin:/sbin"
@@ -412,23 +426,45 @@ npm install
 ## Pending TODOs (Priority Order)
 
 1. **Fix work collection** — upgrade Astro to v5: `npx @astrojs/upgrade` (set PATH first)
-2. **Real case study content** — replace the 3 sample MDX files with real HS108 project write-ups
-3. **Real project cover images** — add actual images to `public/work/`
-4. **Real copy** — about.astro, why-us.astro, process.astro still have placeholder text
-5. **Field Notes form endpoint** — replace `action="#"` in Field Notes forms with a real endpoint (Formspree or similar)
-6. **Self-host fonts** — download Cormorant Garamond, DM Sans, Geist Mono woff2 files → `public/fonts/`
-7. **OG image** — add `public/og-default.jpg` (1200×630)
-8. **Sitemap** — re-add `@astrojs/sitemap` after Astro 5 upgrade
-
----
+2. **Formspree endpoint** — replace `REPLACE_WITH_YOUR_ID` in `src/pages/contact.astro` with a real Formspree form ID from formspree.io
+3. **Real case study content** — replace the 3 sample MDX files with real HS108 project write-ups
+4. **Real project cover images** — add actual images to `public/work/` matching the `coverImage` paths in each MDX file
+5. **Real copy on secondary pages** — about.astro, why-us.astro, process.astro still have placeholder text
+6. **Self-host fonts** — download Instrument Serif, Geist, Geist Mono woff2 files → `public/fonts/` → replace the `@import` in `typography.css` with `@font-face` declarations
+7. **Sitemap** — re-add `@astrojs/sitemap` after Astro 5 upgrade
+8. **OG image** — add `public/og-default.jpg` (1200×630) for social sharing previews
 
 ## Completed
 
-- ✅ Created `/programs/index.astro`
-- ✅ Applied theme classes to all service/program pages
+- ✅ Created `/programs/index.astro` — programs list page (mirrors services index structure, 4 program rows + services teaser + callout)
+- ✅ Applied `theme-rose` to `creative-department.astro`
+- ✅ Applied `theme-vermilion` to `design-lab.astro`
+- ✅ Applied `theme-cool` to `off-menu.astro`
+- ✅ Applied `theme-teal` to `field-notes.astro`
 - ✅ Updated Nav "Programs" desktop link → `/programs`
-- ✅ Renamed "Atelier Discourse" → "Field Notes"
-- ✅ Footer: 4 programs + HS108 Network column
-- ✅ Nav: hover dropdowns (Services, Programs) + mobile accordions
-- ✅ Contact page: 3-step multi-step flow with AJAX submit
-- ✅ **Redesign (March 2026):** Warm editorial design system — tokens, fonts, hero, nav, cards, GLSL, services-used, Field Notes capture, contact path chooser, client links, footer CTA
+- ✅ Renamed "Atelier Discourse" → "Field Notes" (file renamed `atelier-discourse.astro` → `field-notes.astro`, route `/programs/field-notes`)
+- ✅ Footer: added all 4 programs, added "HS108 Network" column with 3 subdomain links (docs, field-notes, toolkit)
+- ✅ Nav: added hover dropdown for Services and Programs on desktop; accordion submenu for both in mobile
+- ✅ Contact page: rebuilt as 3-step Apple-style multi-step flow (choice cards → project brief → contact details → AJAX confirmation)
+
+---
+
+## What NOT To Do
+
+See [`SIAM-FILTER.md`](SIAM-FILTER.md) and [`FRONTEND-SYSTEM.md`](FRONTEND-SYSTEM.md) for the full decision framework.
+
+**Hard stops — project-specific:**
+- Do NOT add `border-radius` to any element
+- Do NOT use Tailwind, Bootstrap, or any CSS framework
+- Do NOT add `box-shadow` or `filter: blur`
+- Do NOT use glassmorphism or transparency effects
+- Do NOT set `font-weight: 700` (or any bold weight) on `Instrument Serif` — it only has weight 400
+- Do NOT use `--font-display` (Instrument Serif) for the Nav logo or any small UI text — use `--font-mono` (Geist Mono) for that
+- Do NOT use dark backgrounds as the main page bg — dark is only for specific `.inv-block` / `.section--inv` elements
+- Do NOT add scroll-triggered reveal animations, entrance fades, or pulse effects
+- Do NOT hardcode hex, rgba, or px values in component `<style>` blocks — use tokens from `global.css`
+- Do NOT use emojis in the UI
+- Do NOT use `!important` in CSS
+- Do NOT add unrequested features or refactor code that isn't broken
+- Do NOT rename service codes (WebCanvas, CX&Identity, CMF_Nexus, Lumina.raw) — these are brand terms
+- Do NOT rename `off_menu` — it's always lowercase with underscore

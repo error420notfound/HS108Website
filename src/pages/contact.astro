@@ -5,7 +5,6 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 <BaseLayout
   title="Get In Touch"
   description="Start a project with HS108. We're currently accepting new clients."
-  glsl={true}
 >
 
   <!-- Page header -->
@@ -43,20 +42,6 @@ import BaseLayout from '@layouts/BaseLayout.astro';
       <div class="flow-bar">
         <div class="flow-bar-fill" id="flow-bar-fill"></div>
       </div>
-    </div>
-
-    <!-- Path chooser (Step 0) -->
-    <div class="path-chooser" id="path-chooser">
-      <button class="path-card" data-path="project" type="button">
-        <span class="path-tag">One-time engagement</span>
-        <span class="path-name">Starting a project</span>
-        <span class="path-desc">A defined brief with clear deliverables — brand, web, product, or photo.</span>
-      </button>
-      <button class="path-card" data-path="retainer" type="button">
-        <span class="path-tag">Ongoing partnership</span>
-        <span class="path-name">Looking for ongoing support</span>
-        <span class="path-desc">Embedded design as your business grows — monthly, continuous, strategic.</span>
-      </button>
     </div>
 
     <!-- Form -->
@@ -638,63 +623,6 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   .choice-grid      { grid-template-columns: 1fr; }
   .form-row         { grid-template-columns: 1fr; }
   .flow-confirm-links { flex-direction: column; }
-  .path-chooser     { grid-template-columns: 1fr; }
-}
-
-/* ── Path chooser (§9) ── */
-.path-chooser {
-  grid-column: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-3, 16px);
-  margin-bottom: var(--sp-6, 48px);
-}
-
-.path-card {
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
-  padding: var(--sp-4, 24px);
-  cursor: pointer;
-  background: var(--color-bg-surface);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2, 8px);
-  font-family: var(--font-body);
-  transition: border-color var(--dur-base, 250ms), background var(--dur-fast, 150ms);
-  width: 100%;
-}
-
-.path-card:hover {
-  border-color: var(--color-border-mid);
-}
-
-.path-card.selected {
-  border-color: var(--color-text-primary);
-}
-
-.path-tag {
-  display: block;
-  font-size: var(--text-xs, 10px);
-  font-weight: 500;
-  letter-spacing: var(--tracking-label, 0.1em);
-  text-transform: uppercase;
-  color: var(--color-text-faint);
-}
-
-.path-name {
-  display: block;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--color-text-primary);
-  line-height: 1.3;
-}
-
-.path-desc {
-  display: block;
-  font-size: 12px;
-  color: var(--color-text-muted);
-  line-height: 1.55;
 }
 </style>
 
@@ -824,24 +752,6 @@ import BaseLayout from '@layouts/BaseLayout.astro';
       showPanel(btn.dataset.back!);
     });
   });
-
-  // ── Path chooser (§9) ──────────────────────────────────────────
-  document.querySelectorAll<HTMLButtonElement>('.path-card').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.path-card').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      // Show the form once a path is chosen
-      const contactForm = document.getElementById('contact-form');
-      if (contactForm) contactForm.style.display = '';
-    });
-  });
-
-  // Pre-select retainer path when ?path=call
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('path') === 'call') {
-    const retainerBtn = document.querySelector<HTMLButtonElement>('.path-card[data-path="retainer"]');
-    if (retainerBtn) retainerBtn.click();
-  }
 
   // ── Choice card toggle ──────────────────────────────────────────
   flow.querySelectorAll<HTMLElement>('.choice-card').forEach(card => {

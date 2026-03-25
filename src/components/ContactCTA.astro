@@ -7,7 +7,7 @@ interface Props {
 
 const {
   headline = "Let's build\nsomething together.",
-  sub = "We're currently accepting new projects. Tell us what you're working on — or book a 20-minute conversation first.",
+  sub = "We're currently accepting new projects. Tell us what you're working on.",
   invert = true,
 } = Astro.props;
 ---
@@ -23,8 +23,8 @@ const {
       <a href="/contact" class:list={['btn', invert ? 'btn--outline-inv' : 'btn--primary']}>
         Get In Touch
       </a>
-      <a href="/contact?path=call" class:list={['btn', invert ? 'btn--primary' : 'btn--outline']}>
-        Book a 20-min call →
+      <a href="mailto:contact.studio@hs108.in" class:list={['btn', invert ? 'btn--primary' : 'btn--outline']}>
+        contact.studio@hs108.in
       </a>
     </div>
   </div>
