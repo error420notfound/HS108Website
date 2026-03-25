@@ -1,20 +1,12 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
-import StatBar from '@components/StatBar.astro';
 import WorkCard from '@components/WorkCard.astro';
 import ContactCTA from '@components/ContactCTA.astro';
 import { getCollection } from 'astro:content';
 
 const allWork  = await getCollection('work', ({ data }) => !data.draft && data.featured);
 const featured = allWork.sort((a, b) => a.data.order - b.data.order).slice(0, 3);
-
-const stats = [
-  { value: '38+',  label: 'Brands Scaled',     sub: 'Since 2019' },
-  { value: '5×',   label: 'Avg. Growth',        sub: 'Across active clients' },
-  { value: '100%', label: 'Senior Talent',      sub: 'No juniors on your work' },
-  { value: '6 yrs', label: 'In Business',       sub: 'Independent, bootstrapped' },
-];
 
 const services = [
   { num: '01', code: 'WebCanvas',    name: 'Digital Design',    desc: 'Web, app, UI, and UX design. Intuitive digital experiences that captivate audiences and perform at every touchpoint.' },
@@ -31,42 +23,17 @@ const programs = [
 ];
 ---
 
-<BaseLayout title="HS108" description="HS108 is an independent design studio building brands and products that scale.">
+<BaseLayout title="HS108" description="HS108 is an independent design studio building brands and products that scale." glsl={true}>
 
-  <!-- Hero -->
+  <!-- Hero (includes ticker) -->
   <Hero />
-
-  <!-- Stats -->
-  <StatBar stats={stats} />
-
-  <!-- Ticker -->
-  <div class="marquee-track" aria-hidden="true">
-    <div class="marquee-inner">
-      {Array(4).fill(null).map(() => (
-        <>
-          <span>WebCanvas</span>
-          <span>·</span>
-          <span>CX&amp;Identity</span>
-          <span>·</span>
-          <span>CMF_Nexus</span>
-          <span>·</span>
-          <span>Lumina.raw</span>
-          <span>·</span>
-          <span>Creative Department</span>
-          <span>·</span>
-          <span>off_menu</span>
-          <span>·</span>
-        </>
-      ))}
-    </div>
-  </div>
 
   <!-- Featured Work -->
   <section class="section container">
     <div class="section-header">
       <div>
-        <p class="t-label section-num">Selected Work</p>
-        <h2 class="t-h2">What We've Built</h2>
+        <p class="eyebrow">Selected Work</p>
+        <h2>What We've Built</h2>
       </div>
       <a href="/work" class="btn btn--outline">All Projects →</a>
     </div>
@@ -98,8 +65,8 @@ const programs = [
   <section class="section container">
     <div class="section-header">
       <div>
-        <p class="t-label section-num">What We Do</p>
-        <h2 class="t-h2">Our Services</h2>
+        <p class="eyebrow">What We Do</p>
+        <h2>Our Services</h2>
       </div>
       <a href="/services" class="btn btn--outline">Full Services →</a>
     </div>
@@ -122,8 +89,8 @@ const programs = [
 
   <!-- Process teaser -->
   <section class="section section--inv container">
-    <p class="t-label section-num" style="opacity:0.4">How We Work</p>
-    <h2 class="t-h2" style="margin-bottom:3rem">Our Process</h2>
+    <p class="eyebrow" style="margin-bottom:1rem">How We Work</p>
+    <h2 style="margin-bottom:3rem">Our Process</h2>
 
     <div class="process-strip stat-strip">
       {[
@@ -151,22 +118,35 @@ const programs = [
   <section class="section container">
     <div class="section-header">
       <div>
-        <p class="t-label section-num">Beyond Projects</p>
-        <h2 class="t-h2">Our Programs</h2>
+        <p class="eyebrow">Beyond Projects</p>
+        <h2>Our Programs</h2>
       </div>
       <a href="/programs/creative-department" class="btn btn--outline">Explore Programs →</a>
     </div>
 
     <div class="programs-grid">
       {programs.map(prog => (
-        <a href={`/programs/${prog.slug}`} class="program-card b-box">
-          <p class="t-label program-name">{prog.name}</p>
-          <p class="t-body program-desc">{prog.desc}</p>
-          <span class="t-mono program-cta">Learn More →</span>
+        <a href={`/programs/${prog.slug}`} class="program-card">
+          <p class="program-name">{prog.name}</p>
+          <p class="program-desc">{prog.desc}</p>
+          <span class="program-cta">Learn More →</span>
         </a>
       ))}
     </div>
   </section>
+
+  <!-- Field Notes capture — homepage footer (§12) -->
+  <div class="container fn-home-wrap">
+    <div class="field-notes-capture-home">
+      <p class="eyebrow">Field Notes</p>
+      <p class="fn-home-heading">Thinking from the studio, occasionally.</p>
+      <p class="fn-home-sub">No pitch. Just the work we find worth writing about.</p>
+      <form class="fn-home-form" action="#" method="POST">
+        <input type="email" name="email" placeholder="your@email.com" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
 
   <ContactCTA />
 
@@ -274,40 +254,48 @@ const programs = [
   }
 
   .program-card {
-    padding: var(--space-card);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: var(--sp-5, 32px);
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    transition: background var(--transition);
+    text-decoration: none;
+    transition: border-color var(--dur-fast, 150ms), background var(--dur-fast, 150ms);
   }
 
   .program-card:hover {
-    background: var(--orange-500);
+    border-color: var(--color-border-mid);
+    background: var(--color-bg-subtle);
   }
 
   .program-name {
-    color: var(--accent);
-  }
-
-  .program-card:hover .program-name {
-    color: var(--black-native);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-faint);
   }
 
   .program-desc {
-    opacity: 0.6;
-    line-height: 1.6;
+    font-size: var(--text-sm);
+    font-weight: 300;
+    color: var(--color-text-muted);
+    line-height: var(--leading-body);
     flex: 1;
-    font-size: 14px;
   }
 
   .program-cta {
-    font-size: 10px;
-    opacity: 0.45;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-muted);
     margin-top: auto;
+    transition: color var(--dur-fast, 150ms);
   }
 
   .program-card:hover .program-cta {
-    opacity: 1;
+    color: var(--color-text-primary);
   }
 
   @media (max-width: 900px) {
@@ -336,5 +324,72 @@ const programs = [
     .programs-grid {
       grid-template-columns: 1fr;
     }
+  }
+
+  /* Field Notes capture */
+  .fn-home-wrap {
+    padding-top: var(--sp-6, 48px);
+    padding-bottom: var(--sp-6, 48px);
+  }
+
+  .field-notes-capture-home {
+    padding: var(--sp-6, 48px) 0;
+    border-top: 1px solid var(--color-border);
+    max-width: 480px;
+  }
+
+  .fn-home-heading {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2vw, 26px);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+    margin: var(--sp-2, 8px) 0;
+  }
+
+  .fn-home-sub {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin-bottom: var(--sp-4, 24px);
+  }
+
+  .fn-home-form {
+    display: flex;
+    gap: var(--sp-2, 8px);
+  }
+
+  .fn-home-form input[type="email"] {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 10px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    background: var(--color-bg-surface);
+    color: var(--color-text-primary);
+    outline: none;
+    transition: border-color var(--dur-fast, 150ms);
+  }
+
+  .fn-home-form input:focus {
+    border-color: var(--color-text-primary);
+  }
+
+  .fn-home-form button {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 10px 18px;
+    background: var(--color-text-primary);
+    color: var(--color-bg-surface);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: opacity var(--dur-fast, 150ms);
+  }
+
+  .fn-home-form button:hover {
+    opacity: 0.85;
   }
 </style>

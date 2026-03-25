@@ -10,6 +10,7 @@ interface Props {
   description?: string;
   ogImage?: string;
   bodyClass?: string;
+  glsl?: boolean;
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   description = 'HS108 — An independent design studio building brands and products that scale.',
   ogImage = '/og-default.jpg',
   bodyClass = '',
+  glsl = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -61,10 +63,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body class={bodyClass}>
-    <Nav />
-    <main>
-      <slot />
-    </main>
-    <Footer />
+    {glsl && <canvas id="glsl-canvas" aria-hidden="true"></canvas>}
+    <div class="site-wrapper">
+      <Nav />
+      <main>
+        <slot />
+      </main>
+      <Footer />
+    </div>
+    {glsl && <script src="/scripts/glsl-field.js" defer></script>}
   </body>
 </html>

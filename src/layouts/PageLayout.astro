@@ -5,12 +5,13 @@ interface Props {
   title: string;
   description?: string;
   label?: string;
+  glsl?: boolean;
 }
 
-const { title, description, label } = Astro.props;
+const { title, description, label, glsl = false } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} glsl={glsl}>
   <div class="page-header container">
     {label && <p class="t-label section-num">{label}</p>}
     <h1 class="t-h1">{title}</h1>

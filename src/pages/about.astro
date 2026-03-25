@@ -10,7 +10,7 @@ const values = [
 ];
 ---
 
-<PageLayout title="About" label="Who We Are" description="HS108 is an independent design studio founded in 2019. We build brands and digital products for companies ready to scale.">
+<PageLayout title="About" label="Who We Are" description="HS108 is an independent design studio founded in 2019. We build brands and digital products for companies ready to scale." glsl={true}>
 
   <!-- Studio narrative -->
   <div class="container about-intro">
@@ -55,8 +55,8 @@ const values = [
 
   <!-- Values -->
   <section class="section container">
-    <p class="t-label section-num" style="margin-bottom:1rem">Our Values</p>
-    <h2 class="t-h2" style="margin-bottom:3rem">What We Stand For</h2>
+    <p class="eyebrow" style="margin-bottom:1rem">Our Values</p>
+    <h2 style="margin-bottom:3rem">What We Stand For</h2>
 
     <div class="values-grid">
       {values.map(v => (
@@ -73,9 +73,12 @@ const values = [
 
   <!-- Clients -->
   <section class="section container">
-    <p class="t-label section-num" style="margin-bottom:2rem">Who We've Worked With</p>
-    <div class="clients-row">
-      {['NovaPay', 'Urbane Property', 'HealthOS', 'Luma Commerce', 'MedFlow', 'VeritasAI', 'PocketScale', 'OrbitEd'].map(name => (
+    <p class="eyebrow" style="margin-bottom:2rem">Who We've Worked With</p>
+    <div class="clients-row client-list">
+      <a href="/work/novapay" class="client-name t-h3">NovaPay</a>
+      <a href="/work/urbane-property" class="client-name t-h3">Urbane Property</a>
+      <a href="/work/healthos" class="client-name t-h3">HealthOS</a>
+      {['Luma Commerce', 'MedFlow', 'VeritasAI', 'PocketScale', 'OrbitEd'].map(name => (
         <span class="client-name t-h3">{name}</span>
       ))}
     </div>
@@ -168,9 +171,23 @@ const values = [
   .client-name {
     opacity: 0.35;
     transition: opacity var(--transition);
+    text-decoration: none;
   }
 
   .client-name:hover {
+    opacity: 1;
+  }
+
+  .client-list a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--color-border-mid);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--dur-fast, 150ms), opacity var(--transition);
+  }
+
+  .client-list a:hover {
+    text-decoration-color: var(--color-text-primary);
     opacity: 1;
   }
 
