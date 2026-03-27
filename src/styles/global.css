@@ -4,6 +4,9 @@
 
 :root {
 
+  /* ── Banner height (set to 0px by JS when dismissed) ── */
+  --banner-h: 40px;
+
   /* =====================================
      FULL HUE PALETTE
      All scales available for theming.
@@ -475,6 +478,7 @@ body {
   font-size: var(--size-body);
   line-height: 1.6;
   overflow-x: hidden;
+  padding-top: var(--banner-h);
 }
 
 img, video {

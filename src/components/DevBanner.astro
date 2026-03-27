@@ -1,0 +1,107 @@
+---
+---
+
+<div id="dev-banner" class="dev-banner" role="alert" aria-live="polite">
+  <p class="dev-banner-msg">
+    <span class="dev-banner-tag">Dev Preview</span>
+    This site is under development — content is subject to change. For any concerns, reach us at
+    <a href="mailto:contact.studio@hs108.in">contact.studio@hs108.in</a>
+  </p>
+  <button id="dev-banner-close" class="dev-banner-close" aria-label="Dismiss notice">✕</button>
+</div>
+
+<style>
+  .dev-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    height: 40px;
+    background: var(--black-native);
+    border-bottom: var(--border-width) solid var(--orange-100);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--gutter);
+    gap: 1rem;
+  }
+
+  .dev-banner.hidden {
+    display: none;
+  }
+
+  .dev-banner-msg {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-on-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+
+  .dev-banner-tag {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange-500);
+    border: var(--border-width) solid var(--orange-500);
+    padding: 2px 6px;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+
+  .dev-banner-msg a {
+    color: var(--orange-500);
+    text-decoration: none;
+  }
+
+  .dev-banner-msg a:hover {
+    text-decoration: underline;
+  }
+
+  .dev-banner-close {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--text-on-dark);
+    opacity: 0.5;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 0 0 1rem;
+    flex-shrink: 0;
+    line-height: 1;
+    transition: opacity var(--transition);
+  }
+
+  .dev-banner-close:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 600px) {
+    .dev-banner-msg {
+      font-size: 9px;
+    }
+  }
+</style>
+
+<script>
+  const banner = document.getElementById('dev-banner') as HTMLElement;
+  const closeBtn = document.getElementById('dev-banner-close') as HTMLButtonElement;
+  const STORAGE_KEY = 'hs108-dev-banner-dismissed';
+
+  closeBtn.addEventListener('click', () => {
+    banner.classList.add('hidden');
+    document.documentElement.style.setProperty('--banner-h', '0px');
+    localStorage.setItem(STORAGE_KEY, 'true');
+  });
+</script>

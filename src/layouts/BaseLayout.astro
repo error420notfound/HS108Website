@@ -1,6 +1,7 @@
 ---
 import Nav from '@components/Nav.astro';
 import Footer from '@components/Footer.astro';
+import DevBanner from '@components/DevBanner.astro';
 import '../styles/global.css';
 import '../styles/typography.css';
 import '../styles/brutalist.css';
@@ -58,8 +59,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Preconnect for Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Anti-FOUC: hide banner offset immediately if previously dismissed -->
+    <script is:inline>
+      if (localStorage.getItem('hs108-dev-banner-dismissed') === 'true') {
+        document.documentElement.style.setProperty('--banner-h', '0px');
+      }
+    </script>
   </head>
   <body class={bodyClass}>
+    <DevBanner />
     <Nav />
     <main>
       <slot />
