@@ -168,7 +168,12 @@ const process = [
 </BaseLayout>
 
 <style>
-  .svc-hero { min-height: 100vh; display: flex; align-items: stretch; }
+  .svc-hero { min-height: 100vh; display: flex; align-items: stretch;  
+    background: linear-gradient(180deg in oklch, var(--green-700) 0%, var(--green-900) 70%,  var(--green-950) 100%);
+    
+    z-index: 0;
+    mix-blend-mode: contrast;
+  }
 
   .svc-hero-inner {
     display: flex;
@@ -339,7 +344,9 @@ const process = [
 
   .process-desc { font-family: var(--font-body); font-size: var(--size-body); line-height: 1.65; opacity: 0.6; max-width: 55ch; margin: 0; }
 
-  .svc-cta { min-height: 60vh; }
+  .svc-cta { min-height: 60vh; 
+  background: linear-gradient(0deg in oklch, var(--green-700) 0%, var(--green-900) 70%,  var(--green-950) 100%);
+}
 
   .svc-cta-inner {
     display: grid;

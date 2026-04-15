@@ -169,7 +169,9 @@ const process = [
 </BaseLayout>
 
 <style>
-  .svc-hero { min-height: 100vh; display: flex; align-items: stretch; }
+  .svc-hero { min-height: 100vh; display: flex; align-items: stretch; 
+  background: linear-gradient(180deg in oklch, var(--vermilion-700) 0%, var(--vermilion-900) 70%,  var(--vermilion-950) 100%);
+  }
 
   .svc-hero-inner {
     display: flex;
@@ -340,7 +342,9 @@ const process = [
 
   .process-desc { font-family: var(--font-body); font-size: var(--size-body); line-height: 1.65; opacity: 0.6; max-width: 55ch; margin: 0; }
 
-  .svc-cta { min-height: 60vh; }
+  .svc-cta { min-height: 60vh; 
+   background: linear-gradient(0deg in oklch, var(--vermilion-700) 0%, var(--vermilion-900) 70%,  var(--vermilion-950) 100%);
+  }
 
   .svc-cta-inner {
     display: grid;
@@ -388,7 +392,7 @@ const process = [
     font-size: clamp(2.5rem, 5vw, 4rem);
     letter-spacing: -0.03em;
     line-height: 1;
-    color: var(--accent);
+    color: var(--vermilion-100);
   }
 
   .svc-stat-label {
@@ -396,8 +400,8 @@ const process = [
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text-on-dark);
-    opacity: 0.4;
+    color: var(--vermilion-200);
+    opacity: 0.8;
   }
 
   @media (max-width: 900px) {

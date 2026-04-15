@@ -15,7 +15,8 @@
      IBM Plex Serif   — editorial body companion
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Genos:ital,wght@0,700;1,700&family=Michroma&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Michroma&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Genos:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* ============================================================
    TYPE CLASSES
@@ -110,7 +111,7 @@
 .t-genos-upright {
   font-family: var(--font-alt-a-display);
   font-weight: 700;
-  font-style: normal;
+  font-style: italic ;
   line-height: 0.9;
   letter-spacing: -0.02em;
 }
@@ -136,6 +137,85 @@
   font-family: var(--font-alt-b-body);
   font-weight: 400;
   line-height: 1.6;
+}
+
+/* ── Genos — variable weight support ──────────────────────── */
+.genos-thin {
+  font-family: "Genos", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.genos-light {
+  font-family: "Genos", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.genos-regular {
+  font-family: "Genos", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.genos-medium {
+  font-family: "Genos", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.genos-semibold {
+  font-family: "Genos", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.genos-bold {
+  font-family: "Genos", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.genos-extrabold {
+  font-family: "Genos", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.genos-black {
+  font-family: "Genos", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* Italic variants */
+.genos-bold-italic {
+  font-family: "Genos", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.genos-extrabold-italic {
+  font-family: "Genos", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.genos-black-italic {
+  font-family: "Genos", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: italic;
 }
 
 /* --- Utility --- */

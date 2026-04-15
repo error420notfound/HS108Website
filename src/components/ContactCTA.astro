@@ -36,8 +36,13 @@ const {
   }
 
   .inv-block {
-    border-top-color: transparent;
+    background: rgb(26, 26, 26);
+    border-top: none;
+    position: relative;
+    z-index: 0;
   }
+
+
 
   .cta-inner {
     display: grid;
@@ -46,6 +51,7 @@ const {
     gap: 3rem;
     padding-top: var(--space-section);
     padding-bottom: var(--space-section);
+    opacity: 1;
   }
 
   .cta-text {
