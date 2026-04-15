@@ -3,88 +3,99 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import ContactCTA from '@components/ContactCTA.astro';
 
 const deliverables = [
-  { group: 'Brand Strategy', items: ['Brand positioning & strategy', 'Naming & messaging framework', 'Audience definition & personas', 'Competitive landscape analysis', 'Brand voice & tone guidelines'] },
-  { group: 'Visual Identity', items: ['Logo system & wordmark', 'Colour palette & type system', 'Imagery & photography direction', 'Iconography & illustration style', 'Full brand guidelines document'] },
-  { group: 'Applied Design', items: ['Packaging design & dielines', 'Stationery & print collateral', 'Environmental & signage concepts', 'Digital asset templates', 'Launch kit & brand rollout assets'] },
+  { group: 'Brand Strategy', items: ['Brand audit & competitive analysis', 'Positioning & messaging framework', 'Brand values & personality definition', 'Target audience mapping', 'Brand architecture planning'] },
+  { group: 'Visual Identity', items: ['Logo system & wordmark', 'Colour palette & typography system', 'Imagery & illustration direction', 'Iconography & graphic elements', 'Brand guidelines document'] },
+  { group: 'Applied Design', items: ['Stationery & print collateral', 'Packaging design', 'Social media templates', 'Signage & environmental graphics', 'Launch asset production'] },
 ];
 
 const process = [
-  { n: '01', title: 'Discover', desc: 'Brand audit, stakeholder interviews, and market analysis to understand where you are and where you need to go.' },
-  { n: '02', title: 'Define', desc: 'Positioning, naming, and messaging — the strategic foundation everything visual builds from.' },
-  { n: '03', title: 'Design', desc: 'Visual identity development from concepts through refinement to a complete, consistent system.' },
-  { n: '04', title: 'Deploy', desc: 'Guidelines, templates, and launch assets that let your team execute the identity immediately and consistently.' },
+  { n: '01', title: 'Discover', desc: 'Stakeholder interviews, market research, and brand audit to understand where you are and where you need to go.' },
+  { n: '02', title: 'Define', desc: 'Positioning, messaging, and brand personality — the strategic foundation that everything visual is built on.' },
+  { n: '03', title: 'Design', desc: 'Logo, colour, typography, and all the visual elements that make the brand coherent and recognisable.' },
+  { n: '04', title: 'Deploy', desc: 'Guidelines, templates, and production assets — everything needed to launch and maintain the brand consistently.' },
 ];
 ---
 
 <BaseLayout
-  title="CX&Identity"
-  description="CX&Identity is HS108's branding practice — logo design, brand identity, and packaging for companies that need to stand out and stay consistent."
+  title="CX&Identity — Branding & Identity"
+  description="CX&Identity is HS108's branding practice — brand strategy, visual identity systems, and applied design for companies ready to scale."
   bodyClass="theme-purple"
 >
-  <!-- Hero -->
-  <div class="cx-hero inv-block">
-    <div class="container cx-hero-inner">
-      <div class="cx-hero-left">
-        <span class="t-label cx-service-label">A Service by HS108</span>
-        <p class="t-label cx-code">CX&amp;Identity</p>
-        <h1 class="t-h1 cx-title">Branding<br />&amp; Identity</h1>
-        <div class="cx-tags">
-          <span class="tag cx-tag">Logo</span>
-          <span class="tag cx-tag">Identity</span>
-          <span class="tag cx-tag">Packaging</span>
-        </div>
+
+  <!-- SECTION 1: Hero -->
+  <section class="svc-hero inv-block" id="svc-hero">
+    <div class="container svc-hero-inner">
+      <div class="svc-hero-top">
+        <span class="t-label svc-service-label">A Service by HS108</span>
+        <span class="t-label svc-code">CX&amp;Identity</span>
       </div>
-      <div class="cx-hero-right">
-        <p class="t-large cx-tagline">
-          A brand is more than a logo. We build the full identity system — strategy, visual language, and the guidelines that keep it coherent as your company grows.
-        </p>
-        <div class="cx-hero-meta">
-          <div class="cx-meta-item">
-            <span class="t-label cx-meta-label">Timeline</span>
-            <span class="t-mono cx-meta-val">6–10 weeks for full identity</span>
+      <div class="svc-hero-body">
+        <div class="svc-hero-title-wrap">
+          <h1 class="svc-hero-title">Branding<br />&amp; <em>Identity.</em></h1>
+        </div>
+        <div class="svc-hero-right">
+          <p class="svc-tagline">
+            A brand is more than a logo. We build the full identity system — strategy, visual language, and the guidelines that keep it coherent as your company grows.
+          </p>
+          <div class="svc-meta-row">
+            <div class="svc-meta-item">
+              <span class="svc-meta-label">Timeline</span>
+              <span class="svc-meta-val">6–10 weeks</span>
+            </div>
+            <div class="svc-meta-item">
+              <span class="svc-meta-label">Output</span>
+              <span class="svc-meta-val">Full brand guidelines + production files</span>
+            </div>
+            <div class="svc-meta-item">
+              <span class="svc-meta-label">Scope</span>
+              <span class="svc-meta-val">Logo · Identity · Packaging</span>
+            </div>
           </div>
-          <div class="cx-meta-item">
-            <span class="t-label cx-meta-label">Output</span>
-            <span class="t-mono cx-meta-val">Brand guidelines + all asset formats</span>
+          <div class="svc-hero-tags">
+            <span class="tag svc-tag">Logo</span>
+            <span class="tag svc-tag">Identity</span>
+            <span class="tag svc-tag">Packaging</span>
+            <span class="tag svc-tag">Strategy</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="container cx-body">
-
-    <!-- What we do -->
-    <section class="cx-section">
-      <div class="cx-two-col">
-        <div>
-          <p class="t-label" style="opacity:0.4; margin-bottom:1rem">What We Do</p>
-          <h2 class="t-h2">Identity that holds<br />at any scale.</h2>
-        </div>
-        <div class="prose cx-prose">
-          <p>
-            CX&Identity is HS108's branding practice. We help companies establish and own a visual identity that is distinctive, coherent, and built to last — from the logo on a business card to the brand expression across a full product ecosystem.
-          </p>
-          <p>
-            Every engagement starts with strategy. We don't design logos in a vacuum — we understand who you're for, what you stand for, and how you need to be perceived. The visual work follows directly from that foundation.
-          </p>
-          <p>
-            The result is a brand system that your team can implement without us — because we build guidelines that leave nothing open to interpretation.
-          </p>
-        </div>
+  <!-- SECTION 2: Manifesto -->
+  <section class="svc-section svc-manifesto">
+    <div class="container">
+      <p class="t-label svc-section-label" data-wipe>What We Do</p>
+      <div class="svc-statement-wrap">
+        <h2 class="svc-statement" data-wipe>A brand that stops<br /><em>explaining itself.</em></h2>
       </div>
-    </section>
+      <div class="svc-manifesto-body">
+        <p class="svc-prose" data-fade>
+          CX&Identity is HS108's branding practice. The name reflects the dual focus: Customer Experience — how people feel at every touchpoint — and Identity — the visual and verbal system that carries that feeling consistently.
+        </p>
+        <p class="svc-prose" data-fade>
+          We work strategy-first. Every logo, colour choice, and typographic decision traces back to a clear articulation of who you are, who you're for, and what makes you worth choosing.
+        </p>
+        <p class="svc-prose" data-fade>
+          The result isn't a logo file. It's a brand system — something your team can use, your partners can apply, and your customers can recognise across every medium and moment.
+        </p>
+      </div>
+    </div>
+  </section>
 
-    <hr />
+  <hr />
 
-    <!-- Deliverables -->
-    <section class="cx-section">
-      <p class="t-label" style="opacity:0.4; margin-bottom:3rem">Deliverables</p>
-      <div class="del-grid">
+  <!-- SECTION 3: Deliverables -->
+  <section class="svc-section svc-deliverables">
+    <div class="container">
+      <p class="t-label svc-section-label" data-wipe>Deliverables</p>
+      <div class="del-rows">
         {deliverables.map(group => (
-          <div class="del-group b-box">
-            <p class="t-label del-group-title">{group.group}</p>
-            <ul class="del-list">
+          <div class="del-row" data-fade>
+            <div class="del-row-left">
+              <p class="t-label del-group-name">{group.group}</p>
+            </div>
+            <ul class="del-row-items">
               {group.items.map(item => (
                 <li class="t-mono del-item">{item}</li>
               ))}
@@ -92,304 +103,408 @@ const process = [
           </div>
         ))}
       </div>
-    </section>
+    </div>
+  </section>
 
-    <hr />
+  <hr />
 
-    <!-- Process -->
-    <section class="cx-section">
-      <p class="t-label" style="opacity:0.4; margin-bottom:3rem">How We Work</p>
-      <div class="process-grid">
+  <!-- SECTION 4: Process -->
+  <section class="svc-section svc-process">
+    <div class="container">
+      <p class="t-label svc-section-label" data-wipe>How We Work</p>
+      <div class="process-rows">
         {process.map(step => (
-          <div class="process-step b-box">
-            <span class="t-label process-num">{step.n}</span>
-            <h3 class="t-h3 process-title">{step.title}</h3>
-            <p class="t-body process-desc">{step.desc}</p>
+          <div class="process-row" data-fade>
+            <span class="process-num">{step.n}</span>
+            <div class="process-content">
+              <h3 class="process-title">{step.title}</h3>
+              <p class="process-desc">{step.desc}</p>
+            </div>
           </div>
         ))}
       </div>
-    </section>
+    </div>
+  </section>
 
-    <hr />
+  <hr />
 
-    <!-- CTA -->
-    <section class="cx-section cx-cta">
-      <div class="cx-cta-grid">
-        <div>
-          <h2 class="t-h2" style="margin-bottom:1rem">Start a CX&amp;Identity project.</h2>
-          <p class="t-body" style="opacity:0.65; max-width:48ch; margin-bottom:2rem">
-            Whether you're starting from scratch or rebranding an established company, tell us where you are. We'll figure out what you need.
-          </p>
-          <div class="cx-cta-btns">
-            <a href="/contact" class="btn btn--primary">Get In Touch</a>
-            <a href="/services" class="btn btn--outline">← All Services</a>
-          </div>
-        </div>
-        <div class="cx-stat-block inv-block">
-          <p class="t-label" style="opacity:0.4; margin-bottom:2rem">CX&amp;Identity at a Glance</p>
-          <div class="cx-stats">
-            <div class="cx-stat">
-              <span class="cx-stat-val t-h1">6–10</span>
-              <span class="t-label cx-stat-label">Weeks for a full identity system</span>
-            </div>
-            <div class="cx-stat">
-              <span class="cx-stat-val t-h1">0</span>
-              <span class="t-label cx-stat-label">Templated logos — everything bespoke</span>
-            </div>
-          </div>
+  <!-- SECTION 5: CTA -->
+  <section class="svc-section svc-cta inv-block">
+    <div class="container svc-cta-inner">
+      <div class="svc-cta-left">
+        <p class="t-label svc-section-label svc-section-label--inv" data-wipe>Start a project</p>
+        <h2 class="svc-cta-headline" data-wipe>
+          Build a brand that<br /><em>scales with you.</em>
+        </h2>
+        <p class="svc-cta-sub" data-fade>
+          Tell us about your business — where it is now and where you're taking it. We'll build a brand system that grows with you.
+        </p>
+        <div class="svc-cta-btns" data-fade>
+          <a href="/contact" class="btn btn--outline-inv">Get In Touch</a>
+          <a href="/services" class="btn btn--outline-inv svc-btn-ghost">← All Services</a>
         </div>
       </div>
-    </section>
-
-  </div>
+      <div class="svc-cta-stats" data-fade>
+        <div class="svc-stat">
+          <span class="svc-stat-val">6–10</span>
+          <span class="svc-stat-label">Weeks for a complete identity system</span>
+        </div>
+        <div class="svc-stat">
+          <span class="svc-stat-val">0</span>
+          <span class="svc-stat-label">Templated logos. Every mark is made for you.</span>
+        </div>
+        <div class="svc-stat">
+          <span class="svc-stat-val">1</span>
+          <span class="svc-stat-label">Senior designer on every project. No juniors.</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <ContactCTA
-    headline="Building more than a brand?"
-    sub="CX&Identity pairs with WebCanvas and Lumina.raw for a complete brand and digital presence."
+    headline="Need more than a brand?"
+    sub="CX&Identity pairs with WebCanvas, CMF_Nexus, and Lumina.raw for full launch coverage."
   />
+
 </BaseLayout>
 
 <style>
-  .cx-hero {
-    min-height: 60vh;
+  .svc-hero {
+    min-height: 100vh;
     display: flex;
-    align-items: flex-end;
-    padding-top: 10rem;
-    padding-bottom: 0;
+    align-items: stretch;
   }
 
-  .cx-hero-inner {
+  .svc-hero-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: clamp(6rem, 12vw, 10rem);
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+    width: 100%;
+    border-bottom: var(--border-width) solid rgba(255,255,255,0.12);
+  }
+
+  .svc-hero-top {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: clamp(2rem, 6vw, 4rem);
+  }
+
+  .svc-service-label { opacity: 0.4; color: var(--text-on-dark); }
+  .svc-code { color: var(--accent); }
+
+  .svc-hero-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: end;
-    padding-bottom: 4rem;
-    border-bottom: var(--border-width) solid rgba(255,255,255,0.15);
   }
 
-  .cx-service-label {
-    opacity: 0.4;
-    display: block;
-    margin-bottom: 1.5rem;
+  .svc-hero-title-wrap { overflow: hidden; }
+
+  .svc-hero-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(4rem, 9vw, 9rem);
+    letter-spacing: -0.03em;
+    line-height: 0.95;
     color: var(--text-on-dark);
+    margin: 0;
   }
 
-  .cx-code {
-    color: var(--accent);
-    display: block;
-    margin-bottom: 0.5rem;
-  }
+  .svc-hero-title em { font-style: italic; color: var(--accent); }
 
-  .cx-title {
-    color: var(--text-on-dark);
-    margin-bottom: 1.5rem;
-  }
-
-  .cx-tags {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-
-  .cx-tag {
-    border-color: rgba(255,255,255,0.2);
-    color: var(--text-on-dark);
-  }
-
-  .cx-tagline {
+  .svc-tagline {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.7;
     color: var(--text-on-dark);
     opacity: 0.7;
     max-width: 50ch;
+    margin: 0 0 2rem;
+  }
+
+  .svc-meta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     margin-bottom: 2rem;
+    padding-top: 1.5rem;
+    border-top: var(--border-width) solid rgba(255,255,255,0.12);
   }
 
-  .cx-hero-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
+  .svc-meta-item { display: flex; gap: 1rem; align-items: baseline; }
 
-  .cx-meta-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .cx-meta-label {
+  .svc-meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
     opacity: 0.35;
     color: var(--text-on-dark);
+    flex-shrink: 0;
+    min-width: 6ch;
   }
 
-  .cx-meta-val {
-    color: var(--text-on-dark);
-    font-size: 12px;
-  }
-
-  .cx-body {
-    padding-bottom: var(--space-section);
-  }
-
-  .cx-section {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-
-  .cx-two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .cx-prose p {
-    margin-bottom: 1.25rem;
-    opacity: 0.7;
-    line-height: 1.75;
-    max-width: 60ch;
-  }
-
-  .del-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-gap);
-  }
-
-  .del-group {
-    padding: var(--space-card);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .del-group-title { color: var(--accent); }
-
-  .del-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .del-item {
-    padding-left: 1rem;
-    position: relative;
-    opacity: 0.65;
+  .svc-meta-val {
+    font-family: var(--font-mono);
     font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--text-on-dark);
+    opacity: 0.8;
   }
+
+  .svc-hero-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .svc-tag { border-color: rgba(255,255,255,0.2); color: var(--text-on-dark); }
+
+  .svc-section {
+    padding-top: clamp(4rem, 8vw, 8rem);
+    padding-bottom: clamp(4rem, 8vw, 8rem);
+  }
+
+  .svc-section-label { opacity: 0.4; margin-bottom: 2rem; display: block; }
+  .svc-section-label--inv { color: var(--text-on-dark); }
+
+  .svc-statement-wrap { overflow: hidden; margin-bottom: 4rem; }
+
+  .svc-statement {
+    font-family: var(--font-display);
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    max-width: 22ch;
+    margin: 0;
+  }
+
+  .svc-statement em { font-style: italic; }
+
+  .svc-manifesto-body {
+    max-width: 60ch;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-left: clamp(0px, 10vw, 10rem);
+  }
+
+  .svc-prose {
+    font-family: var(--font-body);
+    font-size: var(--size-large);
+    line-height: 1.75;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .del-rows { display: flex; flex-direction: column; }
+
+  .del-row {
+    display: grid;
+    grid-template-columns: 20ch 1fr;
+    gap: 3rem;
+    align-items: start;
+    padding: 2.5rem 0;
+    border-top: var(--border-width) solid var(--border);
+  }
+
+  .del-row:last-child { border-bottom: var(--border-width) solid var(--border); }
+
+  .del-group-name { color: var(--accent); margin: 0; }
+
+  .del-row-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+  }
+
+  .del-item { font-size: 11px; opacity: 0.65; position: relative; padding-left: 1rem; }
 
   .del-item::before {
-    content: '→';
+    content: '—';
     position: absolute;
     left: 0;
+    font-family: var(--font-mono);
     font-size: 10px;
-    opacity: 0.5;
+    opacity: 0.4;
   }
 
-  .process-grid {
+  .process-rows { display: flex; flex-direction: column; }
+
+  .process-row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-gap);
+    grid-template-columns: 6rem 1fr;
+    gap: 2rem;
+    align-items: start;
+    padding: 3rem 0;
+    border-top: var(--border-width) solid var(--border);
   }
 
-  .process-step {
-    padding: var(--space-card);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  .process-row:last-child { border-bottom: var(--border-width) solid var(--border); }
+
+  .process-num {
+    font-family: var(--font-display);
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    opacity: 0.08;
+    color: var(--black-native);
+    user-select: none;
   }
 
-  .process-num { opacity: 0.3; }
-  .process-title { color: var(--accent); }
+  .process-content { display: flex; flex-direction: column; gap: 0.75rem; padding-top: 0.5rem; }
+
+  .process-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--accent);
+    margin: 0;
+  }
 
   .process-desc {
+    font-family: var(--font-body);
+    font-size: var(--size-body);
+    line-height: 1.65;
     opacity: 0.6;
-    font-size: 14px;
-    line-height: 1.6;
+    max-width: 55ch;
+    margin: 0;
   }
 
-  .cx-cta-grid {
+  .svc-cta { min-height: 60vh; }
+
+  .svc-cta-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 6rem;
     align-items: start;
+    padding-top: clamp(4rem, 8vw, 8rem);
+    padding-bottom: clamp(4rem, 8vw, 8rem);
   }
 
-  .cx-cta-btns {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .cx-stat-block { padding: var(--space-card); }
-
-  .cx-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .cx-stat {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .cx-stat-val {
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .cx-stat-label {
-    opacity: 0.4;
+  .svc-cta-headline {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
     color: var(--text-on-dark);
+    margin: 0 0 2rem;
+  }
+
+  .svc-cta-headline em { font-style: italic; }
+
+  .svc-cta-sub {
+    font-family: var(--font-body);
+    font-size: var(--size-body);
+    line-height: 1.7;
+    color: var(--text-on-dark);
+    opacity: 0.6;
+    max-width: 45ch;
+    margin: 0 0 2.5rem;
+  }
+
+  .svc-cta-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .svc-btn-ghost { opacity: 0.5; }
+
+  .svc-cta-stats {
+    display: flex;
+    flex-direction: column;
+    border-top: var(--border-width) solid rgba(255,255,255,0.15);
+  }
+
+  .svc-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 2rem 0;
+    border-bottom: var(--border-width) solid rgba(255,255,255,0.12);
+  }
+
+  .svc-stat-val {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .svc-stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-on-dark);
+    opacity: 0.4;
   }
 
   @media (max-width: 900px) {
-    .cx-hero-inner,
-    .cx-two-col,
-    .cx-cta-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .del-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .process-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    .svc-hero-body, .svc-cta-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .del-row { grid-template-columns: 1fr; gap: 1rem; }
+    .svc-manifesto-body { padding-left: 0; }
   }
 
   @media (max-width: 600px) {
-    .process-grid {
-      grid-template-columns: 1fr;
-    }
+    .svc-hero { min-height: 90vh; }
+    .del-row-items { flex-direction: column; gap: 0.5rem; }
+    .process-row { grid-template-columns: 1fr; gap: 0.5rem; }
+    .process-num { font-size: 3rem; }
   }
 </style>
 
 <script>
-  import { animate, inView, stagger } from 'motion';
+  import { animate, inView } from 'motion';
   const ease = [0.16, 1, 0.3, 1] as const;
 
-  const hero = document.querySelector<HTMLElement>('.cx-hero-inner');
-  if (hero) {
-    hero.style.opacity = '0';
-    animate(hero, { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0px)'] }, { duration: 0.65, easing: ease });
+  const heroTitle = document.querySelector<HTMLElement>('.svc-hero-title');
+  if (heroTitle) {
+    heroTitle.style.transform = 'translateY(60px)';
+    heroTitle.style.opacity = '0';
+    setTimeout(() => {
+      // @ts-ignore — motion v12 overload resolution bug with HTMLElement
+      animate(heroTitle, { transform: ['translateY(60px)', 'translateY(0px)'], opacity: [0, 1] }, { duration: 1.0, easing: ease, delay: 0.1 });
+    }, 50);
   }
 
-  document.querySelectorAll<HTMLElement>('.del-group').forEach(group => {
-    group.style.opacity = '0';
-    inView(group, () => {
-      animate(group, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.55, easing: ease });
-    }, { amount: 0.1 });
+  const heroRight = document.querySelector<HTMLElement>('.svc-hero-right');
+  if (heroRight) {
+    heroRight.style.opacity = '0';
+    heroRight.style.transform = 'translateY(24px)';
+    setTimeout(() => {
+      // @ts-ignore — motion v12 overload resolution bug with HTMLElement
+      animate(heroRight, { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0px)'] }, { duration: 0.8, easing: ease, delay: 0.35 });
+    }, 50);
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-wipe]').forEach(el => {
+    el.style.transform = 'translateY(40px)';
+    el.style.opacity = '0';
+    inView(el, () => {
+      // @ts-ignore — motion v12 overload resolution bug with HTMLElement
+      animate(el, { transform: ['translateY(40px)', 'translateY(0px)'], opacity: [0, 1] }, { duration: 0.75, easing: ease });
+    }, { amount: 0.2 });
   });
 
-  const processGrid = document.querySelector<HTMLElement>('.process-grid');
-  if (processGrid) {
-    const steps = processGrid.querySelectorAll<HTMLElement>('.process-step');
-    steps.forEach(el => { el.style.opacity = '0'; });
-    inView(processGrid, () => {
-      animate(steps, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.5, easing: ease, delay: stagger(0.08) });
-    }, { amount: 0.1 });
-  }
+  document.querySelectorAll<HTMLElement>('[data-fade]').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    inView(el, () => {
+      // @ts-ignore — motion v12 overload resolution bug with HTMLElement
+      animate(el, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.65, easing: ease, delay: i * 0.05 });
+    }, { amount: 0.15 });
+  });
 </script>

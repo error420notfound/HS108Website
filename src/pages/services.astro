@@ -46,74 +46,108 @@ const services = [
 ];
 ---
 
-<PageLayout title="Services" label="What We Do" description="HS108 design services — WebCanvas, CX&Identity, CMF_Nexus, and Lumina.raw. Digital design, branding, product design, and visual production.">
+<PageLayout
+  title="Services"
+  label="What We Do"
+  description="HS108 design services — WebCanvas, CX&Identity, CMF_Nexus, and Lumina.raw. Digital design, branding, product design, and visual production."
+>
 
-  <div class="container services-intro">
-    <p class="t-large services-lede">
-      Four specialised practices. One studio.
+  <!-- Intro statement -->
+  <div class="container svc-intro">
+    <div class="svc-intro-statement-wrap">
+      <p class="svc-intro-statement" data-wipe>
+        Four specialised practices.<br /><em>One studio.</em>
+      </p>
+    </div>
+    <p class="svc-intro-lede" data-fade>
       We don't offer everything — we offer the things we're exceptional at.
+      Each practice is deep, not broad. Senior talent, strategic thinking, and craft at every level.
     </p>
   </div>
 
-  <div class="services-list">
-    {services.map(svc => (
-      <div class="svc-row container">
-        <div class="svc-header">
-          <span class="t-label svc-num">{svc.num}</span>
-          <div class="svc-name-block">
-            <span class="t-label svc-code">{svc.code}</span>
-            <h2 class="t-h2 svc-name">{svc.name}</h2>
+  <hr />
+
+  <!-- Service rows — full-width editorial -->
+  <div class="svc-list">
+    {services.map((svc, i) => (
+      <a href={svc.href} class="svc-row" data-fade>
+        <div class="container svc-row-inner">
+          <div class="svc-row-left">
+            <span class="svc-row-num">{svc.num}</span>
+            <div class="svc-row-name-block">
+              <span class="svc-row-code">{svc.code}</span>
+              <h2 class="svc-row-name">{svc.name}</h2>
+            </div>
           </div>
-          <span class="tag svc-accent">{svc.accent}</span>
-          <span class="tag">{svc.timeline}</span>
-          <a href={svc.href} class="btn btn--outline svc-detail-btn">Full Practice →</a>
-        </div>
-        <div class="svc-body">
-          <p class="t-body svc-desc">{svc.desc}</p>
-          <div class="svc-deliverables">
-            <p class="t-label svc-del-label">Deliverables</p>
-            <ul class="svc-del-list">
-              {svc.deliverables.map(d => <li class="t-mono">{d}</li>)}
-            </ul>
+          <div class="svc-row-mid">
+            <p class="svc-row-desc">{svc.desc}</p>
+          </div>
+          <div class="svc-row-right">
+            <span class="svc-row-timeline">{svc.timeline}</span>
+            <span class="svc-row-arrow">&rarr;</span>
           </div>
         </div>
-        <hr />
-      </div>
+      </a>
     ))}
   </div>
 
+  <hr />
+
+  <!-- Deliverables expansion — all services -->
+  <div class="container svc-detail">
+    <p class="t-label svc-detail-label" data-wipe>What's Included</p>
+    <div class="svc-detail-grid">
+      {services.map(svc => (
+        <div class="svc-detail-card" data-fade>
+          <div class="svc-detail-header">
+            <span class="svc-detail-code">{svc.code}</span>
+            <span class="svc-detail-name">{svc.name}</span>
+          </div>
+          <ul class="svc-detail-list">
+            {svc.deliverables.map(d => (
+              <li class="svc-detail-item">{d}</li>
+            ))}
+          </ul>
+          <a href={svc.href} class="svc-detail-link">Full Practice &rarr;</a>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <hr />
+
   <!-- Programs callout -->
-  <div class="container services-programs">
-    <p class="t-label" style="opacity:0.4; margin-bottom:1.5rem">Also From HS108</p>
+  <div class="container svc-programs">
+    <p class="t-label svc-programs-label" data-wipe>Also From HS108</p>
     <div class="programs-grid">
-      <div class="program-card b-box">
-        <p class="t-label program-label">Creative Department</p>
-        <p class="t-body program-desc">Our flagship retainer — an embedded design team that grows with your business.</p>
-        <a href="/programs/creative-department" class="btn btn--outline">Learn More →</a>
-      </div>
-      <div class="program-card b-box">
-        <p class="t-label program-label">Design Lab</p>
-        <p class="t-body program-desc">Research and discovery for high-demand, complex design challenges.</p>
-        <a href="/programs/design-lab" class="btn btn--outline">Learn More →</a>
-      </div>
-      <div class="program-card b-box">
-        <p class="t-label program-label">off_menu</p>
-        <p class="t-body program-desc">Bespoke, tailor-made packages for clients with unique requirements.</p>
-        <a href="/programs/off-menu" class="btn btn--outline">Learn More →</a>
-      </div>
-      <div class="program-card b-box">
-        <p class="t-label program-label">Field Notes</p>
-        <p class="t-body program-desc">A platform for discourse with designers, artisans, and industry thinkers.</p>
-        <a href="/programs/field-notes" class="btn btn--outline">Learn More →</a>
-      </div>
+      <a href="/programs/creative-department" class="program-card" data-fade>
+        <p class="t-label program-code">Creative Department</p>
+        <p class="program-desc">Our flagship retainer — an embedded design team that grows with your business.</p>
+        <span class="program-link">Learn More &rarr;</span>
+      </a>
+      <a href="/programs/design-lab" class="program-card" data-fade>
+        <p class="t-label program-code">Design Lab</p>
+        <p class="program-desc">Research and discovery for high-demand, complex design challenges.</p>
+        <span class="program-link">Learn More &rarr;</span>
+      </a>
+      <a href="/programs/off-menu" class="program-card" data-fade>
+        <p class="t-label program-code">off_menu</p>
+        <p class="program-desc">Bespoke, tailor-made packages for clients with unique requirements.</p>
+        <span class="program-link">Learn More &rarr;</span>
+      </a>
+      <a href="/programs/field-notes" class="program-card" data-fade>
+        <p class="t-label program-code">Field Notes</p>
+        <p class="program-desc">A platform for discourse with designers, artisans, and industry thinkers.</p>
+        <span class="program-link">Learn More &rarr;</span>
+      </a>
     </div>
   </div>
 
   <!-- Callout -->
-  <div class="container services-callout inv-block">
-    <p class="t-label" style="opacity:0.4; margin-bottom:1rem">Not sure what you need?</p>
-    <h2 class="t-h2" style="margin-bottom:1.5rem">Start with a conversation.</h2>
-    <p class="t-body" style="opacity:0.6; max-width:50ch; margin-bottom:2rem">
+  <div class="container svc-callout inv-block" data-fade>
+    <p class="t-label svc-callout-label">Not sure what you need?</p>
+    <h2 class="svc-callout-headline">Start with a conversation.</h2>
+    <p class="svc-callout-sub">
       Most projects don't fit neatly into one service. Tell us what you're building
       and we'll figure out the right scope together.
     </p>
@@ -125,146 +159,383 @@ const services = [
 </PageLayout>
 
 <style>
-  .services-intro {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    border-bottom: var(--border-width) solid var(--border);
+  /* ── Intro ── */
+  .svc-intro {
+    padding-top: clamp(3rem, 6vw, 5rem);
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
   }
 
-  .services-lede {
-    max-width: 65ch;
+  .svc-intro-statement-wrap {
+    overflow: hidden;
   }
 
-  .services-list {
+  .svc-intro-statement {
+    font-family: var(--font-display);
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  .svc-intro-statement em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .svc-intro-lede {
+    font-family: var(--font-body);
+    font-size: var(--size-large);
+    line-height: 1.7;
+    opacity: 0.65;
+    max-width: 50ch;
+    margin: 0;
+  }
+
+  /* ── Service rows ── */
+  .svc-list {
     display: flex;
     flex-direction: column;
   }
 
   .svc-row {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    display: block;
+    border-bottom: var(--border-width) solid var(--border);
+    transition: background var(--transition);
+    text-decoration: none;
+    color: inherit;
   }
 
-  .svc-header {
+  .svc-row:hover {
+    background: var(--accent);
+    color: var(--surface-base);
+  }
+
+  .svc-row-inner {
+    display: grid;
+    grid-template-columns: 18rem 1fr auto;
+    gap: 3rem;
+    align-items: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .svc-row-left {
     display: flex;
     align-items: baseline;
     gap: 1.5rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
   }
 
-  .svc-num {
+  .svc-row-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
     opacity: 0.3;
     flex-shrink: 0;
   }
 
-  .svc-name-block {
-    flex: 1;
+  .svc-row-name-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
   }
 
-  .svc-code {
-    opacity: 0.45;
-    display: block;
-    margin-bottom: 0.35rem;
+  .svc-row-code {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.5;
     color: var(--accent);
   }
 
-  .svc-name {
-    line-height: 1;
-  }
-
-  .svc-accent {
-    background: var(--surface-elevated);
+  .svc-row:hover .svc-row-code {
+    color: var(--surface-base);
     opacity: 0.7;
   }
 
-  .svc-detail-btn {
-    margin-left: auto;
-    flex-shrink: 0;
-    font-size: 10px;
-    padding: 8px 14px;
+  .svc-row-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin: 0;
   }
 
-  .svc-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 2rem;
+  .svc-row-mid {
+    flex: 1;
   }
 
-  .svc-desc {
-    opacity: 0.65;
+  .svc-row-desc {
+    font-family: var(--font-body);
+    font-size: var(--size-body);
+    line-height: 1.65;
+    opacity: 0.6;
     max-width: 55ch;
-    line-height: 1.7;
+    margin: 0;
   }
 
-  .svc-del-label {
+  .svc-row:hover .svc-row-desc {
+    opacity: 0.8;
+  }
+
+  .svc-row-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-shrink: 0;
+  }
+
+  .svc-row-timeline {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
     opacity: 0.4;
-    margin-bottom: 1rem;
+    white-space: nowrap;
   }
 
-  .svc-del-list {
+  .svc-row-arrow {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1;
+    opacity: 0.4;
+    transition: opacity var(--transition), transform var(--transition);
+  }
+
+  .svc-row:hover .svc-row-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  /* ── Deliverables detail grid ── */
+  .svc-detail {
+    padding-top: clamp(4rem, 8vw, 7rem);
+    padding-bottom: clamp(4rem, 8vw, 7rem);
+  }
+
+  .svc-detail-label {
+    opacity: 0.4;
+    margin-bottom: 3rem;
+    display: block;
+  }
+
+  .svc-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: var(--border-width) solid var(--border);
+    border-left: var(--border-width) solid var(--border);
+  }
+
+  .svc-detail-card {
+    padding: 2rem;
+    border-right: var(--border-width) solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .svc-detail-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .svc-detail-code {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    opacity: 0.8;
+  }
+
+  .svc-detail-name {
+    font-family: var(--font-body);
+    font-size: var(--size-body);
+    font-weight: 400;
+    opacity: 0.5;
+  }
+
+  .svc-detail-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    flex: 1;
   }
 
-  .svc-del-list li {
-    padding-left: 1.25rem;
+  .svc-detail-item {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    opacity: 0.6;
+    padding-left: 1rem;
     position: relative;
-    opacity: 0.7;
   }
 
-  .svc-del-list li::before {
+  .svc-detail-item::before {
     content: '—';
     position: absolute;
     left: 0;
-    opacity: 0.4;
-    font-family: var(--font-mono);
+    opacity: 0.35;
     font-size: 10px;
   }
 
-  /* Programs grid */
-  .services-programs {
-    padding-top: var(--space-section);
-    padding-bottom: var(--space-section);
+  .svc-detail-link {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity var(--transition);
+  }
+
+  .svc-detail-link:hover {
+    opacity: 1;
+  }
+
+  /* ── Programs ── */
+  .svc-programs {
+    padding-top: clamp(4rem, 8vw, 7rem);
+    padding-bottom: clamp(4rem, 8vw, 7rem);
+  }
+
+  .svc-programs-label {
+    opacity: 0.4;
+    margin-bottom: 2.5rem;
+    display: block;
   }
 
   .programs-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--space-gap);
-    margin-top: 1.5rem;
   }
 
   .program-card {
-    padding: var(--space-card);
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding: var(--space-card);
+    border: var(--border-width) solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: background var(--transition), color var(--transition);
   }
 
-  .program-label {
+  .program-card:hover {
+    background: var(--accent);
+    color: var(--surface-base);
+    border-color: var(--accent);
+  }
+
+  .program-code {
     color: var(--accent);
+    margin: 0;
+    transition: color var(--transition);
+  }
+
+  .program-card:hover .program-code {
+    color: var(--surface-base);
+    opacity: 0.7;
   }
 
   .program-desc {
-    opacity: 0.6;
-    line-height: 1.6;
-    flex: 1;
+    font-family: var(--font-body);
     font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.6;
+    flex: 1;
+    margin: 0;
+    transition: opacity var(--transition);
   }
 
-  /* Callout */
-  .services-callout {
+  .program-card:hover .program-desc {
+    opacity: 0.8;
+  }
+
+  .program-link {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+    transition: opacity var(--transition);
+  }
+
+  .program-card:hover .program-link {
+    opacity: 1;
+  }
+
+  /* ── Callout ── */
+  .svc-callout {
     padding: var(--space-section) var(--gutter);
-    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .svc-callout-label {
+    opacity: 0.4;
+    color: var(--text-on-dark);
+    margin: 0;
+  }
+
+  .svc-callout-headline {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--text-on-dark);
+    margin: 0;
+  }
+
+  .svc-callout-sub {
+    font-family: var(--font-body);
+    font-size: var(--size-body);
+    line-height: 1.7;
+    opacity: 0.6;
+    max-width: 50ch;
+    color: var(--text-on-dark);
+    margin: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .svc-detail-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 900px) {
-    .svc-body {
+    .svc-intro {
       grid-template-columns: 1fr;
       gap: 2rem;
+    }
+
+    .svc-row-inner {
+      grid-template-columns: 1fr auto;
+      gap: 1.5rem;
+    }
+
+    .svc-row-mid {
+      display: none;
     }
 
     .programs-grid {
@@ -273,6 +544,19 @@ const services = [
   }
 
   @media (max-width: 600px) {
+    .svc-row-inner {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .svc-row-right {
+      gap: 1rem;
+    }
+
+    .svc-detail-grid {
+      grid-template-columns: 1fr;
+    }
+
     .programs-grid {
       grid-template-columns: 1fr;
     }
@@ -280,33 +564,26 @@ const services = [
 </style>
 
 <script>
-  import { animate, inView, stagger } from 'motion';
+  import { animate, inView } from 'motion';
   const ease = [0.16, 1, 0.3, 1] as const;
 
-  // Service rows staggered on scroll
-  document.querySelectorAll<HTMLElement>('.svc-row').forEach(row => {
-    row.style.opacity = '0';
-    inView(row, () => {
-      animate(row, { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0px)'] }, { duration: 0.6, easing: ease });
-    }, { amount: 0.08 });
+  // Intro statement wipe-in
+  document.querySelectorAll<HTMLElement>('[data-wipe]').forEach(el => {
+    el.style.transform = 'translateY(40px)';
+    el.style.opacity = '0';
+    inView(el, () => {
+      // @ts-ignore — motion v12 overload resolution bug with HTMLElement
+      animate(el, { transform: ['translateY(40px)', 'translateY(0px)'], opacity: [0, 1] }, { duration: 0.75, easing: ease });
+    }, { amount: 0.2 });
   });
 
-  // Program cards
-  const programsGrid = document.querySelector<HTMLElement>('.programs-grid');
-  if (programsGrid) {
-    const cards = programsGrid.querySelectorAll<HTMLElement>('.program-card');
-    cards.forEach(el => { el.style.opacity = '0'; });
-    inView(programsGrid, () => {
-      animate(cards, { opacity: [0, 1], transform: ['translateY(16px)', 'translateY(0px)'] }, { duration: 0.5, easing: ease, delay: stagger(0.07) });
+  // Fade-in for [data-fade] elements
+  document.querySelectorAll<HTMLElement>('[data-fade]').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    inView(el, () => {
+      // @ts-ignore — motion v12 overload resolution bug with HTMLElement
+      animate(el, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.6, easing: ease, delay: (i % 4) * 0.07 });
     }, { amount: 0.1 });
-  }
-
-  // Callout block
-  const callout = document.querySelector<HTMLElement>('.services-callout');
-  if (callout) {
-    callout.style.opacity = '0';
-    inView(callout, () => {
-      animate(callout, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.55, easing: ease });
-    }, { amount: 0.2 });
-  }
+  });
 </script>

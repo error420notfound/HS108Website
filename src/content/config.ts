@@ -20,6 +20,15 @@ const work = defineCollection({
     summary:   z.string().max(280),
     services:  z.array(z.string()),
     duration:  z.string().optional(),
+    images: z.array(z.object({
+      src: z.string(),
+      caption: z.string().optional(),
+    })).optional(),
+    pullQuote: z.string().optional(),
+    stats: z.array(z.object({
+      label: z.string(),
+      value: z.string(),
+    })).max(3).optional(),
     featured:  z.boolean().default(false),
     order:     z.number().int().default(99),
     draft:     z.boolean().default(false),

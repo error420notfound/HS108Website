@@ -398,8 +398,8 @@
   ===================================== */
 
   /* Core fonts — used site-wide */
-  --font-display: 'Michroma', sans-serif;
-  --font-body:    'Rajdhani', sans-serif;
+  --font-display: 'Genos', sans-serif;
+  --font-body:    'Geist', sans-serif;
   --font-mono:    'Geist Mono', 'Courier New', monospace;
 
   /* Alt font pair A — tech / bold / geometric
@@ -411,7 +411,7 @@
   /* Alt font pair B — precision / editorial
      Michroma: geometric technical, single weight
      IBM Plex Serif: editorial serif companion */
-  --font-alt-b-display: 'Instrument Serif', Georgia, serif;
+  --font-alt-b-display: 'Michroma', sans-serif;
   --font-alt-b-body:    'IBM Plex Serif', Georgia, serif;
 
 /*     

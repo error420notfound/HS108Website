@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import WorkCard from '@components/WorkCard.astro';
 import ContactCTA from '@components/ContactCTA.astro';
 import { getCollection } from 'astro:content';
 
@@ -34,27 +33,50 @@ const categories = ['All', 'brand', 'product', 'design-system', 'web', 'mobile',
     ))}
   </div>
 
-  <!-- Work grid -->
-  <div class="container work-grid" id="work-grid">
+  <!-- Work rows -->
+  <div class="work-list" id="work-grid">
     {sorted.map((entry, i) => (
-      <div
-        class:list={['work-grid-item', i === 0 ? 'work-grid-item--featured' : '']}
+      <article
+        class:list={['work-row', i % 2 !== 0 ? 'work-row--reverse' : '']}
         data-categories={entry.data.categories.join(',')}
       >
-        <WorkCard
-          slug={entry.slug}
-          title={entry.data.title}
-          client={entry.data.client}
-          year={entry.data.year}
-          categories={entry.data.categories}
-          coverImage={entry.data.coverImage}
-          coverAlt={entry.data.coverAlt}
-          color={entry.data.color}
-          outcome={entry.data.outcome}
-          summary={entry.data.summary}
-          large={i === 0}
-        />
-      </div>
+        <a href={`/work/${entry.slug}`} class="work-row-inner">
+          <!-- Image half -->
+          <div class="work-row-img" style={`background-color: ${entry.data.color}18`}>
+            <img
+              src={entry.data.coverImage}
+              alt={entry.data.coverAlt}
+              class="img-raw"
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+          </div>
+
+          <!-- Text half -->
+          <div class="work-row-text">
+            <div class="work-row-meta">
+              <span class="t-label work-row-client">{entry.data.client}</span>
+              <span class="t-label work-row-year muted">{entry.data.year}</span>
+            </div>
+
+            <h2 class="t-h2 work-row-title">{entry.data.title}</h2>
+
+            <p class="t-body work-row-summary">{entry.data.summary}</p>
+
+            <div class="work-row-outcome">
+              <span class="t-label muted">{entry.data.outcome.label}</span>
+              <span class="work-row-value">{entry.data.outcome.value}</span>
+            </div>
+
+            <div class="work-row-cats">
+              {entry.data.categories.map(c => (
+                <span class="tag">{c.replace('-', ' ')}</span>
+              ))}
+            </div>
+
+            <span class="work-row-cta t-label">View Project →</span>
+          </div>
+        </a>
+      </article>
     ))}
   </div>
 
@@ -88,32 +110,154 @@ const categories = ['All', 'brand', 'product', 'design-system', 'web', 'mobile',
   .work-filter-btn {
     padding: 10px 18px;
     font-size: 10px;
+    border-left: 0;
+    border-right: 0;
   }
 
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: var(--space-gap);
-    padding-top: var(--space-gap);
-    padding-bottom: var(--space-section);
+  /* Work list */
+  .work-list {
+    display: flex;
+    flex-direction: column;
   }
 
-  .work-grid-item {
-    grid-column: span 6;
+  .work-row {
+    border-bottom: var(--border-width) solid var(--border);
     transition: opacity var(--transition);
   }
 
-  .work-grid-item--featured {
-    grid-column: span 12;
-  }
-
-  .work-grid-item.hidden {
+  .work-row.hidden {
     display: none;
   }
 
+  .work-row-inner {
+    display: flex;
+    min-height: 60vh;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .work-row--reverse .work-row-inner {
+    flex-direction: row-reverse;
+  }
+
+  /* Image half */
+  .work-row-img {
+    flex: 0 0 55%;
+    overflow: hidden;
+    border-right: var(--border-width) solid var(--border);
+    position: relative;
+  }
+
+  .work-row--reverse .work-row-img {
+    border-right: none;
+    border-left: var(--border-width) solid var(--border);
+  }
+
+  .work-row-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .work-row-inner:hover .work-row-img img {
+    transform: scale(1.03);
+  }
+
+  .work-row-inner:hover .work-row-img {
+    border-color: var(--accent);
+  }
+
+  /* Text half */
+  .work-row-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 5vw, 5rem);
+    justify-content: center;
+  }
+
+  .work-row-meta {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .work-row-client {
+    opacity: 1;
+  }
+
+  .work-row-year {
+    opacity: 0.4;
+  }
+
+  .work-row-title {
+    line-height: 1.05;
+  }
+
+  .work-row-summary {
+    opacity: 0.65;
+    max-width: 44ch;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .work-row-outcome {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-top: 1rem;
+    border-top: var(--border-width) solid var(--border);
+  }
+
+  .work-row-value {
+    font-family: var(--font-display);
+    font-style: normal;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .work-row-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .work-row-cta {
+    margin-top: auto;
+    opacity: 0.4;
+    transition: opacity var(--transition), color var(--transition);
+    padding-top: 1.5rem;
+  }
+
+  .work-row-inner:hover .work-row-cta {
+    opacity: 1;
+    color: var(--accent);
+  }
+
+  /* Mobile */
   @media (max-width: 900px) {
-    .work-grid-item {
-      grid-column: span 12;
+    .work-row-inner,
+    .work-row--reverse .work-row-inner {
+      flex-direction: column;
+    }
+
+    .work-row-img {
+      flex: none;
+      height: 56vw;
+      border-right: none;
+      border-bottom: var(--border-width) solid var(--border);
+    }
+
+    .work-row--reverse .work-row-img {
+      border-left: none;
+      border-bottom: var(--border-width) solid var(--border);
     }
   }
 </style>
@@ -129,28 +273,30 @@ const categories = ['All', 'brand', 'product', 'design-system', 'web', 'mobile',
     animate(header, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.55, easing: ease });
   }
 
-  // Work grid items staggered on scroll
-  const grid = document.querySelector<HTMLElement>('.work-grid');
-  if (grid) {
-    const cards = grid.querySelectorAll<HTMLElement>('.work-grid-item');
-    cards.forEach(el => { el.style.opacity = '0'; });
-    inView(grid, () => {
-      animate(cards, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.5, easing: ease, delay: stagger(0.07) });
-    }, { amount: 0.05 });
-  }
+  // Staggered row entrance on scroll
+  const rows = document.querySelectorAll<HTMLElement>('.work-row');
+  rows.forEach(row => { row.style.opacity = '0'; });
+  rows.forEach((row, i) => {
+    inView(row, () => {
+      animate(row, { opacity: [0, 1], transform: ['translateY(32px)', 'translateY(0px)'] }, {
+        duration: 0.5,
+        easing: ease,
+        delay: 0,
+      });
+    }, { amount: 0.1 });
+  });
 
+  // Filter
   const filterBtns = document.querySelectorAll<HTMLButtonElement>('.work-filter-btn');
-  const items      = document.querySelectorAll<HTMLElement>('.work-grid-item');
+  const items      = document.querySelectorAll<HTMLElement>('.work-row');
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const filter = btn.dataset.filter ?? 'all';
 
-      // Update active state
       filterBtns.forEach(b => b.classList.remove('btn--primary'));
       btn.classList.add('btn--primary');
 
-      // Show/hide items
       items.forEach(item => {
         if (filter === 'all') {
           item.classList.remove('hidden');
