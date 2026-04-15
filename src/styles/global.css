@@ -398,25 +398,23 @@
   ===================================== */
 
   /* Core fonts — used site-wide */
-  --font-alt-b-display: 'Instrument Serif', Georgia, serif;
-  --font-body:    'Geist', 'Arial', sans-serif;
+  --font-display: 'Michroma', sans-serif;
+  --font-body:    'Rajdhani', sans-serif;
   --font-mono:    'Geist Mono', 'Courier New', monospace;
 
   /* Alt font pair A — tech / bold / geometric
      Genos: used at 700 bold italic for display
      Rajdhani: used as body/sub-heading companion */
   --font-alt-a-display: 'Genos', sans-serif;
-  --font-alt-a-body:    'Rajdhani', sans-serif;
+  --font-alt-a-body:    'Geist', 'Arial', sans-serif;
 
   /* Alt font pair B — precision / editorial
      Michroma: geometric technical, single weight
      IBM Plex Serif: editorial serif companion */
-  --font-display: 'Michroma', sans-serif;
+  --font-alt-b-display: 'Instrument Serif', Georgia, serif;
   --font-alt-b-body:    'IBM Plex Serif', Georgia, serif;
 
 /*     
-  --font-alt-b-display
---font-display
 
 */
 
