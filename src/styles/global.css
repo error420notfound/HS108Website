@@ -398,7 +398,7 @@
   ===================================== */
 
   /* Core fonts — used site-wide */
-  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-alt-b-display: 'Instrument Serif', Georgia, serif;
   --font-body:    'Geist', 'Arial', sans-serif;
   --font-mono:    'Geist Mono', 'Courier New', monospace;
 
@@ -411,8 +411,14 @@
   /* Alt font pair B — precision / editorial
      Michroma: geometric technical, single weight
      IBM Plex Serif: editorial serif companion */
-  --font-alt-b-display: 'Michroma', sans-serif;
+  --font-display: 'Michroma', sans-serif;
   --font-alt-b-body:    'IBM Plex Serif', Georgia, serif;
+
+/*     
+  --font-alt-b-display
+--font-display
+
+*/
 
   --size-hero:    clamp(64px, 12vw, 160px);
   --size-h1:      clamp(40px, 6.5vw, 88px);
