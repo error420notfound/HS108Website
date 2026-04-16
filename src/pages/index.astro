@@ -121,27 +121,29 @@ const programs = [
   <hr />
 
   <!-- Process teaser -->
-  <section class="section section--inv container">
-    <p class="t-label section-num" style="opacity:0.4">How We Work</p>
-    <h2 class="t-h2" style="margin-bottom:3rem">Our Process</h2>
+  <section class="section section--inv">
+    <div class="container">
+      <p class="t-label section-num" style="opacity:0.4">How We Work</p>
+      <h2 class="t-h2" style="margin-bottom:3rem">Our Process</h2>
 
-    <div class="process-strip stat-strip">
-      {[
-        { n: '01', title: 'Understand', desc: 'Deep research. Client interviews. Market mapping. We never design blind.' },
-        { n: '02', title: 'Design', desc: 'Strategic concepts, iteration, and refinement until we hit something true.' },
-        { n: '03', title: 'Build', desc: 'Production-ready files, handoff docs, and implementation support.' },
-        { n: '04', title: 'Scale', desc: 'Systems that grow with your company. Retainers for ongoing partnership.' },
-      ].map(step => (
-        <div class="process-step">
-          <span class="t-label process-num">{step.n}</span>
-          <h3 class="t-h3 process-title">{step.title}</h3>
-          <p class="t-body process-desc">{step.desc}</p>
-        </div>
-      ))}
-    </div>
+      <div class="process-strip stat-strip">
+        {[
+          { n: '01', title: 'Understand', desc: 'Deep research. Client interviews. Market mapping. We never design blind.' },
+          { n: '02', title: 'Design', desc: 'Strategic concepts, iteration, and refinement until we hit something true.' },
+          { n: '03', title: 'Build', desc: 'Production-ready files, handoff docs, and implementation support.' },
+          { n: '04', title: 'Scale', desc: 'Systems that grow with your company. Retainers for ongoing partnership.' },
+        ].map(step => (
+          <div class="process-step">
+            <span class="t-label process-num">{step.n}</span>
+            <h3 class="t-h3 process-title">{step.title}</h3>
+            <p class="t-body process-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
 
-    <div style="margin-top:3rem">
-      <a href="/process" class="btn btn--outline-inv">See Full Process →</a>
+      <div style="margin-top:3rem">
+        <a href="/process" class="btn btn--outline-inv">See Full Process →</a>
+      </div>
     </div>
   </section>
 

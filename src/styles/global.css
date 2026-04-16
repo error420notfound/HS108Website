@@ -517,12 +517,14 @@ ul, ol {
 /* --- Section spacing --- */
 .section {
   padding-block: var(--space-section);
+  
 }
 
 .section--inv {
   background-color: var(--black-native);
   color: var(--text-on-dark);
 }
+
 
 .section--alt {
   background-color: var(--surface-elevated);
