@@ -4,320 +4,538 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Get In Touch"
-  description="Start a project with HS108. We're currently accepting new clients."
+  description="Start a project with HS108. Book a discovery meeting."
   bodyClass="theme-rose"
 >
 
-  <!-- Page header -->
-  <div class="contact-header container">
-    <span class="t-label" style="opacity:0.4">Get In Touch</span>
-    <h1 class="t-h1 contact-title">Start a project<br /><em>with HS108.</em></h1>
-    <div class="contact-meta">
-      <div class="contact-dot-row">
-        <span class="status-dot-lg"></span>
-        <span class="t-mono">Accepting new projects</span>
-      </div>
-      <span class="t-mono contact-response">Responds within 24 hours</span>
-    </div>
-  </div>
-
-  <hr class="contact-divider" />
-
-  <!-- Multi-step form shell -->
-  <div class="contact-flow-wrapper">
-    <div class="contact-flow container" id="contact-flow">
+  <div class="funnel-wrap" id="funnel-wrap">
 
     <!-- Progress bar -->
-    <div class="flow-progress" aria-label="Form progress">
-      <div class="flow-steps">
-        {[
-          { n: '01', label: 'What you need' },
-          { n: '02', label: 'Your project' },
-          { n: '03', label: 'Your details' },
-        ].map((s, i) => (
-          <div class:list={['flow-step', { 'flow-step--active': i === 0 }]} data-step={i + 1}>
-            <span class="flow-step-num t-label">{s.n}</span>
-            <span class="flow-step-label t-mono">{s.label}</span>
-          </div>
-        ))}
+    <div class="funnel-progress container" id="funnel-progress">
+      <div class="funnel-progress-meta">
+        <span class="t-label funnel-step-counter" id="funnel-step-counter" style="opacity:0.45">Step 1 of 8</span>
+        <span class="t-label funnel-step-phase" id="funnel-step-phase" style="opacity:0.3">Gateway</span>
       </div>
-      <div class="flow-bar">
-        <div class="flow-bar-fill" id="flow-bar-fill"></div>
+      <div class="funnel-bar">
+        <div class="funnel-bar-fill" id="funnel-bar-fill"></div>
       </div>
     </div>
 
-    <!-- Form -->
-    <form id="contact-form" class="flow-form" novalidate>
+    <!-- Context badge — shown once domain is selected -->
+    <div class="funnel-context-badge container" id="funnel-context-badge" hidden>
+      <span class="t-label" style="opacity:0.4">Selected:</span>
+      <span class="ctx-badge-domain t-mono" id="ctx-badge-domain"></span>
+      <span class="t-label ctx-badge-sep" style="opacity:0.3">·</span>
+      <span class="ctx-badge-plan t-mono" id="ctx-badge-plan"></span>
+    </div>
 
-      <!-- ── Step 1: What you need ── -->
-      <div class="flow-panel" data-panel="1">
-        <div class="flow-panel-header">
-          <h2 class="t-h2 flow-panel-title">What do you need?</h2>
-          <p class="t-body flow-panel-sub">Pick everything that applies. We'll figure out the right approach together.</p>
-        </div>
+    <form id="funnel-form" novalidate>
 
-        <!--
-          Each service card carries:
-            data-price  — base starting cost in INR (shown summed, not individually)
-          Prices are starting-point estimates; the actual quote may differ.
-        -->
-        <div class="choice-grid" role="group" aria-label="Service type">
-          {[
-            { val: 'Brand Identity',         code: 'CX&Identity',    desc: 'Logo, visual identity, guidelines',          price: 120000  },
-            { val: 'Product Design',         code: 'CMF_Nexus',      desc: 'CAD, CMF, production-ready files',          price: 200000  },
-            { val: 'Web & App Design',       code: 'WebCanvas',      desc: 'UI/UX, prototypes, design systems',         price: 150000  },
-            { val: 'Photo & Video',          code: 'Lumina.raw',     desc: 'Photography, videography, motion',          price: 80000   },
-            { val: 'Ongoing Design Support', code: 'Creative Dept.', desc: 'Embedded retainer — ongoing work',          price: 60000   },
-            { val: 'Research & Discovery',   code: 'Design Lab',     desc: 'Structured discovery before build',         price: 50000   },
-            { val: 'Bespoke Package',        code: 'off_menu',       desc: 'Custom cross-discipline scope',             price: 300000  },
-            { val: 'Not sure yet',           code: '—',              desc: 'Tell us your problem instead',              price: 0       },
-          ].map(c => (
-            <label class="choice-card" data-price={c.price}>
-              <input
-                type="checkbox"
-                name="service_type"
-                value={c.val}
-                class="choice-input"
-                data-price={c.price}
-              />
-              <span class="choice-body">
-                <span class="choice-code t-label">{c.code}</span>
-                <span class="choice-val t-mono">{c.val}</span>
-                <span class="choice-desc t-mono">{c.desc}</span>
-              </span>
-              {c.price > 0 && (
-                <span class="choice-price t-label">
-                  starts ₹{(c.price / 100000).toFixed(1)}L
-                </span>
-              )}
-              <span class="choice-check">✓</span>
-            </label>
-          ))}
-        </div>
-
-        <!-- Live cost estimate — only shown when ≥1 priced option is selected -->
-        <div class="cost-estimate b-box" id="cost-estimate" aria-live="polite" hidden>
-          <div class="cost-estimate-inner">
-            <span class="t-label cost-estimate-label">Estimated starting from</span>
-            <span class="t-mono cost-estimate-amount" id="cost-amount">₹0</span>
+      <!-- ── Step 1: Gateway ── -->
+      <div class="funnel-panel funnel-gateway" data-panel="1">
+        <div class="container funnel-gateway-inner">
+          <div class="funnel-gateway-meta">
+            <span class="t-label" style="opacity:0.4">New Project Enquiry</span>
+            <div class="gateway-status">
+              <span class="status-dot-lg"></span>
+              <span class="t-mono">Accepting new projects</span>
+            </div>
           </div>
-          <p class="t-mono cost-estimate-note">
-            This is an indicative combined starting figure — not a fixed quote.
-            Final scope and pricing are confirmed after we review your brief.
+          <h1 class="t-h1 funnel-gateway-title">Start a project<br /><em>with HS108.</em></h1>
+          <p class="t-body funnel-gateway-sub">
+            Book a discovery meeting. ₹2,000 + GST — non-refundable,<br />fully applied toward your project.
+          </p>
+          <div class="funnel-gateway-actions">
+            <button type="button" class="btn btn--primary" id="gateway-start">
+              Start Your Brief →
+            </button>
+            <a href="mailto:contact.studio@hs108.in" class="btn btn--outline">
+              Email Directly
+            </a>
+          </div>
+          <p class="t-label funnel-gateway-note" style="opacity:0.35">
+            Takes 4–5 minutes · No commitment until booking
           </p>
         </div>
+      </div>
 
-        <div class="flow-actions">
-          <button type="button" class="btn btn--primary flow-next" data-next="2">
-            Next — Your Project →
-          </button>
+      <hr class="funnel-divider" />
+
+      <!-- ── Step 2: Domain Selection ── -->
+      <div class="funnel-panel funnel-panel--hidden" data-panel="2">
+        <div class="container funnel-panel-inner">
+          <div class="funnel-panel-header">
+            <span class="t-label funnel-step-label" style="opacity:0.4">01 / Domain</span>
+            <h2 class="t-h2 funnel-panel-title">What kind of work<br /><em>are you commissioning?</em></h2>
+          </div>
+
+          <div class="domain-grid" role="radiogroup" aria-label="Service domain">
+            {[
+              { val: 'webcanvas',   code: 'WebCanvas',   name: 'Digital Design.',    desc: 'Web, App, UI/UX, Prototypes, Design Systems' },
+              { val: 'cmf-nexus',   code: 'CMF_Nexus',   name: 'Product Design.',    desc: 'CAD, CMF, Prototyping, Production Files' },
+              { val: 'cx-identity', code: 'CX&Identity', name: 'Brand Identity.',    desc: 'Logo, Visual Identity, Brand Guidelines' },
+              { val: 'lumina-raw',  code: 'Lumina.raw',  name: 'Photo & Video.',     desc: 'Photography, Videography, Motion Graphics' },
+            ].map(d => (
+              <label class="domain-card" data-domain={d.val}>
+                <input type="radio" name="domain" value={d.val} class="domain-input sr-only" />
+                <div class="domain-card-inner">
+                  <span class="domain-code t-label">{d.code}</span>
+                  <span class="domain-name t-h3"><em>{d.name}</em></span>
+                  <span class="domain-desc t-mono">{d.desc}</span>
+                </div>
+              </label>
+            ))}
+          </div>
+
+          <div class="funnel-actions">
+            <button type="button" class="btn btn--outline funnel-back" data-back="1">← Back</button>
+            <button type="button" class="btn btn--primary funnel-next" data-next="3" id="domain-next" disabled>
+              Next — Choose Plan →
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- ── Step 2: Project details ── -->
-      <div class="flow-panel flow-panel--hidden" data-panel="2">
-        <div class="flow-panel-header">
-          <h2 class="t-h2 flow-panel-title">Tell us about the project.</h2>
-          <p class="t-body flow-panel-sub">The more specific you are, the faster we can give you a useful response.</p>
-        </div>
+      <hr class="funnel-divider funnel-panel--hidden" data-divider="2" />
 
-        <div class="flow-fields">
-          <div class="form-group">
-            <label class="form-label t-label" for="project-brief">What are you building?</label>
-            <textarea
-              id="project-brief"
-              name="message"
-              rows="5"
-              required
-              class="form-input form-textarea"
-              placeholder="Describe the project — what it is, who it's for, what problem it solves. Include any constraints, competitors, or references you find relevant."
-            ></textarea>
+      <!-- ── Step 3: Plan Selection ── -->
+      <div class="funnel-panel funnel-panel--hidden" data-panel="3">
+        <div class="container funnel-panel-inner">
+          <div class="funnel-panel-header">
+            <span class="t-label funnel-step-label" style="opacity:0.4">02 / Plan</span>
+            <h2 class="t-h2 funnel-panel-title">Choose your<br /><em>engagement.</em></h2>
+            <p class="t-body funnel-panel-sub" style="opacity:0.55">
+              All plans begin with a ₹2,000 discovery meeting — non-refundable, credited to your project.
+            </p>
           </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label t-label" for="timeline">Timeline</label>
-              <select id="timeline" name="timeline" class="form-input form-select">
-                <option value="">When do you need to start?</option>
-                <option>ASAP — urgent</option>
-                <option>Within 4 weeks</option>
-                <option>1–3 months out</option>
-                <option>3+ months out</option>
-                <option>Flexible / exploring</option>
-              </select>
+          <div class="plan-grid" role="radiogroup" aria-label="Engagement plan">
+
+            <!-- Plan A + C side by side -->
+            <div class="plan-ac-row">
+              <label class="plan-card" data-plan="starter">
+                <input type="radio" name="plan" value="starter" class="plan-input sr-only" />
+                <div class="plan-card-inner">
+                  <span class="plan-tier t-label">Plan A</span>
+                  <span class="plan-name t-mono">Starter</span>
+                  <ul class="plan-features t-mono">
+                    <li>1 primary deliverable</li>
+                    <li>2 revision rounds</li>
+                    <li>4–6 week delivery</li>
+                    <li>Senior designer assigned</li>
+                  </ul>
+                  <span class="plan-booking t-label">₹2,000 booking</span>
+                </div>
+              </label>
+
+              <label class="plan-card" data-plan="custom">
+                <input type="radio" name="plan" value="custom" class="plan-input sr-only" />
+                <div class="plan-card-inner">
+                  <span class="plan-tier t-label">Plan C</span>
+                  <span class="plan-name t-mono">Custom / Enterprise</span>
+                  <ul class="plan-features t-mono">
+                    <li>Scoped per project</li>
+                    <li>Multi-discipline teams</li>
+                    <li>NDA + IP assignment</li>
+                    <li>Dedicated account lead</li>
+                  </ul>
+                  <span class="plan-booking t-label">₹2,000 booking</span>
+                </div>
+              </label>
             </div>
 
-            <div class="form-group">
-              <label class="form-label t-label" for="budget">Budget range</label>
-              <select id="budget" name="budget" class="form-input form-select">
-                <option value="">Approximate budget</option>
-                <option>Under ₹2L</option>
-                <option>₹2L – ₹5L</option>
-                <option>₹5L – ₹15L</option>
-                <option>₹15L – ₹50L</option>
-                <option>₹50L+</option>
-                <option>Prefer to discuss</option>
-              </select>
-            </div>
+            <!-- Plan B — full width, inverted, pre-selected -->
+            <label class="plan-card plan-card--core" data-plan="core">
+              <input type="radio" name="plan" value="core" class="plan-input sr-only" checked />
+              <div class="plan-card-inner">
+                <div class="plan-core-header">
+                  <div>
+                    <span class="plan-tier t-label plan-tier--inv">Plan B</span>
+                    <span class="plan-name t-mono plan-name--inv">Core</span>
+                  </div>
+                  <span class="plan-default-tag t-label">Most teams start here</span>
+                </div>
+                <div class="plan-core-body">
+                  <ul class="plan-features plan-features--inv t-mono">
+                    <li>Up to 3 primary deliverables</li>
+                    <li>3 revision rounds</li>
+                    <li>6–10 week delivery</li>
+                    <li>Senior designer + art direction</li>
+                    <li>Weekly progress reviews</li>
+                    <li>Design files + documentation</li>
+                    <li>30-day post-launch support</li>
+                  </ul>
+                  <span class="plan-booking plan-booking--inv t-label">₹2,000 booking</span>
+                </div>
+              </div>
+            </label>
+
           </div>
-        </div>
 
-        <div class="flow-actions">
-          <button type="button" class="btn btn--outline flow-back" data-back="1">← Back</button>
-          <button type="button" class="btn btn--primary flow-next" data-next="3">
-            Next — Your Details →
-          </button>
+          <div class="funnel-actions">
+            <button type="button" class="btn btn--outline funnel-back" data-back="2">← Back</button>
+            <button type="button" class="btn btn--primary funnel-next" data-next="4">
+              Next — Your Details →
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- ── Step 3: Contact details ── -->
-      <div class="flow-panel flow-panel--hidden" data-panel="3">
-        <div class="flow-panel-header">
-          <h2 class="t-h2 flow-panel-title">Last step.</h2>
-          <p class="t-body flow-panel-sub">Who are we talking to?</p>
-        </div>
+      <hr class="funnel-divider funnel-panel--hidden" data-divider="3" />
 
-        <div class="flow-fields">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label t-label" for="name">Your name</label>
-              <input id="name" name="name" type="text" required class="form-input" placeholder="Full name" />
-            </div>
-            <div class="form-group">
-              <label class="form-label t-label" for="email">Email</label>
-              <input id="email" name="email" type="email" required class="form-input" placeholder="your@email.com" />
-            </div>
+      <!-- ── Step 4: Contact Form ── -->
+      <div class="funnel-panel funnel-panel--hidden" data-panel="4">
+        <div class="container funnel-panel-inner">
+          <div class="funnel-panel-header">
+            <span class="t-label funnel-step-label" style="opacity:0.4">03 / Your Details</span>
+            <h2 class="t-h2 funnel-panel-title">Who are we<br /><em>working with?</em></h2>
           </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label t-label" for="phone">Phone Number</label>
-              <input id="phone" name="phone" type="tel" class="form-input" placeholder="+91 98765 43210" />
+          <div class="flow-fields">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label t-label" for="fn-name">Name <span style="color:var(--accent)">*</span></label>
+                <input id="fn-name" name="name" type="text" required class="form-input" placeholder="Full name" autocomplete="name" />
+                <span class="form-error t-label" id="err-name" hidden>Name is required</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label t-label" for="fn-email">Email <span style="color:var(--accent)">*</span></label>
+                <input id="fn-email" name="email" type="email" required class="form-input" placeholder="your@email.com" autocomplete="email" />
+                <span class="form-error t-label" id="err-email" hidden>Valid email is required</span>
+              </div>
             </div>
-            <div class="form-group">
-              <label class="form-label t-label" for="website">Company Website</label>
-              <input id="website-url" name="website_url" type="url" class="form-input" placeholder="https://yourwebsite.com" />
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label t-label" for="fn-phone">Phone</label>
+                <input id="fn-phone" name="phone" type="tel" class="form-input" placeholder="+91 98765 43210" autocomplete="tel" />
+              </div>
+              <div class="form-group">
+                <label class="form-label t-label" for="fn-company">Company / Brand</label>
+                <input id="fn-company" name="company" type="text" class="form-input" placeholder="Optional" autocomplete="organization" />
+              </div>
             </div>
-          </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label t-label" for="fn-website">Website</label>
+                <input id="fn-website" name="website" type="url" class="form-input" placeholder="https://" autocomplete="url" />
+              </div>
+              <div class="form-group">
+                <label class="form-label t-label" for="fn-how-found">How did you find us?</label>
+                <select id="fn-how-found" name="how_found" class="form-input form-select">
+                  <option value="">Select one</option>
+                  <option>Referral</option>
+                  <option>Search</option>
+                  <option>Social media</option>
+                  <option>Saw our work</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label t-label" for="company">Company / Brand</label>
-              <input id="company" name="company" type="text" class="form-input" placeholder="Optional" />
-            </div>
-            <div class="form-group">
-              <label class="form-label t-label" for="how-found">How did you find us?</label>
-              <select id="how-found" name="how_found" class="form-input form-select">
+            <!-- Domain-contextual field — one shown per domain -->
+            <div class="domain-ctx-field form-group" id="ctx-webcanvas" hidden>
+              <label class="form-label t-label" for="fn-platform">Preferred platform / handoff</label>
+              <select id="fn-platform" name="platform" class="form-input form-select">
                 <option value="">Select one</option>
-                <option>Referral</option>
-                <option>Search</option>
-                <option>Social media</option>
-                <option>Saw our work</option>
+                <option>Figma → Developer handoff</option>
+                <option>Webflow build</option>
+                <option>Framer</option>
+                <option>Custom code (Astro / Next)</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="domain-ctx-field form-group" id="ctx-cmf-nexus" hidden>
+              <label class="form-label t-label" for="fn-material">Materials / Medium</label>
+              <select id="fn-material" name="material" class="form-input form-select">
+                <option value="">Select one</option>
+                <option>Plastic / ABS</option>
+                <option>Metal / Aluminium</option>
+                <option>Textile / Soft goods</option>
+                <option>Mixed / Composite</option>
                 <option>Other</option>
               </select>
             </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label t-label" for="website">Company Website</label>
-              <input id="website" name="website_url" type="url" class="form-input" placeholder="https://yourwebsite.com" />
+            <div class="domain-ctx-field form-group" id="ctx-cx-identity" hidden>
+              <label class="form-label t-label" for="fn-brand-stage">Brand stage</label>
+              <select id="fn-brand-stage" name="brand_stage" class="form-input form-select">
+                <option value="">Select one</option>
+                <option>New brand — starting from scratch</option>
+                <option>Rebrand — existing identity</option>
+                <option>Brand extension — adding to existing</option>
+              </select>
+            </div>
+            <div class="domain-ctx-field form-group" id="ctx-lumina-raw" hidden>
+              <label class="form-label t-label" for="fn-shoot-type">Shoot type</label>
+              <select id="fn-shoot-type" name="shoot_type" class="form-input form-select">
+                <option value="">Select one</option>
+                <option>Product photography</option>
+                <option>Editorial / lifestyle</option>
+                <option>Event coverage</option>
+                <option>Motion / video</option>
+                <option>Mixed</option>
+              </select>
             </div>
           </div>
 
-          <!-- Summary card — shows services selected + estimated cost -->
-          <div class="flow-summary b-box" id="flow-summary">
-            <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Your Request Summary</p>
-            <p class="t-mono flow-summary-services" id="summary-services" style="opacity:0.6; margin-bottom:0.5rem">—</p>
-            <!-- Cost line — only shown when a priced option is selected -->
-            <div class="summary-cost-row" id="summary-cost-row" hidden>
-              <span class="t-label" style="opacity:0.4">Estimated starting from</span>
-              <span class="t-mono summary-cost-amount" id="summary-cost-amount"></span>
-            </div>
+          <div class="funnel-actions">
+            <button type="button" class="btn btn--outline funnel-back" data-back="3">← Back</button>
+            <button type="button" class="btn btn--primary" id="contact-next">
+              Next — Review Summary →
+            </button>
           </div>
-        </div>
-
-        <div class="flow-actions">
-          <button type="button" class="btn btn--outline flow-back" data-back="2">← Back</button>
-          <button type="submit" class="btn btn--primary flow-submit" id="submit-btn">
-            Send to HS108 →
-          </button>
         </div>
       </div>
 
-      <!-- ── Confirmation ── -->
-      <div class="flow-panel flow-panel--hidden flow-confirm" data-panel="confirm">
-        <div class="flow-confirm-inner">
-          <span class="flow-confirm-mark t-label">✓</span>
-          <h2 class="t-h2 flow-confirm-title">Message received.</h2>
-          <p class="t-body flow-confirm-sub">
-            We'll review your brief and respond within 24 hours.
-            In the meantime, feel free to explore our work.
+      <hr class="funnel-divider funnel-panel--hidden" data-divider="4" />
+
+      <!-- ── Step 5: Summary ── -->
+      <div class="funnel-panel funnel-panel--hidden" data-panel="5">
+        <div class="container funnel-panel-inner">
+          <div class="funnel-panel-header">
+            <span class="t-label funnel-step-label" style="opacity:0.4">04 / Review</span>
+            <h2 class="t-h2 funnel-panel-title">Review your<br /><em>brief.</em></h2>
+          </div>
+
+          <div class="summary-grid b-box">
+            <div class="summary-row">
+              <span class="summary-key t-label">Domain</span>
+              <span class="summary-val t-mono" id="sum-domain">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-key t-label">Plan</span>
+              <span class="summary-val t-mono" id="sum-plan">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-key t-label">Name</span>
+              <span class="summary-val t-mono" id="sum-name">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-key t-label">Email</span>
+              <span class="summary-val t-mono" id="sum-email">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-key t-label">Company</span>
+              <span class="summary-val t-mono" id="sum-company">—</span>
+            </div>
+            <div class="summary-row summary-row--booking">
+              <span class="summary-key t-label">Discovery Meeting Fee</span>
+              <span class="summary-val t-mono">₹2,000 + GST</span>
+            </div>
+          </div>
+
+          <p class="t-label funnel-edit-note" style="opacity:0.35; font-size:10px; margin-top:1rem; letter-spacing:0.06em">
+            Not right? Use the back button to edit any step.
           </p>
-          <div class="flow-confirm-links">
+
+          <div class="funnel-actions">
+            <button type="button" class="btn btn--outline funnel-back" data-back="4">← Back</button>
+            <button type="button" class="btn btn--primary funnel-next" data-next="6">
+              Looks Right — Continue →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="funnel-divider funnel-panel--hidden" data-divider="5" />
+
+      <!-- ── Step 6: T&C ── -->
+      <div class="funnel-panel funnel-panel--hidden" data-panel="6">
+        <div class="container funnel-panel-inner">
+          <div class="funnel-panel-header">
+            <span class="t-label funnel-step-label" style="opacity:0.4">05 / Terms</span>
+            <h2 class="t-h2 funnel-panel-title">Before we<br /><em>proceed.</em></h2>
+          </div>
+
+          <div class="tnc-block b-box">
+            <p class="t-mono tnc-body">
+              The ₹2,000 + GST booking fee reserves your discovery meeting slot. It is non-refundable
+              but fully credited toward your project invoice. No scope is committed at this stage —
+              the meeting is to define the brief, not to approve a quote.
+            </p>
+            <p class="t-mono tnc-body" style="margin-top:1rem">
+              HS108 may decline a project after the discovery meeting if the scope is not a fit.
+              In that case, the booking fee is forfeit per our standard terms.
+            </p>
+          </div>
+
+          <label class="tnc-check-row b-box" id="tnc-label">
+            <input type="checkbox" id="tnc-checkbox" class="tnc-checkbox" />
+            <span class="tnc-check-box"></span>
+            <span class="t-mono tnc-check-text">
+              I understand and agree to these terms.
+            </span>
+          </label>
+
+          <div class="funnel-actions">
+            <button type="button" class="btn btn--outline funnel-back" data-back="5">← Back</button>
+            <button type="button" class="btn btn--primary" id="tnc-next" disabled>
+              Agree & Proceed to Payment →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="funnel-divider funnel-panel--hidden" data-divider="6" />
+
+      <!-- ── Step 7: Payment (Stub) ── -->
+      <div class="funnel-panel funnel-panel--hidden" data-panel="7">
+        <div class="container funnel-panel-inner">
+          <div class="funnel-panel-header">
+            <span class="t-label funnel-step-label" style="opacity:0.4">06 / Payment</span>
+            <h2 class="t-h2 funnel-panel-title">Book your<br /><em>discovery meeting.</em></h2>
+          </div>
+
+          <div class="payment-block b-box">
+            <div class="payment-amount-row">
+              <span class="t-label payment-label">Discovery Meeting Fee</span>
+              <span class="payment-amount t-mono">₹2,000 <span class="payment-gst t-label">+ GST (18%) = ₹2,360</span></span>
+            </div>
+            <p class="t-mono payment-note">
+              This fee reserves your slot and is non-refundable. It is credited in full to your project invoice.
+              Accepted: UPI, cards, net banking.
+            </p>
+          </div>
+
+          <div class="payment-stub-note t-mono" id="payment-stub-note" hidden>
+            Payment integration coming — we'll contact you to arrange the booking.
+          </div>
+
+          <div class="funnel-actions" style="margin-top:2rem">
+            <button type="button" class="btn btn--outline funnel-back" data-back="6">← Back</button>
+            <button type="button" class="btn btn--primary" id="pay-btn">
+              Pay ₹2,360 →
+            </button>
+          </div>
+
+          <p class="t-label payment-secure-note">Secured by Razorpay · PCI-DSS Compliant</p>
+        </div>
+      </div>
+
+      <hr class="funnel-divider funnel-panel--hidden" data-divider="7" />
+
+      <!-- ── Step 8: Success ── -->
+      <div class="funnel-panel funnel-panel--hidden funnel-success" data-panel="success">
+        <div class="container funnel-success-inner">
+          <span class="funnel-success-mark t-label">✓</span>
+          <h2 class="t-h2 funnel-success-title">Booking confirmed.</h2>
+          <p class="t-body funnel-success-sub">
+            You'll receive a calendar invite within 24 hours.<br />We'll review your brief before the call.
+          </p>
+
+          <div class="success-detail-block b-box">
+            <div class="success-detail-row">
+              <span class="t-label success-detail-key">Domain</span>
+              <span class="t-mono success-detail-val" id="suc-domain">—</span>
+            </div>
+            <div class="success-detail-row">
+              <span class="t-label success-detail-key">Plan</span>
+              <span class="t-mono success-detail-val" id="suc-plan">—</span>
+            </div>
+            <div class="success-detail-row">
+              <span class="t-label success-detail-key">Confirmation sent to</span>
+              <span class="t-mono success-detail-val" id="suc-email">—</span>
+            </div>
+          </div>
+
+          <div class="funnel-success-actions">
+            <a id="cal-link" href="#" target="_blank" rel="noopener" class="btn btn--primary">
+              Add to Calendar →
+            </a>
             <a href="/work" class="btn btn--outline">View Our Work</a>
-            <a href="/programs" class="btn btn--outline">Explore Programs</a>
           </div>
         </div>
       </div>
 
     </form>
-
-      <!-- Side info — visible on all steps desktop -->
-      <aside class="flow-aside">
-      <div class="aside-block">
-        <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Email Us Directly</p>
-        <a href="mailto:contact.studio@hs108.in" class="aside-email link-swap">contact.studio@hs108.in</a>
-      </div>
-      <hr />
-      <div class="aside-block">
-        <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Programs</p>
-        <div class="aside-programs">
-          {[
-            { label: 'Creative Department', href: '/programs/creative-department', note: 'Retainer' },
-            { label: 'Design Lab',          href: '/programs/design-lab',          note: 'Research' },
-            { label: 'off_menu',            href: '/programs/off-menu',            note: 'Bespoke'  },
-            { label: 'Field Notes',         href: '/programs/field-notes',         note: 'Community'},
-          ].map(p => (
-            <a href={p.href} class="aside-prog-link b-box">
-              <span class="t-mono">{p.label}</span>
-              <span class="t-label aside-prog-note">{p.note}</span>
-            </a>
-          ))}
-        </div>
-      </div>
-      <hr />
-      <div class="aside-block">
-        <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Response Time</p>
-        <p class="t-mono" style="opacity:0.65; line-height:1.6">
-          We typically respond within 24 hours.<br />
-          Project kickoffs are scheduled 2–4 weeks out.
-        </p>
-      </div>
-      </aside>
-
-    </div>
   </div>
 
 </BaseLayout>
 
 <style>
-/* ── Page header ── */
-.contact-header {
-  padding-top: 5rem;
-  padding-bottom: 3rem;
+/* ── Funnel shell ── */
+.funnel-wrap {
+  min-height: 80vh;
 }
-.contact-title {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+
+/* ── Progress bar ── */
+.funnel-progress {
+  padding-top: 2.5rem;
+  padding-bottom: 1.5rem;
 }
-.contact-meta {
+.funnel-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.funnel-bar {
+  height: 2px;
+  background: var(--border);
+  width: 100%;
+}
+.funnel-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  width: 12.5%;
+  transition: width 300ms ease;
+}
+
+/* ── Context badge ── */
+.funnel-context-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  font-size: 11px;
+  margin-bottom: 0.5rem;
+  border-bottom: var(--border-width) solid var(--border);
+}
+.ctx-badge-domain,
+.ctx-badge-plan { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ── Divider ── */
+.funnel-divider { margin: 0; }
+
+/* ── Panels ── */
+.funnel-panel { }
+.funnel-panel--hidden { display: none; }
+.funnel-panel-inner {
+  padding-top: 4rem;
+  padding-bottom: 5rem;
+  max-width: 720px;
+}
+.funnel-panel-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+}
+.funnel-step-label {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.funnel-panel-title { line-height: 1.1; }
+.funnel-panel-sub { max-width: 55ch; line-height: 1.6; }
+
+/* ── Gateway ── */
+.funnel-gateway {
+  padding: 5rem 0 6rem;
+}
+.funnel-gateway-inner {
+  max-width: 680px;
+}
+.funnel-gateway-meta {
   display: flex;
   align-items: center;
   gap: 2rem;
+  margin-bottom: 2rem;
   flex-wrap: wrap;
 }
-.contact-dot-row {
+.gateway-status {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -334,188 +552,193 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.3; }
 }
-.contact-response { opacity: 0.4; }
-.contact-divider  { margin: 0; }
-
-/* ── Flow wrapper — full-width gradient ── */
-.contact-flow-wrapper {
-  background: linear-gradient(
-    150deg in oklch,
-    var(--rose-200) 0%,
-    var(--rose-500) 70%
-  );
+.funnel-gateway-title {
+  margin-bottom: 1.5rem;
+  line-height: 1.05;
 }
-
-/* ── Flow shell ── */
-.contact-flow {
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  grid-template-rows: auto 1fr;
-  gap: 0 4rem;
-  padding-top: 3rem;
-  padding-bottom: var(--space-section);
-  align-items: start;
+.funnel-gateway-sub {
+  opacity: 0.6;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
 }
-
-/* ── Progress ── */
-.flow-progress {
-  grid-column: 1;
-  margin-bottom: 3rem;
-}
-.flow-steps {
+.funnel-gateway-actions {
   display: flex;
-  gap: 0;
-  margin-bottom: 1rem;
-}
-.flow-step {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.5rem 1rem 0.5rem 0;
-  flex: 1;
-  opacity: 0.3;
-  transition: opacity 200ms ease;
-  border-right: 1px solid var(--border);
-  margin-right: 1rem;
-}
-.flow-step:last-child {
-  border-right: none;
-  margin-right: 0;
-}
-.flow-step--active { opacity: 1; }
-.flow-step-num     { color: var(--accent); }
-.flow-step-label   { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
-
-.flow-bar { height: 2px; background: var(--border); width: 100%; }
-.flow-bar-fill {
-  height: 100%;
-  background: var(--accent);
-  transition: width 300ms ease;
-  width: 33.33%;
-}
-
-/* ── Form ── */
-.flow-form   { grid-column: 1; grid-row: 2; }
-.flow-panel  { display: flex; flex-direction: column; gap: 2.5rem; }
-.flow-panel--hidden { display: none; }
-
-.flow-panel-header { display: flex; flex-direction: column; gap: 0.75rem; }
-.flow-panel-title  { line-height: 1.1; }
-.flow-panel-sub    { opacity: 0.55; max-width: 55ch; line-height: 1.6; }
-
-/* ── Choice cards ── */
-.choice-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-gap);
-}
-.choice-card {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  border: var(--border-width) solid var(--border);
-  padding: 1.25rem;
-  cursor: pointer;
-  transition: background var(--transition), border-color var(--transition);
   gap: 1rem;
-  position: relative;
-  background-color: var(--rose-50);
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
 }
-.choice-card:hover { border-color: var(--accent); }
-
-.choice-input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.choice-body {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex: 1;
-}
-.choice-code  { color: var(--accent); opacity: 0.6; font-size: 0.7rem; }
-.choice-val   { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
-.choice-desc  { font-size: 10px; opacity: 0.45; letter-spacing: 0.06em; }
-
-/* Price tag — sits top-right, pushes check below */
-.choice-price {
-  font-size: 0.7rem;
-  opacity: 0.4;
-  letter-spacing: 0.06em;
-  white-space: nowrap;
-  flex-shrink: 0;
-  align-self: flex-start;
-  transition: opacity 150ms ease;
-}
-.choice-card--selected .choice-price { opacity: 0.25; }
-
-.choice-check {
-  font-family: var(--font-mono);
-  font-size: 1.2rem;
-  color: var(--accent);
-  opacity: 0;
-  flex-shrink: 0;
-  transition: opacity 150ms ease;
-  /* sits after price, same column */
-  position: absolute;
-  bottom: 1.25rem;
-  right: 1.25rem;
-  
-}
-.choice-card--selected {
-  background: var(--rose-200);
-  border-color: var(--black-native);
-}
-.choice-card--selected .choice-check { opacity: 1; }
-
-/* ── Cost estimate bar ── */
-.cost-estimate {
-  padding: 1.25rem 1.5rem;
-  background: var(--rose-200);
-  border: var(--border-width) solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  /* entrance animation driven by JS */
-  animation: fadeSlideIn 250ms ease forwards;
-}
-@keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.cost-estimate-inner {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.cost-estimate-label {
-  opacity: 0.45;
-  font-size: 0.7rem;
+.funnel-gateway-note {
+  font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-.cost-estimate-amount {
-  font-size: 1.2rem;
-  letter-spacing: -0.02em;
-  color: var(--fg);
-  transition: color 200ms ease;
-}
-.cost-estimate-note {
-  font-size: 0.7rem;
-  opacity: 0.4;
-  max-width: 80ch;
-  line-height: 1.6;
-  letter-spacing: 0.04em;
+
+/* ── Actions row ── */
+.funnel-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2.5rem;
 }
 
-/* ── Text fields ── */
+/* ── Domain grid ── */
+.domain-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-gap);
+  margin-bottom: 0;
+}
+.domain-card {
+  border: var(--border-width) solid var(--border);
+  padding: 2rem 1.5rem;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  background: var(--bg);
+  transition: background var(--transition), border-color var(--transition);
+}
+.domain-card:hover { border-color: var(--accent); }
+.domain-card--selected {
+  background: var(--accent);
+  border-color: var(--black-native);
+}
+.domain-input { position: absolute; opacity: 0; width: 0; height: 0; }
+.domain-card-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.domain-code {
+  color: var(--accent);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  transition: color var(--transition), opacity var(--transition);
+}
+.domain-card--selected .domain-code { color: var(--black-native); opacity: 0.7; }
+.domain-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.2;
+  margin-top: 0.35rem;
+  transition: color var(--transition);
+}
+.domain-card--selected .domain-name { color: var(--black-native); }
+.domain-desc {
+  font-size: 10px;
+  opacity: 0.5;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-top: 0.4rem;
+  line-height: 1.5;
+  transition: opacity var(--transition);
+}
+.domain-card--selected .domain-desc { opacity: 0.7; }
+
+/* ── Plan grid ── */
+.plan-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-gap);
+}
+.plan-ac-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-gap);
+}
+.plan-card {
+  border: var(--border-width) solid var(--border);
+  cursor: pointer;
+  display: block;
+  background: var(--bg);
+  transition: border-color var(--transition);
+}
+.plan-card:hover { border-color: var(--accent); }
+.plan-card--selected { border-color: var(--black-native); }
+.plan-card-inner { padding: 2rem 1.5rem; }
+.plan-tier {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-bottom: 0.35rem;
+}
+.plan-name {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.plan-features li {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  opacity: 0.65;
+  padding-left: 1rem;
+  position: relative;
+}
+.plan-features li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  opacity: 0.5;
+}
+.plan-booking {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-top: auto;
+}
+
+/* Plan B — inverted card */
+.plan-card--core {
+  background: var(--black-native);
+  border-color: var(--black-native);
+}
+.plan-card--core:hover { border-color: var(--accent); }
+.plan-core-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.plan-tier--inv { color: var(--text-on-dark); }
+.plan-name--inv { color: var(--text-on-dark); }
+.plan-features--inv li { color: var(--text-on-dark); opacity: 0.7; }
+.plan-features--inv li::before { opacity: 0.4; }
+.plan-booking--inv { color: var(--text-on-dark); opacity: 0.4; }
+.plan-default-tag {
+  border: var(--border-width) solid rgba(255,225,216,0.25);
+  color: var(--text-on-dark);
+  padding: 3px 8px;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  flex-shrink: 0;
+  align-self: flex-start;
+  white-space: nowrap;
+}
+
+/* ── Form fields ── */
 .flow-fields { display: flex; flex-direction: column; gap: 1.5rem; }
 .form-row    { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .form-group  { display: flex; flex-direction: column; gap: 0.5rem; }
-.form-label  { opacity: 0.5; }
+.form-label  { opacity: 0.5; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
 .form-input  {
   width: 100%;
   padding: 12px 16px;
@@ -535,6 +758,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   outline: 3px solid var(--accent);
   outline-offset: 0;
 }
+.form-input[data-invalid="true"] { border-color: #c0392b; }
+.form-input[data-invalid="true"]:focus { outline-color: #c0392b; }
 .form-select {
   cursor: pointer;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230D0D0D' stroke-width='2' fill='none'/%3E%3C/svg%3E");
@@ -542,41 +767,133 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   background-position: right 16px center;
   padding-right: 40px;
 }
-.form-textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+.form-error {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #c0392b;
+  letter-spacing: 0.06em;
+}
 
-/* ── Summary card ── */
-.flow-summary {
-  padding: 1.25rem;
+/* ── Summary ── */
+.summary-grid {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1rem 1.5rem;
+  border-bottom: var(--border-width) solid var(--border);
+  gap: 2rem;
+}
+.summary-row:last-child { border-bottom: none; }
+.summary-key { opacity: 0.4; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; flex-shrink: 0; }
+.summary-val { text-align: right; font-size: 13px; letter-spacing: 0.06em; }
+.summary-row--booking { background: var(--surface-elevated); }
+
+/* ── T&C ── */
+.tnc-block {
+  padding: 1.5rem;
+  background: var(--surface-elevated);
+  margin-bottom: 1.5rem;
+}
+.tnc-body {
+  font-size: 13px;
+  line-height: 1.8;
+  opacity: 0.65;
+}
+.tnc-check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  background: var(--bg);
+}
+.tnc-checkbox { position: absolute; opacity: 0; width: 0; height: 0; }
+.tnc-check-box {
+  width: 20px;
+  height: 20px;
+  border: var(--border-width) solid var(--border);
+  flex-shrink: 0;
+  position: relative;
+  margin-top: 1px;
+}
+.tnc-checkbox:checked + .tnc-check-box::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 3px;
+  background: var(--accent);
+}
+.tnc-check-text { font-size: 12px; line-height: 1.5; letter-spacing: 0.04em; }
+
+/* ── Payment ── */
+.payment-block {
+  padding: 2rem;
   background: var(--surface-elevated);
 }
-.flow-summary-services { font-size: 11px; line-height: 1.7; }
-
-.summary-cost-row {
+.payment-amount-row {
   display: flex;
-  align-items: baseline;
   justify-content: space-between;
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: var(--border-width) solid var(--border);
-  gap: 1rem;
+  align-items: baseline;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
-.summary-cost-amount {
-  font-size: 1rem;
-  letter-spacing: -0.01em;
+.payment-label {
+  opacity: 0.4;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.payment-amount {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+.payment-gst {
+  font-size: 0.7rem;
+  opacity: 0.5;
+  letter-spacing: 0.08em;
+}
+.payment-note {
+  font-size: 11px;
+  opacity: 0.5;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+}
+.payment-stub-note {
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  border: var(--border-width) solid var(--border);
+  font-size: 12px;
+  opacity: 0.6;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  background: var(--surface-elevated);
+}
+.payment-secure-note {
+  font-size: 9px;
+  opacity: 0.25;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+  display: block;
 }
 
-/* ── Actions row ── */
-.flow-actions { display: flex; gap: 1rem; align-items: center; }
-
-/* ── Confirmation ── */
-.flow-confirm-inner {
-  padding: 4rem 0;
+/* ── Success ── */
+.funnel-success {
+  padding: 6rem 0;
+}
+.funnel-success-inner {
+  max-width: 560px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-width: 55ch;
 }
-.flow-confirm-mark {
+.funnel-success-mark {
   display: inline-flex;
   width: 40px;
   height: 40px;
@@ -586,259 +903,373 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   justify-content: center;
   font-size: 16px;
 }
-.flow-confirm-title { line-height: 1.1; }
-.flow-confirm-sub   { opacity: 0.6; max-width: 48ch; line-height: 1.7; }
-.flow-confirm-links { display: flex; gap: 1rem; }
-
-/* ── Aside ── */
-.flow-aside {
-  grid-column: 2;
-  grid-row: 1 / 3;
-  border-left: var(--border-width) solid var(--border);
-  padding-left: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  position: sticky;
-  top: 80px;
-}
-.aside-block   { display: flex; flex-direction: column; }
-.aside-email   {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(18px, 2vw, 26px);
-  line-height: 1.2;
-}
-.aside-programs   { display: flex; flex-direction: column; gap: 0.5rem; }
-.aside-prog-link  {
+.funnel-success-title { line-height: 1.1; }
+.funnel-success-sub   { opacity: 0.6; max-width: 48ch; line-height: 1.7; }
+.success-detail-block { display: flex; flex-direction: column; padding: 0; }
+.success-detail-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  transition: background var(--transition);
+  align-items: baseline;
+  padding: 0.85rem 1.25rem;
+  border-bottom: var(--border-width) solid var(--border);
+  gap: 2rem;
 }
-.aside-prog-link:hover { background: var(--accent); }
-.aside-prog-link .t-mono { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
-.aside-prog-note { opacity: 0.4; font-size: 9px; }
+.success-detail-row:last-child { border-bottom: none; }
+.success-detail-key { opacity: 0.4; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; flex-shrink: 0; }
+.success-detail-val { font-size: 12px; letter-spacing: 0.06em; text-align: right; }
+.funnel-success-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .contact-flow { grid-template-columns: 1fr; }
-  .flow-aside {
-    grid-column: 1;
-    grid-row: auto;
-    border-left: none;
-    border-top: var(--border-width) solid var(--border);
-    padding-left: 0;
-    padding-top: 3rem;
-    position: static;
-  }
+/* ── SR-only ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
+
+/* ── B-box utility ── */
+.b-box { border: var(--border-width) solid var(--border); }
+
+/* ── Responsive ── */
 @media (max-width: 640px) {
-  .choice-grid      { grid-template-columns: 1fr; }
-  .form-row         { grid-template-columns: 1fr; }
-  .flow-confirm-links { flex-direction: column; }
+  .domain-grid  { grid-template-columns: 1fr; }
+  .plan-ac-row  { grid-template-columns: 1fr; }
+  .form-row     { grid-template-columns: 1fr; }
+  .funnel-gateway-actions { flex-direction: column; }
+  .funnel-success-actions { flex-direction: column; }
 }
 </style>
 
 <script>
-  import { animate } from 'motion';
-
-  const ease = [0.16, 1, 0.3, 1] as const;
-  const header = document.querySelector<HTMLElement>('.contact-header');
-  if (header) {
-    header.style.opacity = '0';
-    animate(
-      header,
-      { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] },
-      { duration: 0.55, easing: ease }
-    );
-  }
-</script>
-
-<script>
   // ─────────────────────────────────────────────────────────────────
-  //  Contact form — step logic, pricing, and Google Apps Script POST
-  //
-  //  SETUP: Replace the URL below with your deployed Apps Script URL.
-  //  Once you've deployed your Apps Script web app, paste its URL here.
+  //  HS108 Contact Funnel v2 — 8-step progressive qualification flow
   // ─────────────────────────────────────────────────────────────────
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxj4dVKmlAiVJBdfLvqth6unjsGlJCXUuzdiBYqA_rskji9W2WIvKZ5XPa6dfdlIjC/exec';
 
-  const flow    = document.getElementById('contact-flow')!;
-  const form    = document.getElementById('contact-form') as HTMLFormElement;
-  const barFill = document.getElementById('flow-bar-fill')!;
+  interface FunnelState {
+    domain: string;
+    plan: string;
+    contact: {
+      name: string; email: string; phone: string;
+      company: string; website: string; how_found: string;
+    };
+    currentStep: number;
+  }
 
-  const barWidths: Record<string, string> = {
-    '1': '33.33%',
-    '2': '66.66%',
-    '3': '100%',
-    'confirm': '100%',
+  const state: FunnelState = {
+    domain: '',
+    plan: 'core',
+    contact: { name: '', email: '', phone: '', company: '', website: '', how_found: '' },
+    currentStep: 1,
+  };
+
+  const VALID_DOMAINS = ['webcanvas', 'cmf-nexus', 'cx-identity', 'lumina-raw'];
+
+  const domainLabels: Record<string, string> = {
+    'webcanvas':   'WebCanvas — Digital Design',
+    'cmf-nexus':   'CMF_Nexus — Product Design',
+    'cx-identity': 'CX&Identity — Brand Identity',
+    'lumina-raw':  'Lumina.raw — Photo & Video',
+  };
+
+  const planLabels: Record<string, string> = {
+    'starter': 'Plan A — Starter',
+    'core':    'Plan B — Core',
+    'custom':  'Plan C — Custom / Enterprise',
+  };
+
+  const phaseMap: Record<string, string> = {
+    '1': 'Gateway', '2': 'Domain', '3': 'Plan',
+    '4': 'Details', '5': 'Review', '6': 'Terms',
+    '7': 'Payment', 'success': 'Confirmed',
   };
 
   // ── Panel switcher ──────────────────────────────────────────────
-  function showPanel(target: string) {
-    flow.querySelectorAll<HTMLElement>('.flow-panel').forEach(p => {
-      p.classList.add('flow-panel--hidden');
-    });
-    const panel = flow.querySelector<HTMLElement>(`[data-panel="${target}"]`);
-    if (panel) panel.classList.remove('flow-panel--hidden');
+  function showPanel(target: string | number) {
+    const key = String(target);
 
-    // Progress steps
-    flow.querySelectorAll<HTMLElement>('.flow-step').forEach(s => {
-      s.classList.remove('flow-step--active');
-      if (s.dataset.step && parseInt(s.dataset.step) <= parseInt(target)) {
-        s.classList.add('flow-step--active');
-      }
+    document.querySelectorAll<HTMLElement>('.funnel-panel').forEach(p => {
+      p.classList.add('funnel-panel--hidden');
+    });
+    document.querySelectorAll<HTMLElement>('[data-divider]').forEach(d => {
+      d.classList.add('funnel-panel--hidden');
     });
 
-    barFill.style.width = barWidths[target] ?? '33.33%';
+    const panel = document.querySelector<HTMLElement>(`[data-panel="${key}"]`);
+    if (panel) {
+      panel.classList.remove('funnel-panel--hidden');
+      const heading = panel.querySelector<HTMLElement>('h1, h2');
+      if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus(); }
+    }
+
+    // Show divider preceding the active panel
+    const divider = document.querySelector<HTMLElement>(`[data-divider="${key}"]`);
+    if (divider) divider.classList.remove('funnel-panel--hidden');
+
+    // Update progress
+    const stepN = key === 'success' ? 8 : parseInt(key, 10);
+    state.currentStep = stepN;
+
+    const counter = document.getElementById('funnel-step-counter');
+    const phase   = document.getElementById('funnel-step-phase');
+    const barFill = document.getElementById('funnel-bar-fill');
+    if (counter) counter.textContent = `Step ${stepN} of 8`;
+    if (phase)   phase.textContent   = phaseMap[key] ?? '';
+    if (barFill) barFill.style.width = `${(stepN / 8) * 100}%`;
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Panel-specific setup
+    if (key === '3') setupPlanStep();
+    if (key === '4') setupContactStep();
+    if (key === '5') populateSummary();
+    if (key === 'success') populateSuccess();
   }
 
-  // ── Pricing ─────────────────────────────────────────────────────
-  /**
-   * Returns the sum of prices for all checked service options.
-   * Options with price=0 (e.g. "Not sure yet") are excluded from the total.
-   */
-  function getSelectedTotal(): number {
-    return Array.from(
-      flow.querySelectorAll<HTMLInputElement>('.choice-input:checked')
-    ).reduce((sum, input) => {
-      const price = parseInt(input.dataset.price ?? '0', 10);
-      return sum + price;
-    }, 0);
-  }
+  // ── Context badge ───────────────────────────────────────────────
+  function updateContextBadge() {
+    const badge = document.getElementById('funnel-context-badge') as HTMLElement | null;
+    const domEl = document.getElementById('ctx-badge-domain');
+    const planEl = document.getElementById('ctx-badge-plan');
+    if (!badge || !domEl || !planEl) return;
 
-  /**
-   * Formats an INR amount using Indian numbering conventions.
-   * e.g. 350000 → "₹3,50,000"
-   */
-  function formatINR(amount: number): string {
-    return '₹' + amount.toLocaleString('en-IN');
-  }
-
-  /**
-   * Re-calculates and updates all cost display elements.
-   * Called whenever a service checkbox changes.
-   */
-  function updateCostDisplay() {
-    const total        = getSelectedTotal();
-    const estimateBox  = document.getElementById('cost-estimate')!;
-    const estimateAmt  = document.getElementById('cost-amount')!;
-    const summaryRow   = document.getElementById('summary-cost-row')!;
-    const summaryAmt   = document.getElementById('summary-cost-amount')!;
-
-    if (total > 0) {
-      estimateBox.hidden = false;
-      estimateAmt.textContent = formatINR(total);
-      summaryRow.hidden = false;
-      summaryAmt.textContent = formatINR(total);
+    if (state.domain) {
+      domEl.textContent = domainLabels[state.domain] ?? state.domain;
+      planEl.textContent = planLabels[state.plan] ?? state.plan;
+      badge.hidden = false;
     } else {
-      estimateBox.hidden = true;
-      summaryRow.hidden = true;
+      badge.hidden = true;
     }
   }
 
-  // ── Summary text ────────────────────────────────────────────────
-  function updateSummary() {
-    const checked = Array.from(
-      flow.querySelectorAll<HTMLInputElement>('.choice-input:checked')
-    ).map(i => i.value);
-
-    const el = document.getElementById('summary-services')!;
-    el.textContent = checked.length ? checked.join(' · ') : '—';
-
-    // Also refresh cost in summary
-    updateCostDisplay();
+  // ── Step 3: mark Plan B selected on load ────────────────────────
+  function setupPlanStep() {
+    const coreCard = document.querySelector<HTMLElement>('.plan-card--core');
+    if (coreCard && !state.plan) {
+      state.plan = 'core';
+    }
+    document.querySelectorAll<HTMLElement>('.plan-card').forEach(card => {
+      card.classList.toggle('plan-card--selected', card.dataset.plan === state.plan);
+    });
+    updateContextBadge();
   }
 
-  // ── Next / Back buttons ─────────────────────────────────────────
-  flow.querySelectorAll<HTMLButtonElement>('.flow-next').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const next = btn.dataset.next!;
-      showPanel(next);
-      updateSummary();
+  // ── Step 4: show correct context field ──────────────────────────
+  function setupContactStep() {
+    document.querySelectorAll<HTMLElement>('.domain-ctx-field').forEach(f => {
+      (f as HTMLElement).hidden = true;
     });
-  });
+    if (state.domain) {
+      const el = document.getElementById(`ctx-${state.domain}`);
+      if (el) (el as HTMLElement).hidden = false;
+    }
+  }
 
-  flow.querySelectorAll<HTMLButtonElement>('.flow-back').forEach(btn => {
-    btn.addEventListener('click', () => {
-      showPanel(btn.dataset.back!);
-    });
-  });
-
-  // ── Choice card toggle ──────────────────────────────────────────
-  flow.querySelectorAll<HTMLElement>('.choice-card').forEach(card => {
-    card.addEventListener('click', () => {
-      card.classList.toggle('choice-card--selected');
-    });
-  });
-
-  // Sync checkbox state ↔ card visual + update pricing
-  flow.querySelectorAll<HTMLInputElement>('.choice-input').forEach(input => {
-    input.addEventListener('change', () => {
-      input.closest('.choice-card')?.classList.toggle('choice-card--selected', input.checked);
-      updateCostDisplay();
-    });
-  });
-
-  // ── Form submit → Google Apps Script ───────────────────────────
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
-    submitBtn.textContent = 'Sending…';
-    submitBtn.disabled = true;
-
-    // Collect all checked services
-    const selectedServices = Array.from(
-      flow.querySelectorAll<HTMLInputElement>('.choice-input:checked')
-    ).map(i => i.value);
-
-    // Build a clean payload object from the form
-    const fd = new FormData(form);
-    const payload: Record<string, string | string[]> = {
-      name:          fd.get('name')    as string ?? '',
-      email:         fd.get('email')   as string ?? '',
-      company:       fd.get('company') as string ?? '',
-      how_found:     fd.get('how_found') as string ?? '',
-      message:       fd.get('message') as string ?? '',
-      timeline:      fd.get('timeline') as string ?? '',
-      budget:        fd.get('budget')  as string ?? '',
-      website_url:   fd.get('website_url')  as string ?? '',
-      service_types: selectedServices,                    // array of service names
-      estimated_cost: formatINR(getSelectedTotal()),      // pre-formatted total
-      submitted_at:  new Date().toISOString(),
+  // ── Step 5: populate summary ────────────────────────────────────
+  function populateSummary() {
+    const set = (id: string, val: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val || '—';
     };
+    set('sum-domain',  domainLabels[state.domain] ?? state.domain);
+    set('sum-plan',    planLabels[state.plan]    ?? state.plan);
+    set('sum-name',    state.contact.name);
+    set('sum-email',   state.contact.email);
+    set('sum-company', state.contact.company);
+  }
 
+  // ── Step 8: populate success + build calendar link ──────────────
+  function populateSuccess() {
+    const set = (id: string, val: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val || '—';
+    };
+    set('suc-domain', domainLabels[state.domain] ?? state.domain);
+    set('suc-plan',   planLabels[state.plan]    ?? state.plan);
+    set('suc-email',  state.contact.email);
+
+    const calLink = document.getElementById('cal-link') as HTMLAnchorElement | null;
+    if (calLink) {
+      calLink.href = buildCalendarLink();
+    }
+
+    // Submit to Apps Script
+    submitToAppsScript();
+  }
+
+  function buildCalendarLink(): string {
+    const title   = encodeURIComponent(`HS108 Discovery Meeting — ${domainLabels[state.domain] ?? state.domain}`);
+    const details = encodeURIComponent(`Domain: ${state.domain}\nPlan: ${state.plan}`);
+    const start   = new Date();
+    start.setDate(start.getDate() + 7);
+    start.setHours(10, 0, 0, 0);
+    const end = new Date(start);
+    end.setHours(11, 0, 0, 0);
+    const fmt = (d: Date) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(start)}/${fmt(end)}&details=${details}`;
+  }
+
+  async function submitToAppsScript() {
+    const payload = {
+      source:       'funnel_v2',
+      domain:       state.domain,
+      plan:         state.plan,
+      name:         state.contact.name,
+      email:        state.contact.email,
+      phone:        state.contact.phone,
+      company:      state.contact.company,
+      website:      state.contact.website,
+      how_found:    state.contact.how_found,
+      submitted_at: new Date().toISOString(),
+    };
     try {
-      // Google Apps Script web apps require a POST with the body as JSON.
-      // The script must have doPost(e) implemented and be deployed as
-      // "Execute as: Me" + "Who has access: Anyone".
-      const res = await fetch(APPS_SCRIPT_URL, {
+      await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        // Apps Script requires text/plain to avoid a CORS preflight on the
-        // free tier — it still receives valid JSON on the server side.
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(payload),
       });
-
-      const json = await res.json().catch(() => ({}));
-
-      if (res.ok && json.result !== 'error') {
-        showPanel('confirm');
-      } else {
-        throw new Error(json.message ?? 'Unknown error');
-      }
-    } catch (err) {
-      console.error('Submission error:', err);
-      submitBtn.textContent = 'Send to HS108 →';
-      submitBtn.disabled = false;
-      alert(
-        'Something went wrong — please email us directly at contact.studio@hs108.in\n\n' +
-        'Your information has not been lost.'
-      );
+    } catch {
+      // Submission failure is silent — booking already shown
     }
+  }
+
+  // ── Gateway ─────────────────────────────────────────────────────
+  document.getElementById('gateway-start')?.addEventListener('click', () => {
+    showPanel(2);
   });
+
+  // ── Domain selection ────────────────────────────────────────────
+  document.querySelectorAll<HTMLElement>('.domain-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const domain = card.dataset.domain ?? '';
+      state.domain = domain;
+
+      document.querySelectorAll<HTMLElement>('.domain-card').forEach(c =>
+        c.classList.toggle('domain-card--selected', c.dataset.domain === domain)
+      );
+
+      const radio = card.querySelector<HTMLInputElement>('.domain-input');
+      if (radio) radio.checked = true;
+
+      const nextBtn = document.getElementById('domain-next') as HTMLButtonElement | null;
+      if (nextBtn) nextBtn.disabled = false;
+
+      updateContextBadge();
+
+      // Auto-advance
+      setTimeout(() => showPanel(3), 180);
+    });
+  });
+
+  // ── Plan selection ──────────────────────────────────────────────
+  document.querySelectorAll<HTMLElement>('.plan-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const plan = card.dataset.plan ?? '';
+      state.plan = plan;
+
+      document.querySelectorAll<HTMLElement>('.plan-card').forEach(c =>
+        c.classList.toggle('plan-card--selected', c.dataset.plan === plan)
+      );
+
+      const radio = card.querySelector<HTMLInputElement>('.plan-input');
+      if (radio) radio.checked = true;
+
+      updateContextBadge();
+    });
+  });
+
+  // ── Generic next / back buttons ─────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>('.funnel-next').forEach(btn => {
+    btn.addEventListener('click', () => showPanel(btn.dataset.next!));
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.funnel-back').forEach(btn => {
+    btn.addEventListener('click', () => showPanel(btn.dataset.back!));
+  });
+
+  // ── Contact form validation & advance ───────────────────────────
+  document.getElementById('contact-next')?.addEventListener('click', () => {
+    const nameInput  = document.getElementById('fn-name')  as HTMLInputElement;
+    const emailInput = document.getElementById('fn-email') as HTMLInputElement;
+    const errName    = document.getElementById('err-name')!;
+    const errEmail   = document.getElementById('err-email')!;
+
+    let valid = true;
+
+    if (!nameInput.value.trim()) {
+      nameInput.setAttribute('data-invalid', 'true');
+      errName.hidden = false;
+      valid = false;
+    } else {
+      nameInput.removeAttribute('data-invalid');
+      errName.hidden = true;
+    }
+
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(emailInput.value.trim())) {
+      emailInput.setAttribute('data-invalid', 'true');
+      errEmail.hidden = false;
+      valid = false;
+    } else {
+      emailInput.removeAttribute('data-invalid');
+      errEmail.hidden = true;
+    }
+
+    if (!valid) return;
+
+    // Capture contact state
+    state.contact.name     = nameInput.value.trim();
+    state.contact.email    = emailInput.value.trim();
+    state.contact.phone    = (document.getElementById('fn-phone') as HTMLInputElement)?.value.trim() ?? '';
+    state.contact.company  = (document.getElementById('fn-company') as HTMLInputElement)?.value.trim() ?? '';
+    state.contact.website  = (document.getElementById('fn-website') as HTMLInputElement)?.value.trim() ?? '';
+    state.contact.how_found = (document.getElementById('fn-how-found') as HTMLSelectElement)?.value ?? '';
+
+    showPanel(5);
+  });
+
+  // ── T&C checkbox enables Next ────────────────────────────────────
+  document.getElementById('tnc-checkbox')?.addEventListener('change', (e) => {
+    const btn = document.getElementById('tnc-next') as HTMLButtonElement | null;
+    if (btn) btn.disabled = !(e.target as HTMLInputElement).checked;
+  });
+
+  document.getElementById('tnc-next')?.addEventListener('click', () => showPanel(7));
+
+  // ── Payment stub ─────────────────────────────────────────────────
+  document.getElementById('pay-btn')?.addEventListener('click', () => {
+    const stub = document.getElementById('payment-stub-note');
+    if (stub) stub.hidden = false;
+    // Replace with Razorpay redirect when ready:
+    // window.location.href = `https://rzp.io/l/YOUR_LINK`;
+    setTimeout(() => showPanel('success'), 1200);
+  });
+
+  // ── Query param pre-selection ────────────────────────────────────
+  const params = new URLSearchParams(window.location.search);
+  const paramDomain = params.get('domain') ?? '';
+
+  if (VALID_DOMAINS.includes(paramDomain)) {
+    state.domain = paramDomain;
+
+    // Mark the correct radio + card as selected
+    const card = document.querySelector<HTMLElement>(`.domain-card[data-domain="${paramDomain}"]`);
+    if (card) {
+      card.classList.add('domain-card--selected');
+      const radio = card.querySelector<HTMLInputElement>('.domain-input');
+      if (radio) radio.checked = true;
+    }
+
+    updateContextBadge();
+    showPanel(3);
+  }
 </script>

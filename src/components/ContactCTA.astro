@@ -3,13 +3,17 @@ interface Props {
   headline?: string;
   sub?: string;
   invert?: boolean;
+  domain?: string;
 }
 
 const {
   headline = "Let's build\nsomething together.",
   sub = "We're currently accepting new projects. Tell us what you're working on.",
   invert = true,
+  domain,
 } = Astro.props;
+
+const ctaHref = domain ? `/contact?domain=${domain}` : '/contact';
 ---
 
 <section class:list={['cta-section', { 'inv-block': invert }]}>
@@ -20,7 +24,7 @@ const {
       <p class="t-body cta-sub">{sub}</p>
     </div>
     <div class="cta-actions">
-      <a href="/contact" class:list={['btn', invert ? 'btn--outline-inv' : 'btn--primary']}>
+      <a href={ctaHref} class:list={['btn', invert ? 'btn--outline-inv' : 'btn--primary']}>
         Get In Touch
       </a>
       <a href="mailto:contact.studio@hs108.in" class:list={['btn', invert ? 'btn--primary' : 'btn--outline']}>
