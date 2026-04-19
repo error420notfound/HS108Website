@@ -277,9 +277,104 @@ draft:      boolean (default false) — set true to hide
 ```
 
 **Existing sample files (placeholder content — replace with real work):**
-- `src/content/work/novapay.mdx` — fintech rebrand, featured, order 1
+- `src/content/work/novapay.mdx` — fintech rebrand, featured, order 1 **(includes 3D model viewer)**
 - `src/content/work/urbane-property.mdx` — real estate platform, featured, order 2
 - `src/content/work/healthos.mdx` — healthcare design system, featured, order 3
+
+---
+
+## 3D Model Viewer (Google Model-Viewer)
+
+Interactive 3D models can be embedded in case study pages via the optional `modelViewer` frontmatter field. Uses Google's [`<model-viewer>` web component](https://modelviewer.dev/) with scroll-driven camera animation, AR support (iOS Quick Look + Android Scene Viewer), and ACES filmic post-processing.
+
+**Implementation:**
+- Component: [src/layouts/WorkLayout.astro](src/layouts/WorkLayout.astro) — renders `<model-viewer>` custom element + scroll listener
+- Schema: [src/content/config.ts](src/content/config.ts) — `modelViewer` optional object in work collection schema
+- Example: [src/content/work/novapay.mdx](src/content/work/novapay.mdx) — see `modelViewer` frontmatter for full usage
+
+**How it works:**
+1. The viewer loads the Google model-viewer script dynamically via `<script type="module">` in the page head
+2. Server-side (in Astro frontmatter): iOS USDZ URL is built with hash params for Quick Look customization (checkout title, subtitle, price, custom HTML banner)
+3. Client-side (browser JS): scroll listener reads `data-*` attributes on the wrapper and interpolates camera orbit (theta, phi, radius) from start to end values as user scrolls
+
+**Frontmatter fields (all optional except `src`):**
+
+| Field | Type | Use |
+|---|---|---|
+| `src` | string | GLB file URL (required) |
+| `iosSrc` | string | USDZ file URL for iOS Quick Look |
+| `alt` | string | Alt text for the model |
+| `caption` | string | Caption below the viewer |
+| **Rendering** | | |
+| `shadowIntensity` | number (0–2) | Shadow darkness (default: 1) |
+| `autoRotate` | boolean | Auto-rotate model (default: true) |
+| `cameraControls` | boolean | Allow user pan/rotate (default: true) |
+| `enableZoom` | boolean | Allow pinch zoom (default: false) |
+| `enableAR` | boolean | Show AR button (default: true) |
+| `arButtonText` | string | AR button label (default: "View in AR") |
+| `arTitle` | string | Android Scene Viewer title |
+| `arLink` | string | Android Scene Viewer link |
+| `interpolationDecay` | number | Camera ease-out speed (default: 200ms) |
+| `environmentImage` | string | Lighting env map (default: empty = neutral) |
+| **Post-processing** | | |
+| `acesFilmic` | boolean | Enable ACES filmic tone mapping (default: true) |
+| `bloom` | boolean | Enable bloom effect (default: true) |
+| **Scroll Animation** | | |
+| `scrollAnimation` | boolean | Drive camera on scroll (default: true) |
+| `startTheta` | number | Initial camera X angle in degrees (default: -90) |
+| `endTheta` | number | Final camera X angle at bottom (default: 180) |
+| `startPhi` | number | Initial camera Y angle (default: 75) |
+| `endPhi` | number | Final camera Y angle (default: 90) |
+| `startRadius` | number | Initial distance in meters (default: 2) |
+| `endRadius` | number | Final distance in meters (default: 1) |
+| **iOS Quick Look Banner** | | |
+| `iosCheckoutTitle` | string | Checkout title (mutually exclusive with custom HTML) |
+| `iosCheckoutSubtitle` | string | Checkout subtitle |
+| `iosPrice` | string | Price display |
+| `iosCallToAction` | string | CTA button text |
+| `iosCanonicalUrl` | string | Web page canonical URL in banner |
+| **iOS Custom HTML Banner** | | |
+| `iosCustomBannerUrl` | string | Custom HTML file URL (overrides checkout fields) |
+| `iosCustomBannerHeight` | enum | Banner height: `small`, `medium`, `large` |
+| `iosAllowsContentScaling` | boolean | Allow banner zoom (default: false) |
+
+**Example frontmatter:**
+```yaml
+modelViewer:
+  src: "https://example.com/model.glb"
+  iosSrc: "https://example.com/model.usdz"
+  alt: "3D product model"
+  caption: "Interactive 3D model"
+  autoRotate: true
+  acesFilmic: true
+  bloom: true
+  scrollAnimation: true
+  startTheta: -90
+  endTheta: 180
+  startPhi: 75
+  endPhi: 90
+  startRadius: 2
+  endRadius: 1
+  arButtonText: "View in AR"
+  iosCustomBannerUrl: "https://example.com/banner.html"
+  iosCustomBannerHeight: "large"
+  iosCanonicalUrl: "https://hs108.in/work/project"
+```
+
+**iOS Quick Look Notes:**
+- **Custom HTML banner** takes priority — if `iosCustomBannerUrl` is set, all checkout fields are ignored
+- Requires HTTPS and a valid `.usdz` file URL in `iosSrc`
+- Example banner: [public/ar-banner.html](public/ar-banner.html) — brutalist-styled, uses HS108 tokens
+- Externally hosted banner: `https://error420notfound.github.io/webHTML/arBanner1.html`
+
+**Android Scene Viewer Notes:**
+- Uses `ar-title` and `ar-link` attributes
+- Requires Android device with Google Play Services
+
+**Styling:**
+- Model viewer block: `.cs-model-viewer-wrap` — 4:3 aspect ratio, 2px border, token colours
+- AR button: `.mv-ar-btn` — Geist Mono uppercase, orange hover fill, no border-radius
+- Caption: `.cs-model-caption` — opacity 0.5, uppercase label style
 
 ---
 
@@ -442,6 +537,7 @@ npm install
 - ✅ Applied `theme-cool` to `off-menu.astro`
 - ✅ Applied `theme-teal` to `field-notes.astro`
 - ✅ Updated Nav "Programs" desktop link → `/programs`
+- ✅ **3D Model Viewer integration** — added Google `<model-viewer>` web component with scroll-driven camera, AR support (iOS Quick Look + Android Scene Viewer), ACES filmic post-processing, and customizable iOS banner. Implemented in [WorkLayout.astro](src/layouts/WorkLayout.astro) with full property controls in frontmatter. Example: [novapay.mdx](src/content/work/novapay.mdx)
 - ✅ Renamed "Atelier Discourse" → "Field Notes" (file renamed `atelier-discourse.astro` → `field-notes.astro`, route `/programs/field-notes`)
 - ✅ Footer: added all 4 programs, added "HS108 Network" column with 3 subdomain links (docs, field-notes, toolkit)
 - ✅ Nav: added hover dropdown for Services and Programs on desktop; accordion submenu for both in mobile
