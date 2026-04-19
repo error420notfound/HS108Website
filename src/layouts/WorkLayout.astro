@@ -42,6 +42,8 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
   <div class="cs-hero" id="cs-hero">
     <div class="cs-hero-overlay" style={`background-color: ${color}26`}></div>
     <img src={coverImage} alt={coverAlt} class="cs-hero-img img-raw" id="cs-hero-img" loading="eager" />
+    <div class="cs-hero-gradient-blend-mix"></div>
+    <div class="cs-hero-gradient"></div>
     <div class="cs-hero-caption container">
       <p class="t-label cs-hero-client">{client} &mdash; {year}</p>
       <h1 class="cs-hero-title">{title}</h1>
@@ -145,7 +147,7 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
   /* ── Hero ── */
   .cs-hero {
     position: relative;
-    height: 100vh;
+    height: 100lvh;
     overflow: hidden;
     border-bottom: var(--border-width) solid var(--border);
   }
@@ -164,6 +166,31 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
     display: block;
     will-change: transform;
   }
+
+  .cs-hero-gradient-blend-mix {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: 
+      color-mix(in oklch, var(--orange-950) 100%, transparent) 100%;
+    mix-blend-mode: hue;
+    
+  }
+
+    .cs-hero-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+  to top,
+  color-mix(in oklch, var(--orange-800) 80%, transparent) 0%,
+  color-mix(in oklch, var(--orange-800) 50%, transparent) 40%,
+  color-mix(in oklch, var(--orange-800) 20%, transparent) 100%
+    );
+  }
+
 
   .cs-hero-caption {
     position: absolute;
@@ -206,12 +233,15 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
     z-index: 10;
     background: var(--surface-base);
     border-bottom: var(--border-width) solid var(--border);
+    height: 0;
+    overflow: hidden;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s ease;
   }
 
   .cs-meta-bar.is-visible {
+    height: auto;
     opacity: 1;
     pointer-events: auto;
   }
@@ -266,7 +296,7 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
 
   .cs-stat-cell {
     flex: 1;
-    padding: 2rem 2.5rem;
+    padding: 2rem 1.5rem;
     border-right: var(--border-width) solid var(--border);
     display: flex;
     flex-direction: column;
@@ -294,9 +324,10 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
   .cs-body {
     padding-top: clamp(3rem, 6vw, 6rem);
     padding-bottom: clamp(3rem, 6vw, 6rem);
-    max-width: 80ch;
+    max-width: 120ch;
     margin-left: auto;
     margin-right: auto;
+    background-color: color-mix(in oklch, var(--surface-base) 100%, var(--accent) 20%)
   }
 
   /* ── Summary intro ── */
@@ -320,18 +351,19 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
 
   /* ── Pull quote ── */
   .cs-pullquote-wrap {
+    position: relative;
     margin-bottom: 4rem;
-    padding-bottom: 4rem;
-    border-bottom: var(--border-width) solid var(--border);
+    /* padding-bottom: 4rem;
+    /* border-bottom: var(--border-width) solid var(--border); */
   }
 
   .cs-pullquote-text {
     font-family: var(--font-display);
     font-style: italic;
-    font-weight: 400;
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 500;
+    font-size: clamp(2.4rem, 4vw, 3.5rem);
     letter-spacing: -0.02em;
-    line-height: 1.2;
+    line-height: 1.4;
     color: var(--accent-strong);
     max-width: 30ch;
     margin: 0;
@@ -429,24 +461,34 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
     display: flex;
     flex-direction: column;
     gap: 0;
-    border-top: var(--border-width) solid var(--border);
   }
 
   .cs-gallery-item {
     margin: 0;
     padding: 0;
-    border-bottom: var(--border-width) solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+    /* border-bottom: var(--border-width) solid var(--border); */
+  }
+
+  .cs-gallery-item:first-child {
+    border-top: none;
   }
 
   .cs-gallery-img {
-    width: 100%;
-    height: auto;
+    width: auto;
+    max-width: 100%;
+    max-height: 50vh;
+    border-top: var(--border-width) solid var(--border);
     display: block;
   }
 
   .cs-gallery-caption {
     padding: 0.75rem 0;
     opacity: 0.4;
+    padding-bottom: 3rem;
   }
 
   /* ── Next project ── */
@@ -497,7 +539,7 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
   /* ── Mobile ── */
   @media (max-width: 900px) {
     .cs-hero {
-      height: 75vh;
+      height: 80lvh;
     }
 
     .cs-hero-title {

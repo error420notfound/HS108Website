@@ -226,8 +226,9 @@
 
 /* --- Inverted block --- */
 .inv-block {
-  background: var(--c-black);
-  color: var(--c-white);
+  background-color: var(--black-native);
+  background: var(--black-native);
+  color: var(--text-on-dark);
 }
 
 /* --- Text highlight marker --- */

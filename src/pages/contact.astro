@@ -5,6 +5,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 <BaseLayout
   title="Get In Touch"
   description="Start a project with HS108. We're currently accepting new clients."
+  bodyClass="theme-rose"
 >
 
   <!-- Page header -->
@@ -23,7 +24,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   <hr class="contact-divider" />
 
   <!-- Multi-step form shell -->
-  <div class="contact-flow container" id="contact-flow">
+  <div class="contact-flow-wrapper">
+    <div class="contact-flow container" id="contact-flow">
 
     <!-- Progress bar -->
     <div class="flow-progress" aria-label="Form progress">
@@ -261,8 +263,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
     </form>
 
-    <!-- Side info — visible on all steps desktop -->
-    <aside class="flow-aside">
+      <!-- Side info — visible on all steps desktop -->
+      <aside class="flow-aside">
       <div class="aside-block">
         <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Email Us Directly</p>
         <a href="mailto:contact.studio@hs108.in" class="aside-email link-swap">contact.studio@hs108.in</a>
@@ -292,8 +294,9 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           Project kickoffs are scheduled 2–4 weeks out.
         </p>
       </div>
-    </aside>
+      </aside>
 
+    </div>
   </div>
 
 </BaseLayout>
@@ -333,6 +336,15 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 }
 .contact-response { opacity: 0.4; }
 .contact-divider  { margin: 0; }
+
+/* ── Flow wrapper — full-width gradient ── */
+.contact-flow-wrapper {
+  background: linear-gradient(
+    150deg in oklch,
+    var(--rose-200) 0%,
+    var(--rose-500) 70%
+  );
+}
 
 /* ── Flow shell ── */
 .contact-flow {
@@ -407,6 +419,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   transition: background var(--transition), border-color var(--transition);
   gap: 1rem;
   position: relative;
+  background-color: var(--rose-50);
 }
 .choice-card:hover { border-color: var(--accent); }
 
@@ -422,13 +435,13 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   gap: 4px;
   flex: 1;
 }
-.choice-code  { color: var(--accent); opacity: 0.6; font-size: 9px; }
+.choice-code  { color: var(--accent); opacity: 0.6; font-size: 0.7rem; }
 .choice-val   { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
 .choice-desc  { font-size: 10px; opacity: 0.45; letter-spacing: 0.06em; }
 
 /* Price tag — sits top-right, pushes check below */
 .choice-price {
-  font-size: 9px;
+  font-size: 0.7rem;
   opacity: 0.4;
   letter-spacing: 0.06em;
   white-space: nowrap;
@@ -440,7 +453,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
 .choice-check {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 1.2rem;
   color: var(--accent);
   opacity: 0;
   flex-shrink: 0;
@@ -449,9 +462,10 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   position: absolute;
   bottom: 1.25rem;
   right: 1.25rem;
+  
 }
 .choice-card--selected {
-  background: var(--surface-elevated);
+  background: var(--rose-200);
   border-color: var(--black-native);
 }
 .choice-card--selected .choice-check { opacity: 1; }
@@ -459,7 +473,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 /* ── Cost estimate bar ── */
 .cost-estimate {
   padding: 1.25rem 1.5rem;
-  background: var(--surface-elevated);
+  background: var(--rose-200);
   border: var(--border-width) solid var(--border);
   display: flex;
   flex-direction: column;
@@ -479,19 +493,20 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 }
 .cost-estimate-label {
   opacity: 0.45;
-  font-size: 9px;
+  font-size: 0.7rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 .cost-estimate-amount {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   letter-spacing: -0.02em;
   color: var(--fg);
   transition: color 200ms ease;
 }
 .cost-estimate-note {
-  font-size: 10px;
+  font-size: 0.7rem;
   opacity: 0.4;
+  max-width: 80ch;
   line-height: 1.6;
   letter-spacing: 0.04em;
 }

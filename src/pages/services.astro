@@ -144,15 +144,17 @@ const services = [
   </div>
 
   <!-- Callout -->
-  <div class="container svc-callout inv-block" data-fade>
-    <p class="t-label svc-callout-label">Not sure what you need?</p>
-    <h2 class="svc-callout-headline">Start with a conversation.</h2>
-    <p class="svc-callout-sub">
-      Most projects don't fit neatly into one service. Tell us what you're building
-      and we'll figure out the right scope together.
-    </p>
-    <a href="/contact" class="btn btn--outline-inv">Get In Touch</a>
-  </div>
+  <section class="inv-block" data-fade>
+    <div class="container svc-callout">
+      <p class="t-label svc-callout-label">Not sure what you need?</p>
+      <h2 class="svc-callout-headline">Start with a conversation.</h2>
+      <p class="svc-callout-sub">
+        Most projects don't fit neatly into one service. Tell us what you're building
+        and we'll figure out the right scope together.
+      </p>
+      <a href="/contact" class="btn btn--outline-inv">Get In Touch</a>
+    </div>
+  </section>
 
   <ContactCTA invert={false} />
 
@@ -484,13 +486,15 @@ const services = [
   .svc-callout {
     padding: var(--space-section) var(--gutter);
     display: flex;
+    background-color: ;
+    background: ;
     flex-direction: column;
     gap: 1.5rem;
     align-items: flex-start;
   }
 
   .svc-callout-label {
-    opacity: 0.4;
+    opacity: 0.5;
     color: var(--text-on-dark);
     margin: 0;
   }

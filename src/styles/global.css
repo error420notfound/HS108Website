@@ -566,6 +566,7 @@ hr.inv {
 
 /* --- Utility --- */
 .inv-block {
+  background-color: var(--black-native);
   background: var(--black-native);
   color: var(--text-on-dark);
 }
