@@ -20,14 +20,66 @@ interface Props {
   pullQuote?: string;
   stats?: { label: string; value: string }[];
   images?: { src: string; caption?: string }[];
+  modelViewer?: {
+    src: string;
+    iosSrc?: string;
+    alt?: string;
+    caption?: string;
+    shadowIntensity?: number;
+    autoRotate?: boolean;
+    cameraControls?: boolean;
+    enableZoom?: boolean;
+    enableAR?: boolean;
+    arButtonText?: string;
+    interpolationDecay?: number;
+    environmentImage?: string;
+    acesFilmic?: boolean;
+    bloom?: boolean;
+    scrollAnimation?: boolean;
+    startTheta?: number;
+    endTheta?: number;
+    startPhi?: number;
+    endPhi?: number;
+    startRadius?: number;
+    endRadius?: number;
+    iosCheckoutTitle?: string;
+    iosCheckoutSubtitle?: string;
+    iosPrice?: string;
+    iosCallToAction?: string;
+    iosCanonicalUrl?: string;
+    iosCustomBannerUrl?: string;
+    iosCustomBannerHeight?: 'small' | 'medium' | 'large';
+    iosAllowsContentScaling?: boolean;
+    arTitle?: string;
+    arLink?: string;
+  };
 }
 
 const {
   title, client, year, categories, tags,
   coverImage, coverAlt, color, outcome,
   summary, services, duration, slug,
-  pullQuote, stats, images,
+  pullQuote, stats, images, modelViewer,
 } = Astro.props;
+
+// Build iOS Quick Look USDZ URL with hash params (done server-side — no runtime JS needed)
+let mvIosSrc = modelViewer?.iosSrc;
+if (modelViewer?.iosSrc) {
+  const hashParams = new URLSearchParams();
+  if (modelViewer.iosCustomBannerUrl) {
+    const bannerParams = new URLSearchParams();
+    bannerParams.set('customHeight', modelViewer.iosCustomBannerHeight ?? 'large');
+    bannerParams.set('allowsContentScaling', modelViewer.iosAllowsContentScaling ? '1' : '0');
+    hashParams.set('custom', `${modelViewer.iosCustomBannerUrl}?${bannerParams.toString()}`);
+  }
+  if (modelViewer.iosCheckoutTitle) hashParams.set('checkoutTitle', modelViewer.iosCheckoutTitle);
+  if (modelViewer.iosCheckoutSubtitle) hashParams.set('checkoutSubtitle', modelViewer.iosCheckoutSubtitle);
+  if (modelViewer.iosPrice) hashParams.set('price', modelViewer.iosPrice);
+  if (modelViewer.iosCallToAction) hashParams.set('callToAction', modelViewer.iosCallToAction);
+  if (modelViewer.iosCanonicalUrl) hashParams.set('canonicalWebPageURL', modelViewer.iosCanonicalUrl);
+  const hashStr = hashParams.toString().replace(/\+/g, '%20');
+  if (hashStr) mvIosSrc = `${modelViewer.iosSrc}#${hashStr}`;
+}
 
 // Find next project for navigation
 const allWork = await getCollection('work', ({ data }) => !data.draft);
@@ -108,6 +160,63 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
       </div>
     )}
 
+    <!-- 3D model viewer (optional) -->
+    {modelViewer && (
+      <div
+        class="cs-model-viewer-wrap"
+        id="cs-model-viewer"
+        data-scroll={modelViewer.scrollAnimation !== false ? 'true' : undefined}
+        data-start-theta={modelViewer.startTheta ?? -90}
+        data-end-theta={modelViewer.endTheta ?? 180}
+        data-start-phi={modelViewer.startPhi ?? 75}
+        data-end-phi={modelViewer.endPhi ?? 90}
+        data-start-radius={modelViewer.startRadius ?? 2}
+        data-end-radius={modelViewer.endRadius ?? 1}
+      >
+        {/* @ts-ignore — model-viewer is a custom element */}
+        <model-viewer
+          id="mv-instance"
+          src={modelViewer.src}
+          ios-src={mvIosSrc}
+          alt={modelViewer.alt ?? '3D Model'}
+          shadow-intensity={modelViewer.shadowIntensity ?? 1}
+          camera-controls={modelViewer.cameraControls !== false ? true : undefined}
+          auto-rotate={modelViewer.autoRotate !== false ? true : undefined}
+          ar={modelViewer.enableAR !== false ? true : undefined}
+          ar-modes="scene-viewer webxr quick-look"
+          ar-title={modelViewer.arTitle}
+          ar-link={modelViewer.arLink}
+          disable-zoom={!modelViewer.enableZoom ? true : undefined}
+          interaction-prompt="none"
+          touch-action="pan-y"
+          camera-orbit="0deg 75deg 1m"
+          max-camera-orbit="auto 180deg auto"
+          min-camera-orbit="auto 90deg auto"
+          interpolation-decay={modelViewer.interpolationDecay ?? 200}
+          environment-image={modelViewer.environmentImage ?? ''}
+          style="width:100%;height:100%;display:block;"
+        >
+          {(modelViewer.acesFilmic !== false) && (
+            <>
+              {/* @ts-ignore */}
+              <effect-composer render-mode="quality" msaa="8">
+                {/* @ts-ignore */}
+                {modelViewer.bloom !== false && <bloom-effect />}
+                {/* @ts-ignore */}
+                <color-grade-effect tonemapping="aces_filmic" blend-mode="default" />
+              </effect-composer>
+            </>
+          )}
+          <button slot="ar-button" class="mv-ar-btn t-label">
+            {modelViewer.arButtonText ?? 'View in AR'}
+          </button>
+        </model-viewer>
+        {modelViewer.caption && (
+          <p class="cs-model-caption t-label">{modelViewer.caption}</p>
+        )}
+      </div>
+    )}
+
     <!-- Prose content from MDX -->
     <div class="prose cs-prose">
       <slot />
@@ -147,6 +256,7 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
   /* ── Hero ── */
   .cs-hero {
     position: relative;
+    z-index: 0;
     height: 100lvh;
     overflow: hidden;
     border-bottom: var(--border-width) solid var(--border);
@@ -160,6 +270,8 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
   }
 
   .cs-hero-img {
+    position: relative;
+    z-index: 0;
     width: 100%;
     height: 115%;
     object-fit: cover;
@@ -172,22 +284,22 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background: 
-      color-mix(in oklch, var(--orange-950) 100%, transparent) 100%;
+    background:
+      color-mix(in oklab, var(--orange-950), transparent) 10%;
     mix-blend-mode: hue;
-    
+
   }
 
-    .cs-hero-gradient {
+  .cs-hero-gradient {
     position: absolute;
     inset: 0;
     z-index: 2;
     pointer-events: none;
     background: linear-gradient(
-  to top,
-  color-mix(in oklch, var(--orange-800) 80%, transparent) 0%,
-  color-mix(in oklch, var(--orange-800) 50%, transparent) 40%,
-  color-mix(in oklch, var(--orange-800) 20%, transparent) 100%
+      to top,
+      color-mix(in oklch, var(--orange-800) 80%, transparent) 0%,
+      color-mix(in oklch, var(--orange-800) 50%, transparent) 40%,
+      color-mix(in oklch, var(--orange-800) 20%, transparent) 100%
     );
   }
 
@@ -479,10 +591,10 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
 
   .cs-gallery-img {
     width: auto;
-    max-width: 100%;
     max-height: 50vh;
     border-top: var(--border-width) solid var(--border);
     display: block;
+    object-fit: cover;
   }
 
   .cs-gallery-caption {
@@ -573,6 +685,14 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
   }
 
   @media (max-width: 600px) {
+    .cs-gallery-img {
+    width: auto;
+    width: 100%;
+    border-top: var(--border-width) solid var(--border);
+    display: block;
+    object-fit: cover;
+  }
+
     .cs-meta-bar-inner {
       gap: 1.25rem;
     }
@@ -580,6 +700,45 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
     .cs-meta-item--outcome {
       flex-shrink: 0;
     }
+  }
+
+  /* ── Model Viewer ── */
+  .cs-model-viewer-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    position: relative;
+    border: var(--border-width) solid var(--black-native);
+    margin: var(--space-xl) 0;
+    overflow: hidden;
+    background: var(--surface-elevated);
+  }
+
+  .mv-ar-btn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10%;
+    background: var(--black-native);
+    color: var(--text-on-dark);
+    border: var(--border-width) solid var(--black-native);
+    padding: var(--space-xs) var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--size-label);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .mv-ar-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .cs-model-caption {
+    opacity: 0.5;
+    margin-top: var(--space-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
   }
 </style>
 
@@ -683,4 +842,38 @@ const nextEntry = sorted[(currentIdx + 1) % sorted.length];
       animate(h, { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0)'] }, { duration: 0.7, easing: ease });
     }, { amount: 0.3 });
   });
+
+  // 3D model viewer — load script + scroll-driven camera orbit
+  const mvWrap = document.getElementById('cs-model-viewer');
+  if (mvWrap) {
+    if (!customElements.get('model-viewer')) {
+      const s = document.createElement('script');
+      s.type = 'module';
+      s.src = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
+      document.head.appendChild(s);
+    }
+
+    const mv = document.getElementById('mv-instance') as any;
+    if (mv && mvWrap.dataset.scroll === 'true') {
+      const st = parseFloat(mvWrap.dataset.startTheta ?? '-90');
+      const et = parseFloat(mvWrap.dataset.endTheta ?? '180');
+      const sp = parseFloat(mvWrap.dataset.startPhi ?? '75');
+      const ep = parseFloat(mvWrap.dataset.endPhi ?? '90');
+      const sr = parseFloat(mvWrap.dataset.startRadius ?? '2');
+      const er = parseFloat(mvWrap.dataset.endRadius ?? '1');
+
+      const updateOrbit = () => {
+        const rect = mvWrap.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const progress = Math.max(0, Math.min(1, 1 - rect.bottom / (vh + rect.height)));
+        const theta  = st + progress * (et - st);
+        const phi    = sp + progress * (ep - sp);
+        const radius = sr + progress * (er - sr);
+        mv.cameraOrbit = `${theta}deg ${phi}deg ${radius}m`;
+      };
+      customElements.whenDefined('model-viewer').then(() => {
+        window.addEventListener('scroll', updateOrbit, { passive: true });
+      });
+    }
+  }
 </script>
