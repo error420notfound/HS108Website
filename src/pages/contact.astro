@@ -5,7 +5,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 <BaseLayout
   title="Get In Touch"
   description="Start a project with HS108. Book a discovery meeting."
-  bodyClass="theme-rose"
+  bodyClass="theme-amber"
 >
 
   <div class="funnel-wrap" id="funnel-wrap">
@@ -275,6 +275,47 @@ import BaseLayout from '@layouts/BaseLayout.astro';
                 <option>Mixed</option>
               </select>
             </div>
+
+            <!-- Plan-contextual fields — shown based on selected plan -->
+            <div class="plan-ctx-field" id="pctx-starter" hidden>
+              <div class="plan-ctx-banner b-box">
+                <span class="t-label plan-ctx-tag">Plan A — Starter</span>
+                <p class="t-mono plan-ctx-note">
+                  Starter engagements are scoped to 1 primary deliverable with 2 revision rounds.
+                  If your needs are broader, consider Plan B (Core) — you can go back and change this.
+                </p>
+              </div>
+            </div>
+
+            <div class="plan-ctx-field" id="pctx-core" hidden>
+              <div class="plan-ctx-banner b-box">
+                <span class="t-label plan-ctx-tag">Plan B — Core</span>
+                <p class="t-mono plan-ctx-note">
+                  Core engagements cover up to 3 deliverables with art direction and weekly reviews.
+                  This is the most common starting point for new projects.
+                </p>
+              </div>
+            </div>
+
+            <div class="plan-ctx-field" id="pctx-custom" hidden>
+              <div class="plan-ctx-banner plan-ctx-banner--inv b-box">
+                <span class="t-label plan-ctx-tag plan-ctx-tag--inv">Plan C — Custom / Enterprise</span>
+                <p class="t-mono plan-ctx-note plan-ctx-note--inv">
+                  Custom engagements are for established businesses with complex or multi-discipline needs.
+                </p>
+              </div>
+              <div class="form-group" style="margin-top:1rem">
+                <label class="form-label t-label" for="fn-turnover">Annual business turnover</label>
+                <select id="fn-turnover" name="annual_turnover" class="form-input form-select">
+                  <option value="">Select a range</option>
+                  <option>Under ₹20L</option>
+                  <option>₹20L – ₹1Cr</option>
+                  <option>₹1Cr – ₹10Cr</option>
+                  <option>₹10Cr+</option>
+                  <option>Prefer not to say</option>
+                </select>
+              </div>
+            </div>
           </div>
 
           <div class="funnel-actions">
@@ -288,12 +329,51 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
       <hr class="funnel-divider funnel-panel--hidden" data-divider="4" />
 
-      <!-- ── Step 5: Summary ── -->
+      <!-- ── Step 5: Terms ── -->
       <div class="funnel-panel funnel-panel--hidden" data-panel="5">
         <div class="container funnel-panel-inner">
           <div class="funnel-panel-header">
-            <span class="t-label funnel-step-label" style="opacity:0.4">04 / Review</span>
-            <h2 class="t-h2 funnel-panel-title">Review your<br /><em>brief.</em></h2>
+            <span class="t-label funnel-step-label" style="opacity:0.4">05 / Terms</span>
+            <h2 class="t-h2 funnel-panel-title">Before we<br /><em>proceed.</em></h2>
+          </div>
+
+          <div class="tnc-block b-box">
+            <p class="t-mono tnc-body">
+              The ₹2,000 + GST booking fee reserves your discovery meeting slot. It is non-refundable
+              but fully credited toward your project invoice. No scope is committed at this stage —
+              the meeting is to define the brief, not to approve a quote.
+            </p>
+            <p class="t-mono tnc-body" style="margin-top:1rem">
+              HS108 may decline a project after the discovery meeting if the scope is not a fit.
+              In that case, the booking fee is forfeit per our standard terms.
+            </p>
+          </div>
+
+          <label class="tnc-check-row b-box" id="tnc-label">
+            <input type="checkbox" id="tnc-checkbox" class="tnc-checkbox" />
+            <span class="tnc-check-box"></span>
+            <span class="t-mono tnc-check-text">
+              I understand and agree to these terms.
+            </span>
+          </label>
+
+          <div class="funnel-actions">
+            <button type="button" class="btn btn--outline funnel-back" data-back="4">← Back</button>
+            <button type="button" class="btn btn--primary" id="tnc-next" disabled>
+              Agree & Continue →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="funnel-divider funnel-panel--hidden" data-divider="5" />
+
+      <!-- ── Step 6: Review + Meeting Picker ── -->
+      <div class="funnel-panel funnel-panel--hidden" data-panel="6">
+        <div class="container funnel-panel-inner">
+          <div class="funnel-panel-header">
+            <span class="t-label funnel-step-label" style="opacity:0.4">06 / Review</span>
+            <h2 class="t-h2 funnel-panel-title">Review your<br /><em>brief & schedule.</em></h2>
           </div>
 
           <div class="summary-grid b-box">
@@ -323,53 +403,50 @@ import BaseLayout from '@layouts/BaseLayout.astro';
             </div>
           </div>
 
+          <!-- Meeting time picker -->
+          <div class="meeting-picker b-box" style="margin-top:2rem">
+            <p class="t-label meeting-picker-heading">Choose a preferred date and time</p>
+            <p class="t-mono meeting-picker-note">Mon–Fri, 9:30 AM – 4:30 PM IST. We'll confirm within 24 hours.</p>
+
+            <div class="form-row" style="margin-top:1.5rem">
+              <div class="form-group">
+                <label class="form-label t-label" for="meeting-date">Date <span style="color:var(--accent)">*</span></label>
+                <input id="meeting-date" name="meeting_date" type="date" class="form-input" />
+                <span class="form-error t-label" id="err-meeting-date" hidden>Please select a weekday date</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label t-label" for="meeting-time">Time (IST) <span style="color:var(--accent)">*</span></label>
+                <select id="meeting-time" name="meeting_time" class="form-input form-select">
+                  <option value="">Select a slot</option>
+                  <option value="09:30">9:30 AM</option>
+                  <option value="10:00">10:00 AM</option>
+                  <option value="10:30">10:30 AM</option>
+                  <option value="11:00">11:00 AM</option>
+                  <option value="11:30">11:30 AM</option>
+                  <option value="12:00">12:00 PM</option>
+                  <option value="12:30">12:30 PM</option>
+                  <option value="13:00">1:00 PM</option>
+                  <option value="13:30">1:30 PM</option>
+                  <option value="14:00">2:00 PM</option>
+                  <option value="14:30">2:30 PM</option>
+                  <option value="15:00">3:00 PM</option>
+                  <option value="15:30">3:30 PM</option>
+                  <option value="16:00">4:00 PM</option>
+                  <option value="16:30">4:30 PM</option>
+                </select>
+                <span class="form-error t-label" id="err-meeting-time" hidden>Please select a time slot</span>
+              </div>
+            </div>
+          </div>
+
           <p class="t-label funnel-edit-note" style="opacity:0.35; font-size:10px; margin-top:1rem; letter-spacing:0.06em">
             Not right? Use the back button to edit any step.
           </p>
 
           <div class="funnel-actions">
-            <button type="button" class="btn btn--outline funnel-back" data-back="4">← Back</button>
-            <button type="button" class="btn btn--primary funnel-next" data-next="6">
-              Looks Right — Continue →
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <hr class="funnel-divider funnel-panel--hidden" data-divider="5" />
-
-      <!-- ── Step 6: T&C ── -->
-      <div class="funnel-panel funnel-panel--hidden" data-panel="6">
-        <div class="container funnel-panel-inner">
-          <div class="funnel-panel-header">
-            <span class="t-label funnel-step-label" style="opacity:0.4">05 / Terms</span>
-            <h2 class="t-h2 funnel-panel-title">Before we<br /><em>proceed.</em></h2>
-          </div>
-
-          <div class="tnc-block b-box">
-            <p class="t-mono tnc-body">
-              The ₹2,000 + GST booking fee reserves your discovery meeting slot. It is non-refundable
-              but fully credited toward your project invoice. No scope is committed at this stage —
-              the meeting is to define the brief, not to approve a quote.
-            </p>
-            <p class="t-mono tnc-body" style="margin-top:1rem">
-              HS108 may decline a project after the discovery meeting if the scope is not a fit.
-              In that case, the booking fee is forfeit per our standard terms.
-            </p>
-          </div>
-
-          <label class="tnc-check-row b-box" id="tnc-label">
-            <input type="checkbox" id="tnc-checkbox" class="tnc-checkbox" />
-            <span class="tnc-check-box"></span>
-            <span class="t-mono tnc-check-text">
-              I understand and agree to these terms.
-            </span>
-          </label>
-
-          <div class="funnel-actions">
             <button type="button" class="btn btn--outline funnel-back" data-back="5">← Back</button>
-            <button type="button" class="btn btn--primary" id="tnc-next" disabled>
-              Agree & Proceed to Payment →
+            <button type="button" class="btn btn--primary" id="review-next">
+              Continue to Payment →
             </button>
           </div>
         </div>
@@ -377,12 +454,12 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
       <hr class="funnel-divider funnel-panel--hidden" data-divider="6" />
 
-      <!-- ── Step 7: Payment (Stub) ── -->
+      <!-- ── Step 7: Payment ── -->
       <div class="funnel-panel funnel-panel--hidden" data-panel="7">
         <div class="container funnel-panel-inner">
           <div class="funnel-panel-header">
-            <span class="t-label funnel-step-label" style="opacity:0.4">06 / Payment</span>
-            <h2 class="t-h2 funnel-panel-title">Book your<br /><em>discovery meeting.</em></h2>
+            <span class="t-label funnel-step-label" style="opacity:0.4">07 / Payment</span>
+            <h2 class="t-h2 funnel-panel-title">Complete your<br /><em>booking.</em></h2>
           </div>
 
           <div class="payment-block b-box">
@@ -435,12 +512,37 @@ import BaseLayout from '@layouts/BaseLayout.astro';
               <span class="t-label success-detail-key">Confirmation sent to</span>
               <span class="t-mono success-detail-val" id="suc-email">—</span>
             </div>
+            <div class="success-detail-row">
+              <span class="t-label success-detail-key">Preferred Slot</span>
+              <span class="t-mono success-detail-val" id="suc-meeting">—</span>
+            </div>
           </div>
 
           <div class="funnel-success-actions">
-            <a id="cal-link" href="#" target="_blank" rel="noopener" class="btn btn--primary">
-              Add to Calendar →
-            </a>
+            <div class="cal-menu-wrapper">
+              <button type="button" id="cal-menu-btn" class="btn btn--primary">
+                Add to Calendar →
+              </button>
+              <div class="cal-menu" id="cal-menu" hidden>
+                <a id="cal-google" href="#" target="_blank" rel="noopener" class="cal-option">
+                  <span class="cal-icon">🔵</span>
+                  <span class="cal-label">Google Calendar</span>
+                </a>
+                <a id="cal-outlook" href="#" target="_blank" rel="noopener" class="cal-option">
+                  <span class="cal-icon">📧</span>
+                  <span class="cal-label">Outlook / Microsoft</span>
+                </a>
+                <a id="cal-apple" href="#" target="_blank" rel="noopener" class="cal-option">
+                  <span class="cal-icon">🍎</span>
+                  <span class="cal-label">Apple Calendar</span>
+                </a>
+                <a id="cal-ical" href="#" download class="cal-option">
+                  <span class="cal-icon">📋</span>
+                  <span class="cal-label">Download (.ics file)</span>
+                </a>
+              </div>
+            </div>
+            <a href="#" id="whatsapp-btn" class="btn btn--whatsapp" target="_blank" rel="noopener">Message on WhatsApp</a>
             <a href="/work" class="btn btn--outline">View Our Work</a>
           </div>
         </div>
@@ -774,6 +876,33 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   letter-spacing: 0.06em;
 }
 
+/* ── Plan-contextual banner (Step 4) ── */
+.plan-ctx-banner {
+  padding: 1.25rem 1.5rem;
+  background: var(--surface-elevated);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.plan-ctx-banner--inv {
+  background: var(--black-native);
+}
+.plan-ctx-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  color: var(--accent);
+}
+.plan-ctx-tag--inv { color: var(--text-on-dark); opacity: 0.45; }
+.plan-ctx-note {
+  font-size: 12px;
+  opacity: 0.55;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+}
+.plan-ctx-note--inv { color: var(--text-on-dark); }
+
 /* ── Summary ── */
 .summary-grid {
   display: flex;
@@ -829,6 +958,25 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   background: var(--accent);
 }
 .tnc-check-text { font-size: 12px; line-height: 1.5; letter-spacing: 0.04em; }
+
+/* ── Meeting picker ── */
+.meeting-picker {
+  padding: 1.75rem;
+  background: var(--surface-elevated);
+}
+.meeting-picker-heading {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.4rem;
+}
+.meeting-picker-note {
+  font-size: 11px;
+  opacity: 0.45;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
 
 /* ── Payment ── */
 .payment-block {
@@ -939,6 +1087,63 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 /* ── B-box utility ── */
 .b-box { border: var(--border-width) solid var(--border); }
 
+/* ── Calendar menu ── */
+.cal-menu-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.cal-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--bg);
+  border: var(--border-width) solid var(--border);
+  min-width: 220px;
+  z-index: 1000;
+  margin-top: 4px;
+  flex-direction: column;
+}
+.cal-menu:not([hidden]) {
+  display: flex;
+}
+.cal-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-bottom: var(--border-width) solid var(--border);
+  text-decoration: none;
+  color: var(--fg);
+  transition: background var(--transition);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+.cal-option:last-child { border-bottom: none; }
+.cal-option:hover {
+  background: var(--surface-elevated);
+}
+.cal-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.cal-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+/* ── WhatsApp button ── */
+.btn--whatsapp {
+  background: #25D366;
+  color: white;
+  border: var(--border-width) solid #25D366;
+}
+.btn--whatsapp:hover {
+  background: #20BA5A;
+  border-color: #20BA5A;
+  color: white;
+}
+
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .domain-grid  { grid-template-columns: 1fr; }
@@ -962,6 +1167,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
       name: string; email: string; phone: string;
       company: string; website: string; how_found: string;
     };
+    meetingDate: string;
+    meetingTime: string;
     currentStep: number;
   }
 
@@ -969,6 +1176,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     domain: '',
     plan: 'core',
     contact: { name: '', email: '', phone: '', company: '', website: '', how_found: '' },
+    meetingDate: '',
+    meetingTime: '',
     currentStep: 1,
   };
 
@@ -989,7 +1198,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
   const phaseMap: Record<string, string> = {
     '1': 'Gateway', '2': 'Domain', '3': 'Plan',
-    '4': 'Details', '5': 'Review', '6': 'Terms',
+    '4': 'Details', '5': 'Terms', '6': 'Review',
     '7': 'Payment', 'success': 'Confirmed',
   };
 
@@ -1031,7 +1240,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     // Panel-specific setup
     if (key === '3') setupPlanStep();
     if (key === '4') setupContactStep();
-    if (key === '5') populateSummary();
+    if (key === '6') populateReview();
     if (key === 'success') populateSuccess();
   }
 
@@ -1063,19 +1272,29 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     updateContextBadge();
   }
 
-  // ── Step 4: show correct context field ──────────────────────────
+  // ── Step 4: show correct domain + plan context fields ───────────
   function setupContactStep() {
+    // Domain-contextual field
     document.querySelectorAll<HTMLElement>('.domain-ctx-field').forEach(f => {
-      (f as HTMLElement).hidden = true;
+      f.hidden = true;
     });
     if (state.domain) {
       const el = document.getElementById(`ctx-${state.domain}`);
-      if (el) (el as HTMLElement).hidden = false;
+      if (el) el.hidden = false;
+    }
+
+    // Plan-contextual banner
+    document.querySelectorAll<HTMLElement>('.plan-ctx-field').forEach(f => {
+      f.hidden = true;
+    });
+    if (state.plan) {
+      const el = document.getElementById(`pctx-${state.plan}`);
+      if (el) el.hidden = false;
     }
   }
 
-  // ── Step 5: populate summary ────────────────────────────────────
-  function populateSummary() {
+  // ── Step 6: populate review (summary + meeting picker) ──────────
+  function populateReview() {
     const set = (id: string, val: string) => {
       const el = document.getElementById(id);
       if (el) el.textContent = val || '—';
@@ -1087,49 +1306,135 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     set('sum-company', state.contact.company);
   }
 
-  // ── Step 8: populate success + build calendar link ──────────────
+  function formatMeetingSlot(date: string, time: string): string {
+    if (!date || !time) return '—';
+    const d = new Date(`${date}T${time}:00`);
+    const dayStr = d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    const [h, m] = time.split(':').map(Number);
+    const ampm   = h >= 12 ? 'PM' : 'AM';
+    const h12    = h > 12 ? h - 12 : h === 0 ? 12 : h;
+    return `${dayStr} · ${h12}:${String(m).padStart(2, '0')} ${ampm} IST`;
+  }
+
+  // ── Step 8: populate success + build calendar links ─────────────
   function populateSuccess() {
     const set = (id: string, val: string) => {
       const el = document.getElementById(id);
       if (el) el.textContent = val || '—';
     };
-    set('suc-domain', domainLabels[state.domain] ?? state.domain);
-    set('suc-plan',   planLabels[state.plan]    ?? state.plan);
-    set('suc-email',  state.contact.email);
+    set('suc-domain',   domainLabels[state.domain] ?? state.domain);
+    set('suc-plan',     planLabels[state.plan]    ?? state.plan);
+    set('suc-email',    state.contact.email);
+    set('suc-meeting',  formatMeetingSlot(state.meetingDate, state.meetingTime));
 
-    const calLink = document.getElementById('cal-link') as HTMLAnchorElement | null;
-    if (calLink) {
-      calLink.href = buildCalendarLink();
+    const links = buildCalendarLinks();
+    document.getElementById('cal-google')?.setAttribute('href', links.google);
+    document.getElementById('cal-outlook')?.setAttribute('href', links.outlook);
+    document.getElementById('cal-apple')?.setAttribute('href', links.apple);
+    document.getElementById('cal-ical')?.setAttribute('href', links.apple);
+    document.getElementById('cal-ical')?.setAttribute('download', `hs108-meeting-${state.contact.email}.ics`);
+
+    // Set WhatsApp link
+    const whatsappBtn = document.getElementById('whatsapp-btn') as HTMLAnchorElement | null;
+    if (whatsappBtn) {
+      const message = encodeURIComponent(
+        `Hi, I've just booked my discovery meeting with HS108.\n\nDomain: ${domainLabels[state.domain] ?? state.domain}\nPlan: ${planLabels[state.plan] ?? state.plan}\nDate: ${formatMeetingSlot(state.meetingDate, state.meetingTime)}\n\nLooking forward to it!`
+      );
+      whatsappBtn.href = `https://wa.me/919876543210?text=${message}`;
     }
 
     // Submit to Apps Script
     submitToAppsScript();
   }
 
-  function buildCalendarLink(): string {
-    const title   = encodeURIComponent(`HS108 Discovery Meeting — ${domainLabels[state.domain] ?? state.domain}`);
-    const details = encodeURIComponent(`Domain: ${state.domain}\nPlan: ${state.plan}`);
-    const start   = new Date();
-    start.setDate(start.getDate() + 7);
-    start.setHours(10, 0, 0, 0);
-    const end = new Date(start);
-    end.setHours(11, 0, 0, 0);
-    const fmt = (d: Date) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(start)}/${fmt(end)}&details=${details}`;
+  function buildCalendarLinks(): Record<string, string> {
+    const title = encodeURIComponent(`HS108 Discovery Meeting — ${domainLabels[state.domain] ?? state.domain}`);
+
+    const details = `Meeting booked with HS108 Design Studio\n\nDomain: ${state.domain}\nPlan: ${state.plan}\n\nYour contact: ${state.contact.email}\nStudio contact: contact.studio@hs108.in\n\nWebsite: https://hs108.in`;
+    const detailsEnc = encodeURIComponent(details);
+
+    let start: Date;
+    if (state.meetingDate && state.meetingTime) {
+      start = new Date(`${state.meetingDate}T${state.meetingTime}:00`);
+    } else {
+      start = new Date();
+      start.setDate(start.getDate() + 7);
+      start.setHours(10, 0, 0, 0);
+    }
+    const end = new Date(start.getTime() + 60 * 60 * 1000); // +1 hour
+
+    const fmt = (d: Date) => {
+      const pad = (n: number) => String(n).padStart(2, '0');
+      return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+    };
+
+    // Google Calendar
+    const google = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(start)}/${fmt(end)}&details=${detailsEnc}&ctz=Asia%2FKolkata`;
+
+    // Outlook / Microsoft
+    const outlook = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&startTime=${start.toISOString()}&endTime=${end.toISOString()}&body=${detailsEnc}`;
+
+    // Apple Calendar (iCal format)
+    const apple = generateICalLink();
+
+    return { google, outlook, apple };
+  }
+
+  function generateICalLink(): string {
+    const title = `HS108 Discovery Meeting — ${domainLabels[state.domain] ?? state.domain}`;
+    const details = `Meeting booked with HS108 Design Studio\n\nDomain: ${state.domain}\nPlan: ${state.plan}\n\nYour contact: ${state.contact.email}\nStudio contact: contact.studio@hs108.in\n\nWebsite: https://hs108.in`;
+
+    let start: Date;
+    if (state.meetingDate && state.meetingTime) {
+      start = new Date(`${state.meetingDate}T${state.meetingTime}:00`);
+    } else {
+      start = new Date();
+      start.setDate(start.getDate() + 7);
+      start.setHours(10, 0, 0, 0);
+    }
+    const end = new Date(start.getTime() + 60 * 60 * 1000);
+
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const fmtIso = (d: Date) => {
+      return `${d.getUTCFullYear()}${pad(d.getUTCMonth()+1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())}Z`;
+    };
+
+    const ical = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//HS108//HS108 Design Studio//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:hs108-meeting-${state.contact.email}-${start.getTime()}@hs108.in
+DTSTAMP:${fmtIso(new Date())}
+DTSTART:${fmtIso(start)}
+DTEND:${fmtIso(end)}
+SUMMARY:${title}
+DESCRIPTION:${details}
+LOCATION:Video Call / Phone
+ORGANIZER;CN=HS108 Design Studio:mailto:contact.studio@hs108.in
+ATTENDEE;CN=${state.contact.name}:mailto:${state.contact.email}
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR`;
+
+    const blob = new Blob([ical], { type: 'text/calendar;charset=utf-8' });
+    return URL.createObjectURL(blob);
   }
 
   async function submitToAppsScript() {
     const payload = {
-      source:       'funnel_v2',
-      domain:       state.domain,
-      plan:         state.plan,
-      name:         state.contact.name,
-      email:        state.contact.email,
-      phone:        state.contact.phone,
-      company:      state.contact.company,
-      website:      state.contact.website,
-      how_found:    state.contact.how_found,
-      submitted_at: new Date().toISOString(),
+      source:        'funnel_v2',
+      domain:        state.domain,
+      plan:          state.plan,
+      name:          state.contact.name,
+      email:         state.contact.email,
+      phone:         state.contact.phone,
+      company:       state.contact.company,
+      website:       state.contact.website,
+      how_found:     state.contact.how_found,
+      meeting_date:  state.meetingDate,
+      meeting_time:  state.meetingTime,
+      submitted_at:  new Date().toISOString(),
     };
     try {
       await fetch(APPS_SCRIPT_URL, {
@@ -1243,15 +1548,104 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     if (btn) btn.disabled = !(e.target as HTMLInputElement).checked;
   });
 
-  document.getElementById('tnc-next')?.addEventListener('click', () => showPanel(7));
+  document.getElementById('tnc-next')?.addEventListener('click', () => showPanel(6));
 
-  // ── Payment stub ─────────────────────────────────────────────────
+  // ── Review step: validate meeting date/time and advance ──────────
+  document.getElementById('review-next')?.addEventListener('click', () => {
+    const dateInput = document.getElementById('meeting-date') as HTMLInputElement;
+    const timeInput = document.getElementById('meeting-time') as HTMLSelectElement;
+    const errDate   = document.getElementById('err-meeting-date')!;
+    const errTime   = document.getElementById('err-meeting-time')!;
+
+    let valid = true;
+
+    if (!dateInput.value) {
+      dateInput.setAttribute('data-invalid', 'true');
+      errDate.textContent = 'Please select a weekday date';
+      errDate.hidden = false;
+      valid = false;
+    } else {
+      const day = new Date(dateInput.value + 'T00:00:00').getDay();
+      if (day === 0 || day === 6) {
+        dateInput.setAttribute('data-invalid', 'true');
+        errDate.textContent = 'Please select a weekday (Mon–Fri)';
+        errDate.hidden = false;
+        valid = false;
+      } else {
+        dateInput.removeAttribute('data-invalid');
+        errDate.hidden = true;
+      }
+    }
+
+    if (!timeInput.value) {
+      timeInput.setAttribute('data-invalid', 'true');
+      errTime.hidden = false;
+      valid = false;
+    } else {
+      timeInput.removeAttribute('data-invalid');
+      errTime.hidden = true;
+    }
+
+    if (!valid) return;
+
+    state.meetingDate = dateInput.value;
+    state.meetingTime = timeInput.value;
+
+    showPanel(7);
+  });
+
+  // ── Date input constraints — weekdays only, today + 1 day minimum ─
+  (function initDateInput() {
+    const dateInput = document.getElementById('meeting-date') as HTMLInputElement | null;
+    if (!dateInput) return;
+
+    // Set min to tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    dateInput.min = tomorrow.toISOString().split('T')[0];
+
+    // Reject weekends on change
+    dateInput.addEventListener('change', () => {
+      const chosen = new Date(dateInput.value + 'T00:00:00');
+      const day    = chosen.getDay(); // 0=Sun, 6=Sat
+      const errEl  = document.getElementById('err-meeting-date');
+      if (day === 0 || day === 6) {
+        dateInput.setAttribute('data-invalid', 'true');
+        dateInput.value = '';
+        if (errEl) { errEl.textContent = 'Please select a weekday (Mon–Fri)'; errEl.hidden = false; }
+      } else {
+        dateInput.removeAttribute('data-invalid');
+        if (errEl) errEl.hidden = true;
+      }
+    });
+  })();
+
+  // ── Payment submit ───────────────────────────────────────────────
   document.getElementById('pay-btn')?.addEventListener('click', () => {
     const stub = document.getElementById('payment-stub-note');
     if (stub) stub.hidden = false;
     // Replace with Razorpay redirect when ready:
     // window.location.href = `https://rzp.io/l/YOUR_LINK`;
     setTimeout(() => showPanel('success'), 1200);
+  });
+
+  // ── Calendar menu toggle ───────────────────────────────────────
+  const calMenuBtn = document.getElementById('cal-menu-btn');
+  const calMenu = document.getElementById('cal-menu');
+
+  calMenuBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    calMenu?.toggleAttribute('hidden');
+  });
+
+  document.addEventListener('click', () => {
+    if (calMenu && !calMenu.hasAttribute('hidden')) {
+      calMenu.setAttribute('hidden', '');
+    }
+  });
+
+  calMenu?.addEventListener('click', (e) => {
+    e.stopPropagation();
   });
 
   // ── Query param pre-selection ────────────────────────────────────
