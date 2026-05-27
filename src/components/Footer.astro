@@ -27,7 +27,9 @@ const subdomains = [
 <footer class="footer">
   <div class="footer-main container">
     <div class="footer-brand">
-      <a href="/" class="footer-logo">HS108<span class="footer-dot"></span></a>
+      <a href="/" class="footer-logo" aria-label="HS108 Home">
+        <img src="/logo.svg" alt="HS108" class="footer-logo-image" />
+      </a>
       <p class="t-body footer-tagline">
         An independent design studio<br />building brands &amp; products that scale.
       </p>
@@ -107,22 +109,16 @@ const subdomains = [
   }
 
   .footer-logo {
-    font-family: var(--font-mono);
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    width: fit-content;
   }
 
-  .footer-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-    display: inline-block;
+  .footer-logo-image {
+    display: block;
+    width: auto;
+    height: 26px;
+    max-width: 180px;
   }
 
   .footer-tagline {
