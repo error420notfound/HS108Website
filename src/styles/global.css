@@ -398,14 +398,14 @@
   ===================================== */
 
   /* Core fonts — used site-wide */
-  --font-display: 'Genos', sans-serif;
+  --font-display: 'Instrument Serif', serif;
   --font-body:    'Geist', sans-serif;
   --font-mono:    'Geist Mono', 'Courier New', monospace;
 
   /* Alt font pair A — tech / bold / geometric
-     Genos: used at 700 bold italic for display
+     Instrument Serif: used for display
      Rajdhani: used as body/sub-heading companion */
-  --font-alt-a-display: 'Genos', sans-serif;
+  --font-alt-a-display: 'Instrument Serif', serif;
   --font-alt-a-body:    'Geist', 'Arial', sans-serif;
 
   /* Alt font pair B — precision / editorial
@@ -619,7 +619,7 @@ hr.inv {
    reference — nothing else needs to change.
 
    Font pair notation:
-     font-pair-a → Genos (display, 700 italic) + Rajdhani (body)
+     font-pair-a → Instrument Serif (display) + Rajdhani (body)
      font-pair-b → Michroma (display) + IBM Plex Serif (body)
      Omitting font overrides keeps Instrument Serif + Geist.
    ============================================================ */
@@ -1061,8 +1061,8 @@ hr.inv {
    Combine with a theme class to switch fonts.
    E.g. <body class="theme-blue font-pair-a">
 
-   font-pair-a: Genos (display) + Rajdhani (body)
-     → Tech, bold, geometric. Genos used at 700 italic.
+   font-pair-a: Instrument Serif (display) + Rajdhani (body)
+     → Tech, bold, geometric. Instrument Serif used for display.
    font-pair-b: Michroma (display) + IBM Plex Serif (body)
      → Precision, editorial, structured.
    ============================================================ */

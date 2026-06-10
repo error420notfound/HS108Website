@@ -7,7 +7,7 @@
      Geist Mono       — labels, CTAs, micro copy
 
    Alt pair A (selective use with .font-pair-a):
-     Genos            — display, 700 bold italic
+     Instrument Serif — display
      Rajdhani         — body companion
 
    Alt pair B (selective use with .font-pair-b):
@@ -16,7 +16,7 @@
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Michroma&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Genos:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 
 /* ============================================================
    TYPE CLASSES
@@ -97,21 +97,21 @@
    They apply the alt font directly, regardless of theme class.
    ─────────────────────────────────────────────────────────── */
 
-/* Genos — the primary treatment: 700 bold italic
+/* Instrument Serif — the primary treatment: regular weight, often italic
    Use for hero / large display text on alt-a pages */
 .t-genos {
   font-family: var(--font-alt-a-display);
-  font-weight: 700;
+  font-weight: 400;
   font-style: italic;
   line-height: 0.9;
   letter-spacing: -0.02em;
 }
 
-/* Genos upright — same weight, no italic */
+/* Instrument Serif upright — same weight, no italic */
 .t-genos-upright {
   font-family: var(--font-alt-a-display);
-  font-weight: 700;
-  font-style: italic ;
+  font-weight: 400;
+  font-style: normal;
   line-height: 0.9;
   letter-spacing: -0.02em;
 }
@@ -139,84 +139,86 @@
   line-height: 1.6;
 }
 
-/* ── Genos — variable weight support ──────────────────────── */
+/* ── Instrument Serif — weight support ──────────────────────── */
 .genos-thin {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 100;
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
   font-style: normal;
 }
 
 .genos-light {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 300;
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
   font-style: normal;
 }
 
 .genos-regular {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
+  font-family: "Instrument Serif", serif;
   font-weight: 400;
   font-style: normal;
 }
 
 .genos-medium {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 500;
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
   font-style: normal;
 }
 
 .genos-semibold {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
   font-style: normal;
 }
 
 .genos-bold {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
   font-style: normal;
 }
 
 .genos-extrabold {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 800;
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
   font-style: normal;
 }
 
 .genos-black {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 900;
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
   font-style: normal;
 }
 
 /* Italic variants */
 .genos-bold-italic {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
   font-style: italic;
 }
 
 .genos-extrabold-italic {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 800;
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
   font-style: italic;
 }
 
 .genos-black-italic {
-  font-family: "Genos", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 900;
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
   font-style: italic;
 }
+
+.instrument-serif-regular {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.instrument-serif-regular-italic {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
 
 /* --- Utility --- */
 .uppercase  { text-transform: uppercase; }
