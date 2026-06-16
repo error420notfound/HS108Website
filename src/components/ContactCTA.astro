@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  headline = 'Start with the business problem.',
-  sub = 'Share what feels unclear. HS108 will respond with the next useful step, not a generic pitch.',
+  headline = "Let's build\nsomething together.",
+  sub = "We're currently accepting new projects. Tell us what you're working on.",
   invert = true,
   domain,
 } = Astro.props;
@@ -16,16 +16,20 @@ const {
 const ctaHref = domain ? `/contact?domain=${domain}` : '/contact';
 ---
 
-<section class:list={['cta-section', { 'section--inv': invert }]}>
+<section class:list={['cta-section', { 'inv-block': invert }]}>
   <div class="container cta-inner">
-    <div class="cta-copy">
-      <p class="t-label section-num">Conversation</p>
-      <h2 class="t-h1">{headline}</h2>
+    <div class="cta-text">
+      <p class="t-label section-num" class:list={[{ 'inv': invert }]}>Start a Project</p>
+      <h2 class="t-h1 cta-headline">{headline}</h2>
       <p class="t-body cta-sub">{sub}</p>
     </div>
     <div class="cta-actions">
-      <a href={ctaHref} class:list={['btn', invert ? 'btn--outline-inv' : 'btn--primary']}>Start A Project Conversation</a>
-      <a href="mailto:contact.studio@hs108.in" class:list={['btn', invert ? 'btn--outline-inv' : 'btn--outline']}>Email Project Context</a>
+      <a href={ctaHref} class:list={['btn', invert ? 'btn--outline-inv' : 'btn--primary']}>
+        Get In Touch
+      </a>
+      <a href="mailto:contact.studio@hs108.in" class:list={['btn', invert ? 'btn--primary' : 'btn--outline']}>
+        contact.studio@hs108.in
+      </a>
     </div>
   </div>
 </section>
@@ -35,35 +39,46 @@ const ctaHref = domain ? `/contact?domain=${domain}` : '/contact';
     border-top: var(--border-width) solid var(--border);
   }
 
-  .section--inv {
-    border-top-color: var(--border-inv);
+  .inv-block {
+    background: rgb(26, 26, 26);
+    border-top: none;
+    position: relative;
+    z-index: 0;
   }
+
+
 
   .cta-inner {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: var(--space-48);
+    grid-template-columns: 1fr auto;
     align-items: end;
-    padding-block: var(--space-section);
+    gap: 3rem;
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+    opacity: 1;
   }
 
-  .cta-copy {
-    max-width: 760px;
+  .cta-text {
     display: flex;
     flex-direction: column;
-    gap: var(--space-16);
+    gap: 1.25rem;
+    max-width: 700px;
+  }
+
+  .cta-headline {
+    white-space: pre-line;
   }
 
   .cta-sub {
-    max-width: 58ch;
-    color: currentColor;
-    opacity: 0.72;
+    max-width: 50ch;
+    opacity: 0.65;
   }
 
   .cta-actions {
     display: flex;
     flex-direction: column;
-    gap: var(--space-12);
+    gap: 1rem;
+    flex-shrink: 0;
   }
 
   @media (max-width: 900px) {
@@ -77,3 +92,4 @@ const ctaHref = domain ? `/contact?domain=${domain}` : '/contact';
     }
   }
 </style>
+

@@ -1,97 +1,188 @@
-/* Shared component primitives retained for existing imports. */
+/* ============================================================
+   BRUTALIST UTILITY CLASSES — HS108
+   ============================================================ */
 
-.section-num {
-  color: var(--text-muted);
+/* --- Borders --- */
+.b-box {
+  border: var(--border-width) solid var(--border);
 }
 
+.b-top {
+  border-top: var(--border-width) solid var(--border);
+}
+
+.b-bottom {
+  border-bottom: var(--border-width) solid var(--border);
+}
+
+.b-left {
+  border-left: var(--border-width) solid var(--border);
+}
+
+.b-right {
+  border-right: var(--border-width) solid var(--border);
+}
+
+.b-accent {
+  border-color: var(--c-yellow);
+}
+
+.b-inv {
+  border-color: var(--border-inv);
+}
+
+/* --- Section numbers --- */
+.section-num {
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+/* --- Tag / label pill (no radius, square) --- */
 .tag {
   display: inline-flex;
   align-items: center;
-  min-height: 28px;
-  padding: var(--space-4) var(--space-8);
+  padding: 4px 8px;
   border: var(--border-width) solid var(--border);
   font-family: var(--font-mono);
   font-size: var(--size-label);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
 }
 
 .tag--inv {
-  border-color: var(--border-inv-warm);
-  color: var(--text-on-dark);
+  border-color: var(--border-inv);
+  color: var(--fg-inv);
 }
 
 .tag--accent {
-  background: var(--accent-soft);
-  border-color: var(--accent);
+  background: var(--action-primary-bg);
+  border-color: var(--action-primary-bg);
+  color: var(--action-primary-fg);
 }
 
+/* --- Buttons (Geist Mono, all caps) --- */
 .btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  gap: var(--space-8);
-  padding: var(--space-12) var(--space-16);
-  border: var(--border-width) solid var(--border);
-  color: inherit;
+  gap: 8px;
+  padding: 16px 24px;
   font-family: var(--font-mono);
   font-size: var(--size-label);
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  transition:
-    background var(--duration-fast) var(--ease-standard),
-    color var(--duration-fast) var(--ease-standard),
-    border-color var(--duration-fast) var(--ease-standard);
+  border: var(--border-width) solid var(--border);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  white-space: nowrap;
 }
 
+/* Primary: orange fill */
 .btn--primary {
-  background: var(--surface-inverted);
-  color: var(--text-on-dark);
-  border-color: var(--surface-inverted);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  border-color: var(--action-primary-bg);
 }
 
 .btn--primary:hover {
-  background: var(--accent);
-  color: var(--fg);
-  border-color: var(--accent);
+  background: var(--action-strong-bg);
+  color: var(--action-strong-fg);
+  border-color: var(--action-strong-bg);
 }
 
+/* Outline: transparent, strokes with border color */
 .btn--outline {
   background: transparent;
+  color: var(--black-native);
+  border-color: var(--black-native);
 }
 
 .btn--outline:hover {
-  background: var(--surface-muted);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  border-color: var(--action-primary-bg);
 }
 
+/* Outline on inverted (dark) backgrounds */
 .btn--outline-inv {
+  background: transparent;
   color: var(--text-on-dark);
   border-color: var(--border-inv-warm);
 }
 
 .btn--outline-inv:hover {
-  background: var(--text-on-dark);
-  color: var(--fg);
-  border-color: var(--text-on-dark);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  border-color: var(--action-primary-bg);
 }
 
+/* --- Link with accent hover swap --- */
 .link-swap {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
+  position: relative;
+  display: inline;
+  transition: color var(--transition), background var(--transition);
+  padding: 0 2px;
 }
 
 .link-swap:hover {
-  color: var(--accent-strong);
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
 }
 
+/* --- Grid exposed layout --- */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-gap);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-gap);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-gap);
+}
+
+@media (max-width: 768px) {
+  .grid-12,
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --- Column spans for grid-12 --- */
+.col-4  { grid-column: span 4; }
+.col-6  { grid-column: span 6; }
+.col-8  { grid-column: span 8; }
+.col-12 { grid-column: span 12; }
+
+@media (max-width: 768px) {
+  .col-4, .col-6, .col-8, .col-12 {
+    grid-column: span 12;
+  }
+}
+
+/* --- Stat strip grid (equal-width bordered cells) --- */
 .stat-strip {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   border-top: var(--border-width) solid var(--border);
   border-left: var(--border-width) solid var(--border);
 }
@@ -104,6 +195,72 @@
 
 @media (max-width: 768px) {
   .stat-strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* --- Full-bleed image (no radius) --- */
+.img-raw {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+/* --- Aspect ratios --- */
+.aspect-16-9 {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.aspect-4-3 {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.aspect-square {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+/* --- Inverted block --- */
+.inv-block {
+  background-color: var(--black-native);
+  background: var(--black-native);
+  color: var(--text-on-dark);
+}
+
+/* --- Text highlight marker --- */
+.mark-yellow {
+  background: var(--c-yellow);
+  color: var(--c-black);
+  padding: 0 4px;
+}
+
+/* --- Overflow marquee / ticker (CSS-only) --- */
+.marquee-track {
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: var(--border-width) solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
+  padding-block: 8px;
+}
+
+.marquee-inner {
+  display: inline-flex;
+  animation: marquee var(--duration-marquee) linear infinite;
+}
+
+.marquee-inner span {
+  padding-inline: 48px;
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }

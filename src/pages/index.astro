@@ -1,235 +1,341 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
-import SectionHeader from '@components/SectionHeader.astro';
-import ProblemList from '@components/ProblemList.astro';
-import DecisionMatrix from '@components/DecisionMatrix.astro';
-import InsightCard from '@components/InsightCard.astro';
-import FrameworkCard from '@components/FrameworkCard.astro';
+import StatBar from '@components/StatBar.astro';
 import WorkCard from '@components/WorkCard.astro';
 import ContactCTA from '@components/ContactCTA.astro';
 import { getCollection } from 'astro:content';
 
-const work = (await getCollection('work', ({ data }) => !data.draft && data.featured))
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 3);
+const allWork  = await getCollection('work', ({ data }) => !data.draft && data.featured);
+const featured = allWork.sort((a, b) => a.data.order - b.data.order).slice(0, 3);
 
-const thinking = (await getCollection('thinking', ({ data }) => data.featured))
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 3);
-
-const frameworks = (await getCollection('frameworks'))
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 2);
-
-const problems = [
-  {
-    symptom: 'Customers understand the product too late.',
-    cause: 'The value is present, but the path to understanding is not structured clearly enough.',
-  },
-  {
-    symptom: 'The business looks less mature than it is.',
-    cause: 'The design system is not carrying the credibility already present in operations, product, or service quality.',
-  },
-  {
-    symptom: 'Growth creates inconsistency.',
-    cause: 'More people are making design decisions without a shared governance model.',
-  },
-  {
-    symptom: 'The team keeps asking for deliverables.',
-    cause: 'The deeper business problem has not been diagnosed before design work begins.',
-  },
-];
-
-const matrix = [
-  {
-    signal: 'Low conversion with high interest',
-    diagnosis: 'The offer may be attractive but the decision path creates doubt.',
-    designResponse: 'Clarify proof, sequence, comparison, and next action.',
-  },
-  {
-    signal: 'Premium product, weak perceived value',
-    diagnosis: 'The interface relies on aesthetics more than evidence.',
-    designResponse: 'Expose quality, constraints, process, and buyer fit.',
-  },
-  {
-    signal: 'Inconsistent product experience',
-    diagnosis: 'Design decisions are being made locally without governance.',
-    designResponse: 'Create rules, patterns, and ownership paths.',
-  },
+const stats = [
+  { value: '38+',  label: 'Brands Scaled',     sub: 'Since 2019' },
+  { value: '5×',   label: 'Avg. Growth',        sub: 'Across active clients' },
+  { value: '100%', label: 'Senior Talent',      sub: 'No juniors on your work' },
+  { value: '6 yrs', label: 'In Business',       sub: 'Independent, bootstrapped' },
 ];
 
 const services = [
-  {
-    title: 'Improve Positioning',
-    problem: 'The business is valuable, but customers cannot quickly understand why it matters.',
-    href: '/services/cx-identity',
-  },
-  {
-    title: 'Reduce Purchase Friction',
-    problem: 'People are interested, but uncertainty interrupts the path to enquiry, purchase, or adoption.',
-    href: '/services/webcanvas',
-  },
-  {
-    title: 'Build Market Confidence',
-    problem: 'The product or experience needs to justify trust before the customer commits.',
-    href: '/services/cmf-nexus',
-  },
+  { num: '01', code: 'WebCanvas',    name: 'Digital Design',    desc: 'Web, app, UI, and UX design. Intuitive digital experiences that captivate audiences and perform at every touchpoint.' },
+  { num: '02', code: 'CX&Identity',  name: 'Branding & Identity', desc: 'Logo, brand identity, and packaging design. A strong, recognisable presence that resonates with your audience and lasts.' },
+  { num: '03', code: 'CMF_Nexus',    name: 'Product Design',    desc: 'From concept sketch and CAD to prototyping and production-ready files. Design meets engineering precision.' },
+  { num: '04', code: 'Lumina.raw',   name: 'Photo & Video',     desc: 'Photography, videography, and editing. Visuals that tell your brand story and stop the scroll.' },
+];
+
+const programs = [
+  { name: 'Creative Department', slug: 'creative-department', desc: 'Our flagship retainer — embedded design support for businesses that need design ongoing, not one-off.' },
+  { name: 'Design Lab',          slug: 'design-lab',          desc: 'Research and discovery for complex, high-demand design challenges before execution begins.' },
+  { name: 'off_menu',            slug: 'off-menu',            desc: 'Bespoke, tailor-made packages for clients whose needs don\'t fit a standard scope.' },
+  { name: 'Field Notes',         slug: 'field-notes',         desc: 'Our platform for discourse with designers, artisans, and industry experts.' },
 ];
 ---
 
-<BaseLayout title="Business clarity through design" description="HS108 helps founders understand business challenges and use design to make better decisions.">
+<BaseLayout title="HS108" description="HS108 is an independent design studio building brands and products that scale.">
+
+  <!-- Hero -->
   <Hero />
 
+  <!-- Stats -->
+  <StatBar stats={stats} />
+
+  <!-- Ticker -->
+  <div class="marquee-track" aria-hidden="true">
+    <div class="marquee-inner">
+      {Array(4).fill(null).map(() => (
+        <>
+          <span>WebCanvas</span>
+          <span>·</span>
+          <span>CX&amp;Identity</span>
+          <span>·</span>
+          <span>CMF_Nexus</span>
+          <span>·</span>
+          <span>Lumina.raw</span>
+          <span>·</span>
+          <span>Creative Department</span>
+          <span>·</span>
+          <span>off_menu</span>
+          <span>·</span>
+        </>
+      ))}
+    </div>
+  </div>
+
+  <!-- Featured Work -->
   <section class="section container">
-    <SectionHeader
-      label="Business Problems"
-      title="Founders rarely arrive with design problems first."
-      intro="They arrive with symptoms: low trust, unclear value, weak conversion, fragmented teams, or a product that is harder to sell than it should be."
-    />
-    <ProblemList items={problems} />
+    <div class="section-header">
+      <div>
+        <p class="t-label section-num">Selected Work</p>
+        <h2 class="t-h2">What We've Built</h2>
+      </div>
+      <a href="/work" class="btn btn--outline">All Projects →</a>
+    </div>
+
+    <div class="featured-grid">
+      {featured.map((entry, i) => (
+        <div class:list={['featured-item', { 'featured-item--wide': i === 0 }]}>
+          <WorkCard
+            slug={entry.slug}
+            title={entry.data.title}
+            client={entry.data.client}
+            year={entry.data.year}
+            categories={entry.data.categories}
+            coverImage={entry.data.coverImage}
+            coverAlt={entry.data.coverAlt}
+            color={entry.data.color}
+            outcome={entry.data.outcome}
+            summary={entry.data.summary}
+            large={i === 0}
+          />
+        </div>
+      ))}
+    </div>
   </section>
 
-  <section class="section section--muted">
+  <hr />
+
+  <!-- Services teaser -->
+  <section class="section container">
+    <div class="section-header">
+      <div>
+        <p class="t-label section-num">What We Do</p>
+        <h2 class="t-h2">Our Services</h2>
+      </div>
+      <a href="/services" class="btn btn--outline">Full Services →</a>
+    </div>
+
+    <div class="services-list">
+      {services.map(svc => (
+        <div class="service-row b-top">
+          <span class="t-label service-num">{svc.num}</span>
+          <div class="service-name-block">
+            <span class="t-label service-code">{svc.code}</span>
+            <h3 class="t-h3 service-name">{svc.name}</h3>
+          </div>
+          <p class="t-body service-desc">{svc.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Process teaser -->
+  <section class="section section--inv">
     <div class="container">
-      <SectionHeader
-        label="What Design Actually Solves"
-        title="Design is useful when it clarifies the decision underneath the symptom."
-        intro="The work begins by separating what is visible from what is causing the business problem."
-      />
-      <DecisionMatrix rows={matrix} />
-    </div>
-  </section>
+      <p class="t-label section-num" style="opacity:0.4">How We Work</p>
+      <h2 class="t-h2" style="margin-bottom:3rem">Our Process</h2>
 
-  <section class="section container">
-    <SectionHeader
-      label="Selected Thinking"
-      title="The thinking is primary."
-      intro="Field notes make the diagnostic logic visible before a project conversation begins."
-    />
-    <div class="grid-3">
-      {thinking.map(entry => (
-        <InsightCard
-          label={entry.data.category}
-          title={entry.data.title}
-          observation={entry.data.summary}
-          implication={entry.data.question}
-          href={`/thinking/${entry.slug}`}
-        />
-      ))}
-    </div>
-  </section>
-
-  <section class="section container">
-    <SectionHeader
-      label="Frameworks"
-      title="Reusable systems for better decisions."
-      intro="Frameworks turn HS108's thinking into practical tools for diagnosing ambiguity and choosing the right intervention."
-    />
-    <div class="grid-2">
-      {frameworks.map(entry => (
-        <FrameworkCard
-          title={entry.data.title}
-          helps={entry.data.helps}
-          applies={entry.data.applies}
-          href={`/frameworks/${entry.slug}`}
-        />
-      ))}
-    </div>
-  </section>
-
-  <section class="section container">
-    <SectionHeader
-      label="Selected Work"
-      title="Projects are evidence."
-      intro="Work appears after the thinking because execution should prove the diagnosis, not replace it."
-    />
-    <div class="work-grid">
-      {work.map((entry, index) => (
-        <WorkCard
-          slug={entry.slug}
-          title={entry.data.title}
-          client={entry.data.client}
-          year={entry.data.year}
-          categories={entry.data.categories}
-          summary={entry.data.summary}
-          outcome={entry.data.outcome}
-          businessChallenge={entry.data.businessChallenge}
-          diagnosis={entry.data.diagnosis}
-          coverImage={entry.data.coverImage}
-          coverAlt={entry.data.coverAlt}
-          large={index === 0}
-        />
-      ))}
-    </div>
-    <div class="section-action">
-      <a href="/work" class="btn btn--outline">Review Selected Work</a>
-    </div>
-  </section>
-
-  <section class="section section--muted">
-    <div class="container">
-      <SectionHeader
-        label="Services"
-        title="Engagements are framed around outcomes."
-        intro="HS108 does not begin by selling deliverables. It begins by understanding what needs to become clearer for the business."
-      />
-      <div class="grid-3">
-        {services.map(service => (
-          <a href={service.href} class="service-card">
-            <p class="t-label">Service Path</p>
-            <h3 class="t-h3">{service.title}</h3>
-            <p class="t-body">{service.problem}</p>
-            <span class="t-label">See How The System Works</span>
-          </a>
+      <div class="process-strip stat-strip">
+        {[
+          { n: '01', title: 'Understand', desc: 'Deep research. Client interviews. Market mapping. We never design blind.' },
+          { n: '02', title: 'Design', desc: 'Strategic concepts, iteration, and refinement until we hit something true.' },
+          { n: '03', title: 'Build', desc: 'Production-ready files, handoff docs, and implementation support.' },
+          { n: '04', title: 'Scale', desc: 'Systems that grow with your company. Retainers for ongoing partnership.' },
+        ].map(step => (
+          <div class="process-step">
+            <span class="t-label process-num">{step.n}</span>
+            <h3 class="t-h3 process-title">{step.title}</h3>
+            <p class="t-body process-desc">{step.desc}</p>
+          </div>
         ))}
+      </div>
+
+      <div style="margin-top:3rem">
+        <a href="/process" class="btn btn--outline-inv">See Full Process →</a>
       </div>
     </div>
   </section>
 
+  <hr />
+
+  <!-- Programs -->
+  <section class="section container">
+    <div class="section-header">
+      <div>
+        <p class="t-label section-num">Beyond Projects</p>
+        <h2 class="t-h2">Our Programs</h2>
+      </div>
+      <a href="/programs/creative-department" class="btn btn--outline">Explore Programs →</a>
+    </div>
+
+    <div class="programs-grid">
+      {programs.map(prog => (
+        <a href={`/programs/${prog.slug}`} class="program-card b-box">
+          <p class="t-label program-name">{prog.name}</p>
+          <p class="t-body program-desc">{prog.desc}</p>
+          <span class="t-mono program-cta">Learn More →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
   <ContactCTA />
+
 </BaseLayout>
 
+
 <style>
-  .work-grid {
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .section-header .t-h2 {
+    margin-top: 0.5rem;
+  }
+
+  /* Featured work grid */
+  .featured-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(12, 1fr);
     gap: var(--space-gap);
   }
 
-  .work-grid > :first-child {
-    grid-column: 1 / -1;
+  .featured-item {
+    grid-column: span 6;
   }
 
-  .section-action {
-    margin-top: var(--space-32);
+  .featured-item--wide {
+    grid-column: span 12;
   }
 
-  .service-card {
+  /* Services */
+  .services-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-16);
-    min-height: 100%;
+  }
+
+  .service-row {
+    display: grid;
+    grid-template-columns: 3rem 1fr 2fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    align-items: start;
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .service-num {
+    opacity: 0.35;
+    padding-top: 4px;
+  }
+
+  .service-name-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .service-code {
+    opacity: 0.45;
+    color: var(--accent);
+  }
+
+  .service-desc {
+    opacity: 0.6;
+    max-width: 60ch;
+  }
+
+  /* Process */
+  .process-strip {
+    border-top-color: var(--border-inv);
+    border-left-color: var(--border-inv);
+  }
+
+  .process-step {
+    border-right: var(--border-width) solid var(--border-inv);
+    border-bottom: var(--border-width) solid var(--border-inv);
     padding: var(--space-card);
-    border: var(--border-width) solid var(--border);
-    background: var(--surface-elevated);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
-  .service-card:hover {
-    background: var(--surface-base);
+  .process-num {
+    opacity: 0.4;
   }
 
-  .service-card .t-label,
-  .service-card p {
-    color: var(--text-muted);
+  .process-title {
+    color: var(--c-yellow);
   }
 
-  .service-card span {
+  .process-desc {
+    opacity: 0.6;
+  }
+
+  /* Programs */
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .program-card {
+    padding: var(--space-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: background var(--transition);
+  }
+
+  .program-card:hover {
+    background: var(--orange-500);
+  }
+
+  .program-name {
+    color: var(--accent);
+  }
+
+  .program-card:hover .program-name {
+    color: var(--black-native);
+  }
+
+  .program-desc {
+    opacity: 0.6;
+    line-height: 1.6;
+    flex: 1;
+    font-size: 14px;
+  }
+
+  .program-cta {
+    font-size: 10px;
+    opacity: 0.45;
     margin-top: auto;
   }
 
+  .program-card:hover .program-cta {
+    opacity: 1;
+  }
+
   @media (max-width: 900px) {
-    .work-grid {
+    .featured-item {
+      grid-column: span 12;
+    }
+
+    .service-row {
+      grid-template-columns: 3rem 1fr;
+    }
+
+    .service-desc {
+      grid-column: 2;
+    }
+
+    .programs-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .service-row {
+      grid-template-columns: 1fr;
+    }
+
+    .programs-grid {
       grid-template-columns: 1fr;
     }
   }

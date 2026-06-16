@@ -1,82 +1,310 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import SectionHeader from '@components/SectionHeader.astro';
-import WorkCard from '@components/WorkCard.astro';
 import ContactCTA from '@components/ContactCTA.astro';
 import { getCollection } from 'astro:content';
 
-const work = (await getCollection('work', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const allWork = await getCollection('work', ({ data }) => !data.draft);
+const sorted  = allWork.sort((a, b) => a.data.order - b.data.order);
+
+const categories = ['All', 'brand', 'product', 'design-system', 'web', 'mobile', 'strategy'];
 ---
 
-<BaseLayout title="Work" description="Selected HS108 projects shown as evidence of diagnosis, decision-making, and execution.">
-  <header class="work-hero container">
-    <p class="t-label section-num">Work</p>
-    <div class="work-hero-grid">
-      <h1 class="t-h1">Projects are evidence of thinking.</h1>
-      <p class="t-large">Work is not presented as a gallery. Each project shows the business challenge, the diagnosis, the design intervention, and what became clearer.</p>
-    </div>
-  </header>
+<BaseLayout title="Work" description="Selected projects from HS108 — brand identity, product design, and design systems for ambitious companies.">
+  <div class="work-header container">
+    <p class="t-label section-num">Selected Work</p>
+    <h1 class="t-h1">Our Work</h1>
+    <p class="t-large work-desc">
+      A selection of projects across brand, product, and systems design.<br />
+      Each one built to last.
+    </p>
+  </div>
 
   <hr />
 
-  <section class="section container">
-    <SectionHeader
-      label="Selected Evidence"
-      title="Read the diagnosis before the outcome."
-      intro="Images remain available as proof of execution, but the project is organized around the business decision it helped clarify."
-    />
-    <div class="work-list">
-      {work.map(entry => (
-        <WorkCard
-          slug={entry.slug}
-          title={entry.data.title}
-          client={entry.data.client}
-          year={entry.data.year}
-          categories={entry.data.categories}
-          summary={entry.data.summary}
-          outcome={entry.data.outcome}
-          businessChallenge={entry.data.businessChallenge}
-          diagnosis={entry.data.diagnosis}
-          coverImage={entry.data.coverImage}
-          coverAlt={entry.data.coverAlt}
-          large
-        />
-      ))}
-    </div>
-  </section>
+  <!-- Filter bar -->
+  <div class="work-filters container" id="filter-bar">
+    {categories.map(cat => (
+      <button
+        class:list={['btn work-filter-btn', { 'btn--primary': cat === 'All' }]}
+        data-filter={cat === 'All' ? 'all' : cat}
+      >
+        {cat === 'All' ? 'All' : cat.replace('-', ' ')}
+      </button>
+    ))}
+  </div>
+
+  <!-- Work rows -->
+  <div class="work-list" id="work-grid">
+    {sorted.map((entry, i) => (
+      <article
+        class:list={['work-row', i % 2 !== 0 ? 'work-row--reverse' : '']}
+        data-categories={entry.data.categories.join(',')}
+      >
+        <a href={`/work/${entry.slug}`} class="work-row-inner">
+          <!-- Image half -->
+          <div class="work-row-img" style={`background-color: ${entry.data.color}18`}>
+            <img
+              src={entry.data.coverImage}
+              alt={entry.data.coverAlt}
+              class="img-raw"
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+          </div>
+
+          <!-- Text half -->
+          <div class="work-row-text">
+            <div class="work-row-meta">
+              <span class="t-label work-row-client">{entry.data.client}</span>
+              <span class="t-label work-row-year muted">{entry.data.year}</span>
+            </div>
+
+            <h2 class="t-h2 work-row-title">{entry.data.title}</h2>
+
+            <p class="t-body work-row-summary">{entry.data.summary}</p>
+
+            <div class="work-row-outcome">
+              <span class="t-label muted">{entry.data.outcome.label}</span>
+              <span class="work-row-value">{entry.data.outcome.value}</span>
+            </div>
+
+            <div class="work-row-cats">
+              {entry.data.categories.map(c => (
+                <span class="tag">{c.replace('-', ' ')}</span>
+              ))}
+            </div>
+
+            <span class="work-row-cta t-label">View Project →</span>
+          </div>
+        </a>
+      </article>
+    ))}
+  </div>
 
   <ContactCTA />
 </BaseLayout>
 
 <style>
-  .work-hero {
-    padding-block: var(--space-96) var(--space-64);
+  .work-header {
+    padding-top: 8rem;
+    padding-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
-  .work-hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.7fr);
-    gap: var(--space-64);
-    align-items: end;
-    margin-top: var(--space-16);
+  .work-desc {
+    max-width: 55ch;
+    opacity: 0.65;
+    margin-top: 0.5rem;
   }
 
-  .work-hero h1 {
-    max-width: 12ch;
+  .work-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: var(--border-width) solid var(--border);
   }
 
-  .work-hero p:last-child {
-    color: var(--text-muted);
+  .work-filter-btn {
+    padding: 10px 18px;
+    font-size: 10px;
+    border-left: 0;
+    border-right: 0;
   }
 
+  /* Work list */
   .work-list {
-    display: grid;
-    gap: var(--space-gap);
+    display: flex;
+    flex-direction: column;
   }
 
-  @media (max-width: 800px) {
-    .work-hero-grid {
-      grid-template-columns: 1fr;
+  .work-row {
+    border-bottom: var(--border-width) solid var(--border);
+    transition: opacity var(--transition);
+  }
+
+  .work-row.hidden {
+    display: none;
+  }
+
+  .work-row-inner {
+    display: flex;
+    min-height: 60vh;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .work-row--reverse .work-row-inner {
+    flex-direction: row-reverse;
+  }
+
+  /* Image half */
+  .work-row-img {
+    flex: 0 0 55%;
+    overflow: hidden;
+    border-right: var(--border-width) solid var(--border);
+    position: relative;
+  }
+
+  .work-row--reverse .work-row-img {
+    border-right: none;
+    border-left: var(--border-width) solid var(--border);
+  }
+
+  .work-row-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .work-row-inner:hover .work-row-img img {
+    transform: scale(1.03);
+  }
+
+  .work-row-inner:hover .work-row-img {
+    border-color: var(--accent);
+  }
+
+  /* Text half */
+  .work-row-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 5vw, 5rem);
+    justify-content: center;
+  }
+
+  .work-row-meta {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .work-row-client {
+    opacity: 1;
+  }
+
+  .work-row-year {
+    opacity: 0.4;
+  }
+
+  .work-row-title {
+    line-height: 1.05;
+  }
+
+  .work-row-summary {
+    opacity: 0.65;
+    max-width: 44ch;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .work-row-outcome {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-top: 1rem;
+    border-top: var(--border-width) solid var(--border);
+  }
+
+  .work-row-value {
+    font-family: var(--font-display);
+    font-style: italic ;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .work-row-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .work-row-cta {
+    margin-top: auto;
+    opacity: 0.4;
+    transition: opacity var(--transition), color var(--transition);
+    padding-top: 1.5rem;
+  }
+
+  .work-row-inner:hover .work-row-cta {
+    opacity: 1;
+    color: var(--accent);
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .work-row-inner,
+    .work-row--reverse .work-row-inner {
+      flex-direction: column;
+    }
+
+    .work-row-img {
+      flex: none;
+      height: 56vw;
+      border-right: none;
+      border-bottom: var(--border-width) solid var(--border);
+    }
+
+    .work-row--reverse .work-row-img {
+      border-left: none;
+      border-bottom: var(--border-width) solid var(--border);
     }
   }
 </style>
+
+<script>
+  import { animate, inView, stagger } from 'motion';
+  const ease = [0.16, 1, 0.3, 1] as const;
+
+  // Header fade in on load
+  const header = document.querySelector<HTMLElement>('.work-header');
+  if (header) {
+    header.style.opacity = '0';
+    animate(header, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.55, easing: ease });
+  }
+
+  // Staggered row entrance on scroll
+  const rows = document.querySelectorAll<HTMLElement>('.work-row');
+  rows.forEach(row => { row.style.opacity = '0'; });
+  rows.forEach((row, i) => {
+    inView(row, () => {
+      animate(row, { opacity: [0, 1], transform: ['translateY(32px)', 'translateY(0px)'] }, {
+        duration: 0.5,
+        easing: ease,
+        delay: 0,
+      });
+    }, { amount: 0.1 });
+  });
+
+  // Filter
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.work-filter-btn');
+  const items      = document.querySelectorAll<HTMLElement>('.work-row');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter ?? 'all';
+
+      filterBtns.forEach(b => b.classList.remove('btn--primary'));
+      btn.classList.add('btn--primary');
+
+      items.forEach(item => {
+        if (filter === 'all') {
+          item.classList.remove('hidden');
+        } else {
+          const cats = item.dataset.categories?.split(',') ?? [];
+          item.classList.toggle('hidden', !cats.includes(filter));
+        }
+      });
+    });
+  });
+</script>

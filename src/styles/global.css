@@ -1,78 +1,468 @@
-/* HS108 frontend foundation */
+/* ============================================================
+   GLOBAL CSS — HS108 Design System
+   ============================================================ */
 
 :root {
-  --bg: #f5f1ea;
-  --fg: #171411;
 
-  --surface-base: #f5f1ea;
-  --surface-elevated: #fffaf2;
-  --surface-muted: #ebe5dc;
-  --surface-inverted: #171411;
+  /* ── Banner height (set to 0px by JS when dismissed) ── */
+  --banner-h: 40px;
 
-  --accent: #c9562a;
-  --accent-strong: #8d371c;
-  --accent-soft: #ead2c4;
+  /* =====================================
+     FULL HUE PALETTE
+     All scales available for theming.
+     Never use raw values in components —
+     use the semantic tokens below.
+  ===================================== */
 
-  --border: #171411;
-  --border-strong: #171411;
-  --border-subtle: #d5cec4;
-  --border-inv: #61594f;
-  --border-inv-warm: #bfae9c;
+  /* — Orange (site default) — */
+  --orange-50:  #FFF4F0;
+  --orange-100: #FFE1D8;
+  --orange-200: #FFC3B0;
+  --orange-300: #FFA287;
+  --orange-400: #FF825E;
+  --orange-500: #ED582A;
+  --orange-600: #D04C23;
+  --orange-700: #B13F1C;
+  --orange-800: #933215;
+  --orange-900: #6C240E;
+  --orange-950: #3A1307;
+  --orange-black-native: #120600;
+  --orange-white-native: #FFE1D8;
 
-  --overlay-light: #ebe5dc;
-  --overlay-dark: #2a2520;
+  /* — Lime — */
+  --lime-50:  #FBFDEB;
+  --lime-100: #F3F8C9;
+  --lime-200: #E5F19A;
+  --lime-300: #CFE55D;
+  --lime-400: #B6D92E;
+  --lime-500: #9EC70A;
+  --lime-600: #7FA108;
+  --lime-700: #647D06;
+  --lime-800: #4A5A05;
+  --lime-900: #303B03;
+  --lime-950: #1B2102;
+  --lime-black-native: #1B2102;
+  --lime-white-native: #F3F8C9;
 
-  --color-status-green: #2d7a4f;
-  --color-status-amber: #a86f1d;
-  --color-status-red: #9f3429;
+  /* — Yellow — */
+  --yellow-50:  #FFFBE5;
+  --yellow-100: #FFF9CC;
+  --yellow-200: #FFF699;
+  --yellow-300: #FFF366;
+  --yellow-400: #FFF133;
+  --yellow-500: #FFF600;
+  --yellow-600: #E6DD00;
+  --yellow-700: #BFB800;
+  --yellow-800: #8A8400;
+  --yellow-900: #555100;
+  --yellow-950: #1F1A0B;
+  --yellow-black-native: #1F1A0B;
+  --yellow-white-native: #FFF9CC;
 
-  --accent-orange: var(--accent);
-  --accent-orange-dark: var(--accent-strong);
-  --accent-orange-soft: var(--accent-soft);
+  /* — Green — */
+  --green-50:  #EDFFF2;
+  --green-100: #D3FCE1;
+  --green-200: #A9F5C4;
+  --green-300: #7EEE9E;
+  --green-400: #56E479;
+  --green-500: #36D35E;
+  --green-600: #2CB750;
+  --green-700: #239944;
+  --green-800: #1A7A37;
+  --green-900: #0F5525;
+  --green-950: #082F13;
+  --green-black-native: #082F13;
+  --green-white-native: #D3FCE1;
 
-  --text-on-dark: #f5f1ea;
-  --text-muted: #645d55;
+  /* — Blue — */
+  --blue-50:  #EAF4FF;
+  --blue-100: #CFE6FE;
+  --blue-200: #A9D5FE;
+  --blue-300: #7FBDFD;
+  --blue-400: #559FFD;
+  --blue-500: #2186EB;
+  --blue-600: #196DCC;
+  --blue-700: #1356A6;
+  --blue-800: #0D3F7F;
+  --blue-900: #082B59;
+  --blue-950: #041729;
+  --blue-black-native: #041729;
+  --blue-white-native: #CFE6FE;
 
-  --font-display: "Instrument Serif", serif;
-  --font-body: "Geist", sans-serif;
-  --font-mono: "Geist Mono", "Courier New", monospace;
+  /* — Rose — */
+  --rose-50:  #FFF5F5;
+  --rose-100: #FFE0E0;
+  --rose-200: #FFBDBF;
+  --rose-300: #FF969B;
+  --rose-400: #F86A74;
+  --rose-500: #E63946;
+  --rose-600: #C92C37;
+  --rose-700: #A5232B;
+  --rose-800: #7D1A20;
+  --rose-900: #521014;
+  --rose-950: #2A0A0D;
+  --rose-black-native: #2A0A0D;
+  --rose-white-native: #FFE0E0;
 
-  --size-hero: clamp(48px, 8vw, 104px);
-  --size-h1: clamp(40px, 6vw, 76px);
-  --size-h2: clamp(28px, 4vw, 48px);
-  --size-h3: clamp(20px, 2.2vw, 28px);
-  --size-body: clamp(16px, 1.1vw, 18px);
-  --size-small: 14px;
-  --size-label: 11px;
-  --size-micro: 10px;
+  /* — Indigo — */
+  --indigo-50:  #F5F3FF;
+  --indigo-100: #E7E2FE;
+  --indigo-200: #CFC4FD;
+  --indigo-300: #AE99FC;
+  --indigo-400: #8B6EF6;
+  --indigo-500: #6A48EC;
+  --indigo-600: #4B32C4;
+  --indigo-700: #3A279C;
+  --indigo-800: #291B74;
+  --indigo-900: #1A114B;
+  --indigo-950: #0E0830;
+  --indigo-black-native: #0E0830;
+  --indigo-white-native: #E7E2FE;
 
-  --space-2: 2px;
-  --space-4: 4px;
-  --space-6: 6px;
-  --space-8: 8px;
-  --space-12: 12px;
-  --space-16: 16px;
-  --space-24: 24px;
-  --space-32: 32px;
-  --space-48: 48px;
-  --space-64: 64px;
-  --space-96: 96px;
+  /* — Pink — */
+  --pink-50:  #FFF4F7;
+  --pink-100: #FDE6EC;
+  --pink-200: #F9C7D5;
+  --pink-300: #F2A0B8;
+  --pink-400: #EA7296;
+  --pink-500: #D84C78;
+  --pink-600: #BC3F68;
+  --pink-700: #9B3357;
+  --pink-800: #742642;
+  --pink-900: #4D182C;
+  --pink-950: #2A0B16;
+  --pink-black-native: #2A0B16;
+  --pink-white-native: #FDE6EC;
 
-  --space-section: clamp(72px, 10vw, 128px);
-  --space-gap: clamp(16px, 2vw, 32px);
-  --space-card: clamp(20px, 2vw, 32px);
-  --gutter: clamp(18px, 4vw, 64px);
-  --max-width: 1320px;
+  /* — Purple — */
+  --purple-50:  #FAF7FD;
+  --purple-100: #F1EAF9;
+  --purple-200: #E0D2F2;
+  --purple-300: #C7AEE8;
+  --purple-400: #A783DA;
+  --purple-500: #7F56C2;
+  --purple-600: #6A45A8;
+  --purple-700: #55388A;
+  --purple-800: #3E2A66;
+  --purple-900: #281B40;
+  --purple-950: #150E26;
+  --purple-black-native: #150E26;
+  --purple-white-native: #F1EAF9;
 
-  --border-width: 1px;
-  --duration-fast: 150ms;
-  --duration-base: 220ms;
+  /* — Cyan — */
+  --cyan-50:  #F2FBFC;
+  --cyan-100: #E6F6F8;
+  --cyan-200: #C9EDF1;
+  --cyan-300: #9EDFE6;
+  --cyan-400: #66CCD6;
+  --cyan-500: #2FB3C2;
+  --cyan-600: #2299A7;
+  --cyan-700: #1B7D88;
+  --cyan-800: #145C63;
+  --cyan-900: #0C3B40;
+  --cyan-950: #061F22;
+  --cyan-black-native: #061F22;
+  --cyan-white-native: #E6F6F8;
+
+  /* — Teal — */
+  --teal-50:  #F2FAF8;
+  --teal-100: #E5F4F0;
+  --teal-200: #C7E7DF;
+  --teal-300: #98D3C6;
+  --teal-400: #5EB7A6;
+  --teal-500: #2F9E8F;
+  --teal-600: #238576;
+  --teal-700: #1B6A5E;
+  --teal-800: #134E45;
+  --teal-900: #0B332E;
+  --teal-950: #051D1A;
+  --teal-black-native: #051D1A;
+  --teal-white-native: #E5F4F0;
+
+  /* — Mint — */
+  --mint-50:  #F3FBF8;
+  --mint-100: #E6F6F1;
+  --mint-200: #CBEDE2;
+  --mint-300: #A3DDCB;
+  --mint-400: #72C7AE;
+  --mint-500: #44AE94;
+  --mint-600: #34927B;
+  --mint-700: #2A7663;
+  --mint-800: #1F5A4B;
+  --mint-900: #153F34;
+  --mint-950: #0C241E;
+  --mint-black-native: #0C241E;
+  --mint-white-native: #E6F6F1;
+
+  /* — Amber — */
+  --amber-50:  #FFF8EB;
+  --amber-100: #FEEED0;
+  --amber-200: #FDDC9A;
+  --amber-300: #FCC25A;
+  --amber-400: #F9A825;
+  --amber-500: #F08C00;
+  --amber-600: #D97706;
+  --amber-700: #B65E04;
+  --amber-800: #8F4703;
+  --amber-900: #5F2F02;
+  --amber-950: #361A01;
+  --amber-black-native: #361A01;
+  --amber-white-native: #FEEED0;
+
+  /* — Brown — */
+  --brown-50:  #FBF8F4;
+  --brown-100: #F3EDE5;
+  --brown-200: #E5DACB;
+  --brown-300: #D1C1AD;
+  --brown-400: #B59F86;
+  --brown-500: #8E6F54;
+  --brown-600: #755843;
+  --brown-700: #5C4434;
+  --brown-800: #433126;
+  --brown-900: #2C2018;
+  --brown-950: #1A120C;
+  --brown-black-native: #1A120C;
+  --brown-white-native: #F3EDE5;
+
+  /* — Red — */
+  --red-50:  #FFF4F3;
+  --red-100: #FEE5E3;
+  --red-200: #FECACA;
+  --red-300: #F87171;
+  --red-400: #EF4444;
+  --red-500: #DC2626;
+  --red-600: #B91C1C;
+  --red-700: #991B1B;
+  --red-800: #7F1D1D;
+  --red-900: #4C0D0D;
+  --red-950: #2A0505;
+  --red-black-native: #2A0505;
+  --red-white-native: #FEE5E3;
+
+  /* — Vermilion — */
+  --vermilion-50:  #FFF5F2;
+  --vermilion-100: #FFE6DF;
+  --vermilion-200: #FFCBBE;
+  --vermilion-300: #FF9A80;
+  --vermilion-400: #FF5F3D;
+  --vermilion-500: #F03A17;
+  --vermilion-600: #D12F10;
+  --vermilion-700: #AD250C;
+  --vermilion-800: #861C09;
+  --vermilion-900: #561106;
+  --vermilion-950: #2F0803;
+  --vermilion-black-native: #2F0803;
+  --vermilion-white-native: #FFE6DF;
+
+  /* — Warm (neutral warm grey) — */
+  --warm-50:  #FAF9F7;
+  --warm-100: #F2F1EE;
+  --warm-200: #E4E2DD;
+  --warm-300: #CFCCC5;
+  --warm-400: #B1ADA5;
+  --warm-500: #8E8A82;
+  --warm-600: #6F6B65;
+  --warm-700: #4F4C47;
+  --warm-800: #35322E;
+  --warm-900: #1F1D1A;
+  --warm-950: #12100E;
+  --warm-black-native: #12100E;
+  --warm-white-native: #F2F1EE;
+
+  /* — Cool (neutral cool grey) — */
+  --cool-50:  #F8FAFC;
+  --cool-100: #EEF2F6;
+  --cool-200: #E0E6EC;
+  --cool-300: #CBD3DB;
+  --cool-400: #AAB3BC;
+  --cool-500: #88919A;
+  --cool-600: #67707A;
+  --cool-700: #47505A;
+  --cool-800: #2F3740;
+  --cool-900: #1C232B;
+  --cool-950: #0F1419;
+  --cool-black-native: #0F1419;
+  --cool-white-native: #EEF2F6;
+
+  /* — Neutral (true grey) — */
+  --neutral-50:  #FAFAFA;
+  --neutral-100: #F3F3F3;
+  --neutral-200: #E5E5E5;
+  --neutral-300: #D1D1D1;
+  --neutral-400: #AFAFAF;
+  --neutral-500: #888888;
+  --neutral-600: #666666;
+  --neutral-700: #444444;
+  --neutral-800: #2C2C2C;
+  --neutral-900: #1A1A1A;
+  --neutral-950: #0B0B0B;
+  --neutral-black-native: #0B0B0B;
+  --neutral-white-native: #F3F3F3;
+
+  --black-native: #120600;
+  --white-native: #FFE1D8;
+
+
+  /* =====================================
+     CONTRAST (ON-COLOR LOGIC)
+  ===================================== */
+
+  --on-orange-50:  var(--black-native);
+  --on-orange-100: var(--black-native);
+  --on-orange-200: var(--black-native);
+  --on-orange-300: var(--black-native);
+  --on-orange-400: var(--black-native);
+  --on-orange-500: var(--black-native);
+  --on-orange-600: var(--black-native);
+
+  --on-orange-700: var(--orange-50);
+  --on-orange-800: var(--orange-100);
+  --on-orange-900: var(--orange-100);
+  --on-orange-950: var(--orange-100);
+
+
+  /* =====================================
+     SURFACES
+  ===================================== */
+
+  --surface-base:     var(--white-native);
+  --surface-elevated: var(--orange-50);
+
+
+  /* =====================================
+     TEXT
+  ===================================== */
+
+  --text-on-light:  var(--black-native);
+  --text-on-dark:   var(--orange-100);
+  --text-on-accent: var(--on-orange-500);
+
+
+  /* =====================================
+     ACTIONS
+  ===================================== */
+
+  --action-primary-bg:   var(--orange-500);
+  --action-primary-fg:   var(--on-orange-500);
+
+  --action-secondary-bg: var(--orange-100);
+  --action-secondary-fg: var(--on-orange-100);
+
+  --action-strong-bg:    var(--orange-700);
+  --action-strong-fg:    var(--on-orange-700);
+
+  --action-inverse-bg:   var(--black-native);
+  --action-inverse-fg:   var(--orange-500);
+
+
+  /* =====================================
+     ACCENTS
+  ===================================== */
+
+  --accent:       var(--orange-500);
+  --accent-strong: var(--orange-700);
+  --accent-soft:  var(--orange-100);
+
+
+  /* =====================================
+     SPECIAL ROLES
+  ===================================== */
+
+  --hue-on-dark:  var(--orange-950);
+  --text-on-hue:  var(--on-orange-500);
+
+
+  /* =====================================
+     SEMANTIC ALIASES
+     (used throughout components)
+  ===================================== */
+
+  --bg:           var(--surface-base);
+  --fg:           var(--text-on-light);
+
+  /* Legacy aliases — keeps all existing components working */
+  --c-white:      var(--surface-base);
+  --c-black:      var(--black-native);
+  --c-yellow:     var(--accent);
+  --c-red:        var(--accent-strong);
+  --surface-1:    var(--surface-elevated);
+  --surface-inv:  var(--black-native);
+  --fg-inv:       var(--text-on-dark);
+  --border:       var(--black-native);
+  --border-width: 2px;
+  --border-accent: var(--accent);
+
+
+  /* =====================================
+     TYPOGRAPHY
+  ===================================== */
+
+  /* Core fonts — used site-wide */
+  --font-display: 'Instrument Serif', serif;
+  --font-body:    'Geist', sans-serif;
+  --font-mono:    'Geist Mono', 'Courier New', monospace;
+
+  /* Alt font pair A — tech / bold / geometric
+     Instrument Serif: used for display
+     Rajdhani: used as body/sub-heading companion */
+  --font-alt-a-display: 'Instrument Serif', serif;
+  --font-alt-a-body:    'Geist', 'Arial', sans-serif;
+
+  /* Alt font pair B — precision / editorial
+     Michroma: geometric technical, single weight
+     IBM Plex Serif: editorial serif companion */
+  --font-alt-b-display: 'Michroma', sans-serif;
+  --font-alt-b-body:    'IBM Plex Serif', Georgia, serif;
+
+/*     
+
+*/
+
+  --size-hero:    clamp(64px, 12vw, 160px);
+  --size-h1:      clamp(40px, 6.5vw, 88px);
+  --size-h2:      clamp(28px, 4vw, 52px);
+  --size-h3:      clamp(20px, 2.2vw, 30px);
+  --size-body:    clamp(15px, 1.1vw, 18px);
+  --size-small:   13px;
+  --size-label:   11px;
+
+
+  /* =====================================
+     SPACING & LAYOUT
+  ===================================== */
+
+  --space-section: clamp(72px, 10vw, 140px);
+  --space-gap:     clamp(16px, 2vw, 32px);
+  --space-card:    clamp(20px, 2.5vw, 40px);
+  --max-width:     1440px;
+  --gutter:        clamp(16px, 4vw, 64px);
+  --transition:    150ms ease;
+
+  /* =====================================
+     UTILITY TOKENS
+     Centralised values for repeated
+     non-palette rgba / special colors.
+  ===================================== */
+
+  /* Named accent aliases — use in prose/editorial when a specific
+     hue is intentional regardless of the active theme */
+  --accent-orange:      var(--orange-500);
+  --accent-orange-dark: var(--orange-700);
+  --accent-orange-soft: var(--orange-200);
+
+  /* Status indicator — "available / online" */
+  --color-status-green: #00C47D;
+
+  /* Inverted (dark bg) border and overlay */
+  --border-inv:      rgba(255, 255, 255, 0.15);
+  --border-inv-warm: rgba(255, 225, 216, 0.35);
+  --overlay-light:   rgba(13, 13, 13, 0.08);
+
+  /* Motion — marquee ticker */
   --duration-marquee: 30s;
-  --ease-standard: ease;
-
-  --nav-height: 72px;
 }
 
+/* --- Reset --- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -80,31 +470,22 @@
 }
 
 html {
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
 }
 
 body {
-  min-height: 100vh;
-  background: var(--bg);
+  background-color: var(--bg);
   color: var(--fg);
   font-family: var(--font-body);
   font-size: var(--size-body);
   line-height: 1.6;
   overflow-x: hidden;
+  padding-top: var(--banner-h);
 }
 
-body.nav-open {
-  overflow: hidden;
-}
-
-main {
-  padding-top: var(--nav-height);
-}
-
-img,
-video {
+img, video {
   display: block;
   max-width: 100%;
 }
@@ -114,34 +495,18 @@ a {
   text-decoration: none;
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
 button {
-  border: 0;
-  background: none;
   cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
 }
 
-ul,
-ol {
+ul, ol {
   list-style: none;
 }
 
-:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
-}
-
-::selection {
-  background: var(--accent-soft);
-  color: var(--fg);
-}
-
+/* --- Container --- */
 .container {
   width: 100%;
   max-width: var(--max-width);
@@ -149,148 +514,565 @@ ol {
   padding-inline: var(--gutter);
 }
 
+/* --- Section spacing --- */
 .section {
   padding-block: var(--space-section);
+  
 }
 
-.section--muted {
-  background: var(--surface-muted);
-}
-
-.section--inv,
-.inv-block {
-  background: var(--surface-inverted);
+.section--inv {
+  background-color: var(--black-native);
   color: var(--text-on-dark);
 }
 
+
+.section--alt {
+  background-color: var(--surface-elevated);
+}
+
+/* --- Horizontal rule divider --- */
 hr {
-  border: 0;
+  border: none;
   border-top: var(--border-width) solid var(--border);
-}
-
-.rule-subtle {
-  border-color: var(--border-subtle);
-}
-
-.grid-12 {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--space-gap);
-}
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-gap);
-}
-
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-gap);
-}
-
-.grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-gap);
-}
-
-.col-3 { grid-column: span 3; }
-.col-4 { grid-column: span 4; }
-.col-5 { grid-column: span 5; }
-.col-6 { grid-column: span 6; }
-.col-7 { grid-column: span 7; }
-.col-8 { grid-column: span 8; }
-.col-9 { grid-column: span 9; }
-.col-12 { grid-column: span 12; }
-
-.stack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-24);
-}
-
-.cluster {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-12);
-  align-items: center;
-}
-
-.b-box {
-  border: var(--border-width) solid var(--border);
-}
-
-.b-top {
-  border-top: var(--border-width) solid var(--border);
-}
-
-.b-bottom {
-  border-bottom: var(--border-width) solid var(--border);
-}
-
-.surface {
-  background: var(--surface-elevated);
-  border: var(--border-width) solid var(--border);
-}
-
-.surface-muted {
-  background: var(--surface-muted);
-}
-
-.img-raw {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
-.aspect-16-9 {
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
+hr.inv {
+  border-top-color: rgba(255, 230, 210, 0.15);
 }
 
-.aspect-4-3 {
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
+/* --- Selection --- */
+::selection {
+  background-color: var(--accent);
+  color: var(--black-native);
 }
 
-.visually-hidden,
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+/* --- Focus --- */
+:focus-visible {
+  outline: 3px solid var(--orange-500);
+  outline-offset: 2px;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-soft);
+}
+
+/* --- Utility --- */
+.inv-block {
+  background-color: var(--black-native);
+  background: var(--black-native);
+  color: var(--text-on-dark);
+}
+
+.mark-accent {
+  background: var(--orange-500);
+  color: var(--black-native);
+  padding: 0 4px;
+}
+
+/* --- Marquee ticker --- */
+.marquee-track {
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
-  border: 0;
+  border-top: var(--border-width) solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
+  padding-block: 12px;
 }
 
-@media (max-width: 1024px) {
-  .grid-4,
-  .grid-3 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.marquee-inner {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
 }
 
-@media (max-width: 768px) {
-  .grid-12,
-  .grid-2,
-  .grid-3,
-  .grid-4 {
-    grid-template-columns: 1fr;
-  }
+.marquee-inner span {
+  padding-inline: 48px;
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
 
-  .col-3,
-  .col-4,
-  .col-5,
-  .col-6,
-  .col-7,
-  .col-8,
-  .col-9,
-  .col-12 {
-    grid-column: 1 / -1;
-  }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+
+/* ============================================================
+   THEME SYSTEM
+   Apply a theme class to <body> or a page wrapper to switch
+   the full colour palette + font pair.
+
+   Usage (in an Astro page):
+     <body class="theme-blue">
+   or wrap a section:
+     <div class="theme-blue"> ... </div>
+
+   Each theme overrides the semantic tokens that all components
+   reference — nothing else needs to change.
+
+   Font pair notation:
+     font-pair-a → Instrument Serif (display) + Rajdhani (body)
+     font-pair-b → Michroma (display) + IBM Plex Serif (body)
+     Omitting font overrides keeps Instrument Serif + Geist.
+   ============================================================ */
+
+/* ── Lime ── */
+.theme-lime {
+  --bg:                  var(--lime-100);
+  --fg:                  var(--lime-black-native);
+  --white-native:        var(--lime-white-native);
+  --black-native:        var(--lime-black-native);
+  --surface-base:        var(--lime-100);
+  --surface-elevated:    var(--lime-50);
+  --accent:              var(--lime-500);
+  --accent-strong:       var(--lime-700);
+  --accent-soft:         var(--lime-100);
+  --text-on-dark:        var(--lime-100);
+  --action-primary-bg:   var(--lime-500);
+  --action-primary-fg:   var(--lime-black-native);
+  --action-secondary-bg: var(--lime-100);
+  --action-secondary-fg: var(--lime-black-native);
+  --action-strong-bg:    var(--lime-700);
+  --action-strong-fg:    var(--lime-white-native);
+  --action-inverse-bg:   var(--lime-black-native);
+  --action-inverse-fg:   var(--lime-500);
+  --hue-on-dark:         var(--lime-950);
+  --text-on-hue:         var(--lime-black-native);
+}
+
+/* ── Yellow ── */
+.theme-yellow {
+  --bg:                  var(--yellow-100);
+  --fg:                  var(--yellow-black-native);
+  --white-native:        var(--yellow-white-native);
+  --black-native:        var(--yellow-black-native);
+  --surface-base:        var(--yellow-100);
+  --surface-elevated:    var(--yellow-50);
+  --accent:              var(--yellow-500);
+  --accent-strong:       var(--yellow-700);
+  --accent-soft:         var(--yellow-100);
+  --text-on-dark:        var(--yellow-100);
+  --action-primary-bg:   var(--yellow-500);
+  --action-primary-fg:   var(--yellow-black-native);
+  --action-secondary-bg: var(--yellow-100);
+  --action-secondary-fg: var(--yellow-black-native);
+  --action-strong-bg:    var(--yellow-700);
+  --action-strong-fg:    var(--yellow-white-native);
+  --action-inverse-bg:   var(--yellow-black-native);
+  --action-inverse-fg:   var(--yellow-500);
+  --hue-on-dark:         var(--yellow-950);
+  --text-on-hue:         var(--yellow-black-native);
+}
+
+/* ── Green ── */
+.theme-green {
+  --bg:                  var(--green-100);
+  --fg:                  var(--green-black-native);
+  --white-native:        var(--green-white-native);
+  --black-native:        var(--green-black-native);
+  --surface-base:        var(--green-100);
+  --surface-elevated:    var(--green-50);
+  --accent:              var(--green-500);
+  --accent-strong:       var(--green-700);
+  --accent-soft:         var(--green-100);
+  --text-on-dark:        var(--green-100);
+  --action-primary-bg:   var(--green-500);
+  --action-primary-fg:   var(--green-black-native);
+  --action-secondary-bg: var(--green-100);
+  --action-secondary-fg: var(--green-black-native);
+  --action-strong-bg:    var(--green-700);
+  --action-strong-fg:    var(--green-white-native);
+  --action-inverse-bg:   var(--green-black-native);
+  --action-inverse-fg:   var(--green-500);
+  --hue-on-dark:         var(--green-950);
+  --text-on-hue:         var(--green-black-native);
+}
+
+/* ── Blue ── */
+.theme-blue {
+  --bg:                  var(--blue-100);
+  --fg:                  var(--blue-black-native);
+  --white-native:        var(--blue-white-native);
+  --black-native:        var(--blue-black-native);
+  --surface-base:        var(--blue-100);
+  --surface-elevated:    var(--blue-50);
+  --accent:              var(--blue-500);
+  --accent-strong:       var(--blue-700);
+  --accent-soft:         var(--blue-100);
+  --text-on-dark:        var(--blue-100);
+  --action-primary-bg:   var(--blue-500);
+  --action-primary-fg:   var(--blue-black-native);
+  --action-secondary-bg: var(--blue-100);
+  --action-secondary-fg: var(--blue-black-native);
+  --action-strong-bg:    var(--blue-700);
+  --action-strong-fg:    var(--blue-white-native);
+  --action-inverse-bg:   var(--blue-black-native);
+  --action-inverse-fg:   var(--blue-400);
+  --hue-on-dark:         var(--blue-950);
+  --text-on-hue:         var(--blue-black-native);
+}
+
+/* ── Rose ── */
+.theme-rose {
+  --bg:                  var(--rose-100);
+  --fg:                  var(--rose-black-native);
+  --white-native:        var(--rose-white-native);
+  --black-native:        var(--rose-black-native);
+  --surface-base:        var(--rose-100);
+  --surface-elevated:    var(--rose-50);
+  --accent:              var(--rose-500);
+  --accent-strong:       var(--rose-700);
+  --accent-soft:         var(--rose-100);
+  --text-on-dark:        var(--rose-100);
+  --action-primary-bg:   var(--rose-500);
+  --action-primary-fg:   var(--rose-black-native);
+  --action-secondary-bg: var(--rose-100);
+  --action-secondary-fg: var(--rose-black-native);
+  --action-strong-bg:    var(--rose-700);
+  --action-strong-fg:    var(--rose-white-native);
+  --action-inverse-bg:   var(--rose-black-native);
+  --action-inverse-fg:   var(--rose-400);
+  --hue-on-dark:         var(--rose-950);
+  --text-on-hue:         var(--rose-black-native);
+}
+
+/* ── Indigo ── */
+.theme-indigo {
+  --bg:                  var(--indigo-100);
+  --fg:                  var(--indigo-black-native);
+  --white-native:        var(--indigo-white-native);
+  --black-native:        var(--indigo-black-native);
+  --surface-base:        var(--indigo-100);
+  --surface-elevated:    var(--indigo-50);
+  --accent:              var(--indigo-500);
+  --accent-strong:       var(--indigo-700);
+  --accent-soft:         var(--indigo-100);
+  --text-on-dark:        var(--indigo-100);
+  --action-primary-bg:   var(--indigo-500);
+  --action-primary-fg:   var(--indigo-black-native);
+  --action-secondary-bg: var(--indigo-100);
+  --action-secondary-fg: var(--indigo-black-native);
+  --action-strong-bg:    var(--indigo-700);
+  --action-strong-fg:    var(--indigo-white-native);
+  --action-inverse-bg:   var(--indigo-black-native);
+  --action-inverse-fg:   var(--indigo-400);
+  --hue-on-dark:         var(--indigo-950);
+  --text-on-hue:         var(--indigo-white-native);
+}
+
+/* ── Pink ── */
+.theme-pink {
+  --bg:                  var(--pink-100);
+  --fg:                  var(--pink-black-native);
+  --white-native:        var(--pink-white-native);
+  --black-native:        var(--pink-black-native);
+  --surface-base:        var(--pink-100);
+  --surface-elevated:    var(--pink-50);
+  --accent:              var(--pink-500);
+  --accent-strong:       var(--pink-700);
+  --accent-soft:         var(--pink-100);
+  --text-on-dark:        var(--pink-100);
+  --action-primary-bg:   var(--pink-500);
+  --action-primary-fg:   var(--pink-black-native);
+  --action-secondary-bg: var(--pink-100);
+  --action-secondary-fg: var(--pink-black-native);
+  --action-strong-bg:    var(--pink-700);
+  --action-strong-fg:    var(--pink-white-native);
+  --action-inverse-bg:   var(--pink-black-native);
+  --action-inverse-fg:   var(--pink-400);
+  --hue-on-dark:         var(--pink-950);
+  --text-on-hue:         var(--pink-black-native);
+}
+
+/* ── Purple ── */
+.theme-purple {
+  --bg:                  var(--purple-100);
+  --fg:                  var(--purple-black-native);
+  --white-native:        var(--purple-white-native);
+  --black-native:        var(--purple-black-native);
+  --surface-base:        var(--purple-100);
+  --surface-elevated:    var(--purple-50);
+  --accent:              var(--purple-500);
+  --accent-strong:       var(--purple-700);
+  --accent-soft:         var(--purple-100);
+  --text-on-dark:        var(--purple-100);
+  --action-primary-bg:   var(--purple-500);
+  --action-primary-fg:   var(--purple-black-native);
+  --action-secondary-bg: var(--purple-100);
+  --action-secondary-fg: var(--purple-black-native);
+  --action-strong-bg:    var(--purple-700);
+  --action-strong-fg:    var(--purple-white-native);
+  --action-inverse-bg:   var(--purple-black-native);
+  --action-inverse-fg:   var(--purple-400);
+  --hue-on-dark:         var(--purple-950);
+  --text-on-hue:         var(--purple-white-native);
+}
+
+/* ── Cyan ── */
+.theme-cyan {
+  --bg:                  var(--cyan-100);
+  --fg:                  var(--cyan-black-native);
+  --white-native:        var(--cyan-white-native);
+  --black-native:        var(--cyan-black-native);
+  --surface-base:        var(--cyan-100);
+  --surface-elevated:    var(--cyan-50);
+  --accent:              var(--cyan-500);
+  --accent-strong:       var(--cyan-700);
+  --accent-soft:         var(--cyan-100);
+  --text-on-dark:        var(--cyan-100);
+  --action-primary-bg:   var(--cyan-500);
+  --action-primary-fg:   var(--cyan-black-native);
+  --action-secondary-bg: var(--cyan-100);
+  --action-secondary-fg: var(--cyan-black-native);
+  --action-strong-bg:    var(--cyan-700);
+  --action-strong-fg:    var(--cyan-white-native);
+  --action-inverse-bg:   var(--cyan-black-native);
+  --action-inverse-fg:   var(--cyan-400);
+  --hue-on-dark:         var(--cyan-950);
+  --text-on-hue:         var(--cyan-black-native);
+}
+
+/* ── Teal ── */
+.theme-teal {
+  --bg:                  var(--teal-100);
+  --fg:                  var(--teal-black-native);
+  --white-native:        var(--teal-white-native);
+  --black-native:        var(--teal-black-native);
+  --surface-base:        var(--teal-100);
+  --surface-elevated:    var(--teal-50);
+  --accent:              var(--teal-500);
+  --accent-strong:       var(--teal-700);
+  --accent-soft:         var(--teal-100);
+  --text-on-dark:        var(--teal-100);
+  --action-primary-bg:   var(--teal-500);
+  --action-primary-fg:   var(--teal-black-native);
+  --action-secondary-bg: var(--teal-100);
+  --action-secondary-fg: var(--teal-black-native);
+  --action-strong-bg:    var(--teal-700);
+  --action-strong-fg:    var(--teal-white-native);
+  --action-inverse-bg:   var(--teal-black-native);
+  --action-inverse-fg:   var(--teal-400);
+  --hue-on-dark:         var(--teal-950);
+  --text-on-hue:         var(--teal-black-native);
+}
+
+/* ── Mint ── */
+.theme-mint {
+  --bg:                  var(--mint-100);
+  --fg:                  var(--mint-black-native);
+  --white-native:        var(--mint-white-native);
+  --black-native:        var(--mint-black-native);
+  --surface-base:        var(--mint-100);
+  --surface-elevated:    var(--mint-50);
+  --accent:              var(--mint-500);
+  --accent-strong:       var(--mint-700);
+  --accent-soft:         var(--mint-100);
+  --text-on-dark:        var(--mint-100);
+  --action-primary-bg:   var(--mint-500);
+  --action-primary-fg:   var(--mint-black-native);
+  --action-secondary-bg: var(--mint-100);
+  --action-secondary-fg: var(--mint-black-native);
+  --action-strong-bg:    var(--mint-700);
+  --action-strong-fg:    var(--mint-white-native);
+  --action-inverse-bg:   var(--mint-black-native);
+  --action-inverse-fg:   var(--mint-400);
+  --hue-on-dark:         var(--mint-950);
+  --text-on-hue:         var(--mint-black-native);
+}
+
+/* ── Amber ── */
+.theme-amber {
+  --bg:                  var(--amber-100);
+  --fg:                  var(--amber-black-native);
+  --white-native:        var(--amber-white-native);
+  --black-native:        var(--amber-black-native);
+  --surface-base:        var(--amber-100);
+  --surface-elevated:    var(--amber-50);
+  --accent:              var(--amber-500);
+  --accent-strong:       var(--amber-700);
+  --accent-soft:         var(--amber-100);
+  --text-on-dark:        var(--amber-100);
+  --action-primary-bg:   var(--amber-500);
+  --action-primary-fg:   var(--amber-black-native);
+  --action-secondary-bg: var(--amber-100);
+  --action-secondary-fg: var(--amber-black-native);
+  --action-strong-bg:    var(--amber-700);
+  --action-strong-fg:    var(--amber-white-native);
+  --action-inverse-bg:   var(--amber-black-native);
+  --action-inverse-fg:   var(--amber-400);
+  --hue-on-dark:         var(--amber-950);
+  --text-on-hue:         var(--amber-black-native);
+}
+
+/* ── Brown ── */
+.theme-brown {
+  --bg:                  var(--brown-100);
+  --fg:                  var(--brown-black-native);
+  --white-native:        var(--brown-white-native);
+  --black-native:        var(--brown-black-native);
+  --surface-base:        var(--brown-100);
+  --surface-elevated:    var(--brown-50);
+  --accent:              var(--brown-500);
+  --accent-strong:       var(--brown-700);
+  --accent-soft:         var(--brown-100);
+  --text-on-dark:        var(--brown-100);
+  --action-primary-bg:   var(--brown-500);
+  --action-primary-fg:   var(--brown-black-native);
+  --action-secondary-bg: var(--brown-100);
+  --action-secondary-fg: var(--brown-black-native);
+  --action-strong-bg:    var(--brown-700);
+  --action-strong-fg:    var(--brown-white-native);
+  --action-inverse-bg:   var(--brown-black-native);
+  --action-inverse-fg:   var(--brown-400);
+  --hue-on-dark:         var(--brown-950);
+  --text-on-hue:         var(--brown-white-native);
+}
+
+/* ── Red ── */
+.theme-red {
+  --bg:                  var(--red-100);
+  --fg:                  var(--red-black-native);
+  --white-native:        var(--red-white-native);
+  --black-native:        var(--red-black-native);
+  --surface-base:        var(--red-100);
+  --surface-elevated:    var(--red-50);
+  --accent:              var(--red-500);
+  --accent-strong:       var(--red-700);
+  --accent-soft:         var(--red-100);
+  --text-on-dark:        var(--red-100);
+  --action-primary-bg:   var(--red-500);
+  --action-primary-fg:   var(--red-black-native);
+  --action-secondary-bg: var(--red-100);
+  --action-secondary-fg: var(--red-black-native);
+  --action-strong-bg:    var(--red-700);
+  --action-strong-fg:    var(--red-white-native);
+  --action-inverse-bg:   var(--red-black-native);
+  --action-inverse-fg:   var(--red-400);
+  --hue-on-dark:         var(--red-950);
+  --text-on-hue:         var(--red-black-native);
+}
+
+/* ── Vermilion ── */
+.theme-vermilion {
+  --bg:                  var(--vermilion-100);
+  --fg:                  var(--vermilion-black-native);
+  --white-native:        var(--vermilion-white-native);
+  --black-native:        var(--vermilion-black-native);
+  --surface-base:        var(--vermilion-100);
+  --surface-elevated:    var(--vermilion-50);
+  --accent:              var(--vermilion-500);
+  --accent-strong:       var(--vermilion-700);
+  --accent-soft:         var(--vermilion-100);
+  --text-on-dark:        var(--vermilion-100);
+  --action-primary-bg:   var(--vermilion-500);
+  --action-primary-fg:   var(--vermilion-black-native);
+  --action-secondary-bg: var(--vermilion-100);
+  --action-secondary-fg: var(--vermilion-black-native);
+  --action-strong-bg:    var(--vermilion-700);
+  --action-strong-fg:    var(--vermilion-white-native);
+  --action-inverse-bg:   var(--vermilion-black-native);
+  --action-inverse-fg:   var(--vermilion-400);
+  --hue-on-dark:         var(--vermilion-950);
+  --text-on-hue:         var(--vermilion-black-native);
+}
+
+/* ── Warm grey ── */
+.theme-warm {
+  --bg:                  var(--warm-100);
+  --fg:                  var(--warm-black-native);
+  --white-native:        var(--warm-white-native);
+  --black-native:        var(--warm-black-native);
+  --surface-base:        var(--warm-100);
+  --surface-elevated:    var(--warm-50);
+  --accent:              var(--warm-500);
+  --accent-strong:       var(--warm-700);
+  --accent-soft:         var(--warm-100);
+  --text-on-dark:        var(--warm-100);
+  --action-primary-bg:   var(--warm-500);
+  --action-primary-fg:   var(--warm-black-native);
+  --action-secondary-bg: var(--warm-100);
+  --action-secondary-fg: var(--warm-black-native);
+  --action-strong-bg:    var(--warm-700);
+  --action-strong-fg:    var(--warm-white-native);
+  --action-inverse-bg:   var(--warm-black-native);
+  --action-inverse-fg:   var(--warm-400);
+  --hue-on-dark:         var(--warm-950);
+  --text-on-hue:         var(--warm-white-native);
+}
+
+/* ── Cool grey ── */
+.theme-cool {
+  --bg:                  var(--cool-100);
+  --fg:                  var(--cool-black-native);
+  --white-native:        var(--cool-white-native);
+  --black-native:        var(--cool-black-native);
+  --surface-base:        var(--cool-100);
+  --surface-elevated:    var(--cool-50);
+  --accent:              var(--cool-500);
+  --accent-strong:       var(--cool-700);
+  --accent-soft:         var(--cool-100);
+  --text-on-dark:        var(--cool-100);
+  --action-primary-bg:   var(--cool-500);
+  --action-primary-fg:   var(--cool-black-native);
+  --action-secondary-bg: var(--cool-100);
+  --action-secondary-fg: var(--cool-black-native);
+  --action-strong-bg:    var(--cool-700);
+  --action-strong-fg:    var(--cool-white-native);
+  --action-inverse-bg:   var(--cool-black-native);
+  --action-inverse-fg:   var(--cool-400);
+  --hue-on-dark:         var(--cool-950);
+  --text-on-hue:         var(--cool-white-native);
+}
+
+/* ── Neutral ── */
+.theme-neutral {
+  --bg:                  var(--neutral-100);
+  --fg:                  var(--neutral-black-native);
+  --white-native:        var(--neutral-white-native);
+  --black-native:        var(--neutral-black-native);
+  --surface-base:        var(--neutral-100);
+  --surface-elevated:    var(--neutral-50);
+  --accent:              var(--neutral-500);
+  --accent-strong:       var(--neutral-700);
+  --accent-soft:         var(--neutral-100);
+  --text-on-dark:        var(--neutral-100);
+  --action-primary-bg:   var(--neutral-500);
+  --action-primary-fg:   var(--neutral-black-native);
+  --action-secondary-bg: var(--neutral-100);
+  --action-secondary-fg: var(--neutral-black-native);
+  --action-strong-bg:    var(--neutral-700);
+  --action-strong-fg:    var(--neutral-white-native);
+  --action-inverse-bg:   var(--neutral-black-native);
+  --action-inverse-fg:   var(--neutral-400);
+  --hue-on-dark:         var(--neutral-950);
+  --text-on-hue:         var(--neutral-white-native);
+}
+
+/* ============================================================
+   FONT PAIR MODIFIER CLASSES
+   Combine with a theme class to switch fonts.
+   E.g. <body class="theme-blue font-pair-a">
+
+   font-pair-a: Instrument Serif (display) + Rajdhani (body)
+     → Tech, bold, geometric. Instrument Serif used for display.
+   font-pair-b: Michroma (display) + IBM Plex Serif (body)
+     → Precision, editorial, structured.
+   ============================================================ */
+
+.font-pair-a {
+  --font-display: var(--font-alt-a-display);
+  --font-body:    var(--font-alt-a-body);
+}
+
+.font-pair-b {
+  --font-display: var(--font-alt-b-display);
+  --font-body:    var(--font-alt-b-body);
 }

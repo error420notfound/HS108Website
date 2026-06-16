@@ -3,105 +3,144 @@
 
 <section class="hero">
   <div class="container hero-inner">
-    <div class="hero-meta">
-      <span class="t-label">HS108</span>
-      <span class="t-label">Design Practice</span>
-      <span class="t-label">Business Before Deliverables</span>
+    <div class="hero-overline">
+      <span class="t-label">Independent Design Studio</span>
+      <span class="hero-sep">—</span>
+      <span class="t-label">Est. 2019</span>
+      <span class="hero-sep">—</span>
+      <span class="t-label hero-status">
+        <span class="hero-dot"></span>
+        Accepting Projects
+      </span>
     </div>
 
-    <div class="hero-grid">
-      <h1 class="t-hero">Design for better business decisions.</h1>
-      <div class="hero-copy">
-        <p class="t-large">
-          HS108 helps founders understand what is really blocking growth, trust, clarity, or conversion, then uses design to make the right decision visible.
-        </p>
-        <div class="hero-actions">
-          <a href="/contact" class="btn btn--primary">Start A Project Conversation</a>
-          <a href="/thinking" class="btn btn--outline">See How We Think</a>
-        </div>
+    <h1 class="hero-headline">
+      Design<br />
+      Built to<br />
+      <span class="hero-headline-accent">Scale.</span>
+    </h1>
+
+    <div class="hero-bottom">
+      <p class="t-large hero-sub">
+        We build brands and digital products for companies<br class="hero-br" />
+        ready to grow. No generalists. No templates. Just systems<br class="hero-br" />
+        that work at scale.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="/contact" class="btn btn--primary">Start a Project</a>
+        <a href="/work" class="btn btn--outline">See Our Work →</a>
       </div>
-    </div>
-
-    <div class="hero-system" aria-label="HS108 working model">
-      {['Problem', 'Diagnosis', 'System', 'Decision', 'Design', 'Outcome'].map(item => (
-        <span class="t-label">{item}</span>
-      ))}
     </div>
   </div>
 </section>
 
+
 <style>
   .hero {
+    min-height: calc(100svh - 64px);
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-bottom: var(--border-width) solid var(--border);
-    background: var(--surface-base);
+    position: relative;
+    background: linear-gradient(180deg, var(--orange-200) 0%, var(--orange-100) 70%,  var(--orange-50) 100%);
   }
 
   .hero-inner {
-    padding-block: var(--space-96) var(--space-64);
-  }
-
-  .hero-meta {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-16);
-    flex-wrap: wrap;
-    padding-block: var(--space-12);
-    margin-bottom: var(--space-64);
-    border-top: var(--border-width) solid var(--border);
-    border-bottom: var(--border-width) solid var(--border);
-    color: var(--text-muted);
-  }
-
-  .hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.55fr);
-    gap: var(--space-64);
-    align-items: end;
-  }
-
-  .hero h1 {
-    max-width: 11ch;
-  }
-
-  .hero-copy {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
     display: flex;
     flex-direction: column;
-    gap: var(--space-24);
+    gap: 2rem;
   }
 
-  .hero-copy p {
-    color: var(--text-muted);
-  }
-
-  .hero-actions {
+  .hero-overline {
     display: flex;
-    gap: var(--space-12);
+    align-items: center;
     flex-wrap: wrap;
-  }
-
-  .hero-system {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    margin-top: var(--space-64);
+    gap: 0.75rem;
+    padding: 12px 0;
     border-top: var(--border-width) solid var(--border);
-    border-left: var(--border-width) solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
   }
 
-  .hero-system span {
-    padding: var(--space-16);
-    border-right: var(--border-width) solid var(--border);
+  .hero-sep {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    opacity: 0.3;
+  }
+
+  .hero-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: var(--color-status-green);
+    border-radius: 50%;
+  }
+
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: var(--size-hero);
+    font-weight: 400;
+    font-style: regular;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    padding-bottom: 2.8rem;
     border-bottom: var(--border-width) solid var(--border);
-    color: var(--text-muted);
+  }
+
+  /* The accented word breaks into upright style for contrast */
+  .hero-headline-accent {
+    font-style: normal ;
+    color: var(--orange-500);
+  }
+
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 3rem;
+  }
+
+  .hero-sub {
+    max-width: 55ch;
+    opacity: 0.65;
+    line-height: 1.55;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-shrink: 0;
   }
 
   @media (max-width: 900px) {
-    .hero-grid,
-    .hero-system {
+    .hero-headline-accent {
+      -webkit-text-stroke-width: 2px;
+    }
+
+    .hero-bottom {
       grid-template-columns: 1fr;
     }
 
-    .hero h1 {
-      max-width: 12ch;
+    .hero-ctas {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero-br {
+      display: none;
     }
   }
 </style>

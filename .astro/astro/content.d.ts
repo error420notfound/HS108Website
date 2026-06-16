@@ -151,46 +151,7 @@ declare module 'astro:content' {
 	>;
 
 	type ContentEntryMap = {
-		"frameworks": {
-"design-governance.mdx": {
-	id: "design-governance.mdx";
-  slug: "design-governance";
-  body: string;
-  collection: "frameworks";
-  data: InferEntrySchema<"frameworks">
-} & { render(): Render[".mdx"] };
-"siam.mdx": {
-	id: "siam.mdx";
-  slug: "siam";
-  body: string;
-  collection: "frameworks";
-  data: InferEntrySchema<"frameworks">
-} & { render(): Render[".mdx"] };
-};
-"thinking": {
-"why-good-products-become-hard-to-trust.mdx": {
-	id: "why-good-products-become-hard-to-trust.mdx";
-  slug: "why-good-products-become-hard-to-trust";
-  body: string;
-  collection: "thinking";
-  data: InferEntrySchema<"thinking">
-} & { render(): Render[".mdx"] };
-"why-interfaces-break-as-teams-grow.mdx": {
-	id: "why-interfaces-break-as-teams-grow.mdx";
-  slug: "why-interfaces-break-as-teams-grow";
-  body: string;
-  collection: "thinking";
-  data: InferEntrySchema<"thinking">
-} & { render(): Render[".mdx"] };
-"why-premium-products-fail-to-feel-premium.mdx": {
-	id: "why-premium-products-fail-to-feel-premium.mdx";
-  slug: "why-premium-products-fail-to-feel-premium";
-  body: string;
-  collection: "thinking";
-  data: InferEntrySchema<"thinking">
-} & { render(): Render[".mdx"] };
-};
-"work": {
+		"work": {
 "healthos.mdx": {
 	id: "healthos.mdx";
   slug: "healthos";

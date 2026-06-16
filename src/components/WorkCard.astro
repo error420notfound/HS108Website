@@ -5,175 +5,126 @@ interface Props {
   client: string;
   year: number;
   categories: string[];
-  summary: string;
+  coverImage: string;
+  coverAlt: string;
+  color: string;
   outcome: { label: string; value: string };
-  businessChallenge?: string;
-  diagnosis?: string;
-  coverImage?: string;
-  coverAlt?: string;
+  summary: string;
   large?: boolean;
 }
 
 const {
-  slug,
-  title,
-  client,
-  year,
-  categories,
-  summary,
-  outcome,
-  businessChallenge,
-  diagnosis,
-  coverImage,
-  coverAlt,
+  slug, title, client, year, categories,
+  coverImage, coverAlt, color, outcome, summary,
   large = false,
 } = Astro.props;
 ---
 
-<a href={`/work/${slug}`} class:list={['work-card', { 'work-card--large': large }]}>
+<a href={`/work/${slug}`} class:list={['work-card b-box', { 'work-card--large': large }]}>
+  <div class="work-card-img aspect-16-9" style={`background-color: ${color}18`}>
+    <img src={coverImage} alt={coverAlt} class="img-raw" loading="lazy" />
+  </div>
+
   <div class="work-card-body">
     <div class="work-card-meta">
       <span class="t-label">{client}</span>
-      <span class="t-label">{year}</span>
+      <span class="t-label muted">{year}</span>
     </div>
-    <h3 class:list={[large ? 't-h2' : 't-h3']}>{title}</h3>
-    <p class="t-body work-card-summary">{businessChallenge ?? summary}</p>
-    {diagnosis && (
-      <div class="work-card-diagnosis">
-        <span class="t-label">Diagnosis</span>
-        <p class="t-body">{diagnosis}</p>
-      </div>
-    )}
+    <h3 class:list={['work-card-title', large ? 't-h2' : 't-h3']}>{title}</h3>
+    <p class="t-body work-card-summary">{summary}</p>
     <div class="work-card-footer">
-      <div class="work-card-tags">
-        {categories.slice(0, 3).map(category => <span class="tag">{category.replace('-', ' ')}</span>)}
+      <div class="work-card-cats">
+        {categories.slice(0, 3).map(c => <span class="tag">{c}</span>)}
       </div>
       <div class="work-card-outcome">
-        <span class="t-label">{outcome.label}</span>
-        <strong>{outcome.value}</strong>
+        <span class="t-label muted">{outcome.label}</span>
+        <span class="work-card-value">{outcome.value}</span>
       </div>
     </div>
-    <span class="t-label work-card-link">View The Diagnosis</span>
   </div>
-  {coverImage && (
-    <figure class="work-card-evidence">
-      <img src={coverImage} alt={coverAlt ?? ''} loading="lazy" />
-      <figcaption class="t-label">Execution Evidence</figcaption>
-    </figure>
-  )}
 </a>
 
 <style>
   .work-card {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    min-height: 100%;
-    border: var(--border-width) solid var(--border);
-    background: var(--surface-elevated);
-    transition: background var(--duration-fast) var(--ease-standard);
-  }
-
-  .work-card--large {
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: border-color var(--transition), transform var(--transition);
+    text-decoration: none;
   }
 
   .work-card:hover {
-    background: var(--surface-muted);
+    border-color: var(--c-yellow);
+  }
+
+  .work-card:hover .work-card-img img {
+    transform: scale(1.03);
+  }
+
+  .work-card-img {
+    overflow: hidden;
+  }
+
+  .work-card-img img {
+    transition: transform var(--transition);
   }
 
   .work-card-body {
+    padding: var(--space-card);
+    border-top: var(--border-width) solid var(--border);
     display: flex;
     flex-direction: column;
-    gap: var(--space-16);
-    padding: var(--space-card);
+    gap: 0.75rem;
+    flex: 1;
   }
 
   .work-card-meta {
     display: flex;
     justify-content: space-between;
-    gap: var(--space-16);
-    color: var(--text-muted);
+    align-items: center;
+    opacity: 0.45;
   }
 
-  .work-card-summary,
-  .work-card-diagnosis p,
-  .work-card-outcome span {
-    color: var(--text-muted);
+  .work-card-title {
+    line-height: 1.05;
   }
 
-  .work-card-diagnosis {
-    padding-top: var(--space-16);
-    border-top: var(--border-width) solid var(--border-subtle);
-  }
-
-  .work-card-diagnosis .t-label {
-    display: block;
-    margin-bottom: var(--space-8);
-    color: var(--text-muted);
+  .work-card-summary {
+    opacity: 0.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .work-card-footer {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    gap: var(--space-24);
+    gap: 1rem;
     margin-top: auto;
-    padding-top: var(--space-16);
-    border-top: var(--border-width) solid var(--border);
+    padding-top: 1rem;
+    border-top: var(--border-width) solid var(--overlay-light);
   }
 
-  .work-card-tags {
+  .work-card-cats {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-8);
+    gap: 6px;
   }
 
   .work-card-outcome {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: var(--space-4);
-    text-align: right;
+    flex-shrink: 0;
   }
 
-  .work-card-outcome strong {
+  .work-card-value {
     font-family: var(--font-display);
-    font-size: var(--size-h3);
+    font-size: 1.5rem;
     font-weight: 400;
+    letter-spacing: -0.02em;
     line-height: 1;
-  }
-
-  .work-card-link {
-    margin-top: var(--space-16);
-  }
-
-  .work-card-evidence {
-    border-left: var(--border-width) solid var(--border);
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .work-card-evidence img {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-bottom: var(--border-width) solid var(--border);
-  }
-
-  .work-card-evidence figcaption {
-    padding: var(--space-12);
-    color: var(--text-muted);
-  }
-
-  @media (max-width: 900px) {
-    .work-card--large {
-      grid-template-columns: 1fr;
-    }
-
-    .work-card-evidence {
-      border-left: 0;
-      border-top: var(--border-width) solid var(--border);
-    }
   }
 </style>

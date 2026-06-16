@@ -1,51 +1,82 @@
 ---
 const year = new Date().getFullYear();
 
-const primaryLinks = [
-  { label: 'Studio', href: '/studio' },
-  { label: 'Work', href: '/work' },
-  { label: 'Thinking', href: '/thinking' },
-  { label: 'Services', href: '/services' },
-  { label: 'Contact', href: '/contact' },
+const footerLinks = [
+  { label: 'Work',      href: '/work' },
+  { label: 'Services',  href: '/services' },
+  { label: 'Process',   href: '/process' },
+  { label: 'About',     href: '/about' },
+  { label: 'Why Us',    href: '/why-us' },
+  { label: 'Contact',   href: '/contact' },
 ];
 
-const systemLinks = [
-  { label: 'Frameworks', href: '/frameworks', note: 'Decision systems' },
-  { label: 'SIAM', href: '/frameworks/siam', note: 'Symptom to intervention' },
-  { label: 'Design Governance', href: '/frameworks/design-governance', note: 'Keep decisions coherent' },
+const programs = [
+  { label: 'Creative Department', href: '/programs/creative-department' },
+  { label: 'Design Lab',          href: '/programs/design-lab' },
+  { label: 'off_menu',            href: '/programs/off-menu' },
+  { label: 'Field Notes',         href: '/programs/field-notes' },
+];
+
+const subdomains = [
+  { label: 'docs.hs108.in',        href: 'https://docs.hs108.in',        desc: 'Design Documents' },
+  { label: 'field-notes.hs108.in', href: 'https://field-notes.hs108.in', desc: 'Blog' },
+  { label: 'toolkit.hs108.in',     href: 'https://toolkit.hs108.in',     desc: 'Design Toolkit' },
 ];
 ---
 
 <footer class="footer">
-  <div class="container footer-main">
-    <div class="footer-positioning">
+  <div class="footer-main container">
+    <div class="footer-brand">
       <a href="/" class="footer-logo" aria-label="HS108 Home">
         <img src="/logo.svg" alt="HS108" class="footer-logo-image" />
       </a>
-      <p class="footer-line">
-        HS108 helps founders understand business problems and use design as a tool for better decisions.
+      <p class="t-body footer-tagline">
+        An independent design studio<br />building brands &amp; products that scale.
       </p>
       <a href="mailto:contact.studio@hs108.in" class="footer-email link-swap">contact.studio@hs108.in</a>
+      <a
+        href="https://we.directory/hs108"
+        class="footer-featured"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="HS108 on we.directory"
+      >
+        <span class="t-mono footer-featured-copy">Featured on we.directory</span>
+        <img
+          src="/we_logo1_black.svg"
+          alt="we.directory badge"
+          class="footer-featured-badge"
+        />
+      </a>
     </div>
 
-    <div class="footer-columns">
+    <div class="footer-cols">
       <div class="footer-col">
-        <p class="t-label footer-label">Site</p>
+        <p class="t-label footer-col-label">Navigation</p>
         <ul role="list">
-          {primaryLinks.map(link => (
+          {footerLinks.map(link => (
             <li><a href={link.href} class="footer-link">{link.label}</a></li>
           ))}
         </ul>
       </div>
 
       <div class="footer-col">
-        <p class="t-label footer-label">Thinking Systems</p>
+        <p class="t-label footer-col-label">Programs</p>
         <ul role="list">
-          {systemLinks.map(link => (
+          {programs.map(p => (
+            <li><a href={p.href} class="footer-link">{p.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="t-label footer-col-label">HS108 Network</p>
+        <ul role="list">
+          {subdomains.map(s => (
             <li>
-              <a href={link.href} class="footer-link footer-link--stacked">
-                <span>{link.label}</span>
-                <span>{link.note}</span>
+              <a href={s.href} class="footer-link footer-link--ext" target="_blank" rel="noopener noreferrer">
+                {s.label}
+                <span class="footer-link-desc">{s.desc}</span>
               </a>
             </li>
           ))}
@@ -53,123 +84,194 @@ const systemLinks = [
       </div>
 
       <div class="footer-col">
-        <p class="t-label footer-label">Studio Status</p>
-        <p class="t-mono footer-note">Available for selected founder-led projects.</p>
-        <p class="t-mono footer-note">Based in India. Working with teams worldwide.</p>
+        <p class="t-label footer-col-label">Status</p>
+        <div class="footer-status">
+          <span class="status-dot"></span>
+          <span class="t-mono">Accepting projects</span>
+        </div>
+        <p class="t-mono footer-location">Based in India<br />Working worldwide</p>
       </div>
     </div>
   </div>
 
-  <div class="container footer-bar">
-    <p class="t-mono">&copy; {year} HS108.</p>
-    <p class="t-mono">Designed and built in-house.</p>
+  <div class="footer-bar container">
+    <p class="t-mono footer-copy">&copy; {year} HS108. All rights reserved.</p>
+    <p class="t-mono">Designed &amp; built in-house.</p>
   </div>
 </footer>
 
 <style>
   .footer {
     border-top: var(--border-width) solid var(--border);
-    background: var(--surface-elevated);
+    background: var(--bg);
+    margin-top: auto;
   }
 
   .footer-main {
     display: grid;
-    grid-template-columns: minmax(280px, 1fr) 2fr;
-    gap: var(--space-64);
-    padding-block: var(--space-64);
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
     border-bottom: var(--border-width) solid var(--border);
   }
 
-  .footer-positioning {
+  .footer-brand {
     display: flex;
     flex-direction: column;
-    gap: var(--space-16);
+    gap: 1.25rem;
   }
 
   .footer-logo {
+    display: inline-flex;
+    align-items: center;
     width: fit-content;
   }
 
   .footer-logo-image {
+    display: block;
     width: auto;
-    height: 38px;
+    height: 40px;
+    max-width: 260px;
   }
 
-  .footer-line {
-    max-width: 36ch;
-    line-height: 1.65;
-    color: var(--text-muted);
+  .footer-tagline {
+    opacity: 0.6;
+    max-width: 28ch;
   }
 
   .footer-email {
     font-family: var(--font-mono);
     font-size: var(--size-small);
+    letter-spacing: 0.04em;
   }
 
-  .footer-columns {
+  .footer-featured {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: fit-content;
+    margin-top: 0.25rem;
+    text-decoration: none;
+  }
+
+  .footer-featured-copy {
+    font-size: 10px;
+    line-height: 1.6;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    max-width: 32ch;
+    transition: opacity var(--transition);
+  }
+
+  .footer-featured-badge {
+    display: block;
+    align-self: flex-start;
+    width: auto;
+    height: 34px;
+    max-width: 220px;
+    opacity: 0.82;
+    transition: opacity var(--transition);
+  }
+
+  .footer-featured:hover .footer-featured-copy,
+  .footer-featured:hover .footer-featured-badge {
+    opacity: 1;
+  }
+
+  .footer-cols {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-32);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
   }
 
-  .footer-label {
-    margin-bottom: var(--space-16);
-    color: var(--text-muted);
+  .footer-col-label {
+    margin-bottom: 1rem;
+    opacity: 0.4;
   }
 
   .footer-link {
-    min-height: 32px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     font-family: var(--font-mono);
     font-size: var(--size-small);
+    letter-spacing: 0.06em;
+    padding: 3px 4px;
+    transition: background var(--transition);
   }
 
   .footer-link:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
+    background: var(--accent);
+    color: var(--black-native);
   }
 
-  .footer-link--stacked {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: var(--space-2);
-    padding-block: var(--space-6);
+  .footer-link-desc {
+    font-size: 9px;
+    opacity: 0.45;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 1px;
   }
 
-  .footer-link--stacked span:last-child,
-  .footer-note {
-    color: var(--text-muted);
+  .footer-link--ext::after {
+    content: ' ↗';
+    opacity: 0.35;
+    font-size: 9px;
+    display: inline;
   }
 
-  .footer-note + .footer-note {
-    margin-top: var(--space-12);
+  .footer-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-status-green);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .footer-location {
+    opacity: 0.5;
+    line-height: 1.7;
   }
 
   .footer-bar {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: var(--space-16);
-    padding-block: var(--space-16);
-    color: var(--text-muted);
+    align-items: center;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    opacity: 0.45;
   }
 
-  @media (max-width: 900px) {
-    .footer-main,
-    .footer-columns {
-      grid-template-columns: 1fr;
+  @media (max-width: 1024px) {
+    .footer-cols {
+      grid-template-columns: repeat(2, 1fr);
     }
+  }
 
+  @media (max-width: 768px) {
     .footer-main {
-      gap: var(--space-48);
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .footer-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
     }
   }
 
-  @media (max-width: 640px) {
-    .footer-bar {
-      align-items: flex-start;
-      flex-direction: column;
+  @media (max-width: 480px) {
+    .footer-cols {
+      grid-template-columns: 1fr;
     }
   }
 </style>
