@@ -1,0 +1,58 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionHeader from '@components/SectionHeader.astro';
+import InsightCard from '@components/InsightCard.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('thinking')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Thinking" description="Field notes and observations from HS108 on business challenges, design decisions, and systems thinking.">
+  <header class="thinking-hero container">
+    <p class="t-label section-num">Thinking</p>
+    <h1 class="t-h1">Working notes on business problems with a design surface.</h1>
+    <p class="t-large">These are not blog posts. They are practical notes for founders trying to understand why trust, clarity, conversion, or coherence breaks.</p>
+  </header>
+
+  <hr />
+
+  <section class="section container">
+    <SectionHeader
+      label="Field Notes"
+      title="Each note answers one question."
+      intro="The structure is consistent: observation, analysis, implication, and application."
+    />
+    <div class="grid-3">
+      {entries.map(entry => (
+        <InsightCard
+          label={entry.data.category}
+          title={entry.data.title}
+          observation={entry.data.summary}
+          implication={entry.data.question}
+          href={`/thinking/${entry.slug}`}
+        />
+      ))}
+    </div>
+  </section>
+
+  <ContactCTA headline="Have a problem that feels unclear?" sub="Send the context. The first useful step is understanding what kind of problem it is." invert={false} />
+</BaseLayout>
+
+<style>
+  .thinking-hero {
+    padding-block: var(--space-96) var(--space-64);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .thinking-hero h1 {
+    max-width: 14ch;
+  }
+
+  .thinking-hero p:last-child {
+    max-width: 64ch;
+    color: var(--text-muted);
+  }
+</style>

@@ -1,485 +1,189 @@
 ---
-const serviceLinks = [
-  { label: 'WebCanvas',    sub: 'Digital Design',     href: '/services/webcanvas' },
-  { label: 'CX&Identity',  sub: 'Branding & Identity', href: '/services/cx-identity' },
-  { label: 'CMF_Nexus',    sub: 'Product Design',      href: '/services/cmf-nexus' },
-  { label: 'Lumina.raw',   sub: 'Photo & Video',       href: '/services/lumina-raw' },
-];
-
-const programLinks = [
-  { label: 'Creative Department', sub: 'Retainer',  href: '/programs/creative-department' },
-  { label: 'Design Lab',          sub: 'Research',   href: '/programs/design-lab' },
-  { label: 'off_menu',            sub: 'Bespoke',    href: '/programs/off-menu' },
-  { label: 'Field Notes',         sub: 'Community',  href: '/programs/field-notes' },
+const links = [
+  { label: 'Studio', href: '/studio', active: ['/studio', '/about'] },
+  { label: 'Work', href: '/work', active: ['/work'] },
+  { label: 'Thinking', href: '/thinking', active: ['/thinking', '/frameworks'] },
+  { label: 'Services', href: '/services', active: ['/services'] },
+  { label: 'Contact', href: '/contact', active: ['/contact'] },
 ];
 
 const currentPath = Astro.url.pathname;
+const isActive = (link: { active: string[] }) => link.active.some(path => currentPath === path || currentPath.startsWith(`${path}/`));
 ---
 
 <header class="nav-wrap">
-  <nav class="nav container">
+  <nav class="nav container" aria-label="Primary navigation">
     <a href="/" class="nav-logo" aria-label="HS108 Home">
       <img src="/logo.svg" alt="HS108" class="nav-logo-image" />
     </a>
 
-    <!-- Desktop links -->
     <ul class="nav-links" role="list">
-      <li>
-        <a href="/work" class:list={['nav-link', { active: currentPath.startsWith('/work') }]}>Work</a>
-      </li>
-
-      <!-- Services dropdown -->
-      <li class="nav-item--dropdown">
-        <a href="/services" class:list={['nav-link nav-link--dropdown', { active: currentPath.startsWith('/services') }]}>
-          Services <span class="nav-chevron">▾</span>
-        </a>
-        <div class="nav-dropdown">
-          {serviceLinks.map(link => (
-            <a href={link.href} class:list={['nav-dropdown-item', { active: currentPath === link.href }]}>
-              <span class="nav-dropdown-label">{link.label}</span>
-              <span class="nav-dropdown-sub">{link.sub}</span>
-            </a>
-          ))}
-        </div>
-      </li>
-
-      <li>
-        <a href="/process" class:list={['nav-link', { active: currentPath.startsWith('/process') }]}>Process</a>
-      </li>
-      <li>
-        <a href="/about" class:list={['nav-link', { active: currentPath.startsWith('/about') }]}>About</a>
-      </li>
-
-      <!-- Programs dropdown -->
-      <li class="nav-item--dropdown">
-        <a href="/programs" class:list={['nav-link nav-link--dropdown', { active: currentPath.startsWith('/programs') }]}>
-          Programs <span class="nav-chevron">▾</span>
-        </a>
-        <div class="nav-dropdown">
-          {programLinks.map(link => (
-            <a href={link.href} class:list={['nav-dropdown-item', { active: currentPath === link.href }]}>
-              <span class="nav-dropdown-label">{link.label}</span>
-              <span class="nav-dropdown-sub">{link.sub}</span>
-            </a>
-          ))}
-        </div>
-      </li>
+      {links.map(link => (
+        <li>
+          <a href={link.href} class:list={['nav-link', { active: isActive(link) }]}>{link.label}</a>
+        </li>
+      ))}
     </ul>
 
-    <a href="/contact" class="btn btn--primary nav-cta">Get In Touch</a>
-
-    <!-- Mobile hamburger -->
     <button
-      class="nav-hamburger"
-      id="nav-hamburger"
-      aria-label="Open menu"
+      class="nav-toggle"
+      id="nav-toggle"
+      type="button"
+      aria-label="Open navigation"
       aria-expanded="false"
       aria-controls="nav-mobile"
     >
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
+      <span></span>
+      <span></span>
     </button>
   </nav>
 
-  <!-- Mobile dropdown menu -->
-  <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
-    <ul role="list">
-      <li>
-        <a href="/work" class:list={['nav-mobile-link', { active: currentPath.startsWith('/work') }]}>Work</a>
-      </li>
-
-      <!-- Services accordion -->
-      <li class="nav-mobile-accordion">
-        <button class="nav-mobile-link nav-mobile-accordion-btn" aria-expanded="false">
-          Services <span class="nav-acc-chevron">▾</span>
-        </button>
-        <ul class="nav-mobile-submenu" role="list">
-          <li class="nav-mobile-group-label">
-            <span class="t-label" style="opacity:0.4">Services</span>
-          </li>
-          {serviceLinks.map(link => (
-            <li>
-              <a href={link.href} class:list={['nav-mobile-link nav-mobile-link--sub', { active: currentPath === link.href }]}>
-                <span>{link.label}</span>
-                <span class="nav-sub-tag">{link.sub}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </li>
-
-      <li>
-        <a href="/process" class:list={['nav-mobile-link', { active: currentPath.startsWith('/process') }]}>Process</a>
-      </li>
-      <li>
-        <a href="/about" class:list={['nav-mobile-link', { active: currentPath.startsWith('/about') }]}>About</a>
-      </li>
-
-      <!-- Programs accordion -->
-      <li class="nav-mobile-accordion">
-        <button class="nav-mobile-link nav-mobile-accordion-btn" aria-expanded="false">
-          Programs <span class="nav-acc-chevron">▾</span>
-        </button>
-        <ul class="nav-mobile-submenu" role="list">
-          <li class="nav-mobile-group-label">
-            <span class="t-label" style="opacity:0.4">Programs</span>
-          </li>
-          {programLinks.map(link => (
-            <li>
-              <a href={link.href} class:list={['nav-mobile-link nav-mobile-link--sub', { active: currentPath === link.href }]}>
-                <span>{link.label}</span>
-                <span class="nav-sub-tag">{link.sub}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </li>
-    </ul>
-
-    <div class="nav-mobile-footer">
-      <a href="/contact" class="btn btn--primary nav-mobile-cta">Get In Touch →</a>
+  <div class="nav-mobile" id="nav-mobile" hidden>
+    <div class="container nav-mobile-inner">
+      {links.map(link => (
+        <a href={link.href} class:list={['nav-mobile-link', { active: isActive(link) }]}>{link.label}</a>
+      ))}
     </div>
   </div>
 </header>
 
 <style>
-  /* ── Wrapper ── */
   .nav-wrap {
     position: fixed;
-    top: var(--banner-h, 0px);
-    left: 0;
-    right: 0;
+    inset: 0 0 auto;
     z-index: 100;
     background: var(--bg);
     border-bottom: var(--border-width) solid var(--border);
   }
 
-  /* ── Bar ── */
   .nav {
+    height: var(--nav-height);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    height: 64px;
+    gap: var(--space-24);
   }
 
-  /* ── Logo ── */
   .nav-logo {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     margin-right: auto;
-    text-decoration: none;
   }
 
   .nav-logo-image {
-    display: block;
     width: auto;
-    height: 40px;
-    max-width: 280px;
+    height: 38px;
   }
 
-  /* ── Desktop nav links ── */
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 0;
+    gap: var(--space-4);
   }
 
   .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--space-8) var(--space-12);
     font-family: var(--font-mono);
     font-size: var(--size-label);
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 8px 14px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: background var(--transition), color var(--transition);
-    color: var(--black-native);
-    white-space: nowrap;
-    height: 64px;
+    color: var(--text-muted);
+    transition: background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
   }
 
   .nav-link:hover,
   .nav-link.active {
-    background: var(--accent);
-    color: var(--black-native);
+    color: var(--fg);
+    background: var(--surface-muted);
   }
 
-  .nav-chevron {
-    font-size: 8px;
-    opacity: 0.5;
-    transition: transform 200ms ease;
-  }
-
-  /* ── Dropdown items ── */
-  .nav-item--dropdown {
-    position: relative;
-  }
-
-  .nav-dropdown {
+  .nav-toggle {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: var(--bg);
+    width: 44px;
+    height: 44px;
     border: var(--border-width) solid var(--border);
-    border-top: none;
-    min-width: 220px;
-    z-index: 200;
-  }
-
-  .nav-item--dropdown:hover .nav-dropdown,
-  .nav-item--dropdown:focus-within .nav-dropdown {
-    display: block;
-  }
-
-  .nav-item--dropdown:hover .nav-chevron {
-    transform: rotate(180deg);
-  }
-
-  .nav-dropdown-item {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--orange-100);
-    transition: background var(--transition);
-  }
-
-  .nav-dropdown-item:last-child {
-    border-bottom: none;
-  }
-
-  .nav-dropdown-item:hover {
-    background: var(--accent);
-  }
-
-  .nav-dropdown-label {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--black-native);
-  }
-
-  .nav-dropdown-sub {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    opacity: 0.4;
-    color: var(--black-native);
-  }
-
-  /* ── Desktop CTA ── */
-  .nav-cta {
-    padding: 10px 18px;
-    font-size: 10px;
-    flex-shrink: 0;
-  }
-
-  /* ══════════════════════════════════════
-     HAMBURGER BUTTON
-  ══════════════════════════════════════ */
-  .nav-hamburger {
-    display: none;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    gap: 5px;
-    width: 40px;
-    height: 40px;
-    padding: 8px;
-    cursor: pointer;
-    background: none;
-    border: var(--border-width) solid var(--border);
-    flex-shrink: 0;
-  }
-
-  .bar {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: var(--black-native);
-    transition: transform 250ms ease, opacity 250ms ease;
-    transform-origin: center;
-  }
-
-  .nav-hamburger[aria-expanded="true"] .bar:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-  .nav-hamburger[aria-expanded="true"] .bar:nth-child(2) {
-    opacity: 0;
-  }
-  .nav-hamburger[aria-expanded="true"] .bar:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-
-  /* ══════════════════════════════════════
-     MOBILE DROPDOWN
-  ══════════════════════════════════════ */
-  .nav-mobile {
-    display: none;
-    background: var(--bg);
-    border-top: var(--border-width) solid var(--border);
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 99;
-    max-height: calc(100dvh - 64px);
-    overflow-y: auto;
-  }
-
-  .nav-mobile.open {
-    display: block;
-  }
-
-  .nav-mobile > ul {
-    display: flex;
     flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 18px;
+    height: 1px;
+    background: var(--fg);
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+
+  .nav-toggle[aria-expanded="true"] span:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] span:last-child {
+    transform: translateY(-3px) rotate(-45deg);
+  }
+
+  .nav-mobile {
+    border-top: var(--border-width) solid var(--border);
+    background: var(--bg);
+  }
+
+  .nav-mobile-inner {
+    display: grid;
+    padding-block: var(--space-16);
   }
 
   .nav-mobile-link {
+    min-height: 48px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    border-bottom: var(--border-width) solid var(--border-subtle);
     font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 500;
+    font-size: var(--size-label);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--black-native);
-    padding: 1rem var(--gutter);
-    border-bottom: 1px solid var(--orange-100);
-    transition: background var(--transition), padding-left var(--transition);
-    width: 100%;
-    background: none;
-    cursor: pointer;
-    text-align: left;
+    color: var(--text-muted);
   }
 
-  .nav-mobile-link:hover,
-  .nav-mobile-link.active {
-    background: var(--accent);
-    color: var(--black-native);
-    padding-left: calc(var(--gutter) + 0.5rem);
+  .nav-mobile-link.active,
+  .nav-mobile-link:hover {
+    color: var(--fg);
   }
 
-  .nav-mobile-group-label {
-    padding: 0.75rem var(--gutter) 0.35rem;
-    background: var(--surface-elevated);
-    border-bottom: 1px solid var(--orange-100);
-  }
-
-  .nav-mobile-link--sub {
-    padding-left: calc(var(--gutter) + 1rem);
-    font-size: 11px;
-    background: var(--surface-elevated);
-    justify-content: flex-start;
-    gap: 1rem;
-  }
-
-  .nav-mobile-link--sub:hover,
-  .nav-mobile-link--sub.active {
-    padding-left: calc(var(--gutter) + 1.5rem);
-    background: var(--orange-200);
-  }
-
-  /* accordion submenu hidden by default */
-  .nav-mobile-submenu {
-    display: none;
-    flex-direction: column;
-  }
-
-  .nav-mobile-submenu.open {
-    display: flex;
-  }
-
-  .nav-acc-chevron {
-    font-size: 8px;
-    opacity: 0.5;
-    transition: transform 200ms ease;
-    flex-shrink: 0;
-  }
-
-  .nav-mobile-accordion-btn[aria-expanded="true"] .nav-acc-chevron {
-    transform: rotate(180deg);
-  }
-
-  .nav-sub-tag {
-    font-size: 9px;
-    opacity: 0.4;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-left: auto;
-  }
-
-  .nav-mobile-footer {
-    padding: 1.25rem var(--gutter);
-    border-top: var(--border-width) solid var(--border);
-    background: var(--surface-elevated);
-  }
-
-  .nav-mobile-cta {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* ══════════════════════════════════════
-     BREAKPOINT
-  ══════════════════════════════════════ */
-  @media (max-width: 900px) {
-    .nav-links,
-    .nav-cta {
+  @media (max-width: 800px) {
+    .nav-links {
       display: none;
     }
 
-    .nav-hamburger {
+    .nav-toggle {
       display: flex;
     }
   }
 </style>
 
 <script>
-  // ── Main mobile menu ──
-  const hamburger = document.getElementById('nav-hamburger')!;
-  const mobileMenu = document.getElementById('nav-mobile')!;
+  const toggle = document.getElementById('nav-toggle') as HTMLButtonElement | null;
+  const menu = document.getElementById('nav-mobile') as HTMLElement | null;
 
-  hamburger.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', String(isOpen));
-    hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-    mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+  toggle?.addEventListener('click', () => {
+    if (!menu) return;
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Open navigation' : 'Close navigation');
+    menu.hidden = isOpen;
+    document.body.classList.toggle('nav-open', !isOpen);
   });
 
-  // Close on link (non-accordion) click
-  mobileMenu.querySelectorAll('a').forEach(link => {
+  menu?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      hamburger.setAttribute('aria-label', 'Open menu');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-    });
-  });
-
-  // Close on outside click
-  document.addEventListener('click', (e) => {
-    const header = document.querySelector('.nav-wrap');
-    if (header && !header.contains(e.target as Node)) {
-      mobileMenu.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      hamburger.setAttribute('aria-label', 'Open menu');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-    }
-  });
-
-  // ── Mobile accordion (Services / Programs) ──
-  mobileMenu.querySelectorAll<HTMLButtonElement>('.nav-mobile-accordion-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const submenu = btn.closest('li')!.querySelector<HTMLElement>('.nav-mobile-submenu')!;
-      const isOpen = submenu.classList.toggle('open');
-      btn.setAttribute('aria-expanded', String(isOpen));
+      if (!toggle || !menu) return;
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open navigation');
+      menu.hidden = true;
+      document.body.classList.remove('nav-open');
     });
   });
 </script>

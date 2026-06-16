@@ -1,593 +1,177 @@
 ---
-import PageLayout from '@layouts/PageLayout.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionHeader from '@components/SectionHeader.astro';
 import ContactCTA from '@components/ContactCTA.astro';
 
 const services = [
   {
-    num: '01',
-    code: 'WebCanvas',
-    name: 'Digital Design',
-    desc: 'End-to-end digital experiences — from the first wireframe to the final pixel. We design websites, apps, and product interfaces that are intuitive, accessible, and built to perform.',
-    deliverables: ['Web design (marketing, product, landing pages)', 'App UI design (iOS & Android)', 'UX research & user journey mapping', 'Wireframes & interactive prototypes', 'Responsive design across all breakpoints', 'Developer handoff (Figma)'],
-    timeline: '4–16 weeks',
-    accent: 'Web · App · UI · UX',
-    href: '/services/webcanvas',
-  },
-  {
-    num: '02',
-    code: 'CX&Identity',
-    name: 'Branding & Identity',
-    desc: 'A brand is more than a logo. We build the full identity system — strategy, visual language, and the guidelines that keep it coherent as your company grows.',
-    deliverables: ['Brand strategy & positioning', 'Logo system & wordmark', 'Type, colour & imagery system', 'Packaging design', 'Brand guidelines document', 'Launch assets & stationery'],
-    timeline: '6–10 weeks',
-    accent: 'Logo · Identity · Packaging',
+    title: 'Improve Positioning',
+    label: 'CX & Identity',
     href: '/services/cx-identity',
+    problem: 'The business is valuable, but the market cannot quickly understand why it should care.',
+    diagnosis: 'Value is often present before it is legible. The work is to make difference, trust, and fit easier to understand.',
+    output: 'Positioning, identity, messaging hierarchy, and brand governance.',
   },
   {
-    num: '03',
-    code: 'CMF_Nexus',
-    name: 'Product Design',
-    desc: 'From concept sketch to production-ready file. We blend design thinking with engineering rigour to develop products that look right, work right, and manufacture efficiently.',
-    deliverables: ['Concept sketches & ideation', 'CAD modelling & 3D design', 'CMF (colour, material, finish) specification', 'Prototyping & model making', 'Production-ready design files', 'Manufacture liaison support'],
-    timeline: '8–20 weeks',
-    accent: 'CAD · Prototype · Production',
+    title: 'Reduce Purchase Friction',
+    label: 'WebCanvas',
+    href: '/services/webcanvas',
+    problem: 'Customers show interest, but uncertainty interrupts the path to enquiry, purchase, or adoption.',
+    diagnosis: 'Most digital friction is an information problem before it is an interface problem.',
+    output: 'Website, product interface, information architecture, and conversion path design.',
+  },
+  {
+    title: 'Build Market Confidence',
+    label: 'CMF Nexus',
     href: '/services/cmf-nexus',
+    problem: 'A product needs to justify trust, quality, and purchase intent before people experience it physically.',
+    diagnosis: 'Material, form, finish, and product storytelling must support the same market decision.',
+    output: 'Product direction, CMF, prototyping guidance, and launch-ready product communication.',
   },
   {
-    num: '04',
-    code: 'Lumina.raw',
-    name: 'Photo & Video',
-    desc: 'Visuals that stop the scroll. We produce photography and video content that tells your story with precision — from product shoots to brand films, edited and ready to publish.',
-    deliverables: ['Product & campaign photography', 'Photo editing & retouching', 'Brand & documentary videography', 'Video editing & post-production', 'Social media content packages', 'Motion graphics'],
-    timeline: '1–6 weeks',
-    accent: 'Photo · Video · Motion',
+    title: 'Clarify Visual Evidence',
+    label: 'Lumina Raw',
     href: '/services/lumina-raw',
+    problem: 'The business needs proof, but its images and motion do not explain the value clearly enough.',
+    diagnosis: 'Visual content should carry evidence, not fill space or chase attention.',
+    output: 'Product photography, campaign systems, visual documentation, and launch assets.',
   },
 ];
 ---
 
-<PageLayout
-  title="Services"
-  label="What We Do"
-  description="HS108 design services — WebCanvas, CX&Identity, CMF_Nexus, and Lumina.raw. Digital design, branding, product design, and visual production."
->
-
-  <!-- Intro statement -->
-  <div class="container svc-intro">
-    <div class="svc-intro-statement-wrap">
-      <p class="svc-intro-statement" data-wipe>
-        Four specialised practices.<br /><em>One studio.</em>
-      </p>
+<BaseLayout title="Services" description="Outcome-oriented HS108 services for improving positioning, reducing friction, and building market confidence.">
+  <header class="services-hero container">
+    <p class="t-label section-num">Services</p>
+    <div class="services-hero-grid">
+      <h1 class="t-h1">Engagements begin with the business problem.</h1>
+      <p class="t-large">HS108 services translate diagnosis into the right design intervention. Deliverables matter, but only after the problem is understood.</p>
     </div>
-    <p class="svc-intro-lede" data-fade>
-      We don't offer everything — we offer the things we're exceptional at.
-      Each practice is deep, not broad. Senior talent, strategic thinking, and craft at every level.
-    </p>
-  </div>
+  </header>
 
   <hr />
 
-  <!-- Service rows — full-width editorial -->
-  <div class="svc-list">
-    {services.map((svc, i) => (
-      <a href={svc.href} class="svc-row" data-fade>
-        <div class="container svc-row-inner">
-          <div class="svc-row-left">
-            <span class="svc-row-num">{svc.num}</span>
-            <div class="svc-row-name-block">
-              <span class="svc-row-code">{svc.code}</span>
-              <h2 class="svc-row-name">{svc.name}</h2>
-            </div>
+  <section class="section container">
+    <SectionHeader
+      label="Service Paths"
+      title="Choose by outcome, not by deliverable."
+      intro="Each path explains the problem, the likely diagnosis, and what changes when the system works."
+    />
+    <div class="service-list">
+      {services.map((service, index) => (
+        <a href={service.href} class="service-row">
+          <span class="t-label service-index">{String(index + 1).padStart(2, '0')}</span>
+          <div>
+            <p class="t-label service-label">{service.label}</p>
+            <h2 class="t-h3">{service.title}</h2>
           </div>
-          <div class="svc-row-mid">
-            <p class="svc-row-desc">{svc.desc}</p>
-          </div>
-          <div class="svc-row-right">
-            <span class="svc-row-timeline">{svc.timeline}</span>
-            <span class="svc-row-arrow">&rarr;</span>
-          </div>
-        </div>
-      </a>
-    ))}
-  </div>
-
-  <hr />
-
-  <!-- Deliverables expansion — all services -->
-  <div class="container svc-detail">
-    <p class="t-label svc-detail-label" data-wipe>What's Included</p>
-    <div class="svc-detail-grid">
-      {services.map(svc => (
-        <div class="svc-detail-card" data-fade>
-          <div class="svc-detail-header">
-            <span class="svc-detail-code">{svc.code}</span>
-            <span class="svc-detail-name">{svc.name}</span>
-          </div>
-          <ul class="svc-detail-list">
-            {svc.deliverables.map(d => (
-              <li class="svc-detail-item">{d}</li>
-            ))}
-          </ul>
-          <a href={svc.href} class="svc-detail-link">Full Practice &rarr;</a>
-        </div>
+          <p class="t-body">{service.problem}</p>
+          <p class="t-body">{service.diagnosis}</p>
+          <span class="t-label">See How The System Works</span>
+        </a>
       ))}
-    </div>
-  </div>
-
-  <hr />
-
-  <!-- Programs callout -->
-  <div class="container svc-programs">
-    <p class="t-label svc-programs-label" data-wipe>Also From HS108</p>
-    <div class="programs-grid">
-      <a href="/programs/creative-department" class="program-card" data-fade>
-        <p class="t-label program-code">Creative Department</p>
-        <p class="program-desc">Our flagship retainer — an embedded design team that grows with your business.</p>
-        <span class="program-link">Learn More &rarr;</span>
-      </a>
-      <a href="/programs/design-lab" class="program-card" data-fade>
-        <p class="t-label program-code">Design Lab</p>
-        <p class="program-desc">Research and discovery for high-demand, complex design challenges.</p>
-        <span class="program-link">Learn More &rarr;</span>
-      </a>
-      <a href="/programs/off-menu" class="program-card" data-fade>
-        <p class="t-label program-code">off_menu</p>
-        <p class="program-desc">Bespoke, tailor-made packages for clients with unique requirements.</p>
-        <span class="program-link">Learn More &rarr;</span>
-      </a>
-      <a href="/programs/field-notes" class="program-card" data-fade>
-        <p class="t-label program-code">Field Notes</p>
-        <p class="program-desc">A platform for discourse with designers, artisans, and industry thinkers.</p>
-        <span class="program-link">Learn More &rarr;</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- Callout -->
-  <section class="inv-block" data-fade>
-    <div class="container svc-callout">
-      <p class="t-label svc-callout-label">Not sure what you need?</p>
-      <h2 class="svc-callout-headline">Start with a conversation.</h2>
-      <p class="svc-callout-sub">
-        Most projects don't fit neatly into one service. Tell us what you're building
-        and we'll figure out the right scope together.
-      </p>
-      <a href="/contact" class="btn btn--outline-inv">Get In Touch</a>
     </div>
   </section>
 
-  <ContactCTA invert={false} />
+  <section class="section section--muted">
+    <div class="container">
+      <SectionHeader
+        label="How Engagements Are Scoped"
+        title="Diagnosis determines the work."
+        intro="A project may involve identity, product, digital, or content systems. The engagement is shaped by what must become clearer for the business."
+      />
+      <div class="grid-3">
+        {[
+          ['Problem', 'What symptom is visible in the business right now?'],
+          ['Diagnosis', 'What is causing the symptom beneath the design surface?'],
+          ['System', 'What repeatable structure will help people make better decisions?'],
+        ].map(([title, body]) => (
+          <article class="scope-card">
+            <p class="t-label">{title}</p>
+            <p class="t-body">{body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-</PageLayout>
+  <ContactCTA />
+</BaseLayout>
 
 <style>
-  /* ── Intro ── */
-  .svc-intro {
-    padding-top: clamp(3rem, 6vw, 5rem);
-    padding-bottom: clamp(3rem, 6vw, 5rem);
+  .services-hero {
+    padding-block: var(--space-96) var(--space-64);
+  }
+
+  .services-hero-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.7fr);
+    gap: var(--space-64);
     align-items: end;
+    margin-top: var(--space-16);
   }
 
-  .svc-intro-statement-wrap {
-    overflow: hidden;
+  .services-hero h1 {
+    max-width: 12ch;
   }
 
-  .svc-intro-statement {
-    font-family: var(--font-display);
-    font-style: normal;
-    font-weight: 400;
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    letter-spacing: -0.03em;
-    line-height: 1.05;
-    margin: 0;
+  .services-hero p:last-child {
+    color: var(--text-muted);
   }
 
-  .svc-intro-statement em {
-    font-style: italic;
-    color: var(--accent);
-  }
-
-  .svc-intro-lede {
-    font-family: var(--font-body);
-    font-size: var(--size-large);
-    line-height: 1.7;
-    opacity: 0.65;
-    max-width: 50ch;
-    margin: 0;
-  }
-
-  /* ── Service rows ── */
-  .svc-list {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .svc-row {
-    display: block;
-    border-bottom: var(--border-width) solid var(--border);
-    transition: background var(--transition);
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .svc-row:hover {
-    background: var(--accent);
-    color: var(--surface-base);
-  }
-
-  .svc-row-inner {
-    display: grid;
-    grid-template-columns: 18rem 1fr auto;
-    gap: 3rem;
-    align-items: center;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-
-  .svc-row-left {
-    display: flex;
-    align-items: baseline;
-    gap: 1.5rem;
-  }
-
-  .svc-row-num {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    opacity: 0.3;
-    flex-shrink: 0;
-  }
-
-  .svc-row-name-block {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .svc-row-code {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    opacity: 0.5;
-    color: var(--accent);
-  }
-
-  .svc-row:hover .svc-row-code {
-    color: var(--surface-base);
-    opacity: 0.7;
-  }
-
-  .svc-row-name {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-    letter-spacing: -0.02em;
-    line-height: 1;
-    margin: 0;
-  }
-
-  .svc-row-mid {
-    flex: 1;
-  }
-
-  .svc-row-desc {
-    font-family: var(--font-body);
-    font-size: var(--size-body);
-    line-height: 1.65;
-    opacity: 0.6;
-    max-width: 55ch;
-    margin: 0;
-  }
-
-  .svc-row:hover .svc-row-desc {
-    opacity: 0.8;
-  }
-
-  .svc-row-right {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-shrink: 0;
-  }
-
-  .svc-row-timeline {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    opacity: 0.4;
-    white-space: nowrap;
-  }
-
-  .svc-row-arrow {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    line-height: 1;
-    opacity: 0.4;
-    transition: opacity var(--transition), transform var(--transition);
-  }
-
-  .svc-row:hover .svc-row-arrow {
-    opacity: 1;
-    transform: translateX(4px);
-  }
-
-  /* ── Deliverables detail grid ── */
-  .svc-detail {
-    padding-top: clamp(4rem, 8vw, 7rem);
-    padding-bottom: clamp(4rem, 8vw, 7rem);
-  }
-
-  .svc-detail-label {
-    opacity: 0.4;
-    margin-bottom: 3rem;
-    display: block;
-  }
-
-  .svc-detail-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
+  .service-list {
     border-top: var(--border-width) solid var(--border);
-    border-left: var(--border-width) solid var(--border);
   }
 
-  .svc-detail-card {
-    padding: 2rem;
-    border-right: var(--border-width) solid var(--border);
-    border-bottom: var(--border-width) solid var(--border);
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .svc-detail-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .svc-detail-code {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--accent);
-    opacity: 0.8;
-  }
-
-  .svc-detail-name {
-    font-family: var(--font-body);
-    font-size: var(--size-body);
-    font-weight: 400;
-    opacity: 0.5;
-  }
-
-  .svc-detail-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    flex: 1;
-  }
-
-  .svc-detail-item {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.03em;
-    opacity: 0.6;
-    padding-left: 1rem;
-    position: relative;
-  }
-
-  .svc-detail-item::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    opacity: 0.35;
-    font-size: 10px;
-  }
-
-  .svc-detail-link {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    text-decoration: none;
-    opacity: 0.7;
-    transition: opacity var(--transition);
-  }
-
-  .svc-detail-link:hover {
-    opacity: 1;
-  }
-
-  /* ── Programs ── */
-  .svc-programs {
-    padding-top: clamp(4rem, 8vw, 7rem);
-    padding-bottom: clamp(4rem, 8vw, 7rem);
-  }
-
-  .svc-programs-label {
-    opacity: 0.4;
-    margin-bottom: 2.5rem;
-    display: block;
-  }
-
-  .programs-grid {
+  .service-row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-gap);
+    grid-template-columns: 64px minmax(180px, 0.7fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: var(--space-24);
+    align-items: start;
+    padding-block: var(--space-24);
+    border-bottom: var(--border-width) solid var(--border);
   }
 
-  .program-card {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  .service-row:hover {
+    background: var(--surface-muted);
+  }
+
+  .service-index,
+  .service-label,
+  .service-row p,
+  .scope-card .t-label,
+  .scope-card p {
+    color: var(--text-muted);
+  }
+
+  .scope-card {
+    min-height: 100%;
     padding: var(--space-card);
     border: var(--border-width) solid var(--border);
-    text-decoration: none;
-    color: inherit;
-    transition: background var(--transition), color var(--transition);
+    background: var(--surface-elevated);
   }
 
-  .program-card:hover {
-    background: var(--accent);
-    color: var(--surface-base);
-    border-color: var(--accent);
+  .scope-card .t-label {
+    margin-bottom: var(--space-16);
   }
 
-  .program-code {
-    color: var(--accent);
-    margin: 0;
-    transition: color var(--transition);
-  }
-
-  .program-card:hover .program-code {
-    color: var(--surface-base);
-    opacity: 0.7;
-  }
-
-  .program-desc {
-    font-family: var(--font-body);
-    font-size: 14px;
-    line-height: 1.6;
-    opacity: 0.6;
-    flex: 1;
-    margin: 0;
-    transition: opacity var(--transition);
-  }
-
-  .program-card:hover .program-desc {
-    opacity: 0.8;
-  }
-
-  .program-link {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    opacity: 0.5;
-    transition: opacity var(--transition);
-  }
-
-  .program-card:hover .program-link {
-    opacity: 1;
-  }
-
-  /* ── Callout ── */
-  .svc-callout {
-    padding: var(--space-section) var(--gutter);
-    display: flex;
-    background-color: ;
-    background: ;
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: flex-start;
-  }
-
-  .svc-callout-label {
-    opacity: 0.5;
-    color: var(--text-on-dark);
-    margin: 0;
-  }
-
-  .svc-callout-headline {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-    color: var(--text-on-dark);
-    margin: 0;
-  }
-
-  .svc-callout-sub {
-    font-family: var(--font-body);
-    font-size: var(--size-body);
-    line-height: 1.7;
-    opacity: 0.6;
-    max-width: 50ch;
-    color: var(--text-on-dark);
-    margin: 0;
-  }
-
-  /* ── Responsive ── */
   @media (max-width: 1100px) {
-    .svc-detail-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .service-row {
+      grid-template-columns: 48px 1fr;
+    }
+
+    .service-row > *:nth-child(n + 3) {
+      grid-column: 2;
     }
   }
 
-  @media (max-width: 900px) {
-    .svc-intro {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .svc-row-inner {
-      grid-template-columns: 1fr auto;
-      gap: 1.5rem;
-    }
-
-    .svc-row-mid {
-      display: none;
-    }
-
-    .programs-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 600px) {
-    .svc-row-inner {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .svc-row-right {
-      gap: 1rem;
-    }
-
-    .svc-detail-grid {
+  @media (max-width: 760px) {
+    .services-hero-grid,
+    .service-row {
       grid-template-columns: 1fr;
     }
 
-    .programs-grid {
-      grid-template-columns: 1fr;
+    .service-row > *:nth-child(n + 3) {
+      grid-column: auto;
     }
   }
 </style>
-
-<script>
-  import { animate, inView } from 'motion';
-  const ease = [0.16, 1, 0.3, 1] as const;
-
-  // Intro statement wipe-in
-  document.querySelectorAll<HTMLElement>('[data-wipe]').forEach(el => {
-    el.style.transform = 'translateY(40px)';
-    el.style.opacity = '0';
-    inView(el, () => {
-      // @ts-ignore — motion v12 overload resolution bug with HTMLElement
-      animate(el, { transform: ['translateY(40px)', 'translateY(0px)'], opacity: [0, 1] }, { duration: 0.75, easing: ease });
-    }, { amount: 0.2 });
-  });
-
-  // Fade-in for [data-fade] elements
-  document.querySelectorAll<HTMLElement>('[data-fade]').forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    inView(el, () => {
-      // @ts-ignore — motion v12 overload resolution bug with HTMLElement
-      animate(el, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] }, { duration: 0.6, easing: ease, delay: (i % 4) * 0.07 });
-    }, { amount: 0.1 });
-  });
-</script>

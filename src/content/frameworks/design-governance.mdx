@@ -1,0 +1,52 @@
+---
+title: "Design Governance"
+summary: "A system for keeping design decisions coherent as a business, product, or team grows."
+problem: "Design consistency breaks when decisions are made locally without shared rules."
+inputs:
+  - "Existing product or brand surfaces"
+  - "Decision makers and workflows"
+  - "Repeated interface or communication patterns"
+  - "Known failure points"
+process:
+  - "Audit repeated decisions"
+  - "Define rules before components"
+  - "Document allowed variation"
+  - "Create review and ownership paths"
+output: "A working system that helps teams make consistent design decisions without constant supervision."
+example: "A product team with many button, modal, and spacing variants may need decision rules before it needs another component library pass."
+helps: "How a team should make repeatable design decisions."
+applies: "A business is scaling and design quality depends on too much individual memory."
+order: 2
+relatedThinking:
+  - label: "Field Note"
+    title: "Why Interfaces Break As Teams Grow"
+    href: "/thinking/why-interfaces-break-as-teams-grow"
+relatedWork:
+  - label: "Work"
+    title: "HealthOS Healthcare SaaS Design System"
+    href: "/work/healthos"
+---
+
+## Problem
+
+Growing teams create more design decisions than one person can review. Without governance, each team solves local problems in slightly different ways.
+
+The result is inconsistency, slower delivery, and lower trust in the product.
+
+## Inputs
+
+Governance begins with an audit of existing surfaces, repeated decisions, ownership paths, and points where teams commonly disagree.
+
+## Process
+
+The work is to define which decisions are fixed, which can vary, and who owns exceptions.
+
+Components are useful only after those rules are clear.
+
+## Output
+
+The output is a decision system: principles, patterns, component rules, review paths, and documentation that a team can actually use.
+
+## Example
+
+If every product area creates its own empty state, the solution is not just one empty-state component. The team needs a rule for when empty states teach, warn, recover, or route.

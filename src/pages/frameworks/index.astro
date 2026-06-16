@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionHeader from '@components/SectionHeader.astro';
+import FrameworkCard from '@components/FrameworkCard.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+import { getCollection } from 'astro:content';
+
+const frameworks = (await getCollection('frameworks')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Frameworks" description="Reusable HS108 decision systems for diagnosing business problems and choosing design interventions.">
+  <header class="frameworks-hero container">
+    <p class="t-label section-num">Frameworks</p>
+    <h1 class="t-h1">Tools for making design decisions clearer.</h1>
+    <p class="t-large">Frameworks translate HS108's thinking into systems that founders can inspect, question, and apply.</p>
+  </header>
+  <hr />
+  <section class="section container">
+    <SectionHeader
+      label="Decision Systems"
+      title="Practical, not academic."
+      intro="Each framework explains the problem it solves, the inputs it needs, the process it follows, and the output it clarifies."
+    />
+    <div class="grid-2">
+      {frameworks.map(entry => (
+        <FrameworkCard
+          title={entry.data.title}
+          helps={entry.data.helps}
+          applies={entry.data.applies}
+          href={`/frameworks/${entry.slug}`}
+        />
+      ))}
+    </div>
+  </section>
+  <ContactCTA invert={false} />
+</BaseLayout>
+
+<style>
+  .frameworks-hero {
+    padding-block: var(--space-96) var(--space-64);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .frameworks-hero h1 {
+    max-width: 12ch;
+  }
+
+  .frameworks-hero p:last-child {
+    max-width: 60ch;
+    color: var(--text-muted);
+  }
+</style>

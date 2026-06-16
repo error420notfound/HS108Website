@@ -1,334 +1,128 @@
-/* ============================================================
-   TYPOGRAPHY — HS108
-
-   Core (always loaded):
-     Instrument Serif — display / headlines
-     Geist            — body copy
-     Geist Mono       — labels, CTAs, micro copy
-
-   Alt pair A (selective use with .font-pair-a):
-     Instrument Serif — display
-     Rajdhani         — body companion
-
-   Alt pair B (selective use with .font-pair-b):
-     Michroma         — display, geometric technical
-     IBM Plex Serif   — editorial body companion
-   ============================================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Michroma&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-
-/* ============================================================
-   TYPE CLASSES
-   ============================================================ */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap");
 
 .t-hero {
   font-family: var(--font-display);
   font-size: var(--size-hero);
-  font-weight: 400;           /* Instrument Serif is expressive at regular weight */
-  font-style: italic;         /* Italic serif at display size = strong studio identity */
-  line-height: 0.9;
-  letter-spacing: -0.01em;
-}
-
-.t-hero-upright {
-  font-family: var(--font-display);
-  font-size: var(--size-hero);
   font-weight: 400;
-  line-height: 0.9;
-  letter-spacing: -0.01em;
+  line-height: 0.96;
 }
 
 .t-h1 {
   font-family: var(--font-display);
   font-size: var(--size-h1);
   font-weight: 400;
-  line-height: 1.0;
-  letter-spacing: -0.01em;
+  line-height: 1;
 }
 
 .t-h2 {
   font-family: var(--font-display);
   font-size: var(--size-h2);
   font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.005em;
+  line-height: 1.08;
 }
 
 .t-h3 {
   font-family: var(--font-display);
   font-size: var(--size-h3);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.18;
 }
 
 .t-body {
   font-family: var(--font-body);
   font-size: var(--size-body);
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
 .t-large {
   font-family: var(--font-body);
-  font-size: clamp(18px, 2vw, 24px);
+  font-size: clamp(18px, 1.8vw, 24px);
   font-weight: 400;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
-/* Mono — for labels, CTAs, micro copy */
 .t-label {
   font-family: var(--font-mono);
   font-size: var(--size-label);
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .t-mono {
   font-family: var(--font-mono);
   font-size: var(--size-small);
-  font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
-/* ── Alt font display classes ──────────────────────────────
-   Use these on specific elements when a page uses an alt pair.
-   They apply the alt font directly, regardless of theme class.
-   ─────────────────────────────────────────────────────────── */
-
-/* Instrument Serif — the primary treatment: regular weight, often italic
-   Use for hero / large display text on alt-a pages */
-.t-genos {
-  font-family: var(--font-alt-a-display);
-  font-weight: 400;
-  font-style: italic;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
+.muted {
+  color: var(--text-muted);
 }
-
-/* Instrument Serif upright — same weight, no italic */
-.t-genos-upright {
-  font-family: var(--font-alt-a-display);
-  font-weight: 400;
-  font-style: normal;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-}
-
-/* Michroma — geometric, single weight, all-caps works well */
-.t-michroma {
-  font-family: var(--font-alt-b-display);
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  line-height: 1;
-}
-
-/* Rajdhani — humanist sans, good at medium/semibold */
-.t-rajdhani {
-  font-family: var(--font-alt-a-body);
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  line-height: 1.4;
-}
-
-/* IBM Plex Serif — editorial companion, italic is expressive */
-.t-plex-serif {
-  font-family: var(--font-alt-b-body);
-  font-weight: 400;
-  line-height: 1.6;
-}
-
-/* ── Instrument Serif — weight support ──────────────────────── */
-.genos-thin {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.genos-light {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.genos-regular {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.genos-medium {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.genos-semibold {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.genos-bold {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.genos-extrabold {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.genos-black {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-/* Italic variants */
-.genos-bold-italic {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.genos-extrabold-italic {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.genos-black-italic {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.instrument-serif-regular {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.instrument-serif-regular-italic {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-
-/* --- Utility --- */
-.uppercase  { text-transform: uppercase; }
-.italic     { font-style: italic; }
-.bold       { font-weight: 700; }
-.medium     { font-weight: 500; }
-.muted      { opacity: 0.5; }
-
-/* ============================================================
-   MDX PROSE — case study body content
-   ============================================================ */
 
 .prose {
-  max-width: 72ch;
+  max-width: 74ch;
 }
 
 .prose h2 {
   font-family: var(--font-display);
-  font-size: clamp(24px, 3vw, 40px);
+  font-size: var(--size-h2);
   font-weight: 400;
-  font-style: italic;
-  letter-spacing: -0.01em;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  padding-top: 3rem;
+  line-height: 1.1;
+  margin-top: var(--space-64);
+  margin-bottom: var(--space-16);
+  padding-top: var(--space-32);
   border-top: var(--border-width) solid var(--border);
 }
 
 .prose h3 {
-  font-family: var(--font-display);
-  font-size: clamp(18px, 2vw, 24px);
-  font-weight: 400;
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: var(--space-32);
+  margin-bottom: var(--space-12);
+  color: var(--text-muted);
 }
 
 .prose p {
-  font-family: var(--font-body);
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--space-20, 20px);
+  line-height: 1.75;
+}
+
+.prose ul,
+.prose ol {
+  margin-bottom: var(--space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.prose li {
+  position: relative;
+  padding-left: var(--space-24);
   line-height: 1.7;
 }
 
-.prose ul {
-  list-style: none;
-  margin-bottom: 1.25rem;
-}
-
-.prose ul li {
-  font-family: var(--font-body);
-  padding-left: 1.5rem;
-  position: relative;
-  margin-bottom: 0.5rem;
-}
-
-.prose ul li::before {
-  content: '—';
+.prose li::before {
+  content: "-";
   position: absolute;
   left: 0;
+  color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 10px;
-  opacity: 0.4;
-  top: 5px;
-}
-
-.prose ol {
-  list-style: none;
-  counter-reset: ol-counter;
-  margin-bottom: 1.25rem;
-}
-
-.prose ol li {
-  font-family: var(--font-body);
-  counter-increment: ol-counter;
-  padding-left: 2.5rem;
-  position: relative;
-  margin-bottom: 0.5rem;
-}
-
-.prose ol li::before {
-  content: counter(ol-counter, decimal-leading-zero);
-  position: absolute;
-  left: 0;
-  font-family: var(--font-mono);
-  font-size: var(--size-label);
-  letter-spacing: 0.1em;
-  opacity: 0.4;
-  top: 4px;
 }
 
 .prose blockquote {
-  border-left: 4px solid var(--accent-orange);
-  padding-left: 1.5rem;
-  margin-block: 2rem;
+  margin-block: var(--space-48);
+  padding-left: var(--space-24);
+  border-left: var(--border-width) solid var(--border);
   font-family: var(--font-display);
-  font-size: clamp(20px, 2.5vw, 30px);
+  font-size: var(--size-h3);
   font-weight: 400;
-  font-style: italic;
   line-height: 1.35;
-  color: var(--accent-orange-dark);
 }
 
 .prose strong {
   font-weight: 600;
-  font-family: var(--font-body);
-}
-
-.prose code {
-  font-family: var(--font-mono);
-  font-size: 0.875em;
-  background: var(--surface-elevated);
-  padding: 0.1em 0.4em;
-  border: 1px solid var(--accent-orange-soft);
 }

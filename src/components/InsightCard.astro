@@ -1,0 +1,54 @@
+---
+interface Props {
+  label?: string;
+  title: string;
+  observation: string;
+  implication?: string;
+  href?: string;
+}
+
+const { label = 'Observation', title, observation, implication, href } = Astro.props;
+const Wrapper = href ? 'a' : 'article';
+---
+
+<Wrapper href={href} class="insight-card">
+  <p class="t-label insight-label">{label}</p>
+  <h3 class="t-h3">{title}</h3>
+  <p class="t-body">{observation}</p>
+  {implication && <p class="t-mono insight-implication">{implication}</p>}
+  {href && <span class="t-label insight-link">Read The Field Note</span>}
+</Wrapper>
+
+<style>
+  .insight-card {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    padding: var(--space-card);
+    border: var(--border-width) solid var(--border);
+    background: var(--surface-elevated);
+    transition: background var(--duration-fast) var(--ease-standard);
+  }
+
+  a.insight-card:hover {
+    background: var(--surface-muted);
+  }
+
+  .insight-label,
+  .insight-card p,
+  .insight-implication {
+    color: var(--text-muted);
+  }
+
+  .insight-implication {
+    padding-top: var(--space-16);
+    margin-top: auto;
+    border-top: var(--border-width) solid var(--border-subtle);
+  }
+
+  .insight-link {
+    margin-top: auto;
+    padding-top: var(--space-16);
+  }
+</style>

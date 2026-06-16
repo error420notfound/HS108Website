@@ -1,0 +1,150 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionHeader from '@components/SectionHeader.astro';
+import DecisionMatrix from '@components/DecisionMatrix.astro';
+import FrameworkCard from '@components/FrameworkCard.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+import { getCollection } from 'astro:content';
+
+const frameworks = (await getCollection('frameworks')).sort((a, b) => a.data.order - b.data.order);
+
+const principles = [
+  {
+    signal: 'A founder asks for a deliverable',
+    diagnosis: 'The request may be a symptom of a deeper business uncertainty.',
+    designResponse: 'Start with diagnosis before prescribing the work.',
+  },
+  {
+    signal: 'A team wants to move faster',
+    diagnosis: 'Speed usually depends on clearer rules, not more output.',
+    designResponse: 'Create systems that make repeated decisions easier.',
+  },
+  {
+    signal: 'A brand or product feels unclear',
+    diagnosis: 'The value may be real but poorly sequenced or poorly evidenced.',
+    designResponse: 'Structure proof, hierarchy, and next steps around the buyer decision.',
+  },
+];
+---
+
+<BaseLayout title="Studio" description="Why HS108 exists, how it thinks, and how it uses design to help businesses make better decisions.">
+  <header class="studio-hero container">
+    <p class="t-label section-num">Studio</p>
+    <div class="studio-hero-grid">
+      <h1 class="t-h1">A design practice for business clarity.</h1>
+      <p class="t-large">
+        HS108 exists for founders who sense that the visible design problem is not the whole problem. The work is to understand the business challenge first, then design the system that helps people make better decisions.
+      </p>
+    </div>
+  </header>
+
+  <hr />
+
+  <section class="section container">
+    <SectionHeader
+      label="Belief"
+      title="Design is not decoration. It is decision support."
+      intro="The website, identity, product interface, or system is useful only when it helps the business reduce uncertainty and move with more confidence."
+    />
+    <DecisionMatrix rows={principles} />
+  </section>
+
+  <section class="section section--muted">
+    <div class="container">
+      <SectionHeader
+        label="Working Principles"
+        title="How HS108 approaches the work."
+        intro="The studio is deliberately structured around diagnosis, governance, and evidence."
+      />
+      <div class="principle-grid">
+        {[
+          ['Thinking before outcomes', 'Reasoning, constraints, and trade-offs should be visible before the final artefact.'],
+          ['Business before design', 'Business problems come first. Design methods come second. Visual execution comes third.'],
+          ['Systems before campaigns', 'Reusable decision logic creates more value than isolated visual moments.'],
+          ['Quiet authority', 'Trust should emerge through restraint, structure, and clarity, not spectacle.'],
+        ].map(([title, body], index) => (
+          <article class="principle-card">
+            <span class="t-label">{String(index + 1).padStart(2, '0')}</span>
+            <h3 class="t-h3">{title}</h3>
+            <p class="t-body">{body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <SectionHeader
+      label="Frameworks"
+      title="The studio thinks in reusable systems."
+      intro="Frameworks make the diagnostic method inspectable. They help founders understand what kind of problem they may actually have."
+    />
+    <div class="grid-2">
+      {frameworks.map(entry => (
+        <FrameworkCard
+          title={entry.data.title}
+          helps={entry.data.helps}
+          applies={entry.data.applies}
+          href={`/frameworks/${entry.slug}`}
+        />
+      ))}
+    </div>
+  </section>
+
+  <ContactCTA />
+</BaseLayout>
+
+<style>
+  .studio-hero {
+    padding-block: var(--space-96) var(--space-64);
+  }
+
+  .studio-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.7fr);
+    gap: var(--space-64);
+    align-items: end;
+    margin-top: var(--space-16);
+  }
+
+  .studio-hero h1 {
+    max-width: 12ch;
+  }
+
+  .studio-hero p:last-child {
+    color: var(--text-muted);
+  }
+
+  .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-gap);
+  }
+
+  .principle-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    padding: var(--space-card);
+    border: var(--border-width) solid var(--border);
+    background: var(--surface-elevated);
+  }
+
+  .principle-card span,
+  .principle-card p {
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 1000px) {
+    .principle-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .studio-hero-grid,
+    .principle-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
