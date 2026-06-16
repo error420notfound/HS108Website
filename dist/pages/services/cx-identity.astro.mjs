@@ -1,0 +1,46 @@
+import { c as createComponent, r as renderComponent, d as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_B3U45OOC.mjs';
+import 'kleur/colors';
+import { $ as $$BaseLayout } from '../../chunks/BaseLayout_CBKMY8k1.mjs';
+import { $ as $$ContactCTA } from '../../chunks/ContactCTA_dFzyciVm.mjs';
+/* empty css                                          */
+export { renderers } from '../../renderers.mjs';
+
+const $$CxIdentity = createComponent(($$result, $$props, $$slots) => {
+  const deliverables = [
+    { group: "Brand Strategy", items: ["Brand audit & competitive analysis", "Positioning & messaging framework", "Brand values & personality definition", "Target audience mapping", "Brand architecture planning"] },
+    { group: "Visual Identity", items: ["Logo system & wordmark", "Colour palette & typography system", "Imagery & illustration direction", "Iconography & graphic elements", "Brand guidelines document"] },
+    { group: "Applied Design", items: ["Stationery & print collateral", "Packaging design", "Social media templates", "Signage & environmental graphics", "Launch asset production"] }
+  ];
+  const process = [
+    { n: "01", title: "Discover", desc: "Stakeholder interviews, market research, and brand audit to understand where you are and where you need to go." },
+    { n: "02", title: "Define", desc: "Positioning, messaging, and brand personality \u2014 the strategic foundation that everything visual is built on." },
+    { n: "03", title: "Design", desc: "Logo, colour, typography, and all the visual elements that make the brand coherent and recognisable." },
+    { n: "04", title: "Deploy", desc: "Guidelines, templates, and production assets \u2014 everything needed to launch and maintain the brand consistently." }
+  ];
+  return renderTemplate`${renderComponent($$result, "BaseLayout", $$BaseLayout, { "title": "CX&Identity \u2014 Branding & Identity", "description": "CX&Identity is HS108's branding practice \u2014 brand strategy, visual identity systems, and applied design for companies ready to scale.", "bodyClass": "theme-purple", "data-astro-cid-ua6iluzm": true }, { "default": ($$result2) => renderTemplate`  ${maybeRenderHead()}<section class="svc-hero inv-block" id="svc-hero" data-astro-cid-ua6iluzm> <div class="container svc-hero-inner" data-astro-cid-ua6iluzm> <div class="svc-hero-top" data-astro-cid-ua6iluzm> <span class="t-label svc-service-label" data-astro-cid-ua6iluzm>A Service by HS108</span> <span class="t-label svc-code" data-astro-cid-ua6iluzm>CX&amp;Identity</span> </div> <div class="svc-hero-body" data-astro-cid-ua6iluzm> <div class="svc-hero-title-wrap" data-astro-cid-ua6iluzm> <h1 class="svc-hero-title" data-astro-cid-ua6iluzm>Branding<br data-astro-cid-ua6iluzm>&amp; <em data-astro-cid-ua6iluzm>Identity.</em></h1> </div> <div class="svc-hero-right" data-astro-cid-ua6iluzm> <p class="svc-tagline" data-astro-cid-ua6iluzm>
+A brand is more than a logo. We build the full identity system — strategy, visual language, and the guidelines that keep it coherent as your company grows.
+</p> <div class="svc-meta-row" data-astro-cid-ua6iluzm> <div class="svc-meta-item" data-astro-cid-ua6iluzm> <span class="svc-meta-label" data-astro-cid-ua6iluzm>Timeline</span> <span class="svc-meta-val" data-astro-cid-ua6iluzm>6–10 weeks</span> </div> <div class="svc-meta-item" data-astro-cid-ua6iluzm> <span class="svc-meta-label" data-astro-cid-ua6iluzm>Output</span> <span class="svc-meta-val" data-astro-cid-ua6iluzm>Full brand guidelines + production files</span> </div> <div class="svc-meta-item" data-astro-cid-ua6iluzm> <span class="svc-meta-label" data-astro-cid-ua6iluzm>Scope</span> <span class="svc-meta-val" data-astro-cid-ua6iluzm>Logo · Identity · Packaging</span> </div> </div> <div class="svc-hero-tags" data-astro-cid-ua6iluzm> <span class="tag svc-tag" data-astro-cid-ua6iluzm>Logo</span> <span class="tag svc-tag" data-astro-cid-ua6iluzm>Identity</span> <span class="tag svc-tag" data-astro-cid-ua6iluzm>Packaging</span> <span class="tag svc-tag" data-astro-cid-ua6iluzm>Strategy</span> </div> </div> </div> </div> </section>  <section class="svc-section svc-manifesto" data-astro-cid-ua6iluzm> <div class="container" data-astro-cid-ua6iluzm> <p class="t-label svc-section-label" data-wipe data-astro-cid-ua6iluzm>What We Do</p> <div class="svc-statement-wrap" data-astro-cid-ua6iluzm> <h2 class="svc-statement" data-wipe data-astro-cid-ua6iluzm>A brand that stops<br data-astro-cid-ua6iluzm><em data-astro-cid-ua6iluzm>explaining itself.</em></h2> </div> <div class="svc-manifesto-body" data-astro-cid-ua6iluzm> <p class="svc-prose" data-fade data-astro-cid-ua6iluzm>
+CX&Identity is HS108's branding practice. The name reflects the dual focus: Customer Experience — how people feel at every touchpoint — and Identity — the visual and verbal system that carries that feeling consistently.
+</p> <p class="svc-prose" data-fade data-astro-cid-ua6iluzm>
+We work strategy-first. Every logo, colour choice, and typographic decision traces back to a clear articulation of who you are, who you're for, and what makes you worth choosing.
+</p> <p class="svc-prose" data-fade data-astro-cid-ua6iluzm>
+The result isn't a logo file. It's a brand system — something your team can use, your partners can apply, and your customers can recognise across every medium and moment.
+</p> </div> </div> </section> <hr data-astro-cid-ua6iluzm>  <section class="svc-section svc-deliverables" data-astro-cid-ua6iluzm> <div class="container" data-astro-cid-ua6iluzm> <p class="t-label svc-section-label" data-wipe data-astro-cid-ua6iluzm>Deliverables</p> <div class="del-rows" data-astro-cid-ua6iluzm> ${deliverables.map((group) => renderTemplate`<div class="del-row" data-fade data-astro-cid-ua6iluzm> <div class="del-row-left" data-astro-cid-ua6iluzm> <p class="t-label del-group-name" data-astro-cid-ua6iluzm>${group.group}</p> </div> <ul class="del-row-items" data-astro-cid-ua6iluzm> ${group.items.map((item) => renderTemplate`<li class="t-mono del-item" data-astro-cid-ua6iluzm>${item}</li>`)} </ul> </div>`)} </div> </div> </section> <hr data-astro-cid-ua6iluzm>  <section class="svc-section svc-process" data-astro-cid-ua6iluzm> <div class="container" data-astro-cid-ua6iluzm> <p class="t-label svc-section-label" data-wipe data-astro-cid-ua6iluzm>How We Work</p> <div class="process-rows" data-astro-cid-ua6iluzm> ${process.map((step) => renderTemplate`<div class="process-row" data-fade data-astro-cid-ua6iluzm> <span class="process-num" data-astro-cid-ua6iluzm>${step.n}</span> <div class="process-content" data-astro-cid-ua6iluzm> <h3 class="process-title" data-astro-cid-ua6iluzm>${step.title}</h3> <p class="process-desc" data-astro-cid-ua6iluzm>${step.desc}</p> </div> </div>`)} </div> </div> </section> <hr data-astro-cid-ua6iluzm>  <section class="svc-section svc-cta inv-block" data-astro-cid-ua6iluzm> <div class="container svc-cta-inner" data-astro-cid-ua6iluzm> <div class="svc-cta-left" data-astro-cid-ua6iluzm> <p class="t-label svc-section-label svc-section-label--inv" data-wipe data-astro-cid-ua6iluzm>Start a project</p> <h2 class="svc-cta-headline" data-wipe data-astro-cid-ua6iluzm>
+Build a brand that<br data-astro-cid-ua6iluzm><em data-astro-cid-ua6iluzm>scales with you.</em> </h2> <p class="svc-cta-sub" data-fade data-astro-cid-ua6iluzm>
+Tell us about your business — where it is now and where you're taking it. We'll build a brand system that grows with you.
+</p> <div class="svc-cta-btns" data-fade data-astro-cid-ua6iluzm> <a href="/contact?domain=cx-identity" class="btn btn--outline-inv" data-astro-cid-ua6iluzm>Get In Touch</a> <a href="/services" class="btn btn--outline-inv svc-btn-ghost" data-astro-cid-ua6iluzm>← All Services</a> </div> </div> <div class="svc-cta-stats" data-fade data-astro-cid-ua6iluzm> <div class="svc-stat" data-astro-cid-ua6iluzm> <span class="svc-stat-val" data-astro-cid-ua6iluzm>6–10</span> <span class="svc-stat-label" data-astro-cid-ua6iluzm>Weeks for a complete identity system</span> </div> <div class="svc-stat" data-astro-cid-ua6iluzm> <span class="svc-stat-val" data-astro-cid-ua6iluzm>0</span> <span class="svc-stat-label" data-astro-cid-ua6iluzm>Templated logos. Every mark is made for you.</span> </div> <div class="svc-stat" data-astro-cid-ua6iluzm> <span class="svc-stat-val" data-astro-cid-ua6iluzm>1</span> <span class="svc-stat-label" data-astro-cid-ua6iluzm>Senior designer on every project. No juniors.</span> </div> </div> </div> </section> ${renderComponent($$result2, "ContactCTA", $$ContactCTA, { "headline": "Need more than a brand?", "sub": "CX&Identity pairs with WebCanvas, CMF_Nexus, and Lumina.raw for full launch coverage.", "domain": "cx-identity", "data-astro-cid-ua6iluzm": true })} ` })}  `;
+}, "/Users/hs108/Downloads/VS Code/website2/HS108Website/src/pages/services/cx-identity.astro", void 0);
+
+const $$file = "/Users/hs108/Downloads/VS Code/website2/HS108Website/src/pages/services/cx-identity.astro";
+const $$url = "/services/cx-identity";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$CxIdentity,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

@@ -1,0 +1,46 @@
+import { c as createComponent, r as renderComponent, d as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_B3U45OOC.mjs';
+import 'kleur/colors';
+import { $ as $$BaseLayout } from '../../chunks/BaseLayout_CBKMY8k1.mjs';
+import { $ as $$ContactCTA } from '../../chunks/ContactCTA_dFzyciVm.mjs';
+/* empty css                                        */
+export { renderers } from '../../renderers.mjs';
+
+const $$CmfNexus = createComponent(($$result, $$props, $$slots) => {
+  const deliverables = [
+    { group: "Concept & Ideation", items: ["Industrial design sketches", "Concept exploration & selection", "Ergonomics & human factors research", "Form language development", "Design intent documentation"] },
+    { group: "Engineering Design", items: ["3D CAD modelling (SolidWorks/Fusion)", "CMF specification (colour, material, finish)", "Design for manufacture (DFM) review", "Tolerancing & assembly planning", "Technical drawings & BOM support"] },
+    { group: "Prototyping", items: ["Appearance models & soft mockups", "Functional prototypes", "User testing models", "Pre-production samples", "Production-ready design files"] }
+  ];
+  const process = [
+    { n: "01", title: "Research", desc: "User needs, market context, manufacturing constraints \u2014 understanding all inputs before anything is drawn." },
+    { n: "02", title: "Concept", desc: "Rapid ideation across multiple directions. Wide before narrow \u2014 we explore before we commit." },
+    { n: "03", title: "Develop", desc: "CAD, CMF, DFM \u2014 the work of turning concept into something buildable, manufacturable, and right." },
+    { n: "04", title: "Deliver", desc: "Production-ready files, documentation, and manufacturing liaison support through to first article." }
+  ];
+  return renderTemplate`${renderComponent($$result, "BaseLayout", $$BaseLayout, { "title": "CMF_Nexus \u2014 Product Design", "description": "CMF_Nexus is HS108's product design practice \u2014 from concept sketches and CAD to prototyping and production-ready design.", "bodyClass": "theme-vermilion", "data-astro-cid-nvbufyhr": true }, { "default": ($$result2) => renderTemplate`  ${maybeRenderHead()}<section class="svc-hero inv-block" id="svc-hero" data-astro-cid-nvbufyhr> <div class="container svc-hero-inner" data-astro-cid-nvbufyhr> <div class="svc-hero-top" data-astro-cid-nvbufyhr> <span class="t-label svc-service-label" data-astro-cid-nvbufyhr>A Service by HS108</span> <span class="t-label svc-code" data-astro-cid-nvbufyhr>CMF_Nexus</span> </div> <div class="svc-hero-body" data-astro-cid-nvbufyhr> <div class="svc-hero-title-wrap" data-astro-cid-nvbufyhr> <h1 class="svc-hero-title" data-astro-cid-nvbufyhr>Product<br data-astro-cid-nvbufyhr><em data-astro-cid-nvbufyhr>Design.</em></h1> </div> <div class="svc-hero-right" data-astro-cid-nvbufyhr> <p class="svc-tagline" data-astro-cid-nvbufyhr>
+From concept sketch to production-ready file. We blend design thinking with engineering rigour to develop products that look right, work right, and manufacture efficiently.
+</p> <div class="svc-meta-row" data-astro-cid-nvbufyhr> <div class="svc-meta-item" data-astro-cid-nvbufyhr> <span class="svc-meta-label" data-astro-cid-nvbufyhr>Timeline</span> <span class="svc-meta-val" data-astro-cid-nvbufyhr>8–20 weeks</span> </div> <div class="svc-meta-item" data-astro-cid-nvbufyhr> <span class="svc-meta-label" data-astro-cid-nvbufyhr>Output</span> <span class="svc-meta-val" data-astro-cid-nvbufyhr>Production-ready CAD + documentation</span> </div> <div class="svc-meta-item" data-astro-cid-nvbufyhr> <span class="svc-meta-label" data-astro-cid-nvbufyhr>Scope</span> <span class="svc-meta-val" data-astro-cid-nvbufyhr>CAD · CMF · Prototype · Production</span> </div> </div> <div class="svc-hero-tags" data-astro-cid-nvbufyhr> <span class="tag svc-tag" data-astro-cid-nvbufyhr>CAD</span> <span class="tag svc-tag" data-astro-cid-nvbufyhr>CMF</span> <span class="tag svc-tag" data-astro-cid-nvbufyhr>Prototype</span> <span class="tag svc-tag" data-astro-cid-nvbufyhr>Production</span> </div> </div> </div> </div> </section>  <section class="svc-section svc-manifesto" data-astro-cid-nvbufyhr> <div class="container" data-astro-cid-nvbufyhr> <p class="t-label svc-section-label" data-wipe data-astro-cid-nvbufyhr>What We Do</p> <div class="svc-statement-wrap" data-astro-cid-nvbufyhr> <h2 class="svc-statement" data-wipe data-astro-cid-nvbufyhr>Design that bridges<br data-astro-cid-nvbufyhr><em data-astro-cid-nvbufyhr>form and factory.</em></h2> </div> <div class="svc-manifesto-body" data-astro-cid-nvbufyhr> <p class="svc-prose" data-fade data-astro-cid-nvbufyhr>
+CMF_Nexus is HS108's product design practice. The name reflects the focus: Colour, Material, and Finish — the decisions that determine how a product feels, communicates, and holds up over time — brought together at the nexus of design and manufacture.
+</p> <p class="svc-prose" data-fade data-astro-cid-nvbufyhr>
+We work across the full product development cycle: from early ideation and form exploration through to detailed CAD, DFM review, and production-ready deliverables.
+</p> <p class="svc-prose" data-fade data-astro-cid-nvbufyhr>
+Our approach combines design intent with engineering discipline. A product should be desirable and buildable. Those aren't competing goals — they're the same goal, approached with enough rigour to get both right.
+</p> </div> </div> </section> <hr data-astro-cid-nvbufyhr>  <section class="svc-section svc-deliverables" data-astro-cid-nvbufyhr> <div class="container" data-astro-cid-nvbufyhr> <p class="t-label svc-section-label" data-wipe data-astro-cid-nvbufyhr>Deliverables</p> <div class="del-rows" data-astro-cid-nvbufyhr> ${deliverables.map((group) => renderTemplate`<div class="del-row" data-fade data-astro-cid-nvbufyhr> <div class="del-row-left" data-astro-cid-nvbufyhr> <p class="t-label del-group-name" data-astro-cid-nvbufyhr>${group.group}</p> </div> <ul class="del-row-items" data-astro-cid-nvbufyhr> ${group.items.map((item) => renderTemplate`<li class="t-mono del-item" data-astro-cid-nvbufyhr>${item}</li>`)} </ul> </div>`)} </div> </div> </section> <hr data-astro-cid-nvbufyhr>  <section class="svc-section svc-process" data-astro-cid-nvbufyhr> <div class="container" data-astro-cid-nvbufyhr> <p class="t-label svc-section-label" data-wipe data-astro-cid-nvbufyhr>How We Work</p> <div class="process-rows" data-astro-cid-nvbufyhr> ${process.map((step) => renderTemplate`<div class="process-row" data-fade data-astro-cid-nvbufyhr> <span class="process-num" data-astro-cid-nvbufyhr>${step.n}</span> <div class="process-content" data-astro-cid-nvbufyhr> <h3 class="process-title" data-astro-cid-nvbufyhr>${step.title}</h3> <p class="process-desc" data-astro-cid-nvbufyhr>${step.desc}</p> </div> </div>`)} </div> </div> </section> <hr data-astro-cid-nvbufyhr>  <section class="svc-section svc-cta inv-block" data-astro-cid-nvbufyhr> <div class="container svc-cta-inner" data-astro-cid-nvbufyhr> <div class="svc-cta-left" data-astro-cid-nvbufyhr> <p class="t-label svc-section-label svc-section-label--inv" data-wipe data-astro-cid-nvbufyhr>Start a project</p> <h2 class="svc-cta-headline" data-wipe data-astro-cid-nvbufyhr>
+Make something<br data-astro-cid-nvbufyhr><em data-astro-cid-nvbufyhr>real and right.</em> </h2> <p class="svc-cta-sub" data-fade data-astro-cid-nvbufyhr>
+Tell us about the product you're building — what it needs to do, who it's for, and where in the development process you are. We'll work from there.
+</p> <div class="svc-cta-btns" data-fade data-astro-cid-nvbufyhr> <a href="/contact?domain=cmf-nexus" class="btn btn--outline-inv" data-astro-cid-nvbufyhr>Get In Touch</a> <a href="/services" class="btn btn--outline-inv svc-btn-ghost" data-astro-cid-nvbufyhr>← All Services</a> </div> </div> <div class="svc-cta-stats" data-fade data-astro-cid-nvbufyhr> <div class="svc-stat" data-astro-cid-nvbufyhr> <span class="svc-stat-val" data-astro-cid-nvbufyhr>8–20</span> <span class="svc-stat-label" data-astro-cid-nvbufyhr>Weeks for full development cycle</span> </div> <div class="svc-stat" data-astro-cid-nvbufyhr> <span class="svc-stat-val" data-astro-cid-nvbufyhr>3D</span> <span class="svc-stat-label" data-astro-cid-nvbufyhr>CAD-ready files for manufacturing</span> </div> <div class="svc-stat" data-astro-cid-nvbufyhr> <span class="svc-stat-val" data-astro-cid-nvbufyhr>DFM</span> <span class="svc-stat-label" data-astro-cid-nvbufyhr>Design-for-manufacture review on every project</span> </div> </div> </div> </section> ${renderComponent($$result2, "ContactCTA", $$ContactCTA, { "headline": "Need the product to look as good as it works?", "sub": "CMF_Nexus pairs with CX&Identity and Lumina.raw for full product launch coverage.", "domain": "cmf-nexus", "data-astro-cid-nvbufyhr": true })} ` })}  `;
+}, "/Users/hs108/Downloads/VS Code/website2/HS108Website/src/pages/services/cmf-nexus.astro", void 0);
+
+const $$file = "/Users/hs108/Downloads/VS Code/website2/HS108Website/src/pages/services/cmf-nexus.astro";
+const $$url = "/services/cmf-nexus";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$CmfNexus,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };
