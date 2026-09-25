@@ -1,3 +1,14 @@
+---
+name: HS108 Website
+colors:
+  primary: "#000000"
+  secondary: "#FFFFFF"
+  accent: "#FF3300"
+typography:
+  main: "Inter"
+---
+
+
 # HS108 Frontend System — Build Rules
 
 This file is referenced by CLAUDE.md.

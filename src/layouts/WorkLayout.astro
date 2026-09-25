@@ -1,14 +1,14 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import ContactCTA from '@components/ContactCTA.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 interface Props { entry: CollectionEntry<'work'>; }
 const { entry } = Astro.props;
 const d = entry.data;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 const entries = (await getCollection('work', ({ data }) => !data.draft)).sort((a,b) => a.data.order-b.data.order);
-const next = entries[(entries.findIndex(item => item.slug === entry.slug)+1)%entries.length];
+const next = entries[(entries.findIndex(item => item.id === entry.id)+1)%entries.length];
 ---
 <BaseLayout title={d.title} description={d.summary}>
   <header class="page-hero shell">
@@ -24,7 +24,7 @@ const next = entries[(entries.findIndex(item => item.slug === entry.slug)+1)%ent
     <section class="detail-section"><h2>Contribution in the archive</h2><p>{d.contribution}</p></section>
     <div class="case-prose prose"><Content /></div>
     {d.images && <div class="case-gallery">{d.images.map(img => <figure><img src={img.src} alt={img.alt} width="1000" height="750" loading="lazy" decoding="async" /><figcaption>{img.caption}</figcaption></figure>)}</div>}
-    <div class="related-links"><a class="text-link" href={`/work/${next.slug}`}>Next archive record: {next.data.title} ↗</a><a class="text-link" href="/contact">Discuss a project ↗</a></div>
+    <div class="related-links"><a class="text-link" href={`/work/${next.id}`}>Next archive record: {next.data.title} ↗</a><a class="text-link" href="/contact">Discuss a project ↗</a></div>
   </div>
   <ContactCTA headline="Have a challenge that crosses disciplines?" />
 </BaseLayout>

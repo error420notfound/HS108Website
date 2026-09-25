@@ -229,6 +229,7 @@
   background-color: var(--black-native);
   background: var(--black-native);
   color: var(--text-on-dark);
+  font-family: "Instrument Serif";
 }
 
 /* --- Text highlight marker --- */

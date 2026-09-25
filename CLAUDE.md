@@ -26,7 +26,7 @@ Read them before making any visual, layout, or interaction change.
 
 **Client:** HS108 (Design Studio)
 **Domain:** hs108.in (GitHub Pages, custom CNAME)
-**Framework:** Astro 4.16 (static output)
+**Framework:** Astro 7.3 (static output, Node.js 24.21.0)
 **Repo:** `/Users/hs108/Downloads/Vedik's Identity/VS Code/HS108 Website/HS108Website`
 
 HS108 is an independent design studio. This is a full multi-page marketing + portfolio site
@@ -253,7 +253,7 @@ The Nav has a working mobile menu. Key details for future edits:
 ## Content Collections (Work Showcase)
 
 Case studies live as `.mdx` files in `src/content/work/`.
-Schema is defined in `src/content/config.ts`.
+Schema and the Content Layer loader are defined in `src/content.config.ts`.
 
 **Required frontmatter fields:**
 ```yaml
@@ -289,7 +289,7 @@ Interactive 3D models can be embedded in case study pages via the optional `mode
 
 **Implementation:**
 - Component: [src/layouts/WorkLayout.astro](src/layouts/WorkLayout.astro) — renders `<model-viewer>` custom element + scroll listener
-- Schema: [src/content/config.ts](src/content/config.ts) — `modelViewer` optional object in work collection schema
+- Schema: [src/content.config.ts](src/content.config.ts) — work collection schema and loader
 - Example: [src/content/work/novapay.mdx](src/content/work/novapay.mdx) — see `modelViewer` frontmatter for full usage
 
 **How it works:**
@@ -378,17 +378,11 @@ modelViewer:
 
 ---
 
-## Known Issue: Work Collection Empty During Build
+## Resolved Issue: Work Collection Empty During Build
 
-**Status:** Active bug (not yet fixed).
+**Status:** Resolved in the Astro 7 upgrade.
 
-**Symptom:** `astro build` warns "The collection 'work' does not exist or is empty" and generates no `/work/[slug]` pages. Dev server (`npm run dev`) works correctly — content loads fine there.
-
-**Root cause:** Bug in Astro 4.16 static build pipeline. Types ARE generated correctly (all 3 entries appear in `.astro/astro/content.d.ts`) but `getCollection('work')` returns empty at build time.
-
-**Fix:** Upgrade to Astro 5: `npx @astrojs/upgrade`
-
-**Do NOT:** Re-architect the content system, switch to hardcoded data, or use `import.meta.glob` as a workaround. The schema and MDX setup are correct — only the Astro version needs bumping.
+The work collection now uses the Content Layer `glob()` loader from `src/content.config.ts`. Keep the MDX files in `src/content/work/` and query them through `getCollection('work')`; the static build must generate a page for every non-draft entry.
 
 ---
 
@@ -436,13 +430,13 @@ The contact page (`/contact`) uses a 3-step multi-step form inspired by Apple's 
 
 | Concern | Choice | Notes |
 |---|---|---|
-| Framework | Astro 4.16 | → upgrade to v5 to fix work collection |
-| Content | MDX + Astro Content Collections | Legacy `type: 'content'` |
-| Styling | Raw CSS custom properties | NO framework, NO Tailwind |
+| Framework | Astro 7.3 | Node.js 24.21.0 |
+| Content | MDX + Astro Content Layer | `glob()` loader for `src/content/work/` |
+| Styling | Design-system CSS custom properties + Tailwind 4 Vite plugin | Tailwind preflight disabled to preserve existing styles |
 | Fonts | Google Fonts CDN | TODO: self-host woff2 files |
 | Deployment | GitHub Pages via GitHub Actions | ✅ Working — source set to "GitHub Actions" |
 | Forms | Formspree | Contact page — endpoint ID not yet set |
-| Sitemap | Removed temporarily | Crashed on v4 — re-add after Astro 5 upgrade |
+| Sitemap | Generated after the static build | `scripts/generate-sitemap.mjs` walks generated routes |
 
 ---
 
@@ -458,9 +452,8 @@ HS108Website/
 │   ├── robots.txt
 │   └── work/                       (empty — TODO: add project cover images here)
 ├── src/
-│   ├── content/
-│   │   ├── config.ts               Zod schema for work collection
-│   │   └── work/*.mdx              Case study MDX files
+│   ├── content.config.ts          Work collection schema and loader
+│   ├── content/work/*.mdx         Case study MDX files
 │   ├── layouts/
 │   │   ├── BaseLayout.astro
 │   │   ├── PageLayout.astro
@@ -510,7 +503,7 @@ Node is installed via nvm. The shell does not have nvm in PATH by default.
 Always prefix commands like this:
 
 ```bash
-PATH="/Users/hs108/.nvm/versions/node/v24.14.0/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+PATH="/Users/hs108/.nvm/versions/node/v24.21.0/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 npm run dev
 npm run build
 npm install
@@ -520,14 +513,14 @@ npm install
 
 ## Pending TODOs (Priority Order)
 
-1. **Fix work collection** — upgrade Astro to v5: `npx @astrojs/upgrade` (set PATH first)
-2. **Formspree endpoint** — replace `REPLACE_WITH_YOUR_ID` in `src/pages/contact.astro` with a real Formspree form ID from formspree.io
-3. **Real case study content** — replace the 3 sample MDX files with real HS108 project write-ups
-4. **Real project cover images** — add actual images to `public/work/` matching the `coverImage` paths in each MDX file
-5. **Real copy on secondary pages** — about.astro, why-us.astro, process.astro still have placeholder text
-6. **Self-host fonts** — download Instrument Serif, Geist, Geist Mono woff2 files → `public/fonts/` → replace the `@import` in `typography.css` with `@font-face` declarations
-7. **Sitemap** — re-add `@astrojs/sitemap` after Astro 5 upgrade
-8. **OG image** — add `public/og-default.jpg` (1200×630) for social sharing previews
+1. **Formspree endpoint** ? replace `REPLACE_WITH_YOUR_ID` in `src/pages/contact.astro` with a real Formspree form ID from formspree.io
+2. **Real case study content** ? replace the 3 sample MDX files with real HS108 project write-ups
+3. **Real project cover images** ? add actual images to `public/work/` matching the `coverImage` paths in each MDX file
+4. **Real copy on secondary pages** ? about.astro, why-us.astro, process.astro still have placeholder text
+5. **Self-host fonts** ? download Instrument Serif, Geist, Geist Mono woff2 files to `public/fonts/` and replace the `@import` in `typography.css` with `@font-face` declarations
+6. **OG image** ? add `public/og-default.jpg` (1200x630) for social sharing previews
+
+---
 
 ## Completed
 
@@ -551,7 +544,7 @@ See [`SIAM-FILTER.md`](SIAM-FILTER.md) and [`FRONTEND-SYSTEM.md`](FRONTEND-SYSTE
 
 **Hard stops — project-specific:**
 - Do NOT add `border-radius` to any element
-- Do NOT use Tailwind, Bootstrap, or any CSS framework
+- Keep pages on design-system CSS tokens; do not convert them to utility-first CSS. Tailwind 4 is available through the Vite plugin with preflight disabled.
 - Do NOT add `box-shadow` or `filter: blur`
 - Do NOT use glassmorphism or transparency effects
 - Do NOT set `font-weight: 700` (or any bold weight) on `Instrument Serif` — it only has weight 400
