@@ -1,0 +1,23 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ContactCTA from '@components/ContactCTA.astro';
+import type { programs } from '../data/site';
+type Program = (typeof programs)[number];
+interface Props { program: Program; }
+const { program: p } = Astro.props;
+---
+<BaseLayout title={p.name} description={`${p.name} at HS108. ${p.intro}`}>
+  <header class="page-hero shell">
+    <p class="eyebrow">HS108 / {p.type}</p>
+    <h1 class="display">{p.name}<span class="accent-dot">.</span></h1>
+    <p class="lead">{p.intro}</p>
+    <div class="hero-actions"><a class="button button--primary" href="/contact">Start a conversation ↗</a><a class="button button--secondary" href="/programs">All programs</a></div>
+  </header>
+  <div class="shell detail-body">
+    <div class="detail-lede"><p class="eyebrow">Who it suits</p><p>{p.fit}</p></div>
+    <section class="detail-section"><h2>Working together</h2><p>{p.structure}</p></section>
+    <section class="detail-section"><h2>What it may involve</h2><ul>{p.includes.map(item => <li>{item}</li>)}</ul></section>
+    {p.name === 'Field Notes' && <div class="related-links"><a class="text-link" href="https://field-notes.hs108.in" target="_blank" rel="noopener noreferrer">Visit the Field Notes publication ↗</a></div>}
+  </div>
+  <ContactCTA />
+</BaseLayout>

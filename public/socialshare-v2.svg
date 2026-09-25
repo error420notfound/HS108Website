@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f7f5ef"/>
+  <path d="M80 94H1120M80 525H1120" stroke="#c9c3b9" stroke-width="2"/>
+  <text x="80" y="70" fill="#211e1a" font-family="Georgia,serif" font-size="40">HS108</text>
+  <text x="1120" y="69" fill="#5c5750" font-family="Arial,sans-serif" font-size="16" text-anchor="end" letter-spacing="2">INDEPENDENT DESIGN STUDIO · INDIA</text>
+  <text x="80" y="219" fill="#211e1a" font-family="Georgia,serif" font-size="76">One direction across</text>
+  <text x="80" y="317" fill="#211e1a" font-family="Georgia,serif" font-size="76">brand, product,</text>
+  <text x="80" y="415" fill="#211e1a" font-family="Georgia,serif" font-size="76">and digital.</text>
+  <rect x="82" y="465" width="104" height="10" fill="#c84622"/>
+  <text x="80" y="570" fill="#5c5750" font-family="Arial,sans-serif" font-size="22">Design decisions considered together.</text>
+  <text x="1120" y="570" fill="#c84622" font-family="Arial,sans-serif" font-size="22" text-anchor="end">hs108.in ↗</text>
+</svg>
