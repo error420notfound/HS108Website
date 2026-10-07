@@ -1,0 +1,101 @@
+/* The semantic hero stays above this optional material field in every state. */
+.home-hero {
+  position: relative;
+  isolation: isolate;
+  background: var(--paper);
+}
+.home-hero > .shell {
+  position: relative;
+  z-index: 1;
+}
+.hero-shader {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  contain: strict;
+}
+.hero-shader-canvas {
+  position: absolute;
+  inset: 0 auto auto 0;
+  display: block;
+  transform-origin: top left;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .6s var(--ease);
+}
+.hero-shader[data-shader-state='ready'] .hero-shader-canvas,
+.hero-shader[data-shader-state='paused'] .hero-shader-canvas { opacity: 1; }
+.hero-shader-fallback {
+  position: absolute;
+  inset: 0;
+  opacity: 1;
+  transition: opacity .6s var(--ease);
+}
+.hero-shader[data-shader-state='ready'] .hero-shader-fallback,
+.hero-shader[data-shader-state='paused'] .hero-shader-fallback { opacity: 0; }
+
+/* Static stepped plates are also the reduced-motion composition. */
+.hero-shader-fallback i {
+  position: absolute;
+  top: var(--plate-offset);
+  left: var(--plate-left);
+  width: 20%;
+  height: 110%;
+  background: linear-gradient(180deg,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--ink) var(--hero-ink-contribution), var(--paper)) 32%,
+    color-mix(in srgb, var(--paper-deep) var(--hero-background-contribution), var(--paper)) 54%,
+    var(--paper) 80%);
+}
+.hero-shader-fallback i:nth-child(1) { --plate-left: 0%; --plate-offset: -26%; }
+.hero-shader-fallback i:nth-child(2) { --plate-left: 20%; --plate-offset: 12%; }
+.hero-shader-fallback i:nth-child(3) { --plate-left: 40%; --plate-offset: -10%; }
+.hero-shader-fallback i:nth-child(4) { --plate-left: 60%; --plate-offset: 22%; }
+.hero-shader-fallback i:nth-child(5) {
+  --plate-left: 80%;
+  --plate-offset: -5%;
+  background: linear-gradient(180deg, var(--paper),
+    color-mix(in srgb, var(--accent) var(--hero-accent-contribution), var(--paper)) 48%, var(--paper));
+}
+
+/* A quiet paper veil keeps the moving field below the information hierarchy. */
+.hero-shader::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--paper) 70%, transparent),
+    color-mix(in srgb, var(--paper) 25%, transparent) 58%, transparent);
+}
+.home-hero .artifact {
+  background: color-mix(in srgb, var(--paper) 95%, transparent);
+}
+.home-hero .artifact-screen {
+  height: min(88%, 235px);
+  width: auto;
+}
+@media (max-width: 850px) {
+  .hero-shader::after {
+    background: linear-gradient(180deg,
+      color-mix(in srgb, var(--paper) 82%, transparent),
+      color-mix(in srgb, var(--paper) 40%, transparent) 55%, transparent);
+  }
+}
+@media (max-width: 600px) {
+  .hero-shader-fallback i {
+    width: 110%; height: 33.334%;
+    top: var(--plate-left); left: var(--plate-offset);
+  }
+  .hero-shader-fallback i:nth-child(2) { --plate-left: 33.333%; --plate-offset: -2%; }
+  .hero-shader-fallback i:nth-child(3) { --plate-left: 66.666%; --plate-offset: 18%; }
+  .hero-shader-fallback i:nth-child(n+4) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-shader-canvas, .hero-shader-fallback { transition: none; }
+}
+@media (forced-colors: active) {
+  .hero-shader { display: none; }
+  .home-hero .artifact { background: Canvas; }
+}

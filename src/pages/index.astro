@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ContactCTA from '@components/ContactCTA.astro';
+import HeroShader from '@components/shader/HeroShader.astro';
 import { capabilities, programs } from '../data/site';
 
 const disciplines = [
@@ -16,6 +17,7 @@ const work = [
 ---
 <BaseLayout title="Home" description="HS108 is an independent design studio aligning brand, product, and digital experiences around the decisions that move a business forward.">
   <section class="home-hero" aria-labelledby="home-title">
+    <HeroShader />
     <div class="shell home-hero-grid">
       <div class="hero-copy">
         <p class="eyebrow">HS108 / Independent design studio</p>
@@ -27,34 +29,162 @@ const work = [
       <figure class="artifact" aria-label="Studio concept diagram connecting brand identity, industrial product design, and digital interface design">
         <figcaption class="artifact-head">Studio concept / integrated by design / illustrative, not client work</figcaption>
         <div class="artifact-grid">
-          <div class="artifact-col"><p class="artifact-caption"><strong>01 / Brand</strong>Meaning & identity</p><div class="artifact-stage"><span class="brand-glyph" aria-hidden="true">Aa</span></div><p class="artifact-foot">A coherent visual language</p></div>
-          <div class="artifact-col"><p class="artifact-caption"><strong>02 / Product</strong>Form & function</p><div class="artifact-stage"><svg viewBox="0 0 180 220" role="img" aria-label="Industrial product concept line drawing"><path d="M35 49 94 20 151 52 150 169 92 201 35 168Z M35 49 92 80 151 52 M92 80V201 M49 57 94 35 136 58 M49 57V154 M136 58V156 M44 165 92 190 141 163"/><ellipse cx="92" cy="112" rx="30" ry="39"/><ellipse cx="92" cy="112" rx="20" ry="27"/><path d="M27 205h127M18 17h145" stroke-dasharray="4 4"/></svg></div><p class="artifact-foot">A tangible, usable offer</p></div>
-          <div class="artifact-col"><p class="artifact-caption"><strong>03 / Digital</strong>Interface & journey</p><div class="artifact-stage"><div class="artifact-screen" aria-hidden="true"><div class="artifact-browser"><i></i><i></i><i></i></div><div class="screen-hero">Clear by design.</div><div class="screen-line"></div><div class="screen-line short"></div><div class="screen-action"></div></div></div><p class="artifact-foot">A clear path through complexity</p></div>
+          <div class="artifact-col">
+            <p class="artifact-caption"><strong>01 / Brand</strong>Meaning &amp; identity</p>
+            <div class="artifact-stage"><span class="brand-glyph" aria-hidden="true">Aa</span></div>
+            <p class="artifact-foot">A coherent visual language</p>
+          </div>
+          <div class="artifact-col">
+            <p class="artifact-caption"><strong>02 / Product</strong>Form &amp; function</p>
+            <div class="artifact-stage">
+              <svg viewBox="0 0 180 220" role="img" aria-label="Industrial product concept line drawing">
+                <path d="M35 49 94 20 151 52 150 169 92 201 35 168Z M35 49 92 80 151 52 M92 80V201 M49 57 94 35 136 58 M49 57V154 M136 58V156 M44 165 92 190 141 163"/>
+                <ellipse cx="92" cy="112" rx="30" ry="39"/>
+                <ellipse cx="92" cy="112" rx="20" ry="27"/>
+                <path d="M27 205h127M18 17h145" stroke-dasharray="4 4"/>
+              </svg>
+            </div>
+            <p class="artifact-foot">A tangible, usable offer</p>
+          </div>
+          <div class="artifact-col">
+            <p class="artifact-caption"><strong>03 / Digital</strong>Interface &amp; journey</p>
+            <div class="artifact-stage">
+              <div class="artifact-screen" aria-hidden="true">
+                <div class="artifact-browser"><i></i><i></i><i></i></div>
+                <div class="screen-hero">Clear by design.</div>
+                <div class="screen-line"></div>
+                <div class="screen-line short"></div>
+                <div class="screen-action"></div>
+              </div>
+            </div>
+            <p class="artifact-foot">A clear path through complexity</p>
+          </div>
         </div>
       </figure>
     </div>
     <div class="shell hero-end"><span>Ideas to interfaces<br />considered together</span><span>Independent studio<br />based in India</span></div>
   </section>
 
-  <section class="section" aria-labelledby="disciplines-title"><div class="shell">
-    <div class="discipline-intro"><div><p class="eyebrow">The integrated approach</p><h2 class="section-title" id="disciplines-title">One direction.<br /> <em>Three disciplines.</em></h2></div><p class="lead">When a business presents itself through a brand, a product, and a digital experience, those decisions need to support the same idea. We consider them together so each part makes the others clearer.</p></div>
-    <div class="discipline-grid">{disciplines.map(d => <article class="discipline-item"><span class="meta">{d.n} / {d.name}</span><h3>{d.name}</h3><p>{d.text}</p><p class="output">{d.output}</p></article>)}</div>
-    <div class="section-foot"><a class="text-link" href="/services">View capabilities ↗</a></div>
-  </div></section>
+  <section class="section" aria-labelledby="disciplines-title">
+    <div class="shell">
+      <div class="discipline-intro">
+        <div>
+          <p class="eyebrow">The integrated approach</p>
+          <h2 class="section-title" id="disciplines-title">One direction.<br /> <em>Three disciplines.</em></h2>
+        </div>
+        <p class="lead">When a business presents itself through a brand, a product, and a digital experience, those decisions need to support the same idea. We consider them together so each part makes the others clearer.</p>
+      </div>
+      <div class="discipline-grid">
+        {disciplines.map(d => <article class="discipline-item"><span class="meta">{d.n} / {d.name}</span><h3>{d.name}</h3><p>{d.text}</p><p class="output">{d.output}</p></article>)}
+      </div>
+      <div class="section-foot"><a class="text-link" href="/services">View capabilities ↗</a></div>
+    </div>
+  </section>
 
-  <section class="section" style="background:var(--paper-deep)" aria-labelledby="work-title"><div class="shell">
-    <div class="section-head"><p class="eyebrow">From the studio archive</p><div><h2 class="section-title" id="work-title">Work as evidence of a way of thinking.</h2><p>Existing case studies are being checked with the studio. Names, scopes, dates, and outcomes should be confirmed before they are presented as client proof.</p></div></div>
-    <div class="work-feature"><a class="work-visual work-visual--missing" href="/work/novapay" aria-label="View NovaPay archive case study"><span>NovaPay</span><small>Archive record / project artifacts pending confirmation</small></a><div class="work-feature-copy"><p class="archive-label">Archive record / details require confirmation</p><h3>{work[0].name}</h3><span class="meta">{work[0].combination}</span><p>{work[0].summary}</p><a class="text-link" href="/work/novapay">Read the archive case study ↗</a></div></div>
-    <div class="work-mini-grid">{work.slice(1).map(item => <article class="work-mini"><p class="archive-label">Archive record / details require confirmation</p><h3>{item.name}</h3><span class="meta">{item.combination}</span><p>{item.summary}</p><a class="text-link" href={`/work/${item.slug}`}>Read the archive case study ↗</a></article>)}</div>
-    <div class="section-foot"><a class="text-link" href="/work">Explore all work ↗</a></div>
-  </div></section>
+  <section class="section" style="background:var(--paper-deep)" aria-labelledby="work-title">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">From the studio archive</p>
+        <div>
+          <h2 class="section-title" id="work-title">Work as evidence of a way of thinking.</h2>
+          <p>Existing case studies are being checked with the studio. Names, scopes, dates, and outcomes should be confirmed before they are presented as client proof.</p>
+        </div>
+      </div>
+      <div class="work-feature">
+        <a class="work-visual work-visual--missing" href="/work/novapay" aria-label="View NovaPay archive case study"><span>NovaPay</span><small>Archive record / project artifacts pending confirmation</small></a>
+        <div class="work-feature-copy">
+          <p class="archive-label">Archive record / details require confirmation</p>
+          <h3>{work[0].name}</h3>
+          <span class="meta">{work[0].combination}</span>
+          <p>{work[0].summary}</p>
+          <a class="text-link" href="/work/novapay">Read the archive case study ↗</a>
+        </div>
+      </div>
+      <div class="work-mini-grid">
+        {work.slice(1).map(item => <article class="work-mini"><p class="archive-label">Archive record / details require confirmation</p><h3>{item.name}</h3><span class="meta">{item.combination}</span><p>{item.summary}</p><a class="text-link" href={`/work/${item.slug}`}>Read the archive case study ↗</a></article>)}
+      </div>
+      <div class="section-foot"><a class="text-link" href="/work">Explore all work ↗</a></div>
+    </div>
+  </section>
 
-  <section class="section" aria-labelledby="cap-title"><div class="shell"><div class="section-head"><p class="eyebrow">Capabilities</p><div><h2 class="section-title" id="cap-title">The right disciplines for the problem.</h2><p>Some engagements need one focused capability. Others need a shared direction across several. The scope follows the decisions at hand.</p></div></div><div class="row-list">{capabilities.map((c,i) => <a class="row-link" href={c.href}><span class="row-num">0{i+1}</span><span class="row-title">{c.name}</span><span class="row-desc">{c.situation}</span><span class="row-arrow" aria-hidden="true">↗</span></a>)}</div></div></section>
+  <section class="section" aria-labelledby="cap-title">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">Capabilities</p>
+        <div>
+          <h2 class="section-title" id="cap-title">The right disciplines for the problem.</h2>
+          <p>Some engagements need one focused capability. Others need a shared direction across several. The scope follows the decisions at hand.</p>
+        </div>
+      </div>
+      <div class="row-list">
+        {capabilities.map((c,i) => <a class="row-link" href={c.href}><span class="row-num">0{i+1}</span><span class="row-title">{c.name}</span><span class="row-desc">{c.situation}</span><span class="row-arrow" aria-hidden="true">↗</span></a>)}
+      </div>
+    </div>
+  </section>
 
-  <section class="section dark" aria-labelledby="approach-title"><div class="shell"><p class="eyebrow">The approach</p><div class="approach-split"><h2 class="section-title" id="approach-title">Make the decisions clear. Then make the system work.</h2><div><p class="lead">We begin by understanding the business, the people it serves, and the constraints around the work. Concepts become a system only when the choices behind them are clear enough to implement and maintain.</p><ol class="approach-steps"><li><span>01</span><strong>Investigate</strong><span>Find the problem worth solving.</span></li><li><span>02</span><strong>Decide</strong><span>Agree on principles and priorities.</span></li><li><span>03</span><strong>Build</strong><span>Develop the identity, product, or experience.</span></li><li><span>04</span><strong>Govern</strong><span>Support use, evaluation, and evolution.</span></li></ol><div class="section-foot"><a class="text-link" href="/process">See the approach ↗</a></div></div></div></div></section>
+  <section class="section dark" aria-labelledby="approach-title">
+    <div class="shell">
+      <p class="eyebrow">The approach</p>
+      <div class="approach-split">
+        <h2 class="section-title" id="approach-title">Make the decisions clear. Then make the system work.</h2>
+        <div>
+          <p class="lead">We begin by understanding the business, the people it serves, and the constraints around the work. Concepts become a system only when the choices behind them are clear enough to implement and maintain.</p>
+          <ol class="approach-steps">
+            <li><span>01</span><strong>Investigate</strong><span>Find the problem worth solving.</span></li>
+            <li><span>02</span><strong>Decide</strong><span>Agree on principles and priorities.</span></li>
+            <li><span>03</span><strong>Build</strong><span>Develop the identity, product, or experience.</span></li>
+            <li><span>04</span><strong>Govern</strong><span>Support use, evaluation, and evolution.</span></li>
+          </ol>
+          <div class="section-foot"><a class="text-link" href="/process">See the approach ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <section class="section" aria-labelledby="studio-title"><div class="shell"><div class="section-head"><p class="eyebrow">The studio</p><div><h2 class="section-title" id="studio-title">Close to the work. Accountable to the decisions.</h2><p>HS108 is an independent studio based in India. The proposed working model puts experienced design direction, direct discussion, and practical systems at the centre of an engagement.</p></div></div><div class="practice-grid"><article><p class="eyebrow">01 / Direction</p><h3>Business context first.</h3><p>Define what the work must change before choosing its form.</p></article><article><p class="eyebrow">02 / Collaboration</p><h3>Clear decisions together.</h3><p>Keep the client close to the reasoning, tradeoffs, and next steps.</p></article><article><p class="eyebrow">03 / Continuity</p><h3>Built to be used.</h3><p>Document and support the system beyond its first presentation.</p></article></div><div class="section-foot"><a class="text-link" href="/about">Meet the studio ↗</a></div></div></section>
+  <section class="section" aria-labelledby="studio-title">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">The studio</p>
+        <div>
+          <h2 class="section-title" id="studio-title">Close to the work. Accountable to the decisions.</h2>
+          <p>HS108 is an independent studio based in India. The proposed working model puts experienced design direction, direct discussion, and practical systems at the centre of an engagement.</p>
+        </div>
+      </div>
+      <div class="practice-grid">
+        <article>
+          <p class="eyebrow">01 / Direction</p>
+          <h3>Business context first.</h3>
+          <p>Define what the work must change before choosing its form.</p>
+        </article>
+        <article>
+          <p class="eyebrow">02 / Collaboration</p>
+          <h3>Clear decisions together.</h3>
+          <p>Keep the client close to the reasoning, tradeoffs, and next steps.</p>
+        </article>
+        <article>
+          <p class="eyebrow">03 / Continuity</p>
+          <h3>Built to be used.</h3>
+          <p>Document and support the system beyond its first presentation.</p>
+        </article>
+      </div>
+      <div class="section-foot"><a class="text-link" href="/about">Meet the studio ↗</a></div>
+    </div>
+  </section>
 
-  <section class="section" style="background:var(--paper-deep)" aria-labelledby="programs-title"><div class="shell"><div class="section-head"><p class="eyebrow">Beyond a single project</p><div><h2 class="section-title" id="programs-title">Different ways to work together.</h2><p>Ongoing support, focused discovery, and bespoke engagements sit alongside project work. Field Notes is the studio's space for wider design thinking.</p></div></div><div class="program-strip">{programs.slice(0,3).map(p => <a href={p.href}><span class="meta">{p.type}</span><strong>{p.name}</strong><span>{p.intro}</span></a>)}</div><div class="section-foot"><a class="text-link" href="/programs">Explore programs ↗</a> <a class="text-link" style="margin-left:25px" href="/programs/field-notes">Read Field Notes ↗</a></div></div></section>
+  <section class="section" style="background:var(--paper-deep)" aria-labelledby="programs-title">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">Beyond a single project</p>
+        <div>
+          <h2 class="section-title" id="programs-title">Different ways to work together.</h2>
+          <p>Ongoing support, focused discovery, and bespoke engagements sit alongside project work. Field Notes is the studio's space for wider design thinking.</p>
+        </div>
+      </div>
+      <div class="program-strip">
+        {programs.slice(0,3).map(p => <a href={p.href}><span class="meta">{p.type}</span><strong>{p.name}</strong><span>{p.intro}</span></a>)}
+      </div>
+      <div class="section-foot"><a class="text-link" href="/programs">Explore programs ↗</a> <a class="text-link" style="margin-left:25px" href="/programs/field-notes">Read Field Notes ↗</a></div>
+    </div>
+  </section>
   <ContactCTA headline="Tell us what needs to work as one." sub="Share the challenge, where your business is now, and what you need design to help decide. A conversation can define the right scope." />
 </BaseLayout>

@@ -1,0 +1,39 @@
+---
+import '../../styles/hero-shader.css';
+import { HERO_SHADER } from './hero-shader';
+---
+
+<div class="hero-shader" data-hero-shader data-shader-state="fallback" aria-hidden="true"
+  style={{
+    '--hero-ink-contribution': (HERO_SHADER.intensity * 100) + '%',
+    '--hero-accent-contribution': (HERO_SHADER.accentContribution * 100) + '%',
+    '--hero-background-contribution': (HERO_SHADER.backgroundContribution * 100) + '%',
+  }}>
+  <div class="hero-shader-fallback">
+    <i></i><i></i><i></i><i></i><i></i>
+  </div>
+  <canvas class="hero-shader-canvas" style="width:100%;height:100%"></canvas>
+</div>
+
+<script>
+  import { mountHeroShader } from './hero-shader';
+
+  let cleanup: (() => void) | undefined;
+  const mount = () => {
+    cleanup?.();
+    const field = document.querySelector<HTMLElement>('[data-hero-shader]');
+    cleanup = field ? mountHeroShader(field) : undefined;
+  };
+  const unmount = () => {
+    cleanup?.();
+    cleanup = undefined;
+  };
+
+  mount();
+  document.addEventListener('astro:page-load', mount);
+  document.addEventListener('astro:before-swap', unmount);
+  window.addEventListener('pagehide', unmount);
+  window.addEventListener('pageshow', event => {
+    if (event.persisted) mount();
+  });
+</script>
